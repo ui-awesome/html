@@ -9,7 +9,7 @@ use UIAwesome\Html\FormControl\TextArea;
 /**
  * @psalm-suppress PropertyNotSetInConstructor
  */
-final class ExceptionTest extends  \PHPUnit\Framework\TestCase
+final class ExceptionTest extends \PHPUnit\Framework\TestCase
 {
     public function testWrapEmptyValue(): void
     {

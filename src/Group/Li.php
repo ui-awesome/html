@@ -20,6 +20,7 @@ use UIAwesome\Html\{
 };
 
 use function trim;
+
 /**
  * The `<li>` HTML element is used to represent an item in a list.
  * It must be contained in a parent element: an ordered list `<ol>`, an unordered list `<ul>`, or a menu `<menu>`.
