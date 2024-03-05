@@ -10,7 +10,6 @@ on:
       - 'phpunit.xml.dist'
 
   push:
-    branches: ['main']
     paths-ignore:
       - 'docs/**'
       - 'README.md'
@@ -25,8 +24,6 @@ name: ecs
 jobs:
   easy-coding-standard:
     uses: php-forge/actions/.github/workflows/ecs.yml@main
-    secrets:
-      AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
     with:
       os: >-
         ['ubuntu-latest']
