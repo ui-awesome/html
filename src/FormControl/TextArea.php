@@ -14,7 +14,7 @@ use UIAwesome\Html\{
     Attribute\FormControl\HasFieldAttributes,
     Attribute\FormControl\HasForm,
     Attribute\FormControl\HasMaxLength,
-    Attribute\Formcontrol\HasMinLength,
+    Attribute\FormControl\HasMinLength,
     Attribute\FormControl\HasPlaceholder,
     Attribute\HasName,
     Attribute\HasTabindex,
