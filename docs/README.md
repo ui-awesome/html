@@ -7,15 +7,17 @@ The **HTML** repository is a powerful tool for generating `HTML` code using `PHP
 The repository also provides a `Builder::class` class that you can use to generate `HTML` code programmatically using
 `PHP`.
 
-## Builder
+## Builder class
 
 - [Builder](/docs/Builder.md)
 
-List of available widgets:
+## List of Tags
+
+### Generic
 
 - [Tag](/docs/Tag.md)
 
-## Document
+### Document
 
 The `Document` section of a web page contains elements that are used to define the structure and content of the page.
 
@@ -23,7 +25,7 @@ The `Document` section of a web page contains elements that are used to define t
 - [head](/docs/document/Head.md)
 - [html](/docs/document/Html.md)
 
-## Form control
+### Form control
 
 Provide a comprehensive set of `form` elements and components for building user-friendly and accessible web forms.
 
@@ -36,7 +38,7 @@ These form controls include various `input` types, such as `text`, `checkbox`, `
 - [select](/docs/form-control/Select.md)
 - [textarea](/docs/form-control/TextArea.md)
 
-### Input Tags
+#### Input Tags
 
 In addition to basic `HTML` tags, the repository also supports the generation of input tags.
 
@@ -67,11 +69,11 @@ In addition to basic `HTML` tags, the repository also supports the generation of
 - [url](/docs/form-control/input/Url.md)
 - [week](/docs/form-control/input/Week.md)
 
-## Graphic
+### Graphic
 
 - [svg](/docs/graphic/Svg.md)
 
-## Group
+### Group
 
 The `Group` section of a web page contains elements that are used to group related content together. This can include
 elements such as lists, tables, and other types of containers that help organize and present information in a structured
@@ -84,21 +86,21 @@ way.
 - [p](/docs/group/P.md)
 - [ul](/docs/group/Ul.md)
 
-## Metadata
+### Metadata
 
 The `Metadata` section of a web page contains information about the page, such as its title, description, and keywords.
 
 - [meta](/docs/metadata/Meta.md)
 - [title](/docs/metadata/Title.md)
 
-## Multimedia
+### Multimedia
 
 The `Multimedia` section of a web page contains elements that are used to display images, videos, and other types of
 media.
 
 - [img](/docs/multimedia/Img.md)
 
-## Semantic 
+### Semantic 
 
  A `semantic` tag is an element that clearly describes its meaning to both the browser and the developer. These tags
  make it easier for search engines and browsers to understand the structure and content of web pages.
@@ -109,7 +111,7 @@ media.
 - [nav](/docs/semantic/Nav.md)
 - [section](/docs/semantic/Section.md)
 
-## Textual
+### Textual
 
 The `Textual` section of a web page contains elements that are used to display text and other types of content.
 
