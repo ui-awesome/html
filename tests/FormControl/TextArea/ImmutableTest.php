@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\FormControl;
+namespace UIAwesome\Html\Tests\FormControl\TextArea;
 
 use UIAwesome\Html\FormControl\TextArea;
 

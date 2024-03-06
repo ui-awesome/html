@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Generator;
+namespace UIAwesome\Html\Tests;
 
 use PHPForge\Support\Assert;
 use UIAwesome\Html\Builder;

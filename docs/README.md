@@ -61,6 +61,7 @@ In addition to basic `HTML` tags, the repository also supports the generation of
 - [reset](/docs/form-control/input/Reset.md)
 - [search](/docs/form-control/input/Search.md)
 - [submit](/docs/form-control/input/Submit.md)
+- [tel](/docs/form-control/input/Tel.md)
 - [text](/docs/form-control/input/Text.md)
 - [time](/docs/form-control/input/Time.md)
 - [url](/docs/form-control/input/Url.md)
