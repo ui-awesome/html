@@ -12,11 +12,11 @@ use UIAwesome\Html\{
     Attribute\HasLang,
     Attribute\HasStyle,
     Attribute\HasTitle,
-    Builder,
     Concern\HasAttributes,
     Concern\HasPrefixCollection,
     Concern\HasSuffixCollection,
     Concern\HasTemplate,
+    Helper\HTMLBuilder,
     Helper\Template,
     Interop\RenderInterface
 };
@@ -60,7 +60,7 @@ abstract class AbstractElement extends Element implements RenderInterface
     {
         $tokenTemplateValues = [
             '{prefix}' => $this->renderTag($this->prefixAttributes, $this->prefix, $this->prefixTag),
-            '{tag}' => Builder::createTag($tagName, $content, $this->attributes),
+            '{tag}' => HTMLBuilder::createTag($tagName, $content, $this->attributes),
             '{suffix}' => $this->renderTag($this->suffixAttributes, $this->suffix, $this->suffixTag),
         ];
         $tokenTemplateValues += $tokenValues;
@@ -74,6 +74,6 @@ abstract class AbstractElement extends Element implements RenderInterface
             return $content;
         }
 
-        return Builder::createTag($tag, $content, $attributes);
+        return HTMLBuilder::createTag($tag, $content, $attributes);
     }
 }

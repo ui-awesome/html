@@ -12,9 +12,9 @@ use UIAwesome\Html\{
     Attribute\HasLang,
     Attribute\HasStyle,
     Attribute\HasTitle,
-    Builder,
     Concern\HasAttributes,
     Concern\HasContent,
+    Helper\HTMLBuilder
 };
 
 /**
@@ -42,7 +42,7 @@ abstract class AbstractBlockElement extends Block
     {
         parent::begin();
 
-        return Builder::beginTag($this->tagName, $this->attributes);
+        return HTMLBuilder::beginTag($this->tagName, $this->attributes);
     }
 
     /**
@@ -53,9 +53,9 @@ abstract class AbstractBlockElement extends Block
     protected function run(): string
     {
         if ($this->isBeginExecuted() === false) {
-            return Builder::createTag($this->tagName, $this->content, $this->attributes);
+            return HTMLBuilder::createTag($this->tagName, $this->content, $this->attributes);
         }
 
-        return Builder::endTag($this->tagName);
+        return HTMLBuilder::endTag($this->tagName);
     }
 }
