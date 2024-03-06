@@ -4,11 +4,12 @@ The **HTML** repository is a powerful tool for generating `HTML` code using `PHP
 
 ## Creating Widgets
 
-The repository also provides a `Generator` class that you can use to generate `HTML` code programmatically using `PHP`.
+The repository also provides a `Builder::class` class that you can use to generate `HTML` code programmatically using
+`PHP`.
 
-## Generator
+## Builder
 
-- [Html](/docs/generator/Html.md)
+- [Builder](/docs/Builder.md)
 
 List of available widgets:
 

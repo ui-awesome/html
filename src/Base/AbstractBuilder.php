@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Generator;
+namespace UIAwesome\Html\Base;
 
 use UIAwesome\Html\Helper\Attributes;
 
@@ -14,7 +14,7 @@ use function strtolower;
  *
  * Concrete classes should extend this class to implement specific HTML elements and their generation logic.
  */
-abstract class AbstractHtml
+abstract class AbstractBuilder
 {
     /**
      * @psalm-var string[]
@@ -103,14 +103,14 @@ abstract class AbstractHtml
     ];
 
     /**
-     * Create a new open tag.
+     * This method creates a new HTML begin tag with the specified tag name and attributes.
      *
      * @param string $tag The tag name.
      * @param array $attributes The tag attributes.
      *
-     * @return string The open tag.
+     * @return string The begin tag.
      */
-    public static function begin(string $tag, array $attributes = []): string
+    public static function beginTag(string $tag, array $attributes = []): string
     {
         $helperAttributes = new Attributes();
         $tag = self::validateTag($tag);
@@ -123,7 +123,7 @@ abstract class AbstractHtml
     }
 
     /**
-     * Create a self-closing tag.
+     * This method creates a new HTML tag with the specified tag name, content, and attributes.
      *
      * @param string $tag The tag name.
      * @param string $content The content of the tag.
@@ -131,7 +131,7 @@ abstract class AbstractHtml
      *
      * @return string The tag.
      */
-    public static function create(string $tag, string $content = '', array $attributes = []): string
+    public static function createTag(string $tag, string $content = '', array $attributes = []): string
     {
         $tag = self::validateTag($tag);
         $voidElement = "<$tag" . Attributes::render($attributes) . '>';
@@ -150,13 +150,13 @@ abstract class AbstractHtml
     }
 
     /**
-     * Create a closing tag.
+     * This method creates a new HTML end tag with the specified tag name.
      *
      * @param string $tag The tag name.
      *
      * @return string The closing tag.
      */
-    public static function end(string $tag): string
+    public static function endTag(string $tag): string
     {
         if (self::inlinedElements($tag)) {
             throw new \InvalidArgumentException('Inline elements cannot be used with begin/end syntax.');

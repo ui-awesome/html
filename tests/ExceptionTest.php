@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PHPForge\Html\Tests\Generator;
+namespace PHPForge\Html\Tests;
 
-use UIAwesome\Html\Generator\Html;
+use UIAwesome\Html\Builder;
 
 final class ExceptionTest extends \PHPUnit\Framework\TestCase
 {
@@ -13,7 +13,7 @@ final class ExceptionTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Inline elements cannot be used with begin/end syntax.');
 
-        Html::begin('br');
+        Builder::beginTag('br');
     }
 
     public function testEndInlineElement(): void
@@ -21,7 +21,7 @@ final class ExceptionTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Inline elements cannot be used with begin/end syntax.');
 
-        Html::end('br');
+        Builder::endTag('br');
     }
 
     public function testTagEmpty(): void
@@ -29,6 +29,6 @@ final class ExceptionTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Tag name cannot be empty.');
 
-        Html::create('');
+        Builder::createTag('');
     }
 }

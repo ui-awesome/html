@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Generator;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Generator\Html;
+use UIAwesome\Html\Builder;
 
-final class HtmlTest extends \PHPUnit\Framework\TestCase
+final class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     public function testBegin(): void
     {
-        $this->assertSame('<div>', Html::begin('div'));
-        $this->assertSame('<div class="class">', Html::begin('div', ['class' => 'class']));
+        $this->assertSame('<div>', Builder::beginTag('div'));
+        $this->assertSame('<div class="class">', Builder::beginTag('div', ['class' => 'class']));
     }
 
     /**
@@ -25,19 +25,11 @@ final class HtmlTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreate(string $tagName, string $content, array $attributes, string $expected): void
     {
-        Assert::equalsWithoutLE($expected, Html::create($tagName, $content, $attributes));
+        Assert::equalsWithoutLE($expected, Builder::createTag($tagName, $content, $attributes));
     }
 
     public function testEnd(): void
     {
-        $this->assertSame('</div>', Html::end('div'));
-    }
-
-    public function testException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Tag name cannot be empty.');
-
-        Html::create('');
+        $this->assertSame('</div>', Builder::endTag('div'));
     }
 }

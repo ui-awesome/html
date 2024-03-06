@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Base;
 
 use PHPForge\Widget\Element;
-use UIAwesome\{
-    Html\Attribute\HasClass,
-    Html\Attribute\HasData,
-    Html\Attribute\HasId,
-    Html\Attribute\HasLang,
-    Html\Attribute\HasStyle,
-    Html\Attribute\HasTitle,
-    Html\Concern\HasAttributes,
-    Html\Concern\HasPrefixCollection,
-    Html\Concern\HasSuffixCollection,
-    Html\Concern\HasTemplate,
-    Html\Generator\Html,
-    Html\Helper\Template,
-    Html\Interop\RenderInterface
+use UIAwesome\Html\{
+    Attribute\HasClass,
+    Attribute\HasData,
+    Attribute\HasId,
+    Attribute\HasLang,
+    Attribute\HasStyle,
+    Attribute\HasTitle,
+    Builder,
+    Concern\HasAttributes,
+    Concern\HasPrefixCollection,
+    Concern\HasSuffixCollection,
+    Concern\HasTemplate,
+    Helper\Template,
+    Interop\RenderInterface
 };
 
 /**
@@ -60,7 +60,7 @@ abstract class AbstractElement extends Element implements RenderInterface
     {
         $tokenTemplateValues = [
             '{prefix}' => $this->renderTag($this->prefixAttributes, $this->prefix, $this->prefixTag),
-            '{tag}' => Html::create($tagName, $content, $this->attributes),
+            '{tag}' => Builder::createTag($tagName, $content, $this->attributes),
             '{suffix}' => $this->renderTag($this->suffixAttributes, $this->suffix, $this->suffixTag),
         ];
         $tokenTemplateValues += $tokenValues;
@@ -74,6 +74,6 @@ abstract class AbstractElement extends Element implements RenderInterface
             return $content;
         }
 
-        return Html::create($tag, $content, $attributes);
+        return Builder::createTag($tag, $content, $attributes);
     }
 }
