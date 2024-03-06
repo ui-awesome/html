@@ -1,30 +1,33 @@
 <p align="center">
-    <a href="https://github.com/yii-tools/template" target="_blank">
-        <img src="https://avatars.githubusercontent.com/u/121752654?s=200&v=4" height="100px">
+    <a href="https://github.com/ui-awesome/html" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/103309199?s%25253D400%252526u%25253Dca3561c692f53ed7eb290d3bb226a2828741606f%252526v%25253D4" height="100px">
     </a>
-    <h1 align="center">Template.</h1>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">
+        <img src="https://raw.githubusercontent.com/ui-awesome/html/main/docs/image/logo.jpg" height="100px">
+    </a>    
+    <h1 align="center">UI Awesome HTML Code Generator for PHP.</h1>
     <br>
 </p>
 
 <p align="center">
-    <a href="https://github.com/yii-tools/template/actions/workflows/build.yml" target="_blank">
-        <img src="https://github.com/yii-tools/template/actions/workflows/build.yml/badge.svg" alt="PHPUnit">
+    <a href="https://github.com/ui-awesome/html/actions/workflows/build.yml" target="_blank">
+        <img src="https://github.com/ui-awesome/html/actions/workflows/build.yml/badge.svg" alt="PHPUnit">
     </a>
-    <a href="https://codecov.io/gh/yii-tools/template" target="_blank">
-        <img src="https://codecov.io/gh/yii-tools/template/branch/main/graph/badge.svg?token=MF0XUGVLYC" alt="Codecov">
+    <a href="https://codecov.io/gh/ui-awesome/html" target="_blank">
+        <img src="https://codecov.io/gh/ui-awesome/html/branch/main/graph/badge.svg?token=MF0XUGVLYC" alt="Codecov">
     </a>
-    <a href="https://dashboard.stryker-mutator.io/reports/github.com/yii-tools/template/main" target="_blank">
-        <img src="https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fyii2-extensions%2Fasset-bootstrap5%2Fmain" alt="Infection">
+    <a href="https://dashboard.stryker-mutator.io/reports/github.com/ui-awesome/html/main" target="_blank">
+        <img src="https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fui-awesome%2Fhtml%2Fmain" alt="Infection">
     </a>
-    <a href="https://github.com/yii-tools/template/actions/workflows/static.yml" target="_blank">
-        <img src="https://github.com/yii-tools/template/actions/workflows/static.yml/badge.svg" alt="Psalm">
+    <a href="https://github.com/ui-awesome/html/actions/workflows/static.yml" target="_blank">
+        <img src="https://github.com/ui-awesome/html/actions/workflows/static.yml/badge.svg" alt="Psalm">
     </a>
-    <a href="https://shepherd.dev/github/yii-tools/template" target="_blank">
-        <img src="https://shepherd.dev/github/yii-tools/template/coverage.svg" alt="Psalm Coverage">
+    <a href="https://shepherd.dev/github/ui-awesome/html" target="_blank">
+        <img src="https://shepherd.dev/github/ui-awesome/html/coverage.svg" alt="Psalm Coverage">
     </a>
-    <a href="https://github.styleci.io/repos/494495136?branch=main" target="_blank">
-        <img src="https://github.styleci.io/repos/494495136/shield?branch=main" alt="Style ci">
-    </a>           
+    <a href="https://github.styleci.io/repos/495122539?branch=main">
+        <img src="https://github.styleci.io/repos/495122539/shield?branch=main" alt="StyleCI">
+    </a>        
 </p>
 
 ## Installation
@@ -34,24 +37,22 @@ The preferred way to install this extension is through [composer](https://getcom
 Either run
 
 ```shell
-composer require --prefer-dist package
+composer require --prefer-dist ui-awesome/html:"^0.1"
 ```
 
 or add
 
 ```json
-"package": "version"
+"ui-awesome/html": "^0.1"
 ```
-
-to the require-dev section of your `composer.json` file. 
 
 ## Usage
 
-[Check the documentation docs](docs/README.md) to learn about usage.
+[Check the documentation docs](/docs/README.md) to learn about usage.
 
 ## Testing
 
-[Check the documentation testing](docs/testing.md) to learn about testing.
+[Check the documentation testing](/docs/testing.md) to learn about testing.
 
 ## Support versions
 
@@ -59,7 +60,7 @@ to the require-dev section of your `composer.json` file.
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 ## Our social networks
 

@@ -24,13 +24,11 @@ return ECSConfig::configure()
     )
     ->withPhpCsFixerSets(perCS20: true)
     ->withPreparedSets(
-        arrays: true,
         cleanCode: true,
         comments:true,
         docblocks: true,
         namespaces: true,
-        psr12: true,
-        strict: true
+        psr12: true
     )
     ->withRules(
         [
