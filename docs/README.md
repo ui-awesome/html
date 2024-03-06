@@ -38,7 +38,7 @@ These form controls include various `input` types, such as `text`, `checkbox`, `
 - [select](/docs/form-control/Select.md)
 - [textarea](/docs/form-control/TextArea.md)
 
-#### Input Tags
+### Input Tags
 
 In addition to basic `HTML` tags, the repository also supports the generation of input tags.
 
