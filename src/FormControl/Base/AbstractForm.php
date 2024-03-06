@@ -15,10 +15,10 @@ use UIAwesome\Html\{
     Attribute\HasRel,
     Attribute\HasStyle,
     Attribute\HasTitle,
-    Builder,
     Concern\HasAttributes,
     Concern\HasContent,
     FormControl\Input\Hidden,
+    Helper\HTMLBuilder,
     Helper\Validator
 };
 
@@ -77,7 +77,7 @@ abstract class AbstractForm extends Block
 
         $hiddenInputs = $this->renderHiddenInput();
 
-        $html = Builder::beginTag('form', $this->attributes);
+        $html = HTMLBuilder::beginTag('form', $this->attributes);
 
         if ($hiddenInputs !== '') {
             $html .= "\n$hiddenInputs";
@@ -183,10 +183,10 @@ abstract class AbstractForm extends Block
                 $html = "$hiddenInputs\n";
             }
 
-            return Builder::createTag('form', $html . $this->content, $this->attributes);
+            return HTMLBuilder::createTag('form', $html . $this->content, $this->attributes);
         }
 
-        return Builder::endTag('form');
+        return HTMLBuilder::endTag('form');
     }
 
     private function renderHiddenInput(): string
