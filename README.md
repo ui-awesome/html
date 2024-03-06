@@ -25,10 +25,11 @@
     <a href="https://shepherd.dev/github/ui-awesome/html" target="_blank">
         <img src="https://shepherd.dev/github/ui-awesome/html/coverage.svg" alt="Psalm Coverage">
     </a>
-    <a href="https://github.styleci.io/repos/495122539?branch=main">
-        <img src="https://github.styleci.io/repos/495122539/shield?branch=main" alt="StyleCI">
-    </a>        
+    <a href="https://github.styleci.io/repos/767561318?branch=main">
+        <img src="https://github.styleci.io/repos/767561318/shield?branch=main" alt="Style ci">
+    </a>    
 </p>
+
 
 ## Installation
 

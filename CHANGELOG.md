@@ -6,3 +6,4 @@
 
 - Initial release.
 - Bug #2: Refactor `README.md` to improve organization and headings for better readability (@terabytesoftw)
+- Bug #3: Update badges in `README.md` (@terabytesoftw)
