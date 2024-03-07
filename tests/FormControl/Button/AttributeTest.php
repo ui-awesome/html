@@ -162,11 +162,6 @@ final class AttributeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testGenerateId(): void
-    {
-        $this->assertStringContainsString('<button id="button-', Button::widget()->render());
-    }
-
     public function testId(): void
     {
         Assert::equalsWithoutLE(

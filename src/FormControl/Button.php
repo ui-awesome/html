@@ -81,7 +81,6 @@ final class Button extends Element
     protected function loadDefaultDefinitions(): array
     {
         return [
-            'id()' => [Utils::generateId('button-')],
             'template()' => ['{prefix}\n{tag}\n{suffix}'],
             'tagName()' => ['button'],
         ];
