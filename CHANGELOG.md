@@ -2,7 +2,7 @@
 
 ## 0.1.1 Under development
 
-- Bug #4: Remove generate id in `UIAwesome\Html\FormControl\Button` class (@terabytesoftw)
+- Bug #6: Remove generate id in `UIAwesome\Html\FormControl\Button` class (@terabytesoftw)
 
 ## 0.1.0 March 6, 2024
 
