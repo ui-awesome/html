@@ -14,7 +14,7 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
-        "enshrined/svg-sanitize": "^0.17.0",
+        "enshrined/svg-sanitize": "^0.18.0",
         "php-forge/awesome-widget": "^0.1.2",
         "ui-awesome/html-attribute": "^0.1",
         "ui-awesome/html-concern": "^0.1",
