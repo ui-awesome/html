@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.1.1 Under development
+## 0.1.1 March 8, 2024
 
 - Bug #6: Remove generate id in `UIAwesome\Html\FormControl\Button` class (@terabytesoftw)
 - Bug #7: Add `Html\Interop\RenderInterface::class` all classes (@terabytesoftw)
