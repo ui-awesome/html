@@ -4,6 +4,7 @@
 
 - Bug #6: Remove generate id in `UIAwesome\Html\FormControl\Button` class (@terabytesoftw)
 - Bug #7: Add `Html\Interop\RenderInterface::class` all classes (@terabytesoftw)
+- Bug #8: Change branch alias to `1.0-dev` in `composer.json` (@terabytesoftw)
 
 ## 0.1.0 March 6, 2024
 
