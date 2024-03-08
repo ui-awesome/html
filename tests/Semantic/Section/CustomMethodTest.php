@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Semantic\Section;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Semantic\Section;
+use UIAwesome\Html\{Interop\RenderInterface, Semantic\Section};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -24,12 +24,15 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Section::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <section>
             </section>
             HTML,
-            Section::widget()->render(),
+            $instance->render(),
         );
     }
 }

@@ -10,12 +10,13 @@ use UIAwesome\Html\{
     FormControl\Input\Button,
     FormControl\Input\Reset,
     FormControl\Input\Submit,
+    Interop\RenderInterface,
     Tag
 };
 
 use function implode;
 
-abstract class AbstractButtonGroup extends Element
+abstract class AbstractButtonGroup extends Element implements RenderInterface
 {
     use HasContainerCollection;
 

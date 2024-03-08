@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Month;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Month;
+use UIAwesome\Html\{FormControl\Input\Month, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -95,11 +95,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Month::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="month-6582f2d099e8b" type="month">
             HTML,
-            Month::widget()->id('month-6582f2d099e8b')->render()
+            $instance->id('month-6582f2d099e8b')->render()
         );
     }
 

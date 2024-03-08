@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Mutlimedia\Img;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Multimedia\Img;
+use UIAwesome\Html\{Interop\RenderInterface, Multimedia\Img};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -73,11 +73,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Img::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <img>
             HTML,
-            Img::widget()->render()
+            $instance->render()
         );
     }
 

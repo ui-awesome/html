@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\File;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\File;
+use UIAwesome\Html\{FormControl\Input\File, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -98,11 +98,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = File::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="file-65a15e0439570" type="file">
             HTML,
-            File::widget()->id('file-65a15e0439570')->render()
+            $instance->id('file-65a15e0439570')->render()
         );
     }
 

@@ -14,13 +14,14 @@ use UIAwesome\Html\{
     Attribute\HasTitle,
     Concern\HasAttributes,
     Concern\HasContent,
-    Helper\HTMLBuilder
+    Helper\HTMLBuilder,
+    Interop\RenderInterface
 };
 
 /**
  * Provides a foundation for creating HTML block elements with various attributes and content.
  */
-abstract class AbstractBlockElement extends Block
+abstract class AbstractBlockElement extends Block implements RenderInterface
 {
     use HasAttributes;
     use HasClass;

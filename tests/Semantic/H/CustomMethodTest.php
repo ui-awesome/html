@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Semantic\H;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Semantic\H;
+use UIAwesome\Html\{Interop\RenderInterface, Semantic\H};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -24,12 +24,15 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = H::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <h1>
             </h1>
             HTML,
-            H::widget()->render()
+            $instance->render()
         );
     }
 

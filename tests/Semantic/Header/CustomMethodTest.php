@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Semantic\Header;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Semantic\Header;
+use UIAwesome\Html\{Interop\RenderInterface, Semantic\Header};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -24,12 +24,15 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Header::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <header>
             </header>
             HTML,
-            Header::widget()->render()
+            $instance->render()
         );
     }
 }

@@ -6,7 +6,7 @@ namespace UIAwesome\Html\Tests\FormControl\Form;
 
 use PHPForge\Support\Assert;
 use PHPUnit\Framework\Attributes\DataProvider;
-use UIAwesome\Html\FormControl\Form;
+use UIAwesome\Html\{FormControl\Form, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -69,12 +69,15 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Form::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <form>
             </form>
             HTML,
-            Form::widget()->render()
+            $instance->render()
         );
     }
 

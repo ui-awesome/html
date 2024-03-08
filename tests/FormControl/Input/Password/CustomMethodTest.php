@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Password;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Password;
+use UIAwesome\Html\{FormControl\Input\Password, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -95,11 +95,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Password::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="password-6582f2d099e8b" type="password">
             HTML,
-            Password::widget()->id('password-6582f2d099e8b')->render()
+            $instance->id('password-6582f2d099e8b')->render()
         );
     }
 

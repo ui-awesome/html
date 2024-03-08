@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Search;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Search;
+use UIAwesome\Html\{FormControl\Input\Search, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -84,11 +84,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Search::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="search-6582f2d099e8b" type="search">
             HTML,
-            Search::widget()->id('search-6582f2d099e8b')->render()
+            $instance->id('search-6582f2d099e8b')->render()
         );
     }
 

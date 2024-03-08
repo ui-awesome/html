@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Number;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Number;
+use UIAwesome\Html\{FormControl\Input\Number, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -95,11 +95,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Number::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="number-6582f2d099e8b" type="number">
             HTML,
-            Number::widget()->id('number-6582f2d099e8b')->render()
+            $instance->id('number-6582f2d099e8b')->render()
         );
     }
 

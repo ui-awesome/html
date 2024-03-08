@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\FormControl;
 
-use UIAwesome\Html\{Attribute\FormControl\HasForm, Base\AbstractElement, Concern\HasContent};
+use UIAwesome\Html\{Attribute\FormControl\HasForm, Base\AbstractElement, Concern\HasContent, Interop\RenderInterface};
 
 /**
  * The `<label>` HTML element represents a caption for an item in a user interface.
  *
  * @link https://www.w3.org/TR/html52/sec-forms.html#the-label-element
  */
-final class Label extends AbstractElement
+final class Label extends AbstractElement implements RenderInterface
 {
     use HasContent;
     use HasForm;

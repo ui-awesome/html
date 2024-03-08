@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Label;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Label;
+use UIAwesome\Html\{FormControl\Label, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -78,7 +78,10 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
-        $this->assertEmpty(Label::widget()->render());
+        $instance = Label::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
+        $this->assertEmpty($instance->render());
     }
 
     public function testSuffix(): void

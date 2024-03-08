@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Submit;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Submit;
+use UIAwesome\Html\{FormControl\Input\Submit, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -139,13 +139,16 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Submit::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <div>
             <input id="submit-6582f2d099e8b" type="submit">
             </div>
             HTML,
-            Submit::widget()->id('submit-6582f2d099e8b')->render()
+            $instance->id('submit-6582f2d099e8b')->render()
         );
     }
 

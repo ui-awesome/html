@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Button;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Button;
+use UIAwesome\Html\{FormControl\Button, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -153,11 +153,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Button::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <button id="button-658716145f1d9" type="button"></button>
             HTML,
-            Button::widget()->id('button-658716145f1d9')->render()
+            $instance->id('button-658716145f1d9')->render()
         );
     }
 

@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata;
 
 use PHPForge\Widget\Element;
-use UIAwesome\{
-    Html\Attribute\HasClass,
-    Html\Attribute\HasId,
-    Html\Attribute\HasLang,
-    Html\Attribute\HasName,
-    Html\Attribute\HasStyle,
-    Html\Concern\HasAttributes,
-    Html\Helper\Encode,
-    Html\Tag
+use UIAwesome\Html\{
+    Attribute\HasClass,
+    Attribute\HasId,
+    Attribute\HasLang,
+    Attribute\HasName,
+    Attribute\HasStyle,
+    Concern\HasAttributes,
+    Helper\Encode,
+    Interop\RenderInterface,
+    Tag
 };
 
 /**
@@ -22,7 +23,7 @@ use UIAwesome\{
  *
  * @link https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element
  */
-final class Meta extends Element
+final class Meta extends Element implements RenderInterface
 {
     use HasAttributes;
     use HasClass;

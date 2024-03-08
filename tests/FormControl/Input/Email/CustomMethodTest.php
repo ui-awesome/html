@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Email;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Email;
+use UIAwesome\Html\{FormControl\Input\Email, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -93,11 +93,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Email::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="email-65a15e0439570" type="email">
             HTML,
-            Email::widget()->id('email-65a15e0439570')->render()
+            $instance->id('email-65a15e0439570')->render()
         );
     }
 

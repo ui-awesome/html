@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Semantic\Footer;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Semantic\Footer;
+use UIAwesome\Html\{Interop\RenderInterface, Semantic\Footer};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -24,12 +24,15 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Footer::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <footer>
             </footer>
             HTML,
-            Footer::widget()->render()
+            $instance->render()
         );
     }
 }

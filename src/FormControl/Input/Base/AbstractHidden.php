@@ -15,11 +15,12 @@ use UIAwesome\Html\{
     Concern\HasTemplate,
     Helper\Utils,
     Helper\Validator,
+    Interop\RenderInterface,
     Interop\ValueInterface,
     Tag
 };
 
-abstract class AbstractHidden extends Element implements ValueInterface
+abstract class AbstractHidden extends Element implements RenderInterface, ValueInterface
 {
     use HasAttributes;
     use HasClass;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Textual\Span;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Textual\Span;
+use UIAwesome\Html\{Interop\RenderInterface, Textual\Span};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -75,11 +75,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Span::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <span></span>
             HTML,
-            Span::widget()->render(),
+            $instance->render(),
         );
     }
 

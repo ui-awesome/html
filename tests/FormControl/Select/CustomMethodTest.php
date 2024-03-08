@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Select;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Select;
+use UIAwesome\Html\{FormControl\Select, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -224,6 +224,25 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
             </select>
             HTML,
             Select::widget()->items($this->cities)->prefix('value')->prefixTag(false)->render()
+        );
+    }
+
+    public function testRender(): void
+    {
+        $instance = Select::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
+        Assert::equalsWithoutLE(
+            <<<HTML
+            <select>
+            <option>Select an option</option>
+            <option value="1">Moscu</option>
+            <option value="2">San Petersburgo</option>
+            <option value="3">Novosibirsk</option>
+            <option value="4">Ekaterinburgo</option>
+            </select>
+            HTML,
+            $instance->items($this->cities)->render()
         );
     }
 

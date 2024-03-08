@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\TextArea;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\TextArea;
+use UIAwesome\Html\{FormControl\TextArea, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -93,11 +93,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = TextArea::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <textarea id="textarea-659fc6087e75b"></textarea>
             HTML,
-            TextArea::widget()->id('textarea-659fc6087e75b')->render()
+            $instance->id('textarea-659fc6087e75b')->render()
         );
     }
 

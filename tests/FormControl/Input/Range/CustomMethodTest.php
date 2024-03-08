@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Range;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Range;
+use UIAwesome\Html\{FormControl\Input\Range, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -95,11 +95,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Range::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="range-6582f2d099e8b" type="range">
             HTML,
-            Range::widget()->id('range-6582f2d099e8b')->render()
+            $instance->id('range-6582f2d099e8b')->render()
         );
     }
 

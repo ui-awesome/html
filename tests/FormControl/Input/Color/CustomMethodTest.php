@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Color;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Color;
+use UIAwesome\Html\{FormControl\Input\Color, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -95,11 +95,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Color::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="color-6582f2d099e8b" type="color">
             HTML,
-            Color::widget()->id('color-6582f2d099e8b')->render()
+            $instance->id('color-6582f2d099e8b')->render()
         );
     }
 

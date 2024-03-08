@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Time;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Time;
+use UIAwesome\Html\{FormControl\Input\Time, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -90,11 +90,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Time::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="time-6582f2d099e8b" type="time">
             HTML,
-            Time::widget()->id('time-6582f2d099e8b')->render()
+            $instance->id('time-6582f2d099e8b')->render()
         );
     }
 
