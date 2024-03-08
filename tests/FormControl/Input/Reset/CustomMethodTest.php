@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Reset;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Reset;
+use UIAwesome\Html\{FormControl\Input\Reset, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -159,13 +159,16 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Reset::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <div>
             <input id="reset-6582f2d099e8b" type="reset">
             </div>
             HTML,
-            Reset::widget()->id('reset-6582f2d099e8b')->render()
+            $instance->id('reset-6582f2d099e8b')->render()
         );
     }
 

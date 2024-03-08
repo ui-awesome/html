@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Url;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Url;
+use UIAwesome\Html\{FormControl\Input\Url, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -90,11 +90,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Url::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="url-6582f2d099e8b" type="url">
             HTML,
-            Url::widget()->id('url-6582f2d099e8b')->render()
+            $instance->id('url-6582f2d099e8b')->render()
         );
     }
 

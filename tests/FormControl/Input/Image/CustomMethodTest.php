@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Image;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Image;
+use UIAwesome\Html\{FormControl\Input\Image, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -93,11 +93,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Image::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="image-65a15e0439570" type="image">
             HTML,
-            Image::widget()->id('image-65a15e0439570')->render()
+            $instance->id('image-65a15e0439570')->render()
         );
     }
 

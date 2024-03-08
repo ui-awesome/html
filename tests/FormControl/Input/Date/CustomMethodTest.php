@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Date;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Date;
+use UIAwesome\Html\{FormControl\Input\Date, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -90,11 +90,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Date::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="date-6582f2d099e8b" type="date">
             HTML,
-            Date::widget()->id('date-6582f2d099e8b')->render()
+            $instance->id('date-6582f2d099e8b')->render()
         );
     }
 

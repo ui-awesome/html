@@ -8,16 +8,17 @@ use DOMDocument;
 use DOMElement;
 use enshrined\svgSanitize\Sanitizer;
 use PHPForge\Widget\Element;
-use UIAwesome\{
-    Html\Attribute\HasClass,
-    Html\Attribute\HasHeight,
-    Html\Attribute\HasId,
-    Html\Attribute\HasLang,
-    Html\Attribute\HasTitle,
-    Html\Attribute\HasWidth,
-    Html\Concern\HasAttributes,
-    Html\Concern\HasContent,
-    Html\Tag
+use UIAwesome\Html\{
+    Attribute\HasClass,
+    Attribute\HasHeight,
+    Attribute\HasId,
+    Attribute\HasLang,
+    Attribute\HasTitle,
+    Attribute\HasWidth,
+    Concern\HasAttributes,
+    Concern\HasContent,
+    Interop\RenderInterface,
+    Tag
 };
 
 use function file_get_contents;
@@ -25,7 +26,7 @@ use function file_get_contents;
 /**
  * Provides a foundation for creating HTML `svg` elements with various attributes and content.
  */
-abstract class AbstractSvg extends Element
+abstract class AbstractSvg extends Element implements RenderInterface
 {
     use HasAttributes;
     use HasClass;

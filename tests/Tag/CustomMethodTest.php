@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Tag;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\{FormControl\Label, Tag};
+use UIAwesome\Html\{FormControl\Label, Interop\RenderInterface, Tag};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -80,11 +80,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Tag::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <span></span>
             HTML,
-            Tag::widget()->tagName('span')->render()
+            $instance->tagName('span')->render()
         );
     }
 

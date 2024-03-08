@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Tel;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Tel;
+use UIAwesome\Html\{FormControl\Input\Tel, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -90,11 +90,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Tel::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="tel-6582f2d099e8b" type="tel">
             HTML,
-            Tel::widget()->id('tel-6582f2d099e8b')->render()
+            $instance->id('tel-6582f2d099e8b')->render()
         );
     }
 

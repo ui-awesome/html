@@ -19,7 +19,8 @@ use UIAwesome\Html\{
     Concern\HasContent,
     FormControl\Input\Hidden,
     Helper\HTMLBuilder,
-    Helper\Validator
+    Helper\Validator,
+    Interop\RenderInterface
 };
 
 use function explode;
@@ -31,7 +32,7 @@ use function urldecode;
 /**
  * Provides a foundation for creating HTML `form` elements with various attributes and content.
  */
-abstract class AbstractForm extends Block
+abstract class AbstractForm extends Block implements RenderInterface
 {
     use HasAccept;
     use HasAttributes;

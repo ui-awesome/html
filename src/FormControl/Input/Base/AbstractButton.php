@@ -36,10 +36,11 @@ use UIAwesome\Html\{
     FormControl\Label,
     Helper\Utils,
     Helper\Validator,
+    Interop\RenderInterface,
     Tag
 };
 
-abstract class AbstractButton extends Element
+abstract class AbstractButton extends Element implements RenderInterface
 {
     use CanBeAutofocus;
     use CanBeDisabled;

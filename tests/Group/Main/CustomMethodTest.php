@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Group\Main;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Group\Main;
+use UIAwesome\Html\{Group\Main, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -24,12 +24,15 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Main::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <main>
             </main>
             HTML,
-            Main::widget()->render()
+            $instance->render()
         );
     }
 }

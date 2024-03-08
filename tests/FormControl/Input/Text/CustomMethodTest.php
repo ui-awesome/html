@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Text;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Text;
+use UIAwesome\Html\{FormControl\Input\Text, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -90,11 +90,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Text::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="text-6582f2d099e8b" type="text">
             HTML,
-            Text::widget()->id('text-6582f2d099e8b')->render()
+            $instance->id('text-6582f2d099e8b')->render()
         );
     }
 

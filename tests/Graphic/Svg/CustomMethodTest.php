@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Graphic\Svg;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\Graphic\Svg;
+use UIAwesome\Html\{Graphic\Svg, Interop\RenderInterface};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -24,13 +24,16 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Svg::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <svg>
             value
             </svg>
             HTML,
-            Svg::widget()->content('value')->render()
+            $instance->content('value')->render()
         );
     }
 }

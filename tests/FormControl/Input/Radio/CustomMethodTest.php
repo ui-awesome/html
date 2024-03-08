@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\Radio;
 
 use PHPForge\Support\Assert;
-use UIAwesome\Html\FormControl\Input\Radio;
+use UIAwesome\Html\{FormControl\Input\Radio, Interop\RenderInterface};
 
 final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 {
@@ -160,11 +160,14 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = Radio::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <input id="radio-6582f2d099e8b" type="radio">
             HTML,
-            Radio::widget()->id('radio-6582f2d099e8b')->render()
+            $instance->id('radio-6582f2d099e8b')->render()
         );
     }
 

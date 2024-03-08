@@ -32,8 +32,8 @@ use UIAwesome\Html\{
     Concern\HasSuffixCollection,
     Concern\HasTagName,
     Concern\HasTemplate,
-    Helper\Utils,
     Helper\Validator,
+    Interop\RenderInterface,
     Tag
 };
 
@@ -44,7 +44,7 @@ use UIAwesome\Html\{
  *
  * @link https://html.spec.whatwg.org/multipage/form-elements.html#the-button-element
  */
-final class Button extends Element
+final class Button extends Element implements RenderInterface
 {
     use HasAriaControls;
     use HasAriaDescribedBy;

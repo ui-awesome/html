@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\ButtonGroup;
 
 use PHPForge\Support\Assert;
-use UIAwesome\{
-    Html\FormControl\Input\ButtonGroup,
-    Html\FormControl\Input\Reset,
-    Html\FormControl\Input\Submit,
+use UIAwesome\Html\{
+    FormControl\Input\ButtonGroup,
+    FormControl\Input\Reset,
+    FormControl\Input\Submit,
+    Interop\RenderInterface
 };
 
 /**
@@ -146,6 +147,9 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
 
     public function testRender(): void
     {
+        $instance = ButtonGroup::widget();
+
+        $this->assertInstanceOf(RenderInterface::class, $instance);
         Assert::equalsWithoutLE(
             <<<HTML
             <div>
@@ -153,7 +157,7 @@ final class CustomMethodTest extends \PHPUnit\Framework\TestCase
             <input id="button-6582f2d099e8b" type="reset" value="Reset">
             </div>
             HTML,
-            ButtonGroup::widget()
+            $instance
                 ->buttons(
                     Submit::widget()->id('button-6582f2d099e8a')->value('Submit'),
                     Reset::widget()->id('button-6582f2d099e8b')->value('Reset'),
