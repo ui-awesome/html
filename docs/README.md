@@ -71,6 +71,7 @@ elements such as lists, tables, and other types of containers that help organize
 way.
 
 - [div](/docs/group/Div.md)
+- [hr](/docs/group/Hr.md)
 - [li](/docs/group/Li.md)
 - [main](/docs/group/Main.md)
 - [ol](/docs/group/Ol.md)
