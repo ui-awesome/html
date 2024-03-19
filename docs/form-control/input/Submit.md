@@ -92,7 +92,7 @@ $submit->template('<div>{tag}</div>');
 
 ## Attributes
 
-Refer to the [Attribute Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Submit/AttributeTest.php)
+Refer to the [Attribute Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Submit/AttributeTest.php)
 for comprehensive examples.
 
 The following methods are available for setting attributes:
@@ -124,7 +124,7 @@ The following methods are available for setting attributes:
 
 ## Custom methods
 
-Refer to the [Custom Methods Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Submit/CustomMethodTest.php) 
+Refer to the [Custom Methods Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Submit/CustomMethodTest.php) 
 for comprehensive examples.
 
 The following methods are available for customizing the `HTML` output:
@@ -151,7 +151,7 @@ The following methods are available for customizing the `HTML` output:
                                                                 |
 ## Label methods
 
-Refer to the [Label Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Submit/LabelTest.php) for
+Refer to the [Label Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Submit/LabelTest.php) for
 comprehensive examples.
 
 The following methods are available for customizing the `HTML` output:

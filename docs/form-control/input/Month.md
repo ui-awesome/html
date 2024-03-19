@@ -107,7 +107,7 @@ $month->template('<div>{tag}</div>');
 
 ## Attributes
 
-Refer to the [Attribute Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Month/AttributeTest.php)
+Refer to the [Attribute Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Month/AttributeTest.php)
 for comprehensive examples.
 
 The following methods are available for setting attributes:
@@ -134,7 +134,7 @@ The following methods are available for setting attributes:
 
 ## Custom methods
 
-Refer to the [Custom Methods Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Month/CustomMethodTest.php) 
+Refer to the [Custom Methods Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Month/CustomMethodTest.php) 
 for comprehensive examples.
 
 The following methods are available for customizing the `HTML` output:
@@ -158,7 +158,7 @@ The following methods are available for customizing the `HTML` output:
 
 ## Validate methods
 
-Refer to the [Validate Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Month/ValidateTest.php)
+Refer to the [Validate Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Month/ValidateTest.php)
 for comprehensive examples.
 
 | Method      | Description                                                                                            |

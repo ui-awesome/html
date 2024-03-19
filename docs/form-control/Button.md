@@ -103,7 +103,7 @@ $button->template('<span>{tag}</span>');
 
 ## Attributes
 
-Refer to the [Attribute Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Button/AttributeTest.php)
+Refer to the [Attribute Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Button/AttributeTest.php)
 for comprehensive examples.
 
 The following methods are available for setting attributes:
@@ -137,7 +137,7 @@ The following methods are available for setting attributes:
 
 ## Custom methods
 
-Refer to the [Custom Method Test](https://github.com/php-forge/html/blob/main/tests/FormControl/Button/CustomMethodTest.php)
+Refer to the [Custom Method Test](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Button/CustomMethodTest.php)
 for comprehensive examples.
 
 The following methods are available for customizing the `HTML` output:
