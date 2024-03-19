@@ -46,7 +46,7 @@ $buttonGroup->container()->containerClass('MyClass');
 
 ## Custom methods
 
-Refer to the [Custom Methods Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/ButtonGroup/CustomMethodTest.php) 
+Refer to the [Custom Methods Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/ButtonGroup/CustomMethodTest.php) 
 for comprehensive examples.
 
 The following methods are available for customizing the `HTML` output:

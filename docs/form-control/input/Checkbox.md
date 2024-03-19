@@ -144,7 +144,7 @@ $checkbox->template('<div>{tag}</div>');
 
 ## Attributes
 
-Refer to the [Attribute Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Checkbox/AttributeTest.php) for 
+Refer to the [Attribute Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Checkbox/AttributeTest.php) for 
 comprehensive examples.
 
 The following methods are available for setting attributes:
@@ -172,7 +172,7 @@ The following methods are available for setting attributes:
 
 ## Custom methods
 
-Refer to the [Custom Methods Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Checkbox/CustomMethodTest.php)
+Refer to the [Custom Methods Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Checkbox/CustomMethodTest.php)
 for comprehensive examples.
 
 The following methods are available for customizing the `HTML` output:
@@ -204,7 +204,7 @@ The following methods are available for customizing the `HTML` output:
 
 ## Label methods
 
-Refer to the [Label Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Checkbox/LabelTest.php)
+Refer to the [Label Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Checkbox/LabelTest.php)
 for comprehensive examples.
 
 The following methods are available for customizing the `HTML` output:
@@ -220,7 +220,7 @@ The following methods are available for customizing the `HTML` output:
 
 ## Validate methods
 
-Refer to the [Validate Tests](https://github.com/php-forge/html/blob/main/tests/FormControl/Input/Checkbox/ValidateTest.php)
+Refer to the [Validate Tests](https://github.com/ui-awesome/html/blob/main/tests/FormControl/Input/Checkbox/ValidateTest.php)
 for comprehensive examples.
 
 | Method         | Description                                                                                         |

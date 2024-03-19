@@ -1,6 +1,8 @@
 # Change Log
 
-## 0.1.3 Under development
+## 0.1.3 March 19, 2024
+
+- Bug #11: Fix broken links in `docs` (@terabytesoftw)
 
 ## 0.1.2 March 15, 2024
 
