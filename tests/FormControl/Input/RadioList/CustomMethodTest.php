@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\RadioList;
 
 use PHPForge\Support\Assert;
-use UIAwesome\{Html\FormControl\Input\Radio, Html\FormControl\Input\RadioList};
+use UIAwesome\Html\FormControl\Input\{Radio, RadioList};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor

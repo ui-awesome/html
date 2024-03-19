@@ -4,6 +4,7 @@
 
 - Bug #11: Fix broken links in `docs` (@terabytesoftw)
 - Enh #12: Add `CheckboxList` and `RadioList` class widgets (@terabytesoftw)
+- Bug #13: Add tests for `CheckboxList` and `RadioList` class for validate attributes (@terabytesoftw)
 
 ## 0.1.2 March 15, 2024
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\FormControl\Input\CheckboxList;
 
 use PHPForge\Support\Assert;
-use UIAwesome\{Html\FormControl\Input\Checkbox, Html\FormControl\Input\CheckboxList};
+use UIAwesome\Html\FormControl\Input\{Checkbox, CheckboxList};
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
