@@ -30,6 +30,29 @@
     </a>    
 </p>
 
+The **HTML** repository is a powerful tool for generating `HTML` code using `PHP`.
+
+```php
+use UIAwesome\Html\{Document\Body, Document\Html, Group\Div, Semantic\Header};
+
+echo Html::widget()
+    ->content(
+        $this->render('header'),
+        Body::widget()
+            ->class('content flex flex-col h-[100vh] min-h-[100vh] bg-gray-100 dark:bg-gray-500 theme-loading')
+            ->content(
+                Header::widget()->content($this->render('component/menu')),
+                Div::widget()
+                    ->class('flex-grow flex flex-col justify-center')
+                    ->content(
+                        Div::widget()->class('h-full flex flex-col justify-center')->content($content)
+                    ),
+                $this->render('footer')
+            )
+    )
+    ->lang('en')
+    ->render()
+```
 
 ## Installation
 
