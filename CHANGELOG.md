@@ -1,5 +1,7 @@
 # Change Log
 
+## 0.2.1 Under development
+
 ## 0.2.0 March 22, 2024
 
 - Enh #14: Move `Svg` class widget to `ui-awesome/html-svg` package (@terabytesoftw)
