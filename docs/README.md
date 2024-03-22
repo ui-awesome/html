@@ -60,10 +60,6 @@ In addition to basic `HTML` tags, the repository also supports the generation of
 - [url](/docs/form-control/input/Url.md)
 - [week](/docs/form-control/input/Week.md)
 
-### Graphic
-
-- [svg](/docs/graphic/Svg.md)
-
 ### Group
 
 The `Group` section of a web page contains elements that are used to group related content together. This can include
