@@ -61,13 +61,13 @@ The preferred way to install this extension is through [composer](https://getcom
 Either run
 
 ```shell
-composer require --prefer-dist ui-awesome/html:"^0.1"
+composer require --prefer-dist ui-awesome/html:^0.2
 ```
 
 or add
 
 ```json
-"ui-awesome/html": "^0.1"
+"ui-awesome/html": "^0.2"
 ```
 
 ## Usage
