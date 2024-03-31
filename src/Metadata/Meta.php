@@ -12,9 +12,9 @@ use UIAwesome\Html\{
     Attribute\HasName,
     Attribute\HasStyle,
     Concern\HasAttributes,
+    Core\Tag,
     Helper\Encode,
-    Interop\RenderInterface,
-    Tag
+    Interop\RenderInterface
 };
 
 /**

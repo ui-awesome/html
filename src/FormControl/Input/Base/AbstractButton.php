@@ -33,11 +33,11 @@ use UIAwesome\Html\{
     Concern\HasPrefixCollection,
     Concern\HasSuffixCollection,
     Concern\HasTemplate,
+    Core\Tag,
     FormControl\Label,
     Helper\Utils,
     Helper\Validator,
-    Interop\RenderInterface,
-    Tag
+    Interop\RenderInterface
 };
 
 abstract class AbstractButton extends Element implements RenderInterface

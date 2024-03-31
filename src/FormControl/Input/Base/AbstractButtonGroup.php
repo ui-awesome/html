@@ -7,11 +7,11 @@ namespace UIAwesome\Html\FormControl\Input\Base;
 use PHPForge\Widget\Element;
 use UIAwesome\Html\{
     Concern\HasContainerCollection,
+    Core\Tag,
     FormControl\Input\Button,
     FormControl\Input\Reset,
     FormControl\Input\Submit,
-    Interop\RenderInterface,
-    Tag
+    Interop\RenderInterface
 };
 
 use function implode;

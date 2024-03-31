@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Textual;
 
-use UIAwesome\Html\{Base\AbstractElement, Concern\HasContent};
+use UIAwesome\Html\{Concern\HasContent, Core\Base\AbstractElement};
 
 /**
  * The `<span>` HTML element represents a generic inline container for phrasing content, which doesn't inherently

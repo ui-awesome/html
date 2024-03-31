@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Group;
 
 use PHPForge\Widget\Element;
-use UIAwesome\{
-    Html\Attribute\HasClass,
-    Html\Attribute\HasId,
-    Html\Attribute\HasLang,
-    Html\Attribute\HasStyle,
-    Html\Attribute\HasTabindex,
-    Html\Attribute\HasTitle,
-    Html\Concern\HasAttributes,
-    Html\Concern\HasTagName,
-    Html\Interop\RenderInterface,
-    Html\Tag
+use UIAwesome\Html\{
+    Attribute\HasClass,
+    Attribute\HasId,
+    Attribute\HasLang,
+    Attribute\HasStyle,
+    Attribute\HasTabindex,
+    Attribute\HasTitle,
+    Concern\HasAttributes,
+    Concern\HasTagName,
+    Core\Tag,
+    Interop\RenderInterface
 };
 
 use function trim;

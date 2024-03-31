@@ -25,12 +25,12 @@ use UIAwesome\Html\{
     Concern\HasLabelCollection,
     Concern\HasPrefixCollection,
     Concern\HasSuffixCollection,
+    Core\Tag,
     FormControl\Label,
     Interop\InputInterface,
     Interop\RenderInterface,
     Interop\Validator\RequiredInterface,
-    Interop\ValueInterface,
-    Tag
+    Interop\ValueInterface
 };
 
 use function array_merge;

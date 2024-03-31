@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Textual;
 
-use UIAwesome\Html\{Base\AbstractElement, Concern\HasContent};
+use UIAwesome\Html\{Concern\HasContent, Core\Base\AbstractElement};
 
 /**
  * The `<i>` HTML element represents a range of text that's set off from the normal text for some reason, such as

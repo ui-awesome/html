@@ -10,7 +10,7 @@ use UIAwesome\Html\{
     Attribute\HasReferrerpolicy,
     Attribute\HasSrc,
     Attribute\HasWidth,
-    Base\AbstractElement,
+    Core\Base\AbstractElement,
     Helper\Validator
 };
 

@@ -15,8 +15,8 @@ use UIAwesome\Html\{
     Attribute\HasType,
     Attribute\HasValue,
     Concern\HasAttributes,
-    Interop\RenderInterface,
-    Tag
+    Core\Tag,
+    Interop\RenderInterface
 };
 
 use function trim;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Semantic;
 
-use UIAwesome\Html\{Base\AbstractBlockElement, Concern\HasTagName, Helper\Validator};
+use UIAwesome\Html\{Concern\HasTagName, Core\Base\AbstractBlockElement, Helper\Validator};
 
 /**
  * The `<h1>` to `<h6>` HTML elements represent six levels of section headings.

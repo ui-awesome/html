@@ -4,10 +4,6 @@ The **HTML** repository is a powerful tool for generating `HTML` code using `PHP
 
 ## List of Tags
 
-### Generic
-
-- [Tag](/docs/Tag.md)
-
 ### Document
 
 The `Document` section of a web page contains elements that are used to define the structure and content of the page.

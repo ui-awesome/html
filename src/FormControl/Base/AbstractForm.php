@@ -17,8 +17,8 @@ use UIAwesome\Html\{
     Attribute\HasTitle,
     Concern\HasAttributes,
     Concern\HasContent,
+    Core\HTMLBuilder,
     FormControl\Input\Hidden,
-    Helper\HTMLBuilder,
     Helper\Validator,
     Interop\RenderInterface
 };

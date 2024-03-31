@@ -32,9 +32,9 @@ use UIAwesome\Html\{
     Concern\HasSuffixCollection,
     Concern\HasTagName,
     Concern\HasTemplate,
+    Core\Tag,
     Helper\Validator,
-    Interop\RenderInterface,
-    Tag
+    Interop\RenderInterface
 };
 
 /**

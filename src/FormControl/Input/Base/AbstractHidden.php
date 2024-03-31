@@ -13,11 +13,11 @@ use UIAwesome\Html\{
     Attribute\HasValue,
     Concern\HasAttributes,
     Concern\HasTemplate,
+    Core\Tag,
     Helper\Utils,
     Helper\Validator,
     Interop\RenderInterface,
-    Interop\ValueInterface,
-    Tag
+    Interop\ValueInterface
 };
 
 abstract class AbstractHidden extends Element implements RenderInterface, ValueInterface
