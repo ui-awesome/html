@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Group;
 
-use UIAwesome\Html\Base\AbstractBlockElement;
+use UIAwesome\Html\Core\Base\AbstractBlockElement;
 
 /**
  * The `<p>` HTML element represents a paragraph. Paragraphs are usually represented in visual media as blocks of text

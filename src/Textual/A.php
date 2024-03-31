@@ -16,8 +16,8 @@ use UIAwesome\Html\{
     Attribute\HasRel,
     Attribute\HasTabindex,
     Attribute\HasType,
-    Base\AbstractElement,
     Concern\HasContent,
+    Core\Base\AbstractElement,
     Helper\Validator
 };
 

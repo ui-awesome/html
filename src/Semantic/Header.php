@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Semantic;
 
-use UIAwesome\Html\Base\AbstractBlockElement;
+use UIAwesome\Html\Core\Base\AbstractBlockElement;
 
 /**
  * The `<header>` HTML element represents introductory content, typically a group of introductory or navigational aids.

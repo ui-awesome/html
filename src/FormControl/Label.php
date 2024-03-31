@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\FormControl;
 
-use UIAwesome\Html\{Attribute\FormControl\HasForm, Base\AbstractElement, Concern\HasContent, Interop\RenderInterface};
+use UIAwesome\Html\{
+    Attribute\FormControl\HasForm,
+    Core\Base\AbstractElement,
+    Concern\HasContent,
+    Interop\RenderInterface
+};
 
 /**
  * The `<label>` HTML element represents a caption for an item in a user interface.

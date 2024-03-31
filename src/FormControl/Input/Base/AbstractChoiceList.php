@@ -22,6 +22,7 @@ use UIAwesome\Html\{
     Concern\HasSeparator,
     Concern\HasTemplate,
     Concern\HasUncheckedCollection,
+    Core\Tag,
     FormControl\Input\Hidden,
     FormControl\Label,
     Helper\Template,
@@ -31,8 +32,7 @@ use UIAwesome\Html\{
     Interop\InputInterface,
     Interop\LabelInterface,
     Interop\RenderInterface,
-    Interop\Validator\RequiredInterface,
-    Tag
+    Interop\Validator\RequiredInterface
 };
 
 use function in_array;

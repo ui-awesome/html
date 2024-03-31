@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Metadata;
 
-use UIAwesome\Html\Base\AbstractBlockElement;
+use UIAwesome\Html\Core\Base\AbstractBlockElement;
 
 /**
  * The `<title>` HTML element defines the document's title shown in a browser's title bar or a page's tab.

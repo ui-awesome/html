@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Semantic;
 
-use UIAwesome\Html\Base\AbstractBlockElement;
+use UIAwesome\Html\Core\Base\AbstractBlockElement;
 
 /**
  * Represents a footer for its nearest ancestor sectioning content or sectioning root element.

@@ -10,7 +10,7 @@ use UIAwesome\Html\{
     Attribute\HasClass,
     Attribute\HasWidth,
     Concern\HasAttributes,
-    Helper\HTMLBuilder,
+    Core\HTMLBuilder,
     Interop\RenderInterface
 };
 

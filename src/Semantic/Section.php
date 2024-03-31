@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Semantic;
 
-use UIAwesome\Html\Base\AbstractBlockElement;
+use UIAwesome\Html\Core\Base\AbstractBlockElement;
 
 /**
  * The `<section>` HTML element represents a generic standalone section of a document, which doesn't have a more
