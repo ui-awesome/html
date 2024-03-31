@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace UIAwesome\Html\Document;
+
 use UIAwesome\Html\Core\Base\AbstractBlockElement;
 
 /**
