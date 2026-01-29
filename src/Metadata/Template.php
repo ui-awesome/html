@@ -51,6 +51,7 @@ final class Template extends BaseBlock
     use HasShadowRootMode;
     use HasShadowRootReferenceTarget;
     use HasShadowRootSerializable;
+
     /**
      * Returns the tag enumeration for the `<template>` element.
      *

@@ -23,6 +23,7 @@ enum ShadowRootMode: string
      * Hides the internal shadow root DOM from JavaScript (`closed`).
      */
     case CLOSED = 'closed';
+
     /**
      * Exposes the internal shadow root DOM for JavaScript (`open`).
      */
