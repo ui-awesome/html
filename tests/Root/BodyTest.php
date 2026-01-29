@@ -306,11 +306,11 @@ final class BodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <body data-value="test-value">
+            <body data-value="value">
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->dataAttributes(['value' => 'test-value'])->render(),
+                Body::tag()->dataAttributes(['value' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -636,7 +636,9 @@ final class BodyTest extends TestCase
             <body title="value">
             </body>
             HTML,
-            Body::tag()->title('value')->render(),
+            LineEndingNormalizer::normalize(
+                Body::tag()->title('value')->render(),
+            ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }

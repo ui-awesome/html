@@ -402,7 +402,9 @@ final class HrTest extends TestCase
     public function testRenderWithRole(): void
     {
         self::assertSame(
-            '<hr role="banner">',
+            <<<HTML
+            <hr role="banner">
+            HTML,
             Hr::tag()->role('banner')->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );

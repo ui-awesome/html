@@ -42,7 +42,11 @@ final class HtmlTest extends TestCase
     {
         $html = Html::tag()->content('<value>');
 
-        self::assertSame('&lt;value&gt;', $html->getContent());
+        self::assertSame(
+            '&lt;value&gt;',
+            $html->getContent(),
+            "Failed asserting that 'content()' method encodes values correctly.",
+        );
     }
 
     public function testGetAttributeReturnsDefaultWhenMissing(): void
@@ -302,11 +306,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html data-value="test-value">
+            <html data-value="value">
             </html>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->dataAttributes(['value' => 'test-value'])->render(),
+                Html::tag()->dataAttributes(['value' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -615,11 +619,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html class="tag-default">
+            <html class="text-muted">
             </html>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addThemeProvider('default', DefaultThemeProvider::class)->render(),
+                Html::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             ),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );

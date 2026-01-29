@@ -42,7 +42,11 @@ final class HeadTest extends TestCase
     {
         $head = Head::tag()->content('<value>');
 
-        self::assertSame('&lt;value&gt;', $head->getContent());
+        self::assertSame(
+            '&lt;value&gt;',
+            $head->getContent(),
+            "Failed asserting that 'content()' method encodes values correctly.",
+        );
     }
 
     public function testGetAttributeReturnsDefaultWhenMissing(): void
@@ -302,11 +306,11 @@ final class HeadTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <head data-value="test-value">
+            <head data-value="value">
             </head>
             HTML,
             LineEndingNormalizer::normalize(
-                Head::tag()->dataAttributes(['value' => 'test-value'])->render(),
+                Head::tag()->dataAttributes(['value' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -419,11 +423,10 @@ final class HeadTest extends TestCase
         self::assertSame(
             <<<HTML
             <head hidden>
-            value
             </head>
             HTML,
             LineEndingNormalizer::normalize(
-                Head::tag()->hidden(true)->content('value')->render(),
+                Head::tag()->hidden(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );

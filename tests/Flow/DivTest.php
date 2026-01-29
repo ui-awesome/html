@@ -479,7 +479,6 @@ final class DivTest extends TestCase
         self::assertSame(
             <<<HTML
             <div itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            value
             </div>
             HTML,
             LineEndingNormalizer::normalize(
@@ -489,7 +488,6 @@ final class DivTest extends TestCase
                     ->itemRef('info')
                     ->itemScope(true)
                     ->itemType('https://schema.org/Thing')
-                    ->content('value')
                     ->render(),
             ),
             'Failed asserting that element renders correctly with microdata attributes.',
