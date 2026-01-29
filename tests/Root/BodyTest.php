@@ -441,7 +441,7 @@ final class BodyTest extends TestCase
                     ->content('value')
                     ->render(),
             ),
-            "Failed asserting that element renders correctly with microdata attributes.",
+            'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
 
