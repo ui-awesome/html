@@ -13,9 +13,9 @@
         "php": "^8.1",
         "ext-mbstring": "*",
         "ui-awesome/html-attribute": "^0.5",
-        "ui-awesome/html-core":"^0.5",
+        "ui-awesome/html-core":"^0.6@dev",
         "ui-awesome/html-helper": "^0.6",
-        "ui-awesome/html-interop": "^0.2"
+        "ui-awesome/html-interop": "^0.3"
     },
     "require-dev": {
         "infection/infection": "^0.27|^0.32",
