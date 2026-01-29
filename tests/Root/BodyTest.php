@@ -7,7 +7,17 @@ namespace UIAwesome\Html\Tests\Root;
 use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Data, GlobalAttribute};
+use UIAwesome\Html\Attribute\Values\{
+    Aria,
+    ContentEditable,
+    Data,
+    Direction,
+    Draggable,
+    GlobalAttribute,
+    Language,
+    Role,
+    Translate,
+};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Root\Body;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
@@ -32,7 +42,11 @@ final class BodyTest extends TestCase
     {
         $body = Body::tag()->content('<value>');
 
-        self::assertSame('&lt;value&gt;', $body->getContent());
+        self::assertSame(
+            '&lt;value&gt;',
+            $body->getContent(),
+            "Failed asserting that 'content()' method encodes values correctly.",
+        );
     }
 
     public function testGetAttributeReturnsDefaultWhenMissing(): void
@@ -55,7 +69,7 @@ final class BodyTest extends TestCase
 
     public function testHtmlDoesNotEncodeValues(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body>
             <value>
@@ -70,14 +84,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAccesskey(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body accesskey="k">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->accesskey('k')->content('value')->render(),
+                Body::tag()->accesskey('k')->render(),
             ),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -85,14 +98,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAddAriaAttribute(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body aria-pressed="true">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addAriaAttribute('pressed', true)->content('value')->render(),
+                Body::tag()->addAriaAttribute('pressed', true)->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -100,14 +112,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAddAriaAttributeUsingEnum(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body aria-pressed="true">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addAriaAttribute(Aria::PRESSED, true)->content('value')->render(),
+                Body::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -115,14 +126,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAddAttribute(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body data-test="value">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addAttribute('data-test', 'value')->content('value')->render(),
+                Body::tag()->addAttribute('data-test', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
@@ -130,14 +140,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAddAttributeUsingEnum(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body title="value">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->content('value')->render(),
+                Body::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
@@ -145,14 +154,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAddDataAttribute(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body data-value="value">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addDataAttribute('value', 'value')->content('value')->render(),
+                Body::tag()->addDataAttribute('value', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -160,14 +168,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAddDataAttributeUsingEnum(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body data-value="value">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addDataAttribute(Data::VALUE, 'value')->content('value')->render(),
+                Body::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -175,10 +182,9 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAriaAttributes(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body aria-controls="modal-1" aria-hidden="false" aria-label="Close">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
@@ -190,7 +196,6 @@ final class BodyTest extends TestCase
                             'label' => 'Close',
                         ],
                     )
-                    ->content('value')
                     ->render(),
             ),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
@@ -199,14 +204,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAttributes(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body class="value">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->attributes(['class' => 'value'])->content('value')->render(),
+                Body::tag()->attributes(['class' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -214,14 +218,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithAutofocus(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body autofocus>
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->autofocus(true)->content('value')->render(),
+                Body::tag()->autofocus(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -229,7 +232,7 @@ final class BodyTest extends TestCase
 
     public function testRenderWithBeginEnd(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body>
             Content
@@ -244,14 +247,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithClass(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
-            <body class="gradient-style">
-            value
+            <body class="value">
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->class('gradient-style')->content('value')->render(),
+                Body::tag()->class('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -259,7 +261,7 @@ final class BodyTest extends TestCase
 
     public function testRenderWithContent(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body>
             value
@@ -274,29 +276,41 @@ final class BodyTest extends TestCase
 
     public function testRenderWithContentEditable(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body contenteditable="true">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->contentEditable(true)->content('value')->render(),
+                Body::tag()->contentEditable(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
-    public function testRenderWithDataAttributes(): void
+    public function testRenderWithContentEditableUsingEnum(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
-            <body data-value="test-value">
-            value
+            <body contenteditable="true">
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->content('value')->dataAttributes(['value' => 'test-value'])->render(),
+                Body::tag()->contentEditable(ContentEditable::TRUE)->render(),
+            ),
+            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithDataAttributes(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <body data-value="test-value">
+            </body>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Body::tag()->dataAttributes(['value' => 'test-value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -304,7 +318,7 @@ final class BodyTest extends TestCase
 
     public function testRenderWithDefaultConfigurationValues(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body class="default-class">
             </body>
@@ -318,7 +332,7 @@ final class BodyTest extends TestCase
 
     public function testRenderWithDefaultProvider(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body class="default-class" title="default-title">
             </body>
@@ -332,31 +346,57 @@ final class BodyTest extends TestCase
 
     public function testRenderWithDir(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body dir="ltr">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->dir('ltr')->content('value')->render(),
+                Body::tag()->dir('ltr')->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
-    public function testRenderWithDraggable(): void
+    public function testRenderWithDirUsingEnum(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
-            <body draggable="true">
-            value
+            <body dir="ltr">
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->draggable(true)->content('value')->render(),
+                Body::tag()->dir(Direction::LTR)->render(),
+            ),
+            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithDraggable(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <body draggable="true">
+            </body>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Body::tag()->draggable(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
+        );
+    }
+
+    public function testRenderWithDraggableUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <body draggable="true">
+            </body>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Body::tag()->draggable(Draggable::TRUE)->render(),
+            ),
+            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
 
@@ -364,7 +404,7 @@ final class BodyTest extends TestCase
     {
         SimpleFactory::setDefaults(Body::class, ['class' => 'default-class']);
 
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body class="default-class">
             </body>
@@ -380,14 +420,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithHidden(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body hidden>
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->hidden(true)->content('value')->render(),
+                Body::tag()->hidden(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -395,14 +434,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithId(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
-            <body id="gradient1">
-            value
+            <body id="test-id">
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->content('value')->id('gradient1')->render(),
+                Body::tag()->id('test-id')->render(),
             ),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -410,25 +448,37 @@ final class BodyTest extends TestCase
 
     public function testRenderWithLang(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body lang="es">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->content('value')->lang('es')->render(),
+                Body::tag()->lang('es')->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
+    public function testRenderWithLangUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <body lang="es">
+            </body>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Body::tag()->lang(Language::SPANISH)->render(),
+            ),
+            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+        );
+    }
+
     public function testRenderWithMicroData(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
@@ -438,7 +488,6 @@ final class BodyTest extends TestCase
                     ->itemRef('info')
                     ->itemScope(true)
                     ->itemType('https://schema.org/Thing')
-                    ->content('value')
                     ->render(),
             ),
             'Failed asserting that element renders correctly with microdata attributes.',
@@ -447,13 +496,16 @@ final class BodyTest extends TestCase
 
     public function testRenderWithRemoveAriaAttribute(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body>
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addAriaAttribute('label', 'Close')->removeAriaAttribute('label')->render(),
+                Body::tag()
+                    ->addAriaAttribute('label', 'Close')
+                    ->removeAriaAttribute('label')
+                    ->render(),
             ),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
@@ -461,14 +513,16 @@ final class BodyTest extends TestCase
 
     public function testRenderWithRemoveAttribute(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body>
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addAttribute('data-test', 'value')->removeAttribute('data-test')->content('value')->render(),
+                Body::tag()
+                    ->addAttribute('data-test', 'value')
+                    ->removeAttribute('data-test')
+                    ->render(),
             ),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -476,13 +530,16 @@ final class BodyTest extends TestCase
 
     public function testRenderWithRemoveDataAttribute(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body>
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->addDataAttribute('value', 'test')->removeDataAttribute('value')->render(),
+                Body::tag()
+                    ->addDataAttribute('value', 'test')
+                    ->removeDataAttribute('value')
+                    ->render(),
             ),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
@@ -490,29 +547,41 @@ final class BodyTest extends TestCase
 
     public function testRenderWithRole(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body role="banner">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->role('banner')->content('value')->render(),
+                Body::tag()->role('banner')->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
-    public function testRenderWithSpellcheck(): void
+    public function testRenderWithRoleUsingEnum(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
-            <body spellcheck="true">
-            value
+            <body role="banner">
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->spellcheck(true)->content('value')->render(),
+                Body::tag()->role(Role::BANNER)->render(),
+            ),
+            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSpellcheck(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <body spellcheck="true">
+            </body>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Body::tag()->spellcheck(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
@@ -520,14 +589,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithStyle(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
-            <body style='test-value'>
-            value
+            <body style='value'>
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->style('test-value')->content('value')->render(),
+                Body::tag()->style('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -535,14 +603,13 @@ final class BodyTest extends TestCase
 
     public function testRenderWithTabindex(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body tabindex="3">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->content('value')->tabIndex(3)->render(),
+                Body::tag()->tabIndex(3)->render(),
             ),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
@@ -550,7 +617,7 @@ final class BodyTest extends TestCase
 
     public function testRenderWithThemeProvider(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body class="text-muted">
             </body>
@@ -562,16 +629,27 @@ final class BodyTest extends TestCase
         );
     }
 
+    public function testRenderWithTitle(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <body title="value">
+            </body>
+            HTML,
+            Body::tag()->title('value')->render(),
+            "Failed asserting that element renders correctly with 'title' attribute.",
+        );
+    }
+
     public function testRenderWithToString(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body>
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                (string) Body::tag()->content('value'),
+                (string) Body::tag(),
             ),
             "Failed asserting that '__toString()' method renders correctly.",
         );
@@ -579,16 +657,29 @@ final class BodyTest extends TestCase
 
     public function testRenderWithTranslate(): void
     {
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body translate="no">
-            value
             </body>
             HTML,
             LineEndingNormalizer::normalize(
-                Body::tag()->translate(false)->content('value')->render(),
+                Body::tag()->translate(false)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute.",
+        );
+    }
+
+    public function testRenderWithTranslateUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <body translate="no">
+            </body>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Body::tag()->translate(Translate::NO)->render(),
+            ),
+            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
 
@@ -596,7 +687,7 @@ final class BodyTest extends TestCase
     {
         SimpleFactory::setDefaults(Body::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        self::assertEquals(
+        self::assertSame(
             <<<HTML
             <body class="from-global" id="id-user">
             </body>
