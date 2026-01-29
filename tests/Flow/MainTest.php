@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Root;
+namespace UIAwesome\Html\Tests\Flow;
 
 use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
@@ -19,32 +19,32 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
-use UIAwesome\Html\Root\Html;
+use UIAwesome\Html\Flow\Main;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Html} `<html>` behavior.
+ * Unit tests for {@see Main} `<main>` behavior.
  *
- * Verifies rendered output, attribute handling, configuration precedence, and content encoding for {@see Html::tag()}.
+ * Verifies rendered output, attribute handling, configuration precedence, and content encoding for {@see Main::tag()}.
  *
  * Test coverage.
  * - Applies global `aria-*` and `data-*` attributes via helper methods.
  * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
  * - Renders content, `begin()`/`end()`, and string casting.
  *
- * {@see Html} for implementation details.
+ * {@see Main} for implementation details.
  */
 #[Group('html')]
-#[Group('root')]
-final class HtmlTest extends TestCase
+#[Group('flow')]
+final class MainTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $html = Html::tag()->content('<value>');
+        $main = Main::tag()->content('<value>');
 
         self::assertSame(
             '&lt;value&gt;',
-            $html->getContent(),
+            $main->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -53,7 +53,7 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             'default',
-            Html::tag()->getAttribute('data-test', 'default'),
+            Main::tag()->getAttribute('data-test', 'default'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -62,7 +62,7 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Html::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Main::tag()->addAttribute('data-test', 'value')->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -71,12 +71,12 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html>
+            <main>
             <value>
-            </html>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->html('<value>')->render(),
+                Main::tag()->html('<value>')->render(),
             ),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
@@ -86,11 +86,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html accesskey="k">
-            </html>
+            <main accesskey="k">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->accesskey('k')->render(),
+                Main::tag()->accesskey('k')->render(),
             ),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +100,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html aria-pressed="true">
-            </html>
+            <main aria-pressed="true">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addAriaAttribute('pressed', true)->render(),
+                Main::tag()->addAriaAttribute('pressed', true)->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +114,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html aria-pressed="true">
-            </html>
+            <main aria-pressed="true">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
+                Main::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -128,11 +128,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html data-test="value">
-            </html>
+            <main data-test="value">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addAttribute('data-test', 'value')->render(),
+                Main::tag()->addAttribute('data-test', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
@@ -142,11 +142,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html title="value">
-            </html>
+            <main title="value">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
+                Main::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
@@ -156,11 +156,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html data-value="value">
-            </html>
+            <main data-value="value">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addDataAttribute('value', 'value')->render(),
+                Main::tag()->addDataAttribute('value', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -170,11 +170,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html data-value="value">
-            </html>
+            <main data-value="value">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+                Main::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -184,11 +184,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html aria-controls="modal-1" aria-hidden="false" aria-label="Close">
-            </html>
+            <main aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()
+                Main::tag()
                     ->ariaAttributes(
                         [
                             'controls' => static fn(): string => 'modal-1',
@@ -206,11 +206,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html class="value">
-            </html>
+            <main class="value">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->attributes(['class' => 'value'])->render(),
+                Main::tag()->attributes(['class' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -220,11 +220,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html autofocus>
-            </html>
+            <main autofocus>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->autofocus(true)->render(),
+                Main::tag()->autofocus(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -234,12 +234,12 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html>
+            <main>
             Content
-            </html>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->begin() . 'Content' . Html::end(),
+                Main::tag()->begin() . 'Content' . Main::end(),
             ),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
@@ -249,11 +249,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html class="value">
-            </html>
+            <main class="value">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->class('value')->render(),
+                Main::tag()->class('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -263,12 +263,12 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html>
+            <main>
             value
-            </html>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->content('value')->render(),
+                Main::tag()->content('value')->render(),
             ),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -278,11 +278,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html contenteditable="true">
-            </html>
+            <main contenteditable="true">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->contentEditable(true)->render(),
+                Main::tag()->contentEditable(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
@@ -292,11 +292,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html contenteditable="true">
-            </html>
+            <main contenteditable="true">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->contentEditable(ContentEditable::TRUE)->render(),
+                Main::tag()->contentEditable(ContentEditable::TRUE)->render(),
             ),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
@@ -306,11 +306,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html data-value="value">
-            </html>
+            <main data-value="value">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->dataAttributes(['value' => 'value'])->render(),
+                Main::tag()->dataAttributes(['value' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -320,11 +320,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html class="default-class">
-            </html>
+            <main class="default-class">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag(['class' => 'default-class'])->render(),
+                Main::tag(['class' => 'default-class'])->render(),
             ),
             'Failed asserting that default configuration values are applied correctly.',
         );
@@ -334,11 +334,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html class="default-class" title="default-title">
-            </html>
+            <main class="default-class" title="default-title">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+                Main::tag()->addDefaultProvider(DefaultProvider::class)->render(),
             ),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -348,11 +348,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html dir="ltr">
-            </html>
+            <main dir="ltr">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->dir('ltr')->render(),
+                Main::tag()->dir('ltr')->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -362,11 +362,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html dir="ltr">
-            </html>
+            <main dir="ltr">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->dir(Direction::LTR)->render(),
+                Main::tag()->dir(Direction::LTR)->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
@@ -376,11 +376,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html draggable="true">
-            </html>
+            <main draggable="true">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->draggable(true)->render(),
+                Main::tag()->draggable(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
@@ -390,11 +390,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html draggable="true">
-            </html>
+            <main draggable="true">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->draggable(Draggable::TRUE)->render(),
+                Main::tag()->draggable(Draggable::TRUE)->render(),
             ),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
@@ -402,31 +402,31 @@ final class HtmlTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Html::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(Main::class, ['class' => 'default-class']);
 
         self::assertSame(
             <<<HTML
-            <html class="default-class">
-            </html>
+            <main class="default-class">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->render(),
+                Main::tag()->render(),
             ),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Html::class, []);
+        SimpleFactory::setDefaults(Main::class, []);
     }
 
     public function testRenderWithHidden(): void
     {
         self::assertSame(
             <<<HTML
-            <html hidden>
-            </html>
+            <main hidden>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->hidden(true)->render(),
+                Main::tag()->hidden(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -436,11 +436,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html id="test-id">
-            </html>
+            <main id="test-id">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->id('test-id')->render(),
+                Main::tag()->id('test-id')->render(),
             ),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -450,11 +450,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html lang="es">
-            </html>
+            <main lang="es">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->lang('es')->render(),
+                Main::tag()->lang('es')->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -464,11 +464,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html lang="es">
-            </html>
+            <main lang="es">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->lang(Language::SPANISH)->render(),
+                Main::tag()->lang(Language::SPANISH)->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
@@ -478,11 +478,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </html>
+            <main itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()
+                Main::tag()
                     ->itemId('https://example.com/item')
                     ->itemProp('name')
                     ->itemRef('info')
@@ -498,11 +498,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html>
-            </html>
+            <main>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()
+                Main::tag()
                     ->addAriaAttribute('label', 'Close')
                     ->removeAriaAttribute('label')
                     ->render(),
@@ -515,11 +515,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html>
-            </html>
+            <main>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()
+                Main::tag()
                     ->addAttribute('data-test', 'value')
                     ->removeAttribute('data-test')
                     ->render(),
@@ -532,11 +532,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html>
-            </html>
+            <main>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()
+                Main::tag()
                     ->addDataAttribute('value', 'test')
                     ->removeDataAttribute('value')
                     ->render(),
@@ -549,11 +549,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html role="banner">
-            </html>
+            <main role="banner">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->role('banner')->render(),
+                Main::tag()->role('banner')->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
@@ -563,11 +563,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html role="banner">
-            </html>
+            <main role="banner">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->role(Role::BANNER)->render(),
+                Main::tag()->role(Role::BANNER)->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
@@ -577,11 +577,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html spellcheck="true">
-            </html>
+            <main spellcheck="true">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->spellcheck(true)->render(),
+                Main::tag()->spellcheck(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
@@ -591,11 +591,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html style='value'>
-            </html>
+            <main style='value'>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->style('value')->render(),
+                Main::tag()->style('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -605,11 +605,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html tabindex="3">
-            </html>
+            <main tabindex="3">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->tabIndex(3)->render(),
+                Main::tag()->tabIndex(3)->render(),
             ),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
@@ -619,11 +619,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html class="tag-primary">
-            </html>
+            <main class="text-muted">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->addThemeProvider('primary', DefaultThemeProvider::class)->render(),
+                Main::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             ),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -633,12 +633,10 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html title="value">
-            </html>
+            <main title="value">
+            </main>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->title('value')->render(),
-            ),
+            Main::tag()->title('value')->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -647,11 +645,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html>
-            </html>
+            <main>
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                (string) Html::tag(),
+                (string) Main::tag(),
             ),
             "Failed asserting that '__toString()' method renders correctly.",
         );
@@ -661,11 +659,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html translate="no">
-            </html>
+            <main translate="no">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->translate(false)->render(),
+                Main::tag()->translate(false)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
@@ -675,11 +673,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html translate="no">
-            </html>
+            <main translate="no">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag()->translate(Translate::NO)->render(),
+                Main::tag()->translate(Translate::NO)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
@@ -687,19 +685,19 @@ final class HtmlTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Html::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(Main::class, ['class' => 'from-global', 'id' => 'id-global']);
 
         self::assertSame(
             <<<HTML
-            <html class="from-global" id="id-user">
-            </html>
+            <main class="from-global" id="id-user">
+            </main>
             HTML,
             LineEndingNormalizer::normalize(
-                Html::tag(['id' => 'id-user'])->render(),
+                Main::tag(['id' => 'id-user'])->render(),
             ),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Html::class, []);
+        SimpleFactory::setDefaults(Main::class, []);
     }
 }
