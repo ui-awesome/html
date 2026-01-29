@@ -67,6 +67,7 @@ final class DivTest extends TestCase
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
+
     public function testRenderWithAccesskey(): void
     {
         self::assertEquals(
