@@ -15,7 +15,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Div} `<div>` behavior.
  *
- * Verifies observable behavior for {@see Div} based on this test file only (test methods and assertions).
+ * Verifies rendered output, attribute handling, configuration precedence, and content encoding for {@see Div::tag()}.
  *
  * Test coverage.
  * - Applies global `aria-*` and `data-*` attributes via helper methods.
@@ -28,6 +28,45 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 #[Group('flow')]
 final class DivTest extends TestCase
 {
+    public function testContentEncodesValues(): void
+    {
+        $div = Div::tag()->content('<value>');
+
+        self::assertSame('&lt;value&gt;', $div->getContent());
+    }
+
+    public function testGetAttributeReturnsDefaultWhenMissing(): void
+    {
+        self::assertSame(
+            'default',
+            Div::tag()->getAttribute('data-test', 'default'),
+            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            ['data-test' => 'value'],
+            Div::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+        );
+    }
+
+    public function testHtmlDoesNotEncodeValues(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <div>
+            <value>
+            </div>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Div::tag()->html('<value>')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'html()' method.",
+        );
+    }
     public function testRenderWithAccesskey(): void
     {
         self::assertEquals(
@@ -73,36 +112,6 @@ final class DivTest extends TestCase
         );
     }
 
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <div data-value="value">
-            value
-            </div>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Div::tag()->addDataAttribute('value', 'value')->content('value')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <div data-value="value">
-            value
-            </div>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Div::tag()->addDataAttribute(Data::VALUE, 'value')->content('value')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
-        );
-    }
-
     public function testRenderWithAddAttribute(): void
     {
         self::assertEquals(
@@ -130,6 +139,36 @@ final class DivTest extends TestCase
                 Div::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->content('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddDataAttribute(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <div data-value="value">
+            value
+            </div>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Div::tag()->addDataAttribute('value', 'value')->content('value')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithAddDataAttributeUsingEnum(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <div data-value="value">
+            value
+            </div>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Div::tag()->addDataAttribute(Data::VALUE, 'value')->content('value')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -229,28 +268,6 @@ final class DivTest extends TestCase
                 Div::tag()->content('value')->render(),
             ),
             'Failed asserting that element renders correctly with default values.',
-        );
-    }
-
-    public function testContentEncodesValues(): void
-    {
-        $div = Div::tag()->content('<value>');
-
-        self::assertSame('&lt;value&gt;', $div->getContent());
-    }
-
-    public function testHtmlDoesNotEncodeValues(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <div>
-            <value>
-            </div>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Div::tag()->html('<value>')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
 
@@ -360,24 +377,6 @@ final class DivTest extends TestCase
         SimpleFactory::setDefaults(Div::class, []);
     }
 
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'default',
-            Div::tag()->getAttribute('data-test', 'default'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['data-test' => 'value'],
-            Div::tag()->addAttribute('data-test', 'value')->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertEquals(
@@ -442,6 +441,49 @@ final class DivTest extends TestCase
                     ->render(),
             ),
             'Failed asserting that element renders correctly with microdata attributes.',
+        );
+    }
+
+    public function testRenderWithRemoveAriaAttribute(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <div>
+            </div>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Div::tag()->addAriaAttribute('label', 'Close')->removeAriaAttribute('label')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveAttribute(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <div>
+            value
+            </div>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Div::tag()->addAttribute('data-test', 'value')->removeAttribute('data-test')->content('value')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveDataAttribute(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <div>
+            </div>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Div::tag()->addDataAttribute('value', 'test')->removeDataAttribute('value')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
 
@@ -546,49 +588,6 @@ final class DivTest extends TestCase
                 Div::tag()->translate(false)->content('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <div>
-            </div>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Div::tag()->addAriaAttribute('label', 'Close')->removeAriaAttribute('label')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <div>
-            </div>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Div::tag()->addDataAttribute('value', 'test')->removeDataAttribute('value')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <div>
-            value
-            </div>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Div::tag()->addAttribute('data-test', 'value')->removeAttribute('data-test')->content('value')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
 

@@ -15,7 +15,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Head} `<head>` behavior.
  *
- * Verifies observable behavior for {@see Head} based on this test file only (test methods and assertions).
+ * Verifies rendered output, attribute handling, configuration precedence, and content encoding for {@see Head::tag()}.
  *
  * Test coverage.
  * - Applies global `aria-*` and `data-*` attributes via helper methods.
@@ -28,6 +28,45 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 #[Group('root')]
 final class HeadTest extends TestCase
 {
+    public function testContentEncodesValues(): void
+    {
+        $head = Head::tag()->content('<value>');
+
+        self::assertSame('&lt;value&gt;', $head->getContent());
+    }
+
+    public function testGetAttributeReturnsDefaultWhenMissing(): void
+    {
+        self::assertSame(
+            'default',
+            Head::tag()->getAttribute('data-test', 'default'),
+            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            ['data-test' => 'value'],
+            Head::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+        );
+    }
+
+    public function testHtmlDoesNotEncodeValues(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <head>
+            <value>
+            </head>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Head::tag()->html('<value>')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'html()' method.",
+        );
+    }
     public function testRenderWithAccesskey(): void
     {
         self::assertEquals(
@@ -232,28 +271,6 @@ final class HeadTest extends TestCase
         );
     }
 
-    public function testContentEncodesValues(): void
-    {
-        $head = Head::tag()->content('<value>');
-
-        self::assertSame('&lt;value&gt;', $head->getContent());
-    }
-
-    public function testHtmlDoesNotEncodeValues(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <head>
-            <value>
-            </head>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->html('<value>')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'html()' method.",
-        );
-    }
-
     public function testRenderWithContentEditable(): void
     {
         self::assertEquals(
@@ -360,24 +377,6 @@ final class HeadTest extends TestCase
         SimpleFactory::setDefaults(Head::class, []);
     }
 
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'default',
-            Head::tag()->getAttribute('data-test', 'default'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['data-test' => 'value'],
-            Head::tag()->addAttribute('data-test', 'value')->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertEquals(
@@ -442,6 +441,49 @@ final class HeadTest extends TestCase
                     ->render(),
             ),
             'Failed asserting that element renders correctly with microdata attributes.',
+        );
+    }
+
+    public function testRenderWithRemoveAriaAttribute(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <head>
+            </head>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Head::tag()->addAriaAttribute('label', 'Close')->removeAriaAttribute('label')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveAttribute(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <head>
+            value
+            </head>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Head::tag()->addAttribute('data-test', 'value')->removeAttribute('data-test')->content('value')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveDataAttribute(): void
+    {
+        self::assertEquals(
+            <<<HTML
+            <head>
+            </head>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Head::tag()->addDataAttribute('value', 'test')->removeDataAttribute('value')->render(),
+            ),
+            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
 
@@ -561,49 +603,6 @@ final class HeadTest extends TestCase
                 Head::tag()->translate(false)->content('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <head>
-            </head>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addAriaAttribute('label', 'Close')->removeAriaAttribute('label')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <head>
-            </head>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addDataAttribute('value', 'test')->removeDataAttribute('value')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertEquals(
-            <<<HTML
-            <head>
-            value
-            </head>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addAttribute('data-test', 'value')->removeAttribute('data-test')->content('value')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
 
