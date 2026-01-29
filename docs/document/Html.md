@@ -5,23 +5,23 @@ the root element. All other elements must be descendants of this element.
 
 ## Basic Usage
 
-Instantiate the `Html` class using `Html::widget()`.
+Instantiate the `Html` class using `Html::tag()`.
 
 ```php
-$html = Html::widget();
+$html = Html::tag();
 ```
 
 Or, block style instantiation.
 
 ```php
-<?= Html::begin() ?>
+<?= Html::tag()->begin() ?>
     // ... content to be wrapped by `html` element
 <?= Html::end() ?>
 ```
 
 ## Setting Attributes
 
-Use the provided methods to set specific attributes for the a element.
+Use the provided methods to set global attributes for the element.
 
 ```php
 // setting class attribute
@@ -45,7 +45,7 @@ $html->content('MyContent');
 Or, use `begin()` and `end()` methods to wrap content.
 
 ```php
-<?= Html::begin() ?>
+<?= Html::tag()->begin() ?>
     My content
 <?= Html::end() ?>
 ```
@@ -82,31 +82,49 @@ $html->class('external')->content('MyContent');
 $html->dataAttributes(['analytics' => 'trackClick']);
 ```
 
-Explore additional methods for setting various attributes such as `lang`, `name`, `style`, `title`, etc.
+Explore additional methods for setting global attributes such as `accesskey`, `autofocus`, `hidden`, `dir`,
+`draggable`, `lang`, `role`, `spellcheck`, `style`, `tabIndex`, `title`, `translate`, and microdata attributes.
 
 ## Attributes
 
-Refer to the [Attribute Tests](https://github.com/ui-awesome/html/blob/main/tests/Document/Html/AttributeTest.php) for
-comprehensive examples.
+Refer to the [Html tests](https://github.com/ui-awesome/html/blob/main/tests/Root/HtmlTest.php) for comprehensive
+examples.
 
 The following methods are available for setting attributes:
 
 | Method            | Description                                                                                      |
 | ----------------- | ------------------------------------------------------------------------------------------------ |
-| `attributes()`    | Set multiple `attributes` at once.                                                               |
-| `class()`         | Set the `class` attribute.                                                                       |
-| `content()`       | Set the `content` within the `html` element.                                                     |
-| `dataAttributes()`| Set multiple `data-attributes` at once.                                                          |
-| `id()`            | Set the `id` attribute.                                                                          |
-| `lang()`          | Set the `lang` attribute.                                                                        |
-| `name()`          | Set the `name` attribute.                                                                        |
-| `style()`         | Set the `style` attribute.                                                                       |
-| `title()`         | Set the `title` attribute.                                                                       |
+| `accesskey()`     | Set the `accesskey` global attribute.                                                            |
+| `addAriaAttribute()`| Set a single `aria-*` attribute.                                                               |
+| `addDataAttribute()`| Set a single `data-*` attribute.                                                               |
+| `ariaAttributes()`| Set multiple `aria-*` attributes at once.                                                        |
+| `attributes()`    | Set multiple attributes at once.                                                                 |
+| `autofocus()`     | Set the `autofocus` global attribute.                                                            |
+| `class()`         | Set the `class` global attribute.                                                                |
+| `content()`       | Append encoded content to the `<html>` element.                                                  |
+| `contentEditable()`| Set the `contenteditable` global attribute.                                                     |
+| `dataAttributes()`| Set multiple `data-*` attributes at once.                                                        |
+| `dir()`           | Set the `dir` global attribute.                                                                  |
+| `draggable()`     | Set the `draggable` global attribute.                                                            |
+| `hidden()`        | Set the `hidden` global attribute.                                                               |
+| `id()`            | Set the `id` global attribute.                                                                   |
+| `itemId()`        | Set the `itemid` global attribute.                                                               |
+| `itemProp()`      | Set the `itemprop` global attribute.                                                             |
+| `itemRef()`       | Set the `itemref` global attribute.                                                              |
+| `itemScope()`     | Set the `itemscope` global attribute.                                                            |
+| `itemType()`      | Set the `itemtype` global attribute.                                                             |
+| `lang()`          | Set the `lang` global attribute.                                                                 |
+| `role()`          | Set the `role` global attribute.                                                                 |
+| `spellcheck()`    | Set the `spellcheck` global attribute.                                                           |
+| `style()`         | Set the `style` global attribute.                                                                |
+| `tabIndex()`      | Set the `tabindex` global attribute.                                                             |
+| `title()`         | Set the `title` global attribute.                                                                |
+| `translate()`     | Set the `translate` global attribute.                                                            |
 
 ## Custom methods
 
-Refer to the [Custom Methods Tests](https://github.com/ui-awesome/html/blob/main/tests/Document/Html/CustomMethodTest.php)
-for comprehensive examples.
+Refer to the [Html tests](https://github.com/ui-awesome/html/blob/main/tests/Root/HtmlTest.php) for comprehensive
+examples.
 
 The following methods are available for customizing the `HTML` output:
 
@@ -115,4 +133,4 @@ The following methods are available for customizing the `HTML` output:
 | `begin() `| Start the `html` element.                                                                                |
 | `end()`   | End the `html` element, and generate the `HTML` output.                                                  |
 | `render()`| Generates the `HTML` output.                                                                             |
-| `widget()`| Instantiates the `Html::class`.                                                                          |
+| `tag()`   | Instantiates the `Html::class`.                                                                          |
