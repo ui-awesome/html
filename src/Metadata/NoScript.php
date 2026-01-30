@@ -18,7 +18,7 @@ use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
  * HTML content. When scripting is enabled, the element represents its children as text.
  *
  * Key features.
- * - Can be used in `<head>` (with `link`, `style`, `meta`) or in body (with transparent content).
+ * - Can be used in `<head>` (with link, style, meta) or in body (with transparent content).
  * - Container element accepts child content for fallback scenarios.
  * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
  * - Supports global HTML attributes via {@see BaseBlock}.

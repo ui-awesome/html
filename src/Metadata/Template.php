@@ -25,8 +25,8 @@ use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
  * Key features.
  * - Container element accepts child content.
  * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports `shadowroot*` attributes via helper methods.
  * - Supports global HTML attributes via {@see BaseBlock}.
+ * - Supports template-specific attributes via helper methods (`shadowroot*`).
  *
  * Usage example:
  * ```php

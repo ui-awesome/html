@@ -19,9 +19,10 @@ use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
  *
  * Key features.
  * - Container element accepts child content.
- * - Supports `<style>`-specific attributes via helper methods.
+ * - Supports `<style>` specific attributes via helper methods.
  * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
  * - Supports global HTML attributes via {@see BaseBlock}.
+ * - Supports style-specific attributes via helper methods (`media`, `nonce`, `type`, `blocking`).
  *
  * Usage example:
  * ```php

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Flow;
 
-use UIAwesome\Html\Attribute\Global\{HasContentEditable, HasDraggable, HasMicroData, HasSpellcheck, HasTabindex};
 use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
@@ -37,12 +36,6 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  */
 final class Hr extends BaseVoid
 {
-    use HasContentEditable;
-    use HasDraggable;
-    use HasMicroData;
-    use HasSpellcheck;
-    use HasTabindex;
-
     /**
      * Returns the tag enumeration for the `<hr>` element.
      *
