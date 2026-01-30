@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Metadata;
 
-use UIAwesome\Html\Attribute\{HasBlocking, HasMedia, HasType};
 use UIAwesome\Html\Attribute\Global\HasNonce;
+use UIAwesome\Html\Attribute\{HasBlocking, HasMedia, HasType};
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
 

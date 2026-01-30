@@ -19,12 +19,12 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
+use UIAwesome\Html\Attribute\Values\Blocking;
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Style;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
-use UIAwesome\Html\Attribute\Values\Blocking;
 
 /**
  * Unit tests for {@see Style} `<style>` behavior.
