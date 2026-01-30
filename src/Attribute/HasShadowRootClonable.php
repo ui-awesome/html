@@ -27,9 +27,10 @@ trait HasShadowRootClonable
     /**
      * Sets the HTML `shadowrootclonable` attribute for the element.
      *
-     * Creates a new instance with the specified clonable value.
+     * Creates a new instance with the specified clonable value. When `true`, the shadow root is clonable when the
+     * `<template>` element is cloned.
      *
-     * @param bool $value Whether the shadow root is clonable.
+     * @param bool $value Whether the shadow root should be clonable when the template is cloned.
      *
      * @return static New instance with the updated `shadowrootclonable` attribute.
      */

@@ -32,9 +32,11 @@ trait HasShadowRootMode
     /**
      * Sets the HTML `shadowrootmode` attribute for the element.
      *
-     * Creates a new instance with the specified shadow root mode value. Can be `null` to unset the attribute.
+     * Creates a new instance with the specified shadow root mode value. Defines the mode of the shadow root created
+     * from this `<template>` element. When set to `open`, the shadow root is accessible via JavaScript; when set to
+     * `closed`, the internal shadow root DOM is hidden from JavaScript. Can be `null` to unset the attribute.
      *
-     * @param string|UnitEnum|null $value Shadow root mode value to set for the element.
+     * @param string|UnitEnum|null $value Shadow root mode value to set for the element. Use `open` or `closed`.
      *
      * @throws InvalidArgumentException if the provided value is not valid.
      *

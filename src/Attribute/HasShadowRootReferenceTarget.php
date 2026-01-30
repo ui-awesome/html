@@ -30,9 +30,12 @@ trait HasShadowRootReferenceTarget
     /**
      * Sets the HTML `shadowrootreferencetarget` attribute for the element.
      *
-     * Creates a new instance with the specified reference target value. Can be `null` to unset the attribute.
+     * Creates a new instance with the specified reference target value. Specifies the ID of an element within the
+     * shadow root that should be used as the reference target for the shadow host element. Can be `null` to unset the
+     * attribute.
      *
-     * @param string|Stringable|UnitEnum|null $value Reference target value to set for the element.
+     * @param string|Stringable|UnitEnum|null $value Reference target ID to set for the element. Should be the ID of an
+     * element within the shadow root.
      *
      * @return static New instance with the updated `shadowrootreferencetarget` attribute.
      */

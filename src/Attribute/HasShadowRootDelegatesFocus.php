@@ -27,9 +27,10 @@ trait HasShadowRootDelegatesFocus
     /**
      * Sets the HTML `shadowrootdelegatesfocus` attribute for the element.
      *
-     * Creates a new instance with the specified delegates focus value.
+     * Creates a new instance with the specified delegates focus value. When `true`, the shadow root delegates focus to
+     * the first focusable element within the shadow tree when the host element is focused.
      *
-     * @param bool $value Whether the shadow root delegates focus.
+     * @param bool $value Whether the shadow root should delegate focus to elements within the shadow tree.
      *
      * @return static New instance with the updated `shadowrootdelegatesfocus` attribute.
      */

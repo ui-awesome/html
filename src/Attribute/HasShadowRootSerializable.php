@@ -27,9 +27,10 @@ trait HasShadowRootSerializable
     /**
      * Sets the HTML `shadowrootserializable` attribute for the element.
      *
-     * Creates a new instance with the specified serializable value.
+     * Creates a new instance with the specified serializable value. When `true`, the shadow root is serializable when
+     * the `<template>` element is serialized.
      *
-     * @param bool $value Whether the shadow root is serializable.
+     * @param bool $value Whether the shadow root should be serializable when the template is serialized.
      *
      * @return static New instance with the updated `shadowrootserializable` attribute.
      */
