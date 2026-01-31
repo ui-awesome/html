@@ -45,7 +45,7 @@ use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
  * {@see BaseVoid} for the base implementation.
  *
- * @copyright Copyright (C) 2025 Terabytesoftw.
+ * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class Base extends BaseVoid
