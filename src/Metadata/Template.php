@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Metadata;
 
-use UIAwesome\Html\Attribute\{
+use UIAwesome\Html\Core\Element\BaseBlock;
+use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
+use UIAwesome\Html\Metadata\Attribute\{
     HasShadowRootClonable,
     HasShadowRootDelegatesFocus,
     HasShadowRootMode,
     HasShadowRootReferenceTarget,
     HasShadowRootSerializable,
 };
-use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
 
 /**
  * Represents the HTML `<template>` element for inert HTML fragments.

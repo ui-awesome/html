@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Values;
+namespace UIAwesome\Html\Metadata\Values;
 
 /**
  * Represents values for the HTML `shadowrootmode` attribute.

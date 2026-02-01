@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Attribute;
+namespace UIAwesome\Html\Metadata\Attribute;
 
 use InvalidArgumentException;
 use UIAwesome\Html\Helper\Validator;
-use UIAwesome\Html\Values\ShadowRootMode;
+use UIAwesome\Html\Metadata\Values\ShadowRootMode;
 use UnitEnum;
 
 /**

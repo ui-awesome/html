@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Attribute;
+namespace UIAwesome\Html\Metadata\Attribute;
 
 /**
  * Trait for managing the HTML `async` attribute in tag rendering.

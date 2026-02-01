@@ -5,11 +5,6 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata;
 
 use UIAwesome\Html\Attribute\{
-    HasAsync,
-    HasDefer,
-    HasNomodule,
-};
-use UIAwesome\Html\Attribute\{
     HasBlocking,
     HasCrossorigin,
     HasFetchpriority,
@@ -20,6 +15,7 @@ use UIAwesome\Html\Attribute\{
 };
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
+use UIAwesome\Html\Metadata\Attribute\{HasAsync, HasDefer, HasNomodule};
 
 /**
  * Represents the HTML `<script>` element for embedding executable code.
