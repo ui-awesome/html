@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Flow;
+namespace UIAwesome\Html\Tests\Phrasing;
 
 use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
@@ -17,35 +17,35 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
-use UIAwesome\Html\Flow\Span;
+use UIAwesome\Html\Phrasing\I;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Span} `<span>` behavior.
+ * Unit tests for {@see I} `<i>` behavior.
  *
- * Verifies rendered output, attribute handling, configuration precedence, and content encoding for {@see Span::tag()}.
+ * Verifies rendered output, attribute handling, configuration precedence, and content encoding for {@see I::tag()}.
  *
  * Test coverage.
  * - Applies global `aria-*` and `data-*` attributes via helper methods.
  * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
  * - Renders content and string casting for an inline element.
  *
- * {@see Span} for implementation details.
+ * {@see I} for implementation details.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('html')]
 #[Group('flow')]
-final class SpanTest extends TestCase
+final class ITest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $span = Span::tag()->content('<value>');
+        $i = I::tag()->content('<value>');
 
         self::assertSame(
             '&lt;value&gt;',
-            $span->getContent(),
+            $i->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -54,7 +54,7 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             'default',
-            Span::tag()->getAttribute('data-test', 'default'),
+            I::tag()->getAttribute('data-test', 'default'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -63,7 +63,7 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Span::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            I::tag()->addAttribute('data-test', 'value')->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -72,10 +72,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span><value></span>
+            <i><value></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->html('<value>')->render(),
+                I::tag()->html('<value>')->render(),
             ),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
@@ -85,10 +85,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span accesskey="k"></span>
+            <i accesskey="k"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->accesskey('k')->render(),
+                I::tag()->accesskey('k')->render(),
             ),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -98,10 +98,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span aria-label="Span content"></span>
+            <i aria-label="Idiomatic text"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->addAriaAttribute('label', 'Span content')->render(),
+                I::tag()->addAriaAttribute('label', 'Idiomatic text')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -111,10 +111,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span aria-hidden="true"></span>
+            <i aria-hidden="true"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->addAriaAttribute(Aria::HIDDEN, true)->render(),
+                I::tag()->addAriaAttribute(Aria::HIDDEN, true)->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
@@ -124,10 +124,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span data-test="value"></span>
+            <i data-test="value"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->addAttribute('data-test', 'value')->render(),
+                I::tag()->addAttribute('data-test', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
@@ -137,10 +137,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span title="Span content"></span>
+            <i title="Idiomatic text"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->addAttribute(GlobalAttribute::TITLE, 'Span content')->render(),
+                I::tag()->addAttribute(GlobalAttribute::TITLE, 'Idiomatic text')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
@@ -150,10 +150,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span data-value="value"></span>
+            <i data-value="value"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->addDataAttribute('value', 'value')->render(),
+                I::tag()->addDataAttribute('value', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -163,10 +163,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span data-value="value"></span>
+            <i data-value="value"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+                I::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
@@ -176,10 +176,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span aria-controls="modal-1" aria-hidden="false" aria-label="Close"></span>
+            <i aria-controls="modal-1" aria-hidden="false" aria-label="Close"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()
+                I::tag()
                     ->ariaAttributes(
                         [
                             'controls' => static fn(): string => 'modal-1',
@@ -197,10 +197,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span class="value"></span>
+            <i class="value"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->attributes(['class' => 'value'])->render(),
+                I::tag()->attributes(['class' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -210,10 +210,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span class="value"></span>
+            <i class="value"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->class('value')->render(),
+                I::tag()->class('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -223,10 +223,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span>value</span>
+            <i>value</i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->content('value')->render(),
+                I::tag()->content('value')->render(),
             ),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -236,10 +236,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span data-value="value"></span>
+            <i data-value="value"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->dataAttributes(['value' => 'value'])->render(),
+                I::tag()->dataAttributes(['value' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -249,10 +249,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span class="default-class"></span>
+            <i class="default-class"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag(['class' => 'default-class'])->render(),
+                I::tag(['class' => 'default-class'])->render(),
             ),
             'Failed asserting that default configuration values are applied correctly.',
         );
@@ -262,10 +262,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span class="default-class" title="default-title"></span>
+            <i class="default-class" title="default-title"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+                I::tag()->addDefaultProvider(DefaultProvider::class)->render(),
             ),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -275,10 +275,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span></span>
+            <i></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->render(),
+                I::tag()->render(),
             ),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -288,10 +288,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span dir="ltr"></span>
+            <i dir="ltr"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->dir('ltr')->render(),
+                I::tag()->dir('ltr')->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -301,10 +301,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span dir="ltr"></span>
+            <i dir="ltr"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->dir(Direction::LTR)->render(),
+                I::tag()->dir(Direction::LTR)->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
@@ -312,29 +312,29 @@ final class SpanTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Span::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(I::class, ['class' => 'default-class']);
 
         self::assertSame(
             <<<HTML
-            <span class="default-class"></span>
+            <i class="default-class"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->render(),
+                I::tag()->render(),
             ),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Span::class, []);
+        SimpleFactory::setDefaults(I::class, []);
     }
 
     public function testRenderWithHidden(): void
     {
         self::assertSame(
             <<<HTML
-            <span hidden></span>
+            <i hidden></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->hidden(true)->render(),
+                I::tag()->hidden(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -344,10 +344,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span id="test-id"></span>
+            <i id="test-id"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->id('test-id')->render(),
+                I::tag()->id('test-id')->render(),
             ),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -357,10 +357,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span lang="es"></span>
+            <i lang="es"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->lang('es')->render(),
+                I::tag()->lang('es')->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -370,10 +370,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span lang="es"></span>
+            <i lang="es"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->lang(Language::SPANISH)->render(),
+                I::tag()->lang(Language::SPANISH)->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
@@ -383,10 +383,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span></span>
+            <i></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()
+                I::tag()
                     ->addAriaAttribute('label', 'Close')
                     ->removeAriaAttribute('label')
                     ->render(),
@@ -399,10 +399,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span></span>
+            <i></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()
+                I::tag()
                     ->addAttribute('data-test', 'value')
                     ->removeAttribute('data-test')
                     ->render(),
@@ -415,10 +415,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span></span>
+            <i></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()
+                I::tag()
                     ->addDataAttribute('value', 'test')
                     ->removeDataAttribute('value')
                     ->render(),
@@ -431,10 +431,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span role="button"></span>
+            <i role="button"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->role('button')->render(),
+                I::tag()->role('button')->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
@@ -444,10 +444,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span role="button"></span>
+            <i role="button"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->role(Role::BUTTON)->render(),
+                I::tag()->role(Role::BUTTON)->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
@@ -457,10 +457,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span style='color: red;'></span>
+            <i style='color: red;'></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->style('color: red;')->render(),
+                I::tag()->style('color: red;')->render(),
             ),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -470,10 +470,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span class="text-muted"></span>
+            <i class="text-muted"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+                I::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             ),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -483,10 +483,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span title="value"></span>
+            <i title="value"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->title('value')->render(),
+                I::tag()->title('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -496,10 +496,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span></span>
+            <i></i>
             HTML,
             LineEndingNormalizer::normalize(
-                (string) Span::tag(),
+                (string) I::tag(),
             ),
             "Failed asserting that '__toString()' method renders correctly.",
         );
@@ -509,10 +509,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span translate="no"></span>
+            <i translate="no"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->translate(false)->render(),
+                I::tag()->translate(false)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
@@ -522,10 +522,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span translate="no"></span>
+            <i translate="no"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag()->translate(Translate::NO)->render(),
+                I::tag()->translate(Translate::NO)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
@@ -533,18 +533,18 @@ final class SpanTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Span::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(I::class, ['class' => 'from-global', 'id' => 'id-global']);
 
         self::assertSame(
             <<<HTML
-            <span class="from-global" id="id-user"></span>
+            <i class="from-global" id="id-user"></i>
             HTML,
             LineEndingNormalizer::normalize(
-                Span::tag(['id' => 'id-user'])->render(),
+                I::tag(['id' => 'id-user'])->render(),
             ),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Span::class, []);
+        SimpleFactory::setDefaults(I::class, []);
     }
 }

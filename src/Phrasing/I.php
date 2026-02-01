@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Flow;
+namespace UIAwesome\Html\Phrasing;
 
 use UIAwesome\Html\Core\Element\BaseInline;
 use UIAwesome\Html\Interop\{Inline, InlineInterface};
