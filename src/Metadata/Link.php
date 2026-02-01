@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Metadata;
 
-use UIAwesome\Html\Attribute\Element\HasHref;
 use UIAwesome\Html\Attribute\{
     HasAs,
     HasBlocking,
@@ -21,6 +20,7 @@ use UIAwesome\Html\Attribute\{
     HasSizes,
     HasType,
 };
+use UIAwesome\Html\Attribute\Element\HasHref;
 use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
 
