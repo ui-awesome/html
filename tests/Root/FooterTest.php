@@ -19,7 +19,7 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
-use UIAwesome\Html\Flow\Footer;
+use UIAwesome\Html\Root\Footer;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**

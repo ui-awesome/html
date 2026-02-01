@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Flow;
+namespace UIAwesome\Html\Root;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{Block, BlockInterface};
