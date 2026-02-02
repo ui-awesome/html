@@ -94,6 +94,46 @@ echo Div::tag()->html('<strong>raw</strong>')->render();
 // </div>
 ```
 
+#### Powerful list composition
+
+Create ordered lists, unordered lists, and description lists with a fluent API.
+
+```php
+use UIAwesome\Html\List\{Dl, Dt, Dd, Ol, Ul, Li};
+
+// Unordered list with items
+$features = Ul::tag()
+    ->class('feature-list')
+    ->items(
+        'Immutable by design',
+        'Type-safe attributes',
+        'Fluent API',
+        'Standards-compliant',
+    );
+
+// Ordered list with custom start and nested items
+$steps = Ol::tag()
+    ->class('steps')
+    ->start(1)
+    ->reversed(false)
+    ->li('Install with Composer', 1)
+    ->li('Create HTML elements', 2)
+    ->li('Render to string', 3);
+
+// Description list for metadata or glossaries
+$metadata = Dl::tag()
+    ->class('metadata-list')
+    ->dt('Package')
+    ->dd('ui-awesome/html')
+    ->dt('Version')
+    ->dd('0.4.0')
+    ->dt('License')
+    ->dd('BSD-3-Clause');
+
+// Render all lists
+$html = $features->render() . PHP_EOL . $steps->render() . PHP_EOL . $metadata->render();
+```
+
 ## Documentation
 
 For detailed configuration options and advanced usage.

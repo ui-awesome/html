@@ -3,6 +3,7 @@
 ## 0.4.0 Under development
 
 - Enh #16: Refactor codebase to improve performance (@terabytesoftw)
+- Enh #17: Add `Dl`, `Dt`, and `Dd` class tag for list support (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
