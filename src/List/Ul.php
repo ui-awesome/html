@@ -75,7 +75,7 @@ final class Ul extends BaseBlock
      * Creates a new instance with a `<li>` element appended to the content.
      *
      * @param string|Stringable $content The content to place inside the `<li>` element.
-     * @param string|int|null $value Optional ordinal value for the list item (only meaningful in ordered lists).
+     * @param int|string|null $value Optional ordinal value for the list item (only meaningful in ordered lists).
      *
      * @return static New instance with the appended list item.
      *
