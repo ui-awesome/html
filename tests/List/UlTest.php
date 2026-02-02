@@ -522,6 +522,23 @@ final class UlTest extends TestCase
         );
     }
 
+    public function testRenderWithLiValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <ul>
+            <li value="3">
+            Item
+            </li>
+            </ul>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Ul::tag()->li('Item', 3)->render(),
+            ),
+            "Failed asserting that element renders correctly with 'li()' method using a value.",
+        );
+    }
+
     public function testRenderWithMicroData(): void
     {
         self::assertSame(

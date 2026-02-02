@@ -522,6 +522,23 @@ final class OlTest extends TestCase
         );
     }
 
+    public function testRenderWithLiValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <ol>
+            <li value="3">
+            Item
+            </li>
+            </ol>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Ol::tag()->li('Item', 3)->render(),
+            ),
+            "Failed asserting that element renders correctly with 'li()' method using a value.",
+        );
+    }
+
     public function testRenderWithMicroData(): void
     {
         self::assertSame(
