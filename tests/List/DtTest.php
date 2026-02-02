@@ -19,37 +19,35 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
-use UIAwesome\Html\List\Ul;
+use UIAwesome\Html\List\Dt;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Ul} `<ul>` behavior.
+ * Unit tests for {@see Dt} `<dt>` behavior.
  *
- * Verifies rendered output, attribute handling, configuration precedence, content encoding, and list item helpers for
- * {@see Ul::tag()}.
+ * Verifies rendered output, attribute handling, configuration precedence, and content encoding for {@see Dt::tag()}.
  *
  * Test coverage.
  * - Applies global `aria-*` and `data-*` attributes via helper methods.
  * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
  * - Renders content, `begin()`/`end()`, and string casting.
- * - Renders list items via `li()` and `items()` helper methods.
  *
- * {@see Ul} for implementation details.
+ * {@see Dt} for implementation details.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('html')]
 #[Group('list')]
-final class UlTest extends TestCase
+final class DtTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $ul = Ul::tag()->content('<value>');
+        $dt = Dt::tag()->content('<value>');
 
         self::assertSame(
             '&lt;value&gt;',
-            $ul->getContent(),
+            $dt->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -58,7 +56,7 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             'default',
-            Ul::tag()->getAttribute('data-test', 'default'),
+            Dt::tag()->getAttribute('data-test', 'default'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -67,7 +65,7 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Ul::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Dt::tag()->addAttribute('data-test', 'value')->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -76,12 +74,12 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul>
+            <dt>
             <value>
-            </ul>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->html('<value>')->render(),
+                Dt::tag()->html('<value>')->render(),
             ),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
@@ -91,11 +89,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul accesskey="k">
-            </ul>
+            <dt accesskey="k">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->accesskey('k')->render(),
+                Dt::tag()->accesskey('k')->render(),
             ),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -105,11 +103,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul aria-pressed="true">
-            </ul>
+            <dt aria-pressed="true">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->addAriaAttribute('pressed', true)->render(),
+                Dt::tag()->addAriaAttribute('pressed', true)->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -119,11 +117,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul aria-pressed="true">
-            </ul>
+            <dt aria-pressed="true">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
+                Dt::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -133,11 +131,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul data-test="value">
-            </ul>
+            <dt data-test="value">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->addAttribute('data-test', 'value')->render(),
+                Dt::tag()->addAttribute('data-test', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
@@ -147,11 +145,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul title="value">
-            </ul>
+            <dt title="value">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
+                Dt::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
@@ -161,11 +159,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul data-value="value">
-            </ul>
+            <dt data-value="value">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->addDataAttribute('value', 'value')->render(),
+                Dt::tag()->addDataAttribute('value', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -175,11 +173,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul data-value="value">
-            </ul>
+            <dt data-value="value">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+                Dt::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -189,11 +187,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul aria-controls="modal-1" aria-hidden="false" aria-label="Close">
-            </ul>
+            <dt aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()
+                Dt::tag()
                     ->ariaAttributes(
                         [
                             'controls' => static fn(): string => 'modal-1',
@@ -211,11 +209,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul class="value">
-            </ul>
+            <dt class="value">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->attributes(['class' => 'value'])->render(),
+                Dt::tag()->attributes(['class' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -225,11 +223,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul autofocus>
-            </ul>
+            <dt autofocus>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->autofocus(true)->render(),
+                Dt::tag()->autofocus(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -239,12 +237,12 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul>
+            <dt>
             Content
-            </ul>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->begin() . 'Content' . Ul::end(),
+                Dt::tag()->begin() . 'Content' . Dt::end(),
             ),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
@@ -254,11 +252,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul class="value">
-            </ul>
+            <dt class="value">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->class('value')->render(),
+                Dt::tag()->class('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -268,12 +266,12 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul>
+            <dt>
             value
-            </ul>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->content('value')->render(),
+                Dt::tag()->content('value')->render(),
             ),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -283,11 +281,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul contenteditable="true">
-            </ul>
+            <dt contenteditable="true">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->contentEditable(true)->render(),
+                Dt::tag()->contentEditable(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
@@ -297,11 +295,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul contenteditable="true">
-            </ul>
+            <dt contenteditable="true">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->contentEditable(ContentEditable::TRUE)->render(),
+                Dt::tag()->contentEditable(ContentEditable::TRUE)->render(),
             ),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
@@ -311,11 +309,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul data-value="value">
-            </ul>
+            <dt data-value="value">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->dataAttributes(['value' => 'value'])->render(),
+                Dt::tag()->dataAttributes(['value' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -325,11 +323,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul class="default-class">
-            </ul>
+            <dt class="default-class">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag(['class' => 'default-class'])->render(),
+                Dt::tag(['class' => 'default-class'])->render(),
             ),
             'Failed asserting that default configuration values are applied correctly.',
         );
@@ -339,11 +337,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul class="default-class" title="default-title">
-            </ul>
+            <dt class="default-class" title="default-title">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+                Dt::tag()->addDefaultProvider(DefaultProvider::class)->render(),
             ),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -353,11 +351,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul dir="ltr">
-            </ul>
+            <dt dir="ltr">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->dir('ltr')->render(),
+                Dt::tag()->dir('ltr')->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -367,11 +365,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul dir="ltr">
-            </ul>
+            <dt dir="ltr">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->dir(Direction::LTR)->render(),
+                Dt::tag()->dir(Direction::LTR)->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
@@ -381,11 +379,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul draggable="true">
-            </ul>
+            <dt draggable="true">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->draggable(true)->render(),
+                Dt::tag()->draggable(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
@@ -395,11 +393,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul draggable="true">
-            </ul>
+            <dt draggable="true">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->draggable(Draggable::TRUE)->render(),
+                Dt::tag()->draggable(Draggable::TRUE)->render(),
             ),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
@@ -407,31 +405,31 @@ final class UlTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Ul::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(Dt::class, ['class' => 'default-class']);
 
         self::assertSame(
             <<<HTML
-            <ul class="default-class">
-            </ul>
+            <dt class="default-class">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->render(),
+                Dt::tag()->render(),
             ),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Ul::class, []);
+        SimpleFactory::setDefaults(Dt::class, []);
     }
 
     public function testRenderWithHidden(): void
     {
         self::assertSame(
             <<<HTML
-            <ul hidden>
-            </ul>
+            <dt hidden>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->hidden(true)->render(),
+                Dt::tag()->hidden(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -441,36 +439,13 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul id="test-id">
-            </ul>
+            <dt id="test-id">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->id('test-id')->render(),
+                Dt::tag()->id('test-id')->render(),
             ),
             "Failed asserting that element renders correctly with 'id' attribute.",
-        );
-    }
-
-    public function testRenderWithItems(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <ul>
-            <li>
-            Apple
-            </li>
-            <li>
-            Banana
-            </li>
-            <li>
-            Cherry
-            </li>
-            </ul>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->items('Apple', 'Banana', 'Cherry')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'items()' method.",
         );
     }
 
@@ -478,11 +453,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul lang="es">
-            </ul>
+            <dt lang="es">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->lang('es')->render(),
+                Dt::tag()->lang('es')->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -492,50 +467,13 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul lang="es">
-            </ul>
+            <dt lang="es">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->lang(Language::SPANISH)->render(),
+                Dt::tag()->lang(Language::SPANISH)->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
-        );
-    }
-
-    public function testRenderWithLi(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <ul>
-            <li>
-            First item
-            </li>
-            <li>
-            Second item
-            </li>
-            </ul>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->li('First item')->li('Second item')->render(),
-            ),
-            "Failed asserting that element renders correctly with 'li()' method.",
-        );
-    }
-
-    public function testRenderWithLiValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <ul>
-            <li value="3">
-            Item
-            </li>
-            </ul>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->li('Item', 3)->render(),
-            ),
-            "Failed asserting that element renders correctly with 'li()' method using a value.",
         );
     }
 
@@ -543,11 +481,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </ul>
+            <dt itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()
+                Dt::tag()
                     ->itemId('https://example.com/item')
                     ->itemProp('name')
                     ->itemRef('info')
@@ -563,11 +501,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul>
-            </ul>
+            <dt>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()
+                Dt::tag()
                     ->addAriaAttribute('label', 'Close')
                     ->removeAriaAttribute('label')
                     ->render(),
@@ -580,11 +518,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul>
-            </ul>
+            <dt>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()
+                Dt::tag()
                     ->addAttribute('data-test', 'value')
                     ->removeAttribute('data-test')
                     ->render(),
@@ -597,11 +535,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul>
-            </ul>
+            <dt>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()
+                Dt::tag()
                     ->addDataAttribute('value', 'test')
                     ->removeDataAttribute('value')
                     ->render(),
@@ -614,11 +552,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul role="list">
-            </ul>
+            <dt role="listitem">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->role('list')->render(),
+                Dt::tag()->role('listitem')->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
@@ -628,11 +566,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul role="list">
-            </ul>
+            <dt role="listitem">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->role(Role::LIST)->render(),
+                Dt::tag()->role(Role::LISTITEM)->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
@@ -642,11 +580,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul spellcheck="true">
-            </ul>
+            <dt spellcheck="true">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->spellcheck(true)->render(),
+                Dt::tag()->spellcheck(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
@@ -656,11 +594,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul style='value'>
-            </ul>
+            <dt style='value'>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->style('value')->render(),
+                Dt::tag()->style('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -670,11 +608,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul tabindex="3">
-            </ul>
+            <dt tabindex="3">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->tabIndex(3)->render(),
+                Dt::tag()->tabIndex(3)->render(),
             ),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
@@ -684,11 +622,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul class="text-muted">
-            </ul>
+            <dt class="text-muted">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+                Dt::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             ),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -698,11 +636,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul title="value">
-            </ul>
+            <dt title="value">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->title('value')->render(),
+                Dt::tag()->title('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -712,11 +650,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul>
-            </ul>
+            <dt>
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                (string) Ul::tag(),
+                (string) Dt::tag(),
             ),
             "Failed asserting that '__toString()' method renders correctly.",
         );
@@ -726,11 +664,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul translate="no">
-            </ul>
+            <dt translate="no">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->translate(false)->render(),
+                Dt::tag()->translate(false)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
@@ -740,11 +678,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul translate="no">
-            </ul>
+            <dt translate="no">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag()->translate(Translate::NO)->render(),
+                Dt::tag()->translate(Translate::NO)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
@@ -752,35 +690,19 @@ final class UlTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Ul::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(Dt::class, ['class' => 'from-global', 'id' => 'id-global']);
 
         self::assertSame(
             <<<HTML
-            <ul class="from-global" id="id-user">
-            </ul>
+            <dt class="from-global" id="id-user">
+            </dt>
             HTML,
             LineEndingNormalizer::normalize(
-                Ul::tag(['id' => 'id-user'])->render(),
+                Dt::tag(['id' => 'id-user'])->render(),
             ),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Ul::class, []);
-    }
-
-    public function testReturnNewInstanceWhenSettingAttribute(): void
-    {
-        $ul = Ul::tag();
-
-        self::assertNotSame(
-            $ul,
-            $ul->items(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $ul,
-            $ul->li(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
+        SimpleFactory::setDefaults(Dt::class, []);
     }
 }
