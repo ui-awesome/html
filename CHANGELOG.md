@@ -1,6 +1,8 @@
-# Change Log
+# ChangeLog
 
-## 0.3.1 Under development
+## 0.4.0 Under development
+
+- Enh #16: Refactor codebase to improve performance (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
@@ -23,7 +25,7 @@
 
 ## 0.1.1 March 8, 2024
 
-- Bug #6: Remove generate id in `UIAwesome\Html\FormControl\Button` class (@terabytesoftw)
+- Bug #6: Remove generate ID in `UIAwesome\Html\FormControl\Button` class (@terabytesoftw)
 - Bug #7: Add `Html\Interop\RenderInterface::class` all classes (@terabytesoftw)
 - Bug #8: Change branch alias to `1.0-dev` in `composer.json` (@terabytesoftw)
 

@@ -4,90 +4,71 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Metadata;
 
-use PHPForge\Widget\Element;
-use UIAwesome\Html\{
-    Attribute\HasClass,
-    Attribute\HasId,
-    Attribute\HasLang,
-    Attribute\HasName,
-    Attribute\HasStyle,
-    Concern\HasAttributes,
-    Core\Tag,
-    Helper\Encode,
-    Interop\RenderInterface
-};
+use UIAwesome\Html\Attribute\{HasCharset, HasContent, HasHttpEquiv, HasMedia, HasName};
+use UIAwesome\Html\Core\Element\BaseVoid;
+use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
 
 /**
- * The `<meta>` HTML element represents metadata that cannot be represented by other HTML meta-related elements,
- * like `<base>`, `<link>`, `<script>`, `<style>`, or `<title>`.
+ * Represents the HTML `<meta>` element for document metadata.
  *
- * @link https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element
+ * Provides a concrete `<meta>` element implementation that returns `MetadataVoid::META` and inherits void-level
+ * rendering and global attribute support from {@see BaseVoid}.
+ *
+ * The `<meta>` element represents metadata that cannot be represented by other meta-related elements. The type of
+ * metadata can be document-level metadata (with `name`), pragma directives (with `http-equiv`), charset declarations
+ * (with `charset`), or user-defined metadata (with `itemprop`).
+ *
+ * Key features.
+ * - Supports `charset` attribute for character encoding declarations.
+ * - Supports `name` and `content` attributes for document-level metadata.
+ * - Supports `http-equiv` and `content` attributes for pragma directives.
+ * - Supports `media` attribute for theme-color metadata.
+ * - Void element renders without end tag.
+ *
+ * Usage example:
+ * ```php
+ * use UIAwesome\Html\Metadata\Meta;
+ *
+ * echo Meta::tag()
+ *     ->charset('utf-8')
+ *     ->render();
+ * echo Meta::tag()
+ *     ->name('viewport')
+ *     ->content('width=device-width, initial-scale=1')
+ *     ->render();
+ * echo Meta::tag()
+ *     ->name('description')
+ *     ->content('A description of the page')
+ *     ->render();
+ * echo Meta::tag()
+ *     ->httpEquiv('refresh')
+ *     ->content('3;url=https://example.com')
+ *     ->render();
+ * ```
+ *
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+ * {@see BaseVoid} for the base implementation.
+ *
+ * @copyright Copyright (C) 2025 Terabytesoftw.
+ * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class Meta extends Element implements RenderInterface
+final class Meta extends BaseVoid
 {
-    use HasAttributes;
-    use HasClass;
-    use HasId;
-    use HasLang;
+    use HasCharset;
+    use HasContent;
+    use HasHttpEquiv;
+    use HasMedia;
     use HasName;
-    use HasStyle;
 
     /**
-     * Set the character encoding of the linked resource.
+     * Returns the tag enumeration for the `<meta>` element.
      *
-     * @param string $value The character encoding of the linked resource.
+     * @return VoidInterface Tag enumeration instance for `<meta>`.
      *
-     * @return static A new instance of the current class with the specified charset value.
-     *
-     * @link https://html.spec.whatwg.org/multipage/semantics.html#attr-link-charset
+     * {@see MetadataVoid} for valid metadata void tags.
      */
-    public function charset(string $value): static
+    protected function getTag(): VoidInterface
     {
-        $new = clone $this;
-        $new->attributes['charset'] = Encode::content($value);
-
-        return $new;
-    }
-
-    /**
-     * Sets the content attributes.
-     *
-     * @param string $value The content value.
-     *
-     * @return static A new instance of the current class with the specified content value.
-     */
-    public function content(string $value): static
-    {
-        $new = clone $this;
-        $new->attributes['content'] = Encode::content($value);
-
-        return $new;
-    }
-
-    /**
-     * Set the name of the HTTP header to define.
-     *
-     * @param string $value The name of the HTTP header to define.
-     *
-     * @return static A new instance of the current class with the specified http-equiv value.
-     *
-     * @link https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-http-equiv
-     */
-    public function httpEquiv(string $value): static
-    {
-        $new = clone $this;
-        $new->attributes['http-equiv'] = Encode::value($value);
-
-        return $new;
-    }
-
-    /**
-     * Generate the HTML representation of the element.
-     *
-     * @return string The HTML representation of the element.
-     */
-    protected function run(): string
-    {
-        return Tag::widget()->attributes($this->attributes)->tagName('meta')->render();
+        return MetadataVoid::META;
     }
 }
