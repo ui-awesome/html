@@ -684,7 +684,9 @@ final class UlTest extends TestCase
             <ul title="value">
             </ul>
             HTML,
-            Ul::tag()->title('value')->render(),
+            LineEndingNormalizer::normalize(
+                Ul::tag()->title('value')->render(),
+            ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }

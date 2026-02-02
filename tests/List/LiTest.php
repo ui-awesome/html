@@ -656,7 +656,9 @@ final class LiTest extends TestCase
             <li title="value">
             </li>
             HTML,
-            Li::tag()->title('value')->render(),
+            LineEndingNormalizer::normalize(
+                Li::tag()->title('value')->render(),
+            ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }

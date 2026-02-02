@@ -99,7 +99,7 @@ echo Div::tag()->html('<strong>raw</strong>')->render();
 Create ordered lists, unordered lists, and description lists with a fluent API.
 
 ```php
-use UIAwesome\Html\List\{Dl, Dt, Dd, Ol, Ul, Li};
+use UIAwesome\Html\List\{Dl, Ol, Ul};
 
 // Unordered list with items
 $features = Ul::tag()

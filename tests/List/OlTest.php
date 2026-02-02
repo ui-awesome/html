@@ -738,7 +738,9 @@ final class OlTest extends TestCase
             <ol title="value">
             </ol>
             HTML,
-            Ol::tag()->title('value')->render(),
+            LineEndingNormalizer::normalize(
+                Ol::tag()->title('value')->render(),
+            ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }

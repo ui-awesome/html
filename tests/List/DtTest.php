@@ -639,7 +639,9 @@ final class DtTest extends TestCase
             <dt title="value">
             </dt>
             HTML,
-            Dt::tag()->title('value')->render(),
+            LineEndingNormalizer::normalize(
+                Dt::tag()->title('value')->render(),
+            ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }

@@ -701,7 +701,9 @@ final class DlTest extends TestCase
             <dl title="value">
             </dl>
             HTML,
-            Dl::tag()->title('value')->render(),
+            LineEndingNormalizer::normalize(
+                Dl::tag()->title('value')->render(),
+            ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
