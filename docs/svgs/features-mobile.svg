@@ -1,4 +1,4 @@
-<!-- Versión móvil - Una sola columna -->
+<!-- Mobile version - single column -->
 <svg fill="none" viewBox="0 0 600 560" width="100%" height="560" xmlns="http://www.w3.org/2000/svg">
     <foreignObject width="100%" height="100%">
         <div xmlns="http://www.w3.org/1999/xhtml">
@@ -46,28 +46,28 @@
             </style>
             <div class="container">
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Accessibility First</strong></p>
-                    <p class="alert-content">Auto <code>&lt;title&gt;</code> injection • ARIA support • Screen reader optimization</p>
+                    <p class="alert-title"><strong>Extensible</strong></p>
+                    <p class="alert-content">Attribute providers • Theme providers • Integrates with other UI Awesome packages</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Attribute Management</strong></p>
-                    <p class="alert-content">Global attributes • SVG-specific properties • Validation &amp; normalization</p>
+                    <p class="alert-title"><strong>Fluent &amp; Immutable</strong></p>
+                    <p class="alert-content">Method chaining • Reusable element instances • Side-effect free rendering</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Fluent Interface</strong></p>
-                    <p class="alert-content">Method chaining • Type-safe setters • Clean &amp; expressive syntax</p>
+                    <p class="alert-title"><strong>HTML5 Elements</strong></p>
+                    <p class="alert-content">Root, metadata, flow, phrasing • Common tags included • Organized namespaces</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Immutable Design</strong></p>
-                    <p class="alert-content">State protection • Side-effect free rendering • Predictable behavior</p>
+                    <p class="alert-title"><strong>Rendering Helpers</strong></p>
+                    <p class="alert-content"><code>begin()</code>/<code>end()</code> streaming • Void tags handled • Consistent markup</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Secure File Loading</strong></p>
-                    <p class="alert-content">DOM sanitization • External file injection • Safe XML parsing</p>
+                    <p class="alert-title"><strong>Safe by Default</strong></p>
+                    <p class="alert-content"><code>content()</code> encodes • <code>html()</code> for raw markup • Predictable output</p>
                 </div>
                 <div class="alert-box">
-                    <p class="alert-title"><strong>Standards Compliant</strong></p>
-                    <p class="alert-content">HTML5 compatible • SVG 1.1/2.0 support • Valid XML output</p>
+                    <p class="alert-title"><strong>Typed Attributes</strong></p>
+                    <p class="alert-content">Global attributes • <code>data-*</code> and <code>aria-*</code> helpers • Enum-based APIs</p>
                 </div>
             </div>
         </div>

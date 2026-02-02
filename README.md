@@ -15,7 +15,7 @@
         <img src="https://img.shields.io/github/actions/workflow/status/ui-awesome/html/build.yml?style=for-the-badge&label=PHPUnit&logo=github" alt="PHPUnit">
     </a>
     <a href="https://dashboard.stryker-mutator.io/reports/github.com/ui-awesome/html/main" target="_blank">
-        <img src="https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fui-awesome%2Fhtml-svg%2Fmain" alt="Mutation Testing">
+        <img src="https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fui-awesome%2Fhtml%2Fmain" alt="Mutation Testing">
     </a>
     <a href="https://github.com/ui-awesome/html/actions/workflows/static.yml" target="_blank">
         <img src="https://img.shields.io/github/actions/workflow/status/ui-awesome/html/static.yml?style=for-the-badge&label=PHPStan&logo=github" alt="PHPStan">
@@ -23,8 +23,8 @@
 </p>
 
 <p align="center">
-    <strong></strong><br>
-    <em></em>
+    <strong>A fluent, immutable PHP library for generating HTML elements with typed attribute helpers.</strong><br>
+    <em>Safe by default content encoding, raw HTML when needed, and standards-compliant rendering.</em>
 </p>
 
 ## Features
@@ -42,12 +42,64 @@ composer require ui-awesome/html:^0.4
 
 ### Quick start
 
+This package provides immutable, fluent wrapper classes for common HTML elements.
+
+It supports safe content encoding via `content()`, raw HTML via `html()`, and composition using element instances.
+
+#### Document skeleton + composition + immutability
+
+```php
+use UIAwesome\Html\Flow\{Div, Main, P};
+use UIAwesome\Html\Heading\H1;
+use UIAwesome\Html\Metadata\{Link, Meta, Title};
+use UIAwesome\Html\Palpable\A;
+use UIAwesome\Html\Root\{Body, Head, Html};
+
+$baseLink = A::tag()->class('nav-link');
+
+echo Html::tag()
+    ->lang('en')
+    ->html(
+        Head::tag()->html(
+            Meta::tag()->charset('utf-8'),
+            Meta::tag()->name('viewport')->content('width=device-width, initial-scale=1'),
+            Title::tag()->content('UI Awesome HTML'),
+            Link::tag()->rel('stylesheet')->href('/assets/app.css'),
+        ),
+        Body::tag()->class('app')->html(
+            Main::tag()->class('container')->html(
+                H1::tag()->content('UI Awesome HTML'),
+                P::tag()->content('Build HTML with a fluent, immutable API.'),
+                Div::tag()->class('nav')->html(
+                    $baseLink->href('/docs')->content('Documentation'),
+                    $baseLink->href('/github')->content('GitHub'),
+                ),
+            ),
+        ),
+    )
+    ->render();
+```
+
+#### Safe content vs raw HTML
+
+```php
+use UIAwesome\Html\Flow\Div;
+
+echo Div::tag()->content('<strong>encoded</strong>')->render();
+// <div>&lt;strong&gt;encoded&lt;/strong&gt;</div>
+
+echo Div::tag()->html('<strong>raw</strong>')->render();
+// <div>
+// <strong>raw</strong>
+// </div>
+```
+
 ## Documentation
 
 For detailed configuration options and advanced usage.
 
-- 🧪 [Testing Guide](docs/testing.md)
-- 🛠️ [Development Guide](docs/development.md)
+- [Testing Guide](docs/testing.md)
+- [Development Guide](docs/development.md)
 
 ## Package information
 
