@@ -82,7 +82,7 @@ final class Ol extends BaseBlock
      * Creates a new instance with a `<li>` element appended to the content.
      *
      * @param string|Stringable $content Content to place inside the `<li>` element.
-     * @param string|int|null $value Optional ordinal value for the list item.
+     * @param int|string|null $value Optional ordinal value for the list item.
      *
      * @return static New instance with the appended list item.
      *
