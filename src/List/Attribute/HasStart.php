@@ -20,15 +20,15 @@ trait HasStart
     /**
      * Sets the `start` attribute.
      *
-     * @param int|null $value Ordinal start value, or `null` to remove the attribute.
-     *
-     * @return static New instance with the updated `start` attribute.
-     *
      * Usage example:
      * ```php
      * echo \UIAwesome\Html\List\Ol::tag()->start(4)->render();
      * echo \UIAwesome\Html\List\Ol::tag()->start(null)->render();
      * ```
+     *
+     * @param int|null $value Ordinal start value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `start` attribute.
      */
     public function start(int|null $value): static
     {

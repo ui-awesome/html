@@ -20,14 +20,14 @@ trait HasReversed
     /**
      * Sets the `reversed` attribute.
      *
-     * @param bool $value Whether the list items are numbered in reverse order.
-     *
-     * @return static New instance with the updated `reversed` attribute.
-     *
      * Usage example:
      * ```php
      * echo \UIAwesome\Html\List\Ol::tag()->reversed(true)->render();
      * ```
+     *
+     * @param bool $value Whether the list items are numbered in reverse order.
+     *
+     * @return static New instance with the updated `reversed` attribute.
      */
     public function reversed(bool $value): static
     {

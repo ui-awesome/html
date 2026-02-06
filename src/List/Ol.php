@@ -36,10 +36,6 @@ final class Ol extends BaseBlock
     /**
      * Appends multiple `<li>` elements to the ordered list.
      *
-     * @param string|Stringable ...$items Items to add as `<li>` elements.
-     *
-     * @return static New instance with the appended list items.
-     *
      * Usage example:
      * ```php
      * $list = \UIAwesome\Html\List\Ol::tag()->items(
@@ -48,6 +44,10 @@ final class Ol extends BaseBlock
      *     'Third step',
      * );
      * ```
+     *
+     * @param string|Stringable ...$items Items to add as `<li>` elements.
+     *
+     * @return static New instance with the appended list items.
      */
     public function items(string|Stringable ...$items): static
     {
@@ -63,19 +63,19 @@ final class Ol extends BaseBlock
     /**
      * Appends a `<li>` element to the ordered list.
      *
-     * @param string|Stringable $content Content for the `<li>` element.
-     * @param int|string|null $value Optional ordinal value for the list item, or `null` to omit the attribute.
-     *
-     * @return static New instance with the appended list item.
-     *
      * Usage example:
      * ```php
      * $list = \UIAwesome\Html\List\Ol::tag()
      *     ->li('Install dependencies')
      *     ->li('Run tests', 5);
      * ```
+     *
+     * @param string|Stringable $content Content for the `<li>` element.
+     * @param int|string|null $value Optional ordinal value for the list item, or `null` to omit the attribute.
+     *
+     * @return static New instance with the appended list item.
      */
-    public function li(string|Stringable $content, string|int|null $value = null): static
+    public function li(string|Stringable $content, int|string|null $value = null): static
     {
         $li = Li::tag()->content($content);
 

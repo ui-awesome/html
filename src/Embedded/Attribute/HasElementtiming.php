@@ -22,16 +22,16 @@ trait HasElementtiming
     /**
      * Sets the `elementtiming` attribute.
      *
-     * @param string|UnitEnum|null $value Element timing identifier, or `null` to remove the attribute.
-     *
-     * @return static New instance with the updated `elementtiming` attribute.
-     *
      * Usage example:
      * ```php
      * echo \UIAwesome\Html\Embedded\Img::tag()->elementtiming('hero-image')->render();
      * echo \UIAwesome\Html\Embedded\Img::tag()->elementtiming('product-thumbnail')->render();
      * echo \UIAwesome\Html\Embedded\Img::tag()->elementtiming(null)->render();
      * ```
+     *
+     * @param string|UnitEnum|null $value Element timing identifier, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `elementtiming` attribute.
      */
     public function elementtiming(string|UnitEnum|null $value): static
     {

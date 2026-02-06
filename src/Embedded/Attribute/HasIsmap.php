@@ -20,14 +20,14 @@ trait HasIsmap
     /**
      * Sets the `ismap` attribute.
      *
-     * @param bool $value Whether the image is a server-side image map.
-     *
-     * @return static New instance with the updated `ismap` attribute.
-     *
      * Usage example:
      * ```php
      * echo \UIAwesome\Html\Embedded\Img::tag()->ismap(true)->render();
      * ```
+     *
+     * @param bool $value Whether the image is a server-side image map.
+     *
+     * @return static New instance with the updated `ismap` attribute.
      */
     public function ismap(bool $value): static
     {
