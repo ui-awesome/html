@@ -12,7 +12,7 @@ use UIAwesome\Html\Attribute\Form\{
     HasMin,
     HasReadonly,
     HasRequired,
-    HasStep,
+    HasStep
 };
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
@@ -21,34 +21,34 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="week">` element.
+ * Represents the HTML `<input type="time">` element.
  *
- * The value uses the `yyyy-Www` format (for example, `2017-W01`).
+ * The value uses the `hh:mm` format (for example, `14:30`).
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Form\InputWeek::tag()
- *     ->name('vacation-week')
+ * echo \UIAwesome\Html\Form\InputTime::tag()
+ *     ->name('meeting-time')
  *     ->render();
- * echo InputWeek::tag()
- *     ->name('camp-week')
- *     ->min('2018-W18')
- *     ->max('2018-W26')
+ * echo InputTime::tag()
+ *     ->name('alarm')
+ *     ->min('09:00')
+ *     ->max('18:00')
  *     ->required(true)
  *     ->render();
- * echo InputWeek::tag()
- *     ->name('report-week')
- *     ->value('2024-W15')
+ * echo InputTime::tag()
+ *     ->name('appointment')
+ *     ->value('14:30')
  *     ->readonly(true)
  *     ->render();
  * ```
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/week
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/time
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class InputWeek extends BaseInput
+final class InputTime extends BaseInput
 {
     use CanBeAutofocus;
     use HasAutocomplete;
@@ -81,7 +81,7 @@ final class InputWeek extends BaseInput
      */
     protected function loadDefault(): array
     {
-        return parent::loadDefault() + ['type' => [Type::WEEK]];
+        return parent::loadDefault() + ['type' => [Type::TIME]];
     }
 
     /**
