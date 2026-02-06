@@ -69,7 +69,7 @@ final class Ul extends BaseBlock
      *
      * @return static New instance with the appended list item.
      */
-    public function li(string|Stringable $content, string|int|null $value = null): static
+    public function li(string|Stringable $content, int|string|null $value = null): static
     {
         $li = Li::tag()->content($content);
 
