@@ -6,7 +6,6 @@ namespace UIAwesome\Html\Form;
 
 use UIAwesome\Html\Attribute\Form\{
     HasAutocomplete,
-    HasDirname,
     HasForm,
     HasList,
     HasMaxlength,
@@ -24,29 +23,30 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="text">` element.
+ * Represents the HTML `<input type="tel">` element for telephone number input.
  *
- * The value uses the `text` format (for example, `Hello World`).
+ * The value uses the `tel` format (for example, `123-456-7890`).
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Form\InputText::tag()
- *     ->name('username')
- *     ->placeholder('Enter your username')
+ * echo \UIAwesome\Html\Form\InputTel::tag()
+ *     ->name('phone')
+ *     ->placeholder('123-456-7890')
+ *     ->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')
+ *     ->size(20)
  *     ->required(true)
  *     ->render();
  * ```
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/text
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/tel
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class InputText extends BaseInput
+final class InputTel extends BaseInput
 {
     use CanBeAutofocus;
     use HasAutocomplete;
-    use HasDirname;
     use HasForm;
     use HasList;
     use HasMaxlength;
@@ -79,7 +79,7 @@ final class InputText extends BaseInput
      */
     protected function loadDefault(): array
     {
-        return parent::loadDefault() + ['type' => [Type::TEXT]];
+        return parent::loadDefault() + ['type' => [Type::TEL]];
     }
 
     /**
