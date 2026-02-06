@@ -21,16 +21,13 @@ use UIAwesome\Html\Phrasing\Span;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Span} `<span>` behavior.
- *
- * Verifies rendered output, attribute handling, configuration precedence, and content encoding for {@see Span::tag()}.
+ * Unit tests for {@see Span} inline phrasing behavior.
  *
  * Test coverage.
- * - Applies global `aria-*` and `data-*` attributes via helper methods.
- * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
- * - Renders content and string casting for an inline element.
- *
- * {@see Span} for implementation details.
+ * - Applies global and custom attributes, including aria-*, data-*, and enum-backed values.
+ * - Ensures attribute accessors return assigned values and fallback defaults.
+ * - Renders content, raw HTML, and string casting with expected encoding behavior.
+ * - Resolves default and theme providers, including global defaults and user overrides.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

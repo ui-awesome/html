@@ -27,15 +27,13 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Base} `<base>` behavior.
  *
- * Verifies rendered output, attribute handling, and configuration precedence for {@see Base::tag()}.
- *
  * Test coverage.
- * - Applies `href` and `target` attributes specific to the base element.
- * - Applies global `aria-*` and `data-*` attributes via helper methods.
- * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
+ * - Applies `base`-specific attributes (`href`, `target`) and renders expected output.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders attributes and string casting for a void element.
- *
- * {@see Base} for implementation details.
+ * - Resolves default and theme providers, including global defaults and user overrides.
+ * - Verifies invalid enumerated values throw {@see InvalidArgumentException}.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
