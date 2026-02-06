@@ -9,6 +9,7 @@
 - Bug #20: Standardize PHPDoc headers in `tests` directory (@terabytesoftw)
 - Enh #21: Add `InputUrl` class for HTML `<input type="url">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #22: Add `InputTime` class for HTML `<input type="time">` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #23: Add `InputText` class for HTML `<input type="text">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
