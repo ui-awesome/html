@@ -34,12 +34,12 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  *     ->name('alarm')
  *     ->min('09:00')
  *     ->max('18:00')
- *     ->required()
+ *     ->required(true)
  *     ->render();
  * echo InputTime::tag()
  *     ->name('appointment')
  *     ->value('14:30')
- *     ->readonly()
+ *     ->readonly(true)
  *     ->render();
  * ```
  *
