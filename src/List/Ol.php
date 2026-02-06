@@ -64,7 +64,7 @@ final class Ol extends BaseBlock
      * Appends a `<li>` element to the ordered list.
      *
      * @param string|Stringable $content Content for the `<li>` element.
-     * @param string|int|null $value Optional ordinal value for the list item, or `null` to omit the attribute.
+     * @param int|string|null $value Optional ordinal value for the list item, or `null` to omit the attribute.
      *
      * @return static New instance with the appended list item.
      *

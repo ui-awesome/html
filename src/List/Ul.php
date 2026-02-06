@@ -58,7 +58,7 @@ final class Ul extends BaseBlock
      * Appends a `<li>` element to the unordered list.
      *
      * @param string|Stringable $content Content for the `<li>` element.
-     * @param string|int|null $value Optional `value` attribute for the list item, or `null` to omit the attribute.
+     * @param int|string|null $value Optional `value` attribute for the list item, or `null` to omit the attribute.
      *
      * @return static New instance with the appended list item.
      *
