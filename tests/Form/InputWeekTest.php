@@ -518,7 +518,7 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek-" type="week" tabindex="1">
             HTML,
-            InputWeek::tag()->id('inputweek-')->tabindex(1)->render(),
+            InputWeek::tag()->id('inputweek-')->tabIndex(1)->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
