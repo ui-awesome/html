@@ -23,7 +23,7 @@ use UIAwesome\Html\List\Dd;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Dd} `<dd>` behavior.
+ * Unit tests for {@see Dd} rendering and global attribute behavior.
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.

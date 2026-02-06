@@ -25,7 +25,7 @@ use UIAwesome\Html\Metadata\Base;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Base} `<base>` behavior.
+ * Unit tests for {@see Base} rendering and base attribute behavior.
  *
  * Test coverage.
  * - Applies `base`-specific attributes (`href`, `target`) and renders expected output.

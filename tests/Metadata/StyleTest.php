@@ -27,7 +27,7 @@ use UIAwesome\Html\Metadata\Style;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Style} `<style>` behavior.
+ * Unit tests for {@see Style} rendering and style attribute behavior.
  *
  * Test coverage.
  * - Applies `style`-specific attributes (`media`, `nonce`, `title`) and renders expected output.

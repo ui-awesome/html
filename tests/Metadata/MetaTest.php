@@ -24,7 +24,7 @@ use UIAwesome\Html\Metadata\Meta;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Meta} `<meta>` behavior.
+ * Unit tests for {@see Meta} rendering and meta attribute behavior.
  *
  * Test coverage.
  * - Applies `meta`-specific attributes (`charset`, `content`, `http-equiv`, `media`, `name`) and renders expected

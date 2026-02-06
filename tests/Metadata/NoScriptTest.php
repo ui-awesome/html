@@ -23,7 +23,7 @@ use UIAwesome\Html\Metadata\NoScript;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see NoScript} `<noscript>` behavior.
+ * Unit tests for {@see NoScript} rendering and noscript attribute behavior.
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.

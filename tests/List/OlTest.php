@@ -23,7 +23,7 @@ use UIAwesome\Html\List\Ol;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Ol} `<ol>` behavior.
+ * Unit tests for {@see Ol} rendering and global attribute behavior.
  *
  * Test coverage.
  * - Applies `ol`-specific attributes (`reversed`, `start`) and renders expected output.

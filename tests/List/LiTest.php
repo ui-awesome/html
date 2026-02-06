@@ -23,7 +23,7 @@ use UIAwesome\Html\List\Li;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Li} `<li>` behavior.
+ * Unit tests for {@see Li} rendering and global attribute behavior.
  *
  * Test coverage.
  * - Applies `li`-specific attributes (`value`) and renders expected output.

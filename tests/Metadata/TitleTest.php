@@ -23,7 +23,7 @@ use UIAwesome\Html\Metadata\Title;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Title} `<title>` behavior.
+ * Unit tests for {@see Title} rendering and title attribute behavior.
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.

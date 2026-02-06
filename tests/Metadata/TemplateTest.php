@@ -27,7 +27,7 @@ use UIAwesome\Html\Metadata\Values\ShadowRootMode;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Template} `<template>` behavior.
+ * Unit tests for {@see Template} rendering and template attribute behavior.
  *
  * Test coverage.
  * - Applies `template`-specific attributes (`shadowrootclonable`, `shadowrootdelegatesfocus`, `shadowrootmode`,

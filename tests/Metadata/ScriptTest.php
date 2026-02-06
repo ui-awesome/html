@@ -30,7 +30,7 @@ use UIAwesome\Html\Metadata\Script;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Script} `<script>` behavior.
+ * Unit tests for {@see Script} rendering and script attribute behavior.
  *
  * Test coverage.
  * - Applies `script`-specific attributes (`async`, `blocking`, `crossorigin`, `defer`, `fetchpriority`, `integrity`,

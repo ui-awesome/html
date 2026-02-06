@@ -23,7 +23,7 @@ use UIAwesome\Html\List\Ul;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Ul} `<ul>` behavior.
+ * Unit tests for {@see Ul} rendering and global attribute behavior.
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.

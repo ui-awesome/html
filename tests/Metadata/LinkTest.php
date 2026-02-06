@@ -28,7 +28,7 @@ use UIAwesome\Html\Metadata\Link;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Link} `<link>` behavior.
+ * Unit tests for {@see Link} rendering and link attribute behavior.
  *
  * Test coverage.
  * - Applies `link`-specific attributes (`as`, `crossorigin`, `disabled`, `fetchpriority`, `href`, `hreflang`,
