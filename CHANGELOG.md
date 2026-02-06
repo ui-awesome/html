@@ -4,6 +4,7 @@
 
 - Enh #16: Refactor codebase to improve performance (@terabytesoftw)
 - Enh #17: Add `Dl`, `Dt`, and `Dd` class tag for list support (@terabytesoftw)
+- Enh #18: Add `InputWeek` class for HTML `<input type="week">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
