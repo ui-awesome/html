@@ -25,6 +25,8 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
 /**
  * Represents the HTML `<input type="url">` element for URL input.
  *
+ * The value uses the `https://` format (for example, `https://example.com`).
+ *
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Form\InputUrl::tag()
@@ -32,7 +34,7 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  *     ->placeholder('https://example.com')
  *     ->pattern('https://.*')
  *     ->size(30)
- *     ->required()
+ *     ->required(true)
  *     ->render();
  * ```
  *
