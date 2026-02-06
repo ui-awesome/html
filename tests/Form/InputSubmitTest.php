@@ -296,6 +296,28 @@ final class InputSubmitTest extends TestCase
         );
     }
 
+    public function testRenderWithFormnovalidateValueFalse(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputsubmit-" type="submit">
+            HTML,
+            InputSubmit::tag()->id('inputsubmit-')->formnovalidate(false)->render(),
+            "Failed asserting that element renders correctly with 'formnovalidate' set to false.",
+        );
+    }
+
+    public function testRenderWithFormnovalidateValueNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputsubmit-" type="submit">
+            HTML,
+            InputSubmit::tag()->id('inputsubmit-')->formnovalidate(null)->render(),
+            "Failed asserting that element renders correctly with 'formnovalidate' set to null.",
+        );
+    }
+
     public function testRenderWithFormtarget(): void
     {
         self::assertSame(
