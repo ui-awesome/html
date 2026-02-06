@@ -206,7 +206,7 @@ final class InputTimeTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputtime-" type="time">
             HTML,
-            InputTime::tag()->id('inputtime-')->attributes(['class' => 'default-class'])->render(),
+            InputTime::tag(['class' => 'default-class'])->id('inputtime-')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }

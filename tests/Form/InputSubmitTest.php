@@ -184,7 +184,7 @@ final class InputSubmitTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputsubmit-" type="submit">
             HTML,
-            InputSubmit::tag()->id('inputsubmit-')->attributes(['class' => 'default-class'])->render(),
+            InputSubmit::tag(['class' => 'default-class'])->id('inputsubmit-')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
