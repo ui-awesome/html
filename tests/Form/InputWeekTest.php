@@ -13,14 +13,14 @@ use UIAwesome\Html\Form\InputWeek;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see InputWeek} `<input type="week">` behavior.
+ * Unit tests for {@see InputWeek} week input behavior.
  *
  * Test coverage.
- * - Applies `autocomplete`, `autofocus`, `form`, `list`, `max`, `min`, `readonly`, `required`, `step`, `tabindex`, and
- *   `value` attributes.
- * - Applies global `aria-*` and `data-*` attributes via helper methods.
- * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
+ * - Applies input-week-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `max`, `min`,
+ *   `name`, `readonly`, `required`, `step`, `tabindex`, `value`) and renders expected output.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Renders attributes and string casting for a void element.
+ * - Resolves default and theme providers, including global defaults and user overrides.
  *
  * {@see InputWeek} for the base implementation.
  *

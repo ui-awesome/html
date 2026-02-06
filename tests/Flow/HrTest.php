@@ -21,16 +21,13 @@ use UIAwesome\Html\Flow\Hr;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Hr} `<hr>` behavior.
- *
- * Verifies rendered output, attribute handling, and configuration precedence for {@see Hr::tag()}.
+ * Unit tests for {@see Hr} rendering and global attribute behavior.
  *
  * Test coverage.
- * - Applies global `aria-*` and `data-*` attributes via helper methods.
- * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders attributes and string casting for a void element.
- *
- * {@see Hr} for implementation details.
+ * - Resolves default and theme providers, including global defaults and user overrides.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

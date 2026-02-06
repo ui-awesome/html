@@ -5,7 +5,8 @@
 - Enh #16: Refactor codebase to improve performance (@terabytesoftw)
 - Enh #17: Add `Dl`, `Dt`, and `Dd` class tag for list support (@terabytesoftw)
 - Enh #18: Add `InputWeek` class for HTML `<input type="week">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #19: Standardize PHPDoc headers and usage examples across core HTML elements in `src` (@terabytesoftw)
+- Bug #19: Standardize PHPDoc headers and usage examples across core HTML elements in `src` directory (@terabytesoftw)
+- Bug #20: Standardize PHPDoc headers in `tests` directory (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 

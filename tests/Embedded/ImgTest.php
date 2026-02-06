@@ -27,19 +27,19 @@ use UIAwesome\Html\Embedded\Img;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Img} `<img>` behavior.
- *
- * Verifies rendered output, attribute handling, and configuration precedence for {@see Img::tag()}.
+ * Unit tests for {@see Img} rendering and image attribute behavior.
  *
  * Test coverage.
- * - Applies global `aria-*` and `data-*` attributes via helper methods.
- * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
- * - Applies image-specific attributes: `alt`, `src`, `srcset`, `sizes`, `width`, `height`, `loading`, `decoding`,
- *   `crossorigin`, `fetchpriority`, `referrerpolicy`, `ismap`, `usemap`, and `elementtiming`.
+ * - Applies image-specific attributes (`alt`, `crossorigin`, `decoding`, `elementtiming`, `fetchpriority`, `height`,
+ *   `ismap`, `loading`, `referrerpolicy`, `sizes`, `src`, `srcset`, `usemap`, `width`) and renders expected output.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Ensures attribute accessors return assigned values and fallback defaults.
+ * - Ensures fluent attribute setters return new instances (immutability).
  * - Renders attributes and string casting for a void element.
- * - Validates enum-based attributes with proper exception handling.
+ * - Resolves default and theme providers, including global defaults and user overrides.
+ * - Verifies invalid enumerated values throw {@see InvalidArgumentException}.
  *
- * @link Img
+ * {@see Img} for the base implementation.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

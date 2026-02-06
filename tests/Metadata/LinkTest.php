@@ -28,17 +28,17 @@ use UIAwesome\Html\Metadata\Link;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Link} `<link>` behavior.
- *
- * Verifies rendered output, attribute handling, and configuration precedence for {@see Link::tag()}.
+ * Unit tests for {@see Link} rendering and link attribute behavior.
  *
  * Test coverage.
- * - Applies `href`, `rel`, `type`, `media`, and other link-specific attributes.
- * - Applies global `aria-*` and `data-*` attributes via helper methods.
- * - Applies global defaults and theme providers via {@see SimpleFactory} and provider stubs.
+ * - Applies `link`-specific attributes (`as`, `crossorigin`, `disabled`, `fetchpriority`, `href`, `hreflang`,
+ *   `imagesizes`, `imagesrcset`, `integrity`, `media`, `referrerpolicy`, `rel`, `sizes`, `title`, `type`) and
+ *   renders expected output.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders attributes and string casting for a void element.
- *
- * {@see Link} for implementation details.
+ * - Resolves default and theme providers, including global defaults and user overrides.
+ * - Verifies invalid enumerated values throw {@see InvalidArgumentException}.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.

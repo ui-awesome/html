@@ -11,8 +11,6 @@ use UIAwesome\Html\Interop\BlockInterface;
 /**
  * Stub defaults provider for tests.
  *
- * Returns deterministic default attributes for tag instances to verify configuration precedence and rendering.
- *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
