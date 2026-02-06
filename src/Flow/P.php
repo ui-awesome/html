@@ -8,23 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{Block, BlockInterface};
 
 /**
- * Represents the HTML `<p>` element for grouping paragraphs of text.
- *
- * Provides a concrete `<p>` element implementation that returns `Block::P` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<p>` element represents a paragraph of text.
- *
- * Key features.
- * - Paragraph element accepts child content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<p>` element for paragraphs.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Flow\P;
- *
- * echo P::tag()
+ * echo \UIAwesome\Html\Flow\P::tag()
  *     ->class('lead')
  *     ->content('Hello')
  *     ->render();

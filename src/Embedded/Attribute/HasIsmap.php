@@ -5,14 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Embedded\Attribute;
 
 /**
- * Trait for managing the HTML `ismap` attribute in tag rendering.
- *
- * Provides an immutable API for setting the `ismap` attribute on `<img>` elements.
- *
- * Key features.
- * - Handles the HTML `ismap` attribute for server-side image maps.
- * - Immutable method for setting or overriding the `ismap` attribute.
- * - Supports bool for explicit server-side image map control.
+ * Provides an immutable API for the HTML `ismap` attribute.
  *
  * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
  * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
@@ -25,12 +18,12 @@ namespace UIAwesome\Html\Embedded\Attribute;
 trait HasIsmap
 {
     /**
-     * Sets the HTML `ismap` attribute for the element.
+     * Sets the `ismap` attribute.
      *
-     * Creates a new instance with the specified ismap value.
-     *
-     * When `true`, the image is part of a server-side image map. This attribute is only permitted if the `<img>`
-     * element is a descendant of an `<a>` element with a valid `href` attribute.
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Embedded\Img::tag()->ismap(true)->render();
+     * ```
      *
      * @param bool $value Whether the image is a server-side image map.
      *

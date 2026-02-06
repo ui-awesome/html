@@ -8,23 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{Block, BlockInterface};
 
 /**
- * Represents the HTML `<main>` element for dominant document content.
- *
- * Provides a concrete `<main>` element implementation that returns `Block::MAIN` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<main>` element represents the dominant content of the document.
- *
- * Key features.
- * - Container element accepts child content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<main>` element for dominant document content.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Flow\Main;
- *
- * echo Main::tag()
+ * echo \UIAwesome\Html\Flow\Main::tag()
  *     ->class('content')
  *     ->content('value')
  *     ->render();

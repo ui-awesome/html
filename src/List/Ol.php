@@ -10,25 +10,11 @@ use UIAwesome\Html\Interop\{BlockInterface, Lists};
 use UIAwesome\Html\List\Attribute\{HasReversed, HasStart};
 
 /**
- * Represents the HTML `<ol>` element for ordered lists.
- *
- * Provides a concrete `<ol>` element implementation that returns `Lists::OL` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<ol>` element represents an ordered list of items, typically rendered as a numbered list.
- *
- * Key features.
- * - Container element accepts `<li>` child elements.
- * - Provides helper methods `li()` and `items()` for constructing valid list markup.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
- * - Supports ol-specific attributes via helper methods (`reversed`, `start`).
+ * Renders the HTML `<ol>` element for ordered lists.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\List\Ol;
- *
- * echo Ol::tag()
+ * echo \UIAwesome\Html\List\Ol::tag()
  *     ->class('my-list')
  *     ->items('First item', 'Second item', 'Third item')
  *     ->reversed(true)
@@ -48,22 +34,20 @@ final class Ol extends BaseBlock
     use HasStart;
 
     /**
-     * Appends multiple list items to the ordered list.
-     *
-     * Creates a new instance with multiple `<li>` elements appended to the content.
-     *
-     * @param string|Stringable ...$items Variable number of items to add as list elements.
-     *
-     * @return static New instance with the appended list items.
+     * Appends multiple `<li>` elements to the ordered list.
      *
      * Usage example:
      * ```php
-     * $list = Ol::tag()->items(
+     * $list = \UIAwesome\Html\List\Ol::tag()->items(
      *     'First step',
      *     'Second step',
      *     'Third step',
      * );
      * ```
+     *
+     * @param string|Stringable ...$items Items to add as `<li>` elements.
+     *
+     * @return static New instance with the appended list items.
      */
     public function items(string|Stringable ...$items): static
     {
@@ -77,25 +61,21 @@ final class Ol extends BaseBlock
     }
 
     /**
-     * Appends a `<li>` element with the specified content to the ordered list.
-     *
-     * Creates a new instance with a `<li>` element appended to the content.
-     *
-     * @param string|Stringable $content Content to place inside the `<li>` element.
-     * @param int|string|null $value Optional ordinal value for the list item.
-     *
-     * @return static New instance with the appended list item.
+     * Appends a `<li>` element to the ordered list.
      *
      * Usage example:
      * ```php
-     * $list = Ol::tag()
-     *     ->li('Item with value', 3);
-     * $list = Ol::tag()
-     *     ->li('First item')
-     *     ->li('Second item');
+     * $list = \UIAwesome\Html\List\Ol::tag()
+     *     ->li('Install dependencies')
+     *     ->li('Run tests', 5);
      * ```
+     *
+     * @param string|Stringable $content Content for the `<li>` element.
+     * @param int|string|null $value Optional ordinal value for the list item, or `null` to omit the attribute.
+     *
+     * @return static New instance with the appended list item.
      */
-    public function li(string|Stringable $content, string|int|null $value = null): static
+    public function li(string|Stringable $content, int|string|null $value = null): static
     {
         $li = Li::tag()->content($content);
 

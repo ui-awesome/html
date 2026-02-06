@@ -8,24 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{Block, BlockInterface};
 
 /**
- * Represents the HTML `<h3>` element for section headings.
- *
- * Provides a concrete `<h3>` element implementation that returns `Block::H3` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<h3>` element represents the third level of section headings. `<h1>` is the highest section level and `<h6>` is
- * the lowest. By default, all heading elements create a block-level box in the layout.
- *
- * Key features.
- * - Accepts phrasing content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<h3>` element for third-level section headings.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Heading\H3;
- *
- * echo H3::tag()
+ * echo \UIAwesome\Html\Heading\H3::tag()
  *     ->class('subsection-title')
  *     ->content('Subsection Title')
  *     ->render();

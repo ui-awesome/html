@@ -9,40 +9,13 @@ use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
 
 /**
- * Represents the HTML `<meta>` element for document metadata.
- *
- * Provides a concrete `<meta>` element implementation that returns `MetadataVoid::META` and inherits void-level
- * rendering and global attribute support from {@see BaseVoid}.
- *
- * The `<meta>` element represents metadata that cannot be represented by other meta-related elements. The type of
- * metadata can be document-level metadata (with `name`), pragma directives (with `http-equiv`), charset declarations
- * (with `charset`), or user-defined metadata (with `itemprop`).
- *
- * Key features.
- * - Supports `charset` attribute for character encoding declarations.
- * - Supports `name` and `content` attributes for document-level metadata.
- * - Supports `http-equiv` and `content` attributes for pragma directives.
- * - Supports `media` attribute for theme-color metadata.
- * - Void element renders without end tag.
+ * Renders the HTML `<meta>` element for document metadata.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Metadata\Meta;
- *
- * echo Meta::tag()
- *     ->charset('utf-8')
- *     ->render();
- * echo Meta::tag()
+ * echo \UIAwesome\Html\Metadata\Meta::tag()
  *     ->name('viewport')
  *     ->content('width=device-width, initial-scale=1')
- *     ->render();
- * echo Meta::tag()
- *     ->name('description')
- *     ->content('A description of the page')
- *     ->render();
- * echo Meta::tag()
- *     ->httpEquiv('refresh')
- *     ->content('3;url=https://example.com')
  *     ->render();
  * ```
  *

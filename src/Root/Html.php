@@ -8,23 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, Root};
 
 /**
- * Represents the HTML `<html>` element (document root).
- *
- * Provides a concrete `<html>` element implementation that returns `Root::HTML` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<html>` element is the root element of an HTML document.
- *
- * Key features.
- * - Container element accepts child content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<html>` element as the document root.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Root\Html;
- *
- * echo Html::tag()
+ * echo \UIAwesome\Html\Root\Html::tag()
  *     ->lang('en')
  *     ->content('value')
  *     ->render();

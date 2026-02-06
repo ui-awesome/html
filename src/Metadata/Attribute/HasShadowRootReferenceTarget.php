@@ -8,14 +8,7 @@ use Stringable;
 use UnitEnum;
 
 /**
- * Trait for managing the HTML `shadowrootreferencetarget` attribute in tag rendering.
- *
- * Provides an immutable API for setting the `shadowrootreferencetarget` attribute on `<template>` elements.
- *
- * Key features.
- * - Handles the HTML `shadowrootreferencetarget` attribute.
- * - Immutable method for setting or overriding the `shadowrootreferencetarget` attribute.
- * - Supports string, Stringable, UnitEnum, and `null` for flexible reference target assignment.
+ * Provides an immutable API for the HTML `shadowrootreferencetarget` attribute.
  *
  * @method static addAttribute(string|UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
  * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
@@ -28,14 +21,16 @@ use UnitEnum;
 trait HasShadowRootReferenceTarget
 {
     /**
-     * Sets the HTML `shadowrootreferencetarget` attribute for the element.
+     * Sets the `shadowrootreferencetarget` attribute.
      *
-     * Creates a new instance with the specified reference target value. Specifies the ID of an element within the
-     * shadow root that should be used as the reference target for the shadow host element. Can be `null` to unset the
-     * attribute.
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Template::tag()
+     *     ->shadowRootReferenceTarget('dialog-title')
+     *     ->render();
+     * ```
      *
-     * @param string|Stringable|UnitEnum|null $value Reference target ID to set for the element. Should be the ID of an
-     * element within the shadow root.
+     * @param string|Stringable|UnitEnum|null $value Reference target ID, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `shadowrootreferencetarget` attribute.
      */

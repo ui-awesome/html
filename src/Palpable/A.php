@@ -4,37 +4,25 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Palpable;
 
+use UIAwesome\Html\Attribute\{
+    HasDownload,
+    HasHreflang,
+    HasPing,
+    HasReferrerpolicy,
+    HasRel,
+    HasTarget,
+    HasType,
+};
 use UIAwesome\Html\Attribute\Element\HasHref;
-use UIAwesome\Html\Attribute\HasDownload;
-use UIAwesome\Html\Attribute\HasHreflang;
-use UIAwesome\Html\Attribute\HasPing;
-use UIAwesome\Html\Attribute\HasReferrerpolicy;
-use UIAwesome\Html\Attribute\HasRel;
-use UIAwesome\Html\Attribute\HasTarget;
-use UIAwesome\Html\Attribute\HasType;
 use UIAwesome\Html\Core\Element\BaseInline;
 use UIAwesome\Html\Interop\{Inline, InlineInterface};
 
 /**
- * Represents the HTML `<a>` element for creating hyperlinks.
- *
- * Provides a concrete `<a>` element implementation that returns `Inline::A` and inherits inline-level rendering and
- * global attribute support from {@see BaseInline}.
- *
- * The `<a>` element (or anchor element), with its `href` attribute, creates a hyperlink to web pages, files, email
- * addresses, locations in the same page, or anything else a URL can address.
- *
- * Key features.
- * - Inline element accepts child content.
- * - Supports anchor-specific attributes: `download`, `href`, `hreflang`, `ping`, `referrerpolicy`, `rel`, `target`,
- *   `type`.
- * - Supports global HTML attributes via {@see BaseInline}.
+ * Renders the HTML `<a>` element for hyperlinks.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Palpable\A;
- *
- * echo A::tag()
+ * echo \UIAwesome\Html\Palpable\A::tag()
  *     ->href('https://example.com')
  *     ->content('Visit Example');
  * ```

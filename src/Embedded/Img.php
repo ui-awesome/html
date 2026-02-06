@@ -21,24 +21,11 @@ use UIAwesome\Html\Embedded\Attribute\{HasElementtiming, HasIsmap};
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<img>` element for embedding images.
- *
- * Provides a concrete `<img>` element implementation that returns `Voids::IMG` and inherits void-level rendering and
- * global attribute support from {@see BaseVoid}.
- *
- * The `<img>` element embeds an image into the document.
- *
- * Key features.
- * - Supports global HTML attributes via {@see BaseVoid}.
- * - Supports image-specific attributes: `alt`, `src`, `srcset`, `sizes`, `width`, `height`, `loading`, `decoding`,
- *   `crossorigin`, `fetchpriority`, `referrerpolicy`, `ismap`, `usemap`, and `elementtiming`.
- * - Void element renders without end tag.
+ * Renders the HTML `<img>` element for embedding images.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Embedded\Img;
- *
- * echo Img::tag()
+ * echo \UIAwesome\Html\Embedded\Img::tag()
  *     ->src('image.jpg')
  *     ->alt('A beautiful landscape')
  *     ->width(800)

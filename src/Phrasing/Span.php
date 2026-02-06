@@ -8,23 +8,11 @@ use UIAwesome\Html\Core\Element\BaseInline;
 use UIAwesome\Html\Interop\{Inline, InlineInterface};
 
 /**
- * Represents the HTML `<span>` element for grouping inline content.
- *
- * Provides a concrete `<span>` element implementation that returns `Inline::SPAN` and inherits inline-level rendering
- * and global attribute support from {@see BaseInline}.
- *
- * The `<span>` element is a generic inline container for phrasing content, which does not inherently represent
- * anything. It should be used only when no other semantic element is appropriate.
- *
- * Key features.
- * - Inline element accepts child content.
- * - Supports global HTML attributes via {@see BaseInline}.
+ * Renders the HTML `<span>` element for generic inline content.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Flow\Span;
- *
- * echo Span::tag()
+ * echo \UIAwesome\Html\Phrasing\Span::tag()
  *     ->class('highlight')
  *     ->content('Highlighted text')
  *     ->render();

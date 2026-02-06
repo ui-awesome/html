@@ -8,22 +8,11 @@ use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<hr>` element for thematic breaks.
- *
- * Provides a concrete `<hr>` element implementation that returns `Voids::HR` and inherits void-level rendering and
- * global attribute support from {@see BaseVoid}.
- *
- * The `<hr>` element represents a thematic break between paragraph-level elements.
- *
- * Key features.
- * - Supports global HTML attributes via {@see BaseVoid}.
- * - Void element renders without end tag.
+ * Renders the HTML `<hr>` element for thematic breaks.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Flow\Hr;
- *
- * echo Hr::tag()
+ * echo \UIAwesome\Html\Flow\Hr::tag()
  *     ->class('divider')
  *     ->render();
  * ```

@@ -8,24 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, Lists};
 
 /**
- * Represents the HTML `<dt>` element for description terms.
- *
- * Provides a concrete `<dt>` element implementation that returns `Lists::DT` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<dt>` element specifies a term in a description or definition list, and as such must be used inside a `<dl>`
- * element. It is usually followed by a `<dd>` element.
- *
- * Key features.
- * - Container element accepts phrasing content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<dt>` element for description terms.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\List\Dt;
- *
- * echo Dt::tag()
+ * echo \UIAwesome\Html\List\Dt::tag()
  *     ->content('Term text')
  *     ->render();
  * ```

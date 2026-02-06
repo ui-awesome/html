@@ -10,35 +10,13 @@ use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
 
 /**
- * Represents the HTML `<base>` element for specifying the base URL and default target for relative URLs in a document.
- *
- * Provides a concrete `<base>` element implementation that returns `MetadataVoid::BASE` and inherits void-level
- * rendering and global attribute support from {@see BaseVoid}.
- *
- * The `<base>` element sets the base URL for all relative URLs and can specify a default target for hyperlinks and
- * forms. Only one `<base>` element is permitted per document, and it must appear inside the `<head>` element before any
- * other elements with URL attributes.
- *
- * Key features.
- * - Must be placed before other URL-dependent elements in `<head>`.
- * - Only one `<base>` element allowed per document.
- * - Supports base-specific attributes via helper methods (`href`, `target`).
- * - Void element renders without end tag.
+ * Renders the HTML `<base>` element for the document base URL and default navigation target.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Metadata\Base;
- *
- * echo Base::tag()
- *     ->href('https://example.com/')
- *     ->render();
- * echo Base::tag()
+ * echo \UIAwesome\Html\Metadata\Base::tag()
  *     ->href('https://example.com/')
  *     ->target('_blank')
- *     ->render();
- * echo Base::tag()
- *     ->href('/assets/')
- *     ->target(Target::BLANK)
  *     ->render();
  * ```
  *

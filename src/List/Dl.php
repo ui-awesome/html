@@ -9,25 +9,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, Lists};
 
 /**
- * Represents the HTML `<dl>` element for description lists.
- *
- * Provides a concrete `<dl>` element implementation that returns `Lists::DL` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<dl>` element represents a description list. The element encloses a list of groups of terms (specified using the
- * `<dt>` element) and descriptions (provided by `<dd>` elements).
- *
- * Key features.
- * - Container element accepts `<dt>` and `<dd>` child elements.
- * - Provides helper methods `dt()` and `dd()` for constructing valid description list markup.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<dl>` element for description lists.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\List\Dl;
- *
- * echo Dl::tag()
+ * echo \UIAwesome\Html\List\Dl::tag()
  *     ->class('my-list')
  *     ->dt('Term 1')
  *     ->dd('Description 1')
@@ -45,17 +31,15 @@ use UIAwesome\Html\Interop\{BlockInterface, Lists};
 final class Dl extends BaseBlock
 {
     /**
-     * Appends a `<dd>` element with the specified content to the description list.
+     * Appends a `<dd>` element to the description list.
      *
-     * Creates a new instance with a `<dd>` element appended to the content.
-     *
-     * @param string|Stringable $content Content to place inside the `<dd>` element.
+     * @param string|Stringable $content Content for the `<dd>` element.
      *
      * @return static New instance with the appended description details element.
      *
      * Usage example:
      * ```php
-     * $list = Dl::tag()
+     * $list = \UIAwesome\Html\List\Dl::tag()
      *     ->dd('Description text');
      * ```
      */
@@ -67,17 +51,15 @@ final class Dl extends BaseBlock
     }
 
     /**
-     * Appends a `<dt>` element with the specified content to the description list.
+     * Appends a `<dt>` element to the description list.
      *
-     * Creates a new instance with a `<dt>` element appended to the content.
-     *
-     * @param string|Stringable $content Content to place inside the `<dt>` element.
+     * @param string|Stringable $content Content for the `<dt>` element.
      *
      * @return static New instance with the appended description term element.
      *
      * Usage example:
      * ```php
-     * $list = Dl::tag()
+     * $list = \UIAwesome\Html\List\Dl::tag()
      *     ->dt('Term text');
      * ```
      */

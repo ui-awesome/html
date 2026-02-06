@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata\Values;
 
 /**
- * Represents values for the HTML `shadowrootmode` attribute.
+ * Represents tokens for the HTML `shadowrootmode` attribute.
  *
- * Defines the supported `shadowrootmode` tokens as enum cases.
- *
- * Key features.
- * - Enum values map to `'open'` and `'closed'` tokens.
+ * Usage example:
+ * ```php
+ * $mode = \UIAwesome\Html\Metadata\Values\ShadowRootMode::OPEN;
+ * echo $mode->value;
+ * ```
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#shadowrootmode
  *
@@ -20,12 +21,12 @@ namespace UIAwesome\Html\Metadata\Values;
 enum ShadowRootMode: string
 {
     /**
-     * Hides the internal shadow root DOM from JavaScript (`closed`).
+     * Represents the `closed` token.
      */
     case CLOSED = 'closed';
 
     /**
-     * Exposes the internal shadow root DOM for JavaScript (`open`).
+     * Represents the `open` token.
      */
     case OPEN = 'open';
 }
