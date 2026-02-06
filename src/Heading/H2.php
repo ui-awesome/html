@@ -8,24 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{Block, BlockInterface};
 
 /**
- * Represents the HTML `<h2>` element for section headings.
- *
- * Provides a concrete `<h2>` element implementation that returns `Block::H2` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<h2>` element represents the second level of section headings. `<h1>` is the highest section level and `<h6>` is
- * the lowest. By default, all heading elements create a block-level box in the layout.
- *
- * Key features.
- * - Accepts phrasing content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<h2>` element for second-level section headings.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Heading\H2;
- *
- * echo H2::tag()
+ * echo \UIAwesome\Html\Heading\H2::tag()
  *     ->class('section-title')
  *     ->content('Section Title')
  *     ->render();

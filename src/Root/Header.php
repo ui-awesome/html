@@ -8,25 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{Block, BlockInterface};
 
 /**
- * Represents the HTML `<header>` element for section header content.
- *
- * Provides a concrete `<header>` element implementation that returns `Block::HEADER` and inherits block-level rendering
- * and global attribute support from {@see BaseBlock}.
- *
- * The `<header>` element represents introductory content, typically a group of introductory or navigational aids.
- *
- * It may contain some heading elements but also a logo, a search form, an author name, and other elements.
- *
- * Key features.
- * - Container element accepts child content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<header>` element for section or page header content.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Root\Header;
- *
- * echo Header::tag()
+ * echo \UIAwesome\Html\Root\Header::tag()
  *     ->class('page-header')
  *     ->content('Welcome to the Site')
  *     ->render();

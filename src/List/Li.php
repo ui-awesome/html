@@ -9,25 +9,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, Lists};
 
 /**
- * Represents the HTML `<li>` element for list items.
- *
- * Provides a concrete `<li>` element implementation that returns `Lists::LI` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<li>` element is used to represent an item in a list. It must be contained in a parent element: an ordered list
- * (`<ol>`), an unordered list (`<ul>`), or a menu (`<menu>`).
- *
- * Key features.
- * - Container element accepts flow content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
- * - Supports the `value` attribute for ordered lists.
+ * Renders the HTML `<li>` element for list items.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\List\Li;
- *
- * echo Li::tag()
+ * echo \UIAwesome\Html\List\Li::tag()
  *     ->value(3)
  *     ->content('Third item')
  *     ->render();

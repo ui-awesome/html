@@ -8,24 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{Block, BlockInterface};
 
 /**
- * Represents the HTML `<aside>` element for tangentially related content.
+ * Renders the HTML `<aside>` element for tangentially related content.
  *
- * Provides a concrete `<aside>` element implementation that returns `Block::ASIDE` and inherits block-level rendering
- * and global attribute support from {@see BaseBlock}.
- *
- * The `<aside>` element represents a portion of a document whose content is only indirectly related to the document's
- * main content. Asides are frequently presented as sidebars or call-out boxes.
- *
- * Key features.
- * - Container element accepts child content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
- *
- * Usage example.
+ * Usage example:
  * ```php
- * use UIAwesome\Html\Sectioning\Aside;
- *
- * echo Aside::tag()
+ * echo \UIAwesome\Html\Sectioning\Aside::tag()
  *     ->class('sidebar')
  *     ->content('Sidebar content here')
  *     ->render();

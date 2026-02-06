@@ -5,14 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata\Attribute;
 
 /**
- * Trait for managing the HTML `shadowrootclonable` attribute in tag rendering.
- *
- * Provides an immutable API for setting the `shadowrootclonable` attribute on `<template>` elements.
- *
- * Key features.
- * - Handles the HTML `shadowrootclonable` attribute.
- * - Immutable method for setting or overriding the `shadowrootclonable` attribute.
- * - Supports bool for explicit shadow root cloning control.
+ * Provides an immutable API for the HTML `shadowrootclonable` attribute.
  *
  * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
  * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
@@ -25,12 +18,16 @@ namespace UIAwesome\Html\Metadata\Attribute;
 trait HasShadowRootClonable
 {
     /**
-     * Sets the HTML `shadowrootclonable` attribute for the element.
+     * Sets the `shadowrootclonable` attribute.
      *
-     * Creates a new instance with the specified clonable value. When `true`, the shadow root is clonable when the
-     * `<template>` element is cloned.
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Template::tag()
+     *     ->shadowRootClonable(true)
+     *     ->render();
+     * ```
      *
-     * @param bool $value Whether the shadow root should be clonable when the template is cloned.
+     * @param bool $value Whether to allow cloning the generated shadow root.
      *
      * @return static New instance with the updated `shadowrootclonable` attribute.
      */

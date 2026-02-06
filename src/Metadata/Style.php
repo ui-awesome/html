@@ -10,26 +10,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
 
 /**
- * Represents the HTML `<style>` element.
- *
- * Provides a concrete `<style>` element implementation that returns `MetadataBlock::STYLE` and inherits block-level
- * rendering and global attribute support from {@see BaseBlock}.
- *
- * The `<style>` element contains style information for a document.
- *
- * Key features.
- * - Container element accepts child content.
- * - Supports `<style>` specific attributes via helper methods.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
- * - Supports style-specific attributes via helper methods (`media`, `nonce`, `type`, `blocking`).
+ * Renders the HTML `<style>` element for embedded CSS rules.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Metadata\Style;
- *
- * echo Style::tag()
- *     ->media('screen')
+ * echo \UIAwesome\Html\Metadata\Style::tag()
  *     ->content('body { color: red; }')
  *     ->render();
  * ```

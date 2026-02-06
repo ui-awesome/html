@@ -8,24 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, Lists};
 
 /**
- * Represents the HTML `<dd>` element for description details.
- *
- * Provides a concrete `<dd>` element implementation that returns `Lists::DD` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<dd>` element provides the description, definition, or value for the preceding term (`<dt>`) in a description
- * list (`<dl>`).
- *
- * Key features.
- * - Container element accepts flow content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<dd>` element for description details.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\List\Dd;
- *
- * echo Dd::tag()
+ * echo \UIAwesome\Html\List\Dd::tag()
  *     ->content('Description text')
  *     ->render();
  * ```

@@ -18,33 +18,13 @@ use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
 use UIAwesome\Html\Metadata\Attribute\{HasAsync, HasDefer, HasNomodule};
 
 /**
- * Represents the HTML `<script>` element for embedding executable code.
- *
- * Provides a concrete `<script>` element implementation that returns `MetadataBlock::SCRIPT` and inherits block-level
- * rendering and global attribute support from {@see BaseBlock}.
- *
- * The `<script>` element is used to embed executable code or data, typically JavaScript.
- *
- * Key features.
- * - Container element accepts child content for inline scripts.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
- * - Supports script-specific attributes via helper methods (`async`, `defer`, `nomodule`, `src`, `type`, etc.).
+ * Renders the HTML `<script>` element for executable code or data blocks.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Metadata\Script;
- *
- * echo Script::tag()
+ * echo \UIAwesome\Html\Metadata\Script::tag()
  *     ->src('https://example.com/app.js')
  *     ->async(true)
- *     ->render();
- * echo Script::tag()
- *     ->content('console.log("Hello World!");')
- *     ->render();
- * echo Script::tag()
- *     ->src('https://example.com/module.js')
- *     ->type('module')
  *     ->render();
  * ```
  *

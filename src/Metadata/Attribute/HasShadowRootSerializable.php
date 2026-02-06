@@ -5,14 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata\Attribute;
 
 /**
- * Trait for managing the HTML `shadowrootserializable` attribute in tag rendering.
- *
- * Provides an immutable API for setting the `shadowrootserializable` attribute on `<template>` elements.
- *
- * Key features.
- * - Handles the HTML `shadowrootserializable` attribute.
- * - Immutable method for setting or overriding the `shadowrootserializable` attribute.
- * - Supports bool for explicit serialization control.
+ * Provides an immutable API for the HTML `shadowrootserializable` attribute.
  *
  * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
  * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
@@ -25,12 +18,16 @@ namespace UIAwesome\Html\Metadata\Attribute;
 trait HasShadowRootSerializable
 {
     /**
-     * Sets the HTML `shadowrootserializable` attribute for the element.
+     * Sets the `shadowrootserializable` attribute.
      *
-     * Creates a new instance with the specified serializable value. When `true`, the shadow root is serializable when
-     * the `<template>` element is serialized.
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Template::tag()
+     *     ->shadowRootSerializable(true)
+     *     ->render();
+     * ```
      *
-     * @param bool $value Whether the shadow root should be serializable when the template is serialized.
+     * @param bool $value Whether to allow serializing the generated shadow root.
      *
      * @return static New instance with the updated `shadowrootserializable` attribute.
      */

@@ -8,23 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, Root};
 
 /**
- * Represents the HTML `<body>` (body) element for document body content.
- *
- * Provides a concrete `<body>` element implementation that returns `Root::BODY` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<body>` element represents the contents of an HTML document.
- *
- * Key features.
- * - Container element accepts child content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<body>` element for document content.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Root\Body;
- *
- * echo Body::tag()
+ * echo \UIAwesome\Html\Root\Body::tag()
  *     ->class('app')
  *     ->content('value')
  *     ->render();

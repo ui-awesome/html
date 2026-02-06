@@ -9,24 +9,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{BlockInterface, Lists};
 
 /**
- * Represents the HTML `<ul>` element for unordered lists.
- *
- * Provides a concrete `<ul>` element implementation that returns `Lists::UL` and inherits block-level rendering and
- * global attribute support from {@see BaseBlock}.
- *
- * The `<ul>` element represents an unordered list of items, typically rendered as a bulleted list.
- *
- * Key features.
- * - Container element accepts `<li>` child elements.
- * - Provides helper methods `li()` and `items()` for constructing valid list markup.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<ul>` element for unordered lists.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\List\Ul;
- *
- * echo Ul::tag()
+ * echo \UIAwesome\Html\List\Ul::tag()
  *     ->class('my-list')
  *     ->items('First item', 'Second item', 'Third item')
  *     ->render();
@@ -41,17 +28,15 @@ use UIAwesome\Html\Interop\{BlockInterface, Lists};
 final class Ul extends BaseBlock
 {
     /**
-     * Appends multiple list items to the unordered list.
+     * Appends multiple `<li>` elements to the unordered list.
      *
-     * Creates a new instance with multiple `<li>` elements appended to the content.
-     *
-     * @param string|Stringable ...$items Variable number of items to add as list elements.
+     * @param string|Stringable ...$items Items to add as `<li>` elements.
      *
      * @return static New instance with the appended list items.
      *
      * Usage example:
      * ```php
-     * $list = Ul::tag()->items(
+     * $list = \UIAwesome\Html\List\Ul::tag()->items(
      *     'Apple',
      *     'Banana',
      *     'Cherry',
@@ -70,20 +55,16 @@ final class Ul extends BaseBlock
     }
 
     /**
-     * Appends a `<li>` element with the specified content to the unordered list.
+     * Appends a `<li>` element to the unordered list.
      *
-     * Creates a new instance with a `<li>` element appended to the content.
-     *
-     * @param string|Stringable $content Content to place inside the `<li>` element.
-     * @param int|string|null $value Optional ordinal value for the list item (only meaningful in ordered lists).
+     * @param string|Stringable $content Content for the `<li>` element.
+     * @param string|int|null $value Optional `value` attribute for the list item, or `null` to omit the attribute.
      *
      * @return static New instance with the appended list item.
      *
      * Usage example:
      * ```php
-     * $list = Ul::tag()
-     *     ->li('Item', 3);
-     * $list = Ul::tag()
+     * $list = \UIAwesome\Html\List\Ul::tag()
      *     ->li('First item')
      *     ->li('Second item');
      * ```

@@ -8,25 +8,11 @@ use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\{Block, BlockInterface};
 
 /**
- * Represents the HTML `<section>` element for generic standalone sections.
- *
- * Provides a concrete `<section>` element implementation that returns `Block::SECTION` and inherits block-level
- * rendering and global attribute support from {@see BaseBlock}.
- *
- * The `<section>` element represents a generic standalone section of a document, which doesn't have a more specific
- * semantic element to represent it. Sections should always have a heading, with very few exceptions. Examples include:
- * chapters, tabbed pages, content areas with headings, or distinct sections of a document.
- *
- * Key features.
- * - Container element accepts child content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
+ * Renders the HTML `<section>` element for standalone document sections.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Sectioning\Section;
- *
- * echo Section::tag()
+ * echo \UIAwesome\Html\Sectioning\Section::tag()
  *     ->class('content-section')
  *     ->content('Section content here')
  *     ->render();

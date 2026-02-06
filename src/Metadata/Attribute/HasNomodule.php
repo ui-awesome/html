@@ -5,14 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata\Attribute;
 
 /**
- * Trait for managing the HTML `nomodule` attribute in tag rendering.
- *
- * Provides an immutable API for setting the `nomodule` attribute on `<script>` elements.
- *
- * Key features.
- * - Handles the HTML `nomodule` attribute for script execution.
- * - Immutable method for setting or overriding the `nomodule` attribute.
- * - Supports bool for explicit module fallback control.
+ * Provides an immutable API for the HTML `nomodule` attribute.
  *
  * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
  * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
@@ -25,12 +18,17 @@ namespace UIAwesome\Html\Metadata\Attribute;
 trait HasNomodule
 {
     /**
-     * Sets the HTML `nomodule` attribute for the element.
+     * Sets the `nomodule` attribute.
      *
-     * Creates a new instance with the specified nomodule value. When `true`, the script should not be executed in
-     * browsers that support ES modules — in effect, this can be used to serve fallback scripts to older browsers.
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Script::tag()
+     *     ->src('/assets/legacy.js')
+     *     ->nomodule(true)
+     *     ->render();
+     * ```
      *
-     * @param bool $value Whether the script should not be executed as a module.
+     * @param bool $value Whether to prevent execution in browsers that support modules.
      *
      * @return static New instance with the updated `nomodule` attribute.
      */

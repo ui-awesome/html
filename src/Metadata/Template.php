@@ -15,25 +15,11 @@ use UIAwesome\Html\Metadata\Attribute\{
 };
 
 /**
- * Represents the HTML `<template>` element for inert HTML fragments.
- *
- * Provides a concrete `<template>` element implementation that returns `MetadataBlock::TEMPLATE` and inherits
- * block-level rendering and global attribute support from {@see BaseBlock}.
- *
- * The `<template>` element is used to hold HTML fragments for later use.
- *
- * Key features.
- * - Container element accepts child content.
- * - Supports `begin()`/`end()` rendering via {@see BaseBlock}.
- * - Supports global HTML attributes via {@see BaseBlock}.
- * - Supports template-specific attributes via helper methods (`shadowroot*`).
+ * Renders the HTML `<template>` element for inert HTML fragments.
  *
  * Usage example:
  * ```php
- * use UIAwesome\Html\Metadata\Template;
- *
- * echo Template::tag()
- *     ->id('productrow')
+ * echo \UIAwesome\Html\Metadata\Template::tag()
  *     ->html('<tr><td></td></tr>')
  *     ->render();
  * ```

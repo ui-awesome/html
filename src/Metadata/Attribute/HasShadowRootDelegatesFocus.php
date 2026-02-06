@@ -5,14 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata\Attribute;
 
 /**
- * Trait for managing the HTML `shadowrootdelegatesfocus` attribute in tag rendering.
- *
- * Provides an immutable API for setting the `shadowrootdelegatesfocus` attribute on `<template>` elements.
- *
- * Key features.
- * - Handles the HTML `shadowrootdelegatesfocus` attribute.
- * - Immutable method for setting or overriding the `shadowrootdelegatesfocus` attribute.
- * - Supports bool for explicit focus delegation control.
+ * Provides an immutable API for the HTML `shadowrootdelegatesfocus` attribute.
  *
  * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
  * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
@@ -25,12 +18,16 @@ namespace UIAwesome\Html\Metadata\Attribute;
 trait HasShadowRootDelegatesFocus
 {
     /**
-     * Sets the HTML `shadowrootdelegatesfocus` attribute for the element.
+     * Sets the `shadowrootdelegatesfocus` attribute.
      *
-     * Creates a new instance with the specified delegates focus value. When `true`, the shadow root delegates focus to
-     * the first focusable element within the shadow tree when the host element is focused.
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Template::tag()
+     *     ->shadowRootDelegatesFocus(true)
+     *     ->render();
+     * ```
      *
-     * @param bool $value Whether the shadow root should delegate focus to elements within the shadow tree.
+     * @param bool $value Whether to delegate focus into the generated shadow root.
      *
      * @return static New instance with the updated `shadowrootdelegatesfocus` attribute.
      */

@@ -5,14 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata\Attribute;
 
 /**
- * Trait for managing the HTML `async` attribute in tag rendering.
- *
- * Provides an immutable API for setting the `async` attribute on `<script>` elements.
- *
- * Key features.
- * - Handles the HTML `async` attribute for script execution.
- * - Immutable method for setting or overriding the `async` attribute.
- * - Supports bool for explicit async loading control.
+ * Provides an immutable API for the HTML `async` attribute.
  *
  * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
  * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
@@ -25,12 +18,17 @@ namespace UIAwesome\Html\Metadata\Attribute;
 trait HasAsync
 {
     /**
-     * Sets the HTML `async` attribute for the element.
+     * Sets the `async` attribute.
      *
-     * Creates a new instance with the specified async value. When `true`, the script will be fetched in parallel to
-     * parsing and evaluated as soon as it is available.
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Script::tag()
+     *     ->src('/assets/app.js')
+     *     ->async(true)
+     *     ->render();
+     * ```
      *
-     * @param bool $value Whether the script should be loaded asynchronously.
+     * @param bool $value Whether to execute the script asynchronously.
      *
      * @return static New instance with the updated `async` attribute.
      */

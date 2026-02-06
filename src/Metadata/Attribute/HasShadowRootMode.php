@@ -10,14 +10,7 @@ use UIAwesome\Html\Metadata\Values\ShadowRootMode;
 use UnitEnum;
 
 /**
- * Trait for managing the HTML `shadowrootmode` attribute in tag rendering.
- *
- * Provides an immutable API for setting the `shadowrootmode` attribute on `<template>` elements.
- *
- * Key features.
- * - Handles the HTML `shadowrootmode` attribute.
- * - Immutable method for setting or overriding the `shadowrootmode` attribute.
- * - Supports string, UnitEnum, and `null` for flexible mode assignment.
+ * Provides an immutable API for the HTML `shadowrootmode` attribute.
  *
  * @method static addAttribute(string|UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
  * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
@@ -30,13 +23,16 @@ use UnitEnum;
 trait HasShadowRootMode
 {
     /**
-     * Sets the HTML `shadowrootmode` attribute for the element.
+     * Sets the `shadowrootmode` attribute.
      *
-     * Creates a new instance with the specified shadow root mode value. Defines the mode of the shadow root created
-     * from this `<template>` element. When set to `open`, the shadow root is accessible via JavaScript; when set to
-     * `closed`, the internal shadow root DOM is hidden from JavaScript. Can be `null` to unset the attribute.
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Template::tag()
+     *     ->shadowRootMode(\UIAwesome\Html\Metadata\Values\ShadowRootMode::OPEN)
+     *     ->render();
+     * ```
      *
-     * @param string|UnitEnum|null $value Shadow root mode value to set for the element. Use `open` or `closed`.
+     * @param string|UnitEnum|null $value Shadow root mode (`open` or `closed`), or `null` to remove the attribute.
      *
      * @throws InvalidArgumentException if the provided value is not valid.
      *
