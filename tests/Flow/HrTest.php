@@ -24,7 +24,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Hr} rendering and global attribute behavior.
  *
  * Test coverage.
- * - Applies global and custom attributes, including aria-*, data-*, and enum-backed values.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.

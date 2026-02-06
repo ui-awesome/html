@@ -33,7 +33,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Script} `<script>` behavior.
  *
  * Test coverage.
- * - Applies `script`-specific attributes (`async`, `crossorigin`, `defer`, `fetchpriority`, `integrity`,
+ * - Applies `script`-specific attributes (`async`, `blocking`, `crossorigin`, `defer`, `fetchpriority`, `integrity`,
  *   `nomodule`, `referrerpolicy`, `src`, `type`) and renders expected output.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
