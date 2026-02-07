@@ -21,7 +21,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="week">` element.
+ * Renders the HTML `<input type="week">` element.
  *
  * The value uses the `yyyy-Www` format (for example, `2017-W01`).
  *

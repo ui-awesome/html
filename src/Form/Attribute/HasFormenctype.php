@@ -28,7 +28,8 @@ trait HasFormenctype
      * echo \UIAwesome\Html\Form\InputSubmit::tag()->formenctype('multipart/form-data')->render();
      * ```
      *
-     * @param string|Stringable|UnitEnum|null $value The encoding type for form submission.
+     * @param string|Stringable|UnitEnum|null $value Encoding type for form submission, or `null` to remove the
+     * attribute.
      *
      * @return static New instance with the updated `formenctype` attribute.
      */

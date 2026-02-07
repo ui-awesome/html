@@ -25,7 +25,7 @@ trait HasFormnovalidate
      * echo \UIAwesome\Html\Form\InputSubmit::tag()->formnovalidate(true)->render();
      * ```
      *
-     * @param bool|null $value Whether to bypass form validation.
+     * @param bool|null $value Whether to bypass form validation, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formnovalidate` attribute.
      */

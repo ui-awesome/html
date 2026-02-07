@@ -17,6 +17,9 @@
 - Enh #28: Add `InputRange` class for HTML `<input type="range">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #29: Add `InputPassword` class for HTML `<input type="password">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #30: Add `InputCheckbox` class for HTML `<input type="checkbox">` element with attributes and rendering capabilities (@terabytesoftw)
+- Bug #30: Update parameter descriptions to clarify usage for form attributes and input elements (@terabytesoftw)
+- Enh #31: Add `Label` class for HTML `<label>` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #32: Add `InputHidden` class for HTML `<input type="hidden">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 

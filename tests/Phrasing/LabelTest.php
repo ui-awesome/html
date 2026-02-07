@@ -2,28 +2,26 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Root;
+namespace UIAwesome\Html\Tests\Phrasing;
 
 use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
-    ContentEditable,
     Data,
     Direction,
-    Draggable,
     GlobalAttribute,
     Language,
     Role,
     Translate,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
-use UIAwesome\Html\Root\Footer;
+use UIAwesome\Html\Phrasing\Label;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Footer} root element behavior.
+ * Unit tests for {@see Label} inline phrasing behavior.
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
@@ -35,16 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('html')]
-#[Group('root')]
-final class FooterTest extends TestCase
+#[Group('phrasing')]
+final class LabelTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $footer = Footer::tag()->content('<value>');
+        $label = Label::tag()->content('<value>');
 
         self::assertSame(
             '&lt;value&gt;',
-            $footer->getContent(),
+            $label->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -53,7 +51,7 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             'default',
-            Footer::tag()->getAttribute('data-test', 'default'),
+            Label::tag()->getAttribute('data-test', 'default'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -62,7 +60,7 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Footer::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Label::tag()->addAttribute('data-test', 'value')->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -71,12 +69,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer>
-            <value>
-            </footer>
+            <label><value></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->html('<value>')->render(),
+                Label::tag()->html('<value>')->render(),
             ),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
@@ -86,11 +82,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer accesskey="k">
-            </footer>
+            <label accesskey="k"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->accesskey('k')->render(),
+                Label::tag()->accesskey('k')->render(),
             ),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +95,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer aria-pressed="true">
-            </footer>
+            <label aria-label="Label content"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->addAriaAttribute('pressed', true)->render(),
+                Label::tag()->addAriaAttribute('label', 'Label content')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,13 +108,12 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer aria-pressed="true">
-            </footer>
+            <label aria-hidden="true"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
+                Label::tag()->addAriaAttribute(Aria::HIDDEN, true)->render(),
             ),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
 
@@ -128,11 +121,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer data-test="value">
-            </footer>
+            <label data-test="value"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->addAttribute('data-test', 'value')->render(),
+                Label::tag()->addAttribute('data-test', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
@@ -142,11 +134,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer title="value">
-            </footer>
+            <label title="Label content"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
+                Label::tag()->addAttribute(GlobalAttribute::TITLE, 'Label content')->render(),
             ),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
@@ -156,11 +147,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer data-value="value">
-            </footer>
+            <label data-value="value"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->addDataAttribute('value', 'value')->render(),
+                Label::tag()->addDataAttribute('value', 'value')->render(),
             ),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -170,13 +160,12 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer data-value="value">
-            </footer>
+            <label data-value="value"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+                Label::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
             ),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
 
@@ -184,11 +173,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer aria-controls="modal-1" aria-hidden="false" aria-label="Close">
-            </footer>
+            <label aria-controls="modal-1" aria-hidden="false" aria-label="Close"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()
+                Label::tag()
                     ->ariaAttributes(
                         [
                             'controls' => static fn(): string => 'modal-1',
@@ -206,42 +194,12 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer class="value">
-            </footer>
+            <label class="value"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->attributes(['class' => 'value'])->render(),
+                Label::tag()->attributes(['class' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'attributes()' method.",
-        );
-    }
-
-    public function testRenderWithAutofocus(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <footer autofocus>
-            </footer>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Footer::tag()->autofocus(true)->render(),
-            ),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
-        );
-    }
-
-    public function testRenderWithBeginEnd(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <footer>
-            Content
-            </footer>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Footer::tag()->begin() . 'Content' . Footer::end(),
-            ),
-            "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
 
@@ -249,11 +207,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer class="value">
-            </footer>
+            <label class="value"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->class('value')->render(),
+                Label::tag()->class('value')->render(),
             ),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -263,42 +220,12 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer>
-            value
-            </footer>
+            <label>value</label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->content('value')->render(),
+                Label::tag()->content('value')->render(),
             ),
             'Failed asserting that element renders correctly with default values.',
-        );
-    }
-
-    public function testRenderWithContentEditable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <footer contenteditable="true">
-            </footer>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Footer::tag()->contentEditable(true)->render(),
-            ),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
-        );
-    }
-
-    public function testRenderWithContentEditableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <footer contenteditable="true">
-            </footer>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Footer::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
 
@@ -306,11 +233,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer data-value="value">
-            </footer>
+            <label data-value="value"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->dataAttributes(['value' => 'value'])->render(),
+                Label::tag()->dataAttributes(['value' => 'value'])->render(),
             ),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -320,11 +246,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer class="default-class">
-            </footer>
+            <label class="default-class"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag(['class' => 'default-class'])->render(),
+                Label::tag(['class' => 'default-class'])->render(),
             ),
             'Failed asserting that default configuration values are applied correctly.',
         );
@@ -334,13 +259,25 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer class="default-class" title="default-title">
-            </footer>
+            <label class="default-class" title="default-title"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+                Label::tag()->addDefaultProvider(DefaultProvider::class)->render(),
             ),
             'Failed asserting that default provider is applied correctly.',
+        );
+    }
+
+    public function testRenderWithDefaultValues(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <label></label>
+            HTML,
+            LineEndingNormalizer::normalize(
+                Label::tag()->render(),
+            ),
+            'Failed asserting that element renders correctly with default values.',
         );
     }
 
@@ -348,11 +285,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer dir="ltr">
-            </footer>
+            <label dir="ltr"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->dir('ltr')->render(),
+                Label::tag()->dir('ltr')->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -362,71 +298,53 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer dir="ltr">
-            </footer>
+            <label dir="ltr"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->dir(Direction::LTR)->render(),
+                Label::tag()->dir(Direction::LTR)->render(),
             ),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
 
-    public function testRenderWithDraggable(): void
+    public function testRenderWithFor(): void
     {
         self::assertSame(
             <<<HTML
-            <footer draggable="true">
-            </footer>
+            <label for="email"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->draggable(true)->render(),
+                Label::tag()->for('email')->render(),
             ),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
-        );
-    }
-
-    public function testRenderWithDraggableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <footer draggable="true">
-            </footer>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Footer::tag()->draggable(Draggable::TRUE)->render(),
-            ),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'for' attribute.",
         );
     }
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Footer::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(Label::class, ['class' => 'default-class']);
 
         self::assertSame(
             <<<HTML
-            <footer class="default-class">
-            </footer>
+            <label class="default-class"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->render(),
+                Label::tag()->render(),
             ),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Footer::class, []);
+        SimpleFactory::setDefaults(Label::class, []);
     }
 
     public function testRenderWithHidden(): void
     {
         self::assertSame(
             <<<HTML
-            <footer hidden>
-            </footer>
+            <label hidden></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->hidden(true)->render(),
+                Label::tag()->hidden(true)->render(),
             ),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -436,11 +354,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer id="test-id">
-            </footer>
+            <label id="test-id"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->id('test-id')->render(),
+                Label::tag()->id('test-id')->render(),
             ),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -450,11 +367,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer lang="es">
-            </footer>
+            <label lang="es"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->lang('es')->render(),
+                Label::tag()->lang('es')->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -464,33 +380,12 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer lang="es">
-            </footer>
+            <label lang="es"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->lang(Language::SPANISH)->render(),
+                Label::tag()->lang(Language::SPANISH)->render(),
             ),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
-        );
-    }
-
-    public function testRenderWithMicroData(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <footer itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </footer>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Footer::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
-            'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
 
@@ -498,11 +393,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer>
-            </footer>
+            <label></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()
+                Label::tag()
                     ->addAriaAttribute('label', 'Close')
                     ->removeAriaAttribute('label')
                     ->render(),
@@ -515,11 +409,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer>
-            </footer>
+            <label></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()
+                Label::tag()
                     ->addAttribute('data-test', 'value')
                     ->removeAttribute('data-test')
                     ->render(),
@@ -532,11 +425,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer>
-            </footer>
+            <label></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()
+                Label::tag()
                     ->addDataAttribute('value', 'test')
                     ->removeDataAttribute('value')
                     ->render(),
@@ -549,11 +441,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer role="contentinfo">
-            </footer>
+            <label role="button"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->role('contentinfo')->render(),
+                Label::tag()->role('button')->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
@@ -563,27 +454,12 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer role="contentinfo">
-            </footer>
+            <label role="button"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->role(Role::CONTENTINFO)->render(),
+                Label::tag()->role(Role::BUTTON)->render(),
             ),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
-        );
-    }
-
-    public function testRenderWithSpellcheck(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <footer spellcheck="true">
-            </footer>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Footer::tag()->spellcheck(true)->render(),
-            ),
-            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
 
@@ -591,27 +467,12 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer style='value'>
-            </footer>
+            <label style='color: red;'></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->style('value')->render(),
+                Label::tag()->style('color: red;')->render(),
             ),
             "Failed asserting that element renders correctly with 'style' attribute.",
-        );
-    }
-
-    public function testRenderWithTabindex(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <footer tabindex="3">
-            </footer>
-            HTML,
-            LineEndingNormalizer::normalize(
-                Footer::tag()->tabIndex(3)->render(),
-            ),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
 
@@ -619,11 +480,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer class="text-muted">
-            </footer>
+            <label class="text-muted"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+                Label::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             ),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -633,10 +493,11 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer title="value">
-            </footer>
+            <label title="value"></label>
             HTML,
-            Footer::tag()->title('value')->render(),
+            LineEndingNormalizer::normalize(
+                Label::tag()->title('value')->render(),
+            ),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -645,11 +506,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer>
-            </footer>
+            <label></label>
             HTML,
             LineEndingNormalizer::normalize(
-                (string) Footer::tag(),
+                (string) Label::tag(),
             ),
             "Failed asserting that '__toString()' method renders correctly.",
         );
@@ -659,11 +519,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer translate="no">
-            </footer>
+            <label translate="no"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->translate(false)->render(),
+                Label::tag()->translate(false)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
@@ -673,11 +532,10 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer translate="no">
-            </footer>
+            <label translate="no"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag()->translate(Translate::NO)->render(),
+                Label::tag()->translate(Translate::NO)->render(),
             ),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
@@ -685,19 +543,18 @@ final class FooterTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Footer::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(Label::class, ['class' => 'from-global', 'id' => 'id-global']);
 
         self::assertSame(
             <<<HTML
-            <footer class="from-global" id="id-user">
-            </footer>
+            <label class="from-global" id="id-user"></label>
             HTML,
             LineEndingNormalizer::normalize(
-                Footer::tag(['id' => 'id-user'])->render(),
+                Label::tag(['id' => 'id-user'])->render(),
             ),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Footer::class, []);
+        SimpleFactory::setDefaults(Label::class, []);
     }
 }

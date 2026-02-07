@@ -19,7 +19,7 @@ use UIAwesome\Html\Form\Attribute\{
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="submit">` element.
+ * Renders the HTML `<input type="submit">` element.
  *
  * Usage example:
  * ```php

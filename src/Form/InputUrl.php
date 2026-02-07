@@ -23,7 +23,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="url">` element for URL input.
+ * Renders the HTML `<input type="url">` element for URL input.
  *
  * The value uses the `https://` format (for example, `https://example.com`).
  *
