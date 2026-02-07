@@ -227,9 +227,9 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch-">
+            <input id="inputsearch-" type="search">
             HTML,
-            InputSearch::tag()->render(),
+            InputSearch::tag()->id('inputsearch-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }

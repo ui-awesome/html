@@ -226,9 +226,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-">
+            <input id="inputtime-" type="time">
             HTML,
-            InputTime::tag()->render(),
+            InputTime::tag()->id('inputtime-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }

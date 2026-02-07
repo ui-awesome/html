@@ -228,9 +228,9 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl-">
+            <input id="inputurl-" type="url">
             HTML,
-            InputUrl::tag()->render(),
+            InputUrl::tag()->id('inputurl-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }

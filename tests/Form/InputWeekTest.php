@@ -226,9 +226,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-">
+            <input id="inputweek-" type="week">
             HTML,
-            InputWeek::tag()->render(),
+            InputWeek::tag()->id('inputweek-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }

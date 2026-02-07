@@ -228,9 +228,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-">
+            <input id="inputtel-" type="tel">
             HTML,
-            InputTel::tag()->render(),
+            InputTel::tag()->id('inputtel-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }

@@ -204,9 +204,9 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit-">
+            <input id="inputsubmit-" type="submit">
             HTML,
-            InputSubmit::tag()->render(),
+            InputSubmit::tag()->id('inputsubmit-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }

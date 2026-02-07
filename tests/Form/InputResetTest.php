@@ -204,9 +204,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-">
+            <input id="inputreset-" type="reset">
             HTML,
-            InputReset::tag()->render(),
+            InputReset::tag()->id('inputreset-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }

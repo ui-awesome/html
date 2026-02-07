@@ -226,9 +226,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange-">
+            <input id="inputrange-" type="range">
             HTML,
-            InputRange::tag()->render(),
+            InputRange::tag()->id('inputrange-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }

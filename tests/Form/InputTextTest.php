@@ -227,9 +227,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext-">
+            <input id="inputtext-" type="text">
             HTML,
-            InputText::tag()->render(),
+            InputText::tag()->id('inputtext-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
