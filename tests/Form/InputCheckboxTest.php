@@ -61,7 +61,6 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
-
     public function testRenderLabelClassOverridesTrue(): void
     {
         self::assertSame(
