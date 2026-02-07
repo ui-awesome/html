@@ -358,12 +358,14 @@ final class InputCheckboxTest extends TestCase
             </label>
             </div>
             HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id('inputcheckbox-')
-                ->label('Red')
-                ->template('<div class="wrapper">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
-                ->render(),
+            LineEndingNormalizer::normalize(
+                InputCheckbox::tag()
+                    ->enclosedByLabel(true)
+                    ->id('inputcheckbox-')
+                    ->label('Red')
+                    ->template('<div class="wrapper">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                    ->render(),
+            ),
         );
     }
 
