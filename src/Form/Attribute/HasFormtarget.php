@@ -28,7 +28,8 @@ trait HasFormtarget
      * echo \UIAwesome\Html\Form\InputSubmit::tag()->formtarget('_blank')->render();
      * ```
      *
-     * @param string|Stringable|UnitEnum|null $value The browsing context for form submission response.
+     * @param string|Stringable|UnitEnum|null $value Browsing context for form submission response, or `null` to remove
+     * the attribute.
      *
      * @return static New instance with the updated `formtarget` attribute.
      */

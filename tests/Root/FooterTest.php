@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Flow;
+namespace UIAwesome\Html\Tests\Root;
 
 use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
@@ -35,7 +35,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('html')]
-#[Group('flow')]
+#[Group('root')]
 final class FooterTest extends TestCase
 {
     public function testContentEncodesValues(): void

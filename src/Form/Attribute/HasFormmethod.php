@@ -28,7 +28,7 @@ trait HasFormmethod
      * echo \UIAwesome\Html\Form\InputSubmit::tag()->formmethod('post')->render();
      * ```
      *
-     * @param string|Stringable|UnitEnum|null $value The HTTP method for form submission.
+     * @param string|Stringable|UnitEnum|null $value HTTP method for form submission, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formmethod` attribute.
      */

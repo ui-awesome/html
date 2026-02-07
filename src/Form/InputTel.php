@@ -23,7 +23,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="tel">` element for telephone number input.
+ * Renders the HTML `<input type="tel">` element for telephone number input.
  *
  * The value uses the `tel` format (for example, `123-456-7890`).
  *

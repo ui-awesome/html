@@ -11,7 +11,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="reset">` element.
+ * Renders the HTML `<input type="reset">` element.
  *
  * The `<input type="reset">` defines a button that resets all form values to their initial values.
  *

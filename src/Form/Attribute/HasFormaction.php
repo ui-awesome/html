@@ -28,7 +28,7 @@ trait HasFormaction
      * echo \UIAwesome\Html\Form\InputSubmit::tag()->formaction('/submit')->render();
      * ```
      *
-     * @param string|Stringable|UnitEnum|null $value The URL for form submission.
+     * @param string|Stringable|UnitEnum|null $value URL for form submission, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formaction` attribute.
      */
