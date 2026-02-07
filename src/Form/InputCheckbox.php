@@ -16,8 +16,8 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
 /**
  * Represents the HTML `<input type="checkbox">` element.
  *
- * The checkbox is a graphical control element that allows the user to choose one or more options from a predefined set
- * of mutually exclusive options.
+ * The checkbox is a graphical control element that allows the user to select or deselect one or more independent
+ * options.
  *
  * Usage example:
  * ```php
