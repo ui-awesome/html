@@ -226,10 +226,13 @@ final class InputUrlTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputUrl::tag()->render();
-
-        self::assertStringContainsString('type="url"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputurl-" type="url">
+            HTML,
+            InputUrl::tag()->id('inputurl-')->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void

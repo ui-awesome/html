@@ -225,10 +225,13 @@ final class InputTextTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputText::tag()->render();
-
-        self::assertStringContainsString('type="text"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputtext-" type="text">
+            HTML,
+            InputText::tag()->id('inputtext-')->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void

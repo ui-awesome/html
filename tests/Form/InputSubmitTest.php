@@ -202,10 +202,13 @@ final class InputSubmitTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputSubmit::tag()->render();
-
-        self::assertStringContainsString('type="submit"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputsubmit-" type="submit">
+            HTML,
+            InputSubmit::tag()->id('inputsubmit-')->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void

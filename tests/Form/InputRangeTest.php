@@ -9,33 +9,33 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
-use UIAwesome\Html\Form\InputWeek;
+use UIAwesome\Html\Form\InputRange;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see InputWeek} week input behavior.
+ * Unit tests for {@see InputRange} range input behavior.
  *
  * Test coverage.
- * - Applies input-week-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `max`, `min`,
- *   `name`, `readonly`, `required`, `step`, `tabindex`, `value`) and renders expected output.
+ * - Applies input-range-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `max`, `min`,
+ *   `name`, `step`, `tabindex`, `value`) and renders expected output.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
- * {@see InputWeek} for the base implementation.
+ * {@see InputRange} for the base implementation.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('html')]
 #[Group('form')]
-final class InputWeekTest extends TestCase
+final class InputRangeTest extends TestCase
 {
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
             'default',
-            InputWeek::tag()->getAttribute('data-test', 'default'),
+            InputRange::tag()->getAttribute('data-test', 'default'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -44,9 +44,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" accesskey="k">
+            <input id="inputrange-" type="range" accesskey="k">
             HTML,
-            InputWeek::tag()->id('inputweek-')->accesskey('k')->render(),
+            InputRange::tag()->id('inputrange-')->accesskey('k')->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -55,9 +55,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" aria-label="Week selector">
+            <input id="inputrange-" type="range" aria-label="Range selector">
             HTML,
-            InputWeek::tag()->id('inputweek-')->addAriaAttribute('label', 'Week selector')->render(),
+            InputRange::tag()->id('inputrange-')->addAriaAttribute('label', 'Range selector')->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -66,9 +66,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" aria-hidden="true">
+            <input id="inputrange-" type="range" aria-hidden="true">
             HTML,
-            InputWeek::tag()->id('inputweek-')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputRange::tag()->id('inputrange-')->addAriaAttribute(Aria::HIDDEN, true)->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -77,9 +77,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" data-test="value">
+            <input id="inputrange-" type="range" data-test="value">
             HTML,
-            InputWeek::tag()->id('inputweek-')->addAttribute('data-test', 'value')->render(),
+            InputRange::tag()->id('inputrange-')->addAttribute('data-test', 'value')->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -88,9 +88,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" title="Select week">
+            <input id="inputrange-" type="range" title="Select range">
             HTML,
-            InputWeek::tag()->id('inputweek-')->addAttribute(GlobalAttribute::TITLE, 'Select week')->render(),
+            InputRange::tag()->id('inputrange-')->addAttribute(GlobalAttribute::TITLE, 'Select range')->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -99,9 +99,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" data-week="value">
+            <input id="inputrange-" type="range" data-range="value">
             HTML,
-            InputWeek::tag()->id('inputweek-')->addDataAttribute('week', 'value')->render(),
+            InputRange::tag()->id('inputrange-')->addDataAttribute('range', 'value')->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -110,9 +110,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" data-value="test">
+            <input id="inputrange-" type="range" data-value="test">
             HTML,
-            InputWeek::tag()->id('inputweek-')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputRange::tag()->id('inputrange-')->addDataAttribute(Data::VALUE, 'test')->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -121,13 +121,13 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" aria-controls="week-picker" aria-label="Select a week">
+            <input id="inputrange-" type="range" aria-controls="range-picker" aria-label="Select a range">
             HTML,
-            InputWeek::tag()
-                ->id('inputweek-')
+            InputRange::tag()
+                ->id('inputrange-')
                 ->ariaAttributes([
-                    'controls' => 'week-picker',
-                    'label' => 'Select a week',
+                    'controls' => 'range-picker',
+                    'label' => 'Select a range',
                 ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
@@ -138,9 +138,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="week-input" id="inputweek-" type="week">
+            <input class="range-input" id="inputrange-" type="range">
             HTML,
-            InputWeek::tag()->id('inputweek-')->attributes(['class' => 'week-input'])->render(),
+            InputRange::tag()->id('inputrange-')->attributes(['class' => 'range-input'])->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -149,9 +149,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" autocomplete="on">
+            <input id="inputrange-" type="range" autocomplete="on">
             HTML,
-            InputWeek::tag()->autocomplete('on')->id('inputweek-')->render(),
+            InputRange::tag()->autocomplete('on')->id('inputrange-')->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -160,9 +160,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" autocomplete="on">
+            <input id="inputrange-" type="range" autocomplete="on">
             HTML,
-            InputWeek::tag()->autocomplete(Autocomplete::ON)->id('inputweek-')->render(),
+            InputRange::tag()->autocomplete(Autocomplete::ON)->id('inputrange-')->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -171,9 +171,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" autofocus>
+            <input id="inputrange-" type="range" autofocus>
             HTML,
-            InputWeek::tag()->autofocus(true)->id('inputweek-')->render(),
+            InputRange::tag()->autofocus(true)->id('inputrange-')->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -182,9 +182,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="week-input" id="inputweek-" type="week">
+            <input class="range-input" id="inputrange-" type="range">
             HTML,
-            InputWeek::tag()->id('inputweek-')->class('week-input')->render(),
+            InputRange::tag()->id('inputrange-')->class('range-input')->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -193,9 +193,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" data-week="value">
+            <input id="inputrange-" type="range" data-range="value">
             HTML,
-            InputWeek::tag()->id('inputweek-')->dataAttributes(['week' => 'value'])->render(),
+            InputRange::tag()->id('inputrange-')->dataAttributes(['range' => 'value'])->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -204,9 +204,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputweek-" type="week">
+            <input class="default-class" id="inputrange-" type="range">
             HTML,
-            InputWeek::tag(['class' => 'default-class'])->id('inputweek-')->render(),
+            InputRange::tag(['class' => 'default-class'])->id('inputrange-')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -215,9 +215,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputweek-" type="week" title="default-title">
+            <input class="default-class" id="inputrange-" type="range" title="default-title">
             HTML,
-            InputWeek::tag()->id('inputweek-')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputRange::tag()->id('inputrange-')->addDefaultProvider(DefaultProvider::class)->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -226,9 +226,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week">
+            <input id="inputrange-" type="range">
             HTML,
-            InputWeek::tag()->id('inputweek-')->render(),
+            InputRange::tag()->id('inputrange-')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -237,9 +237,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" dir="ltr">
+            <input id="inputrange-" type="range" dir="ltr">
             HTML,
-            InputWeek::tag()->id('inputweek-')->dir('ltr')->render(),
+            InputRange::tag()->id('inputrange-')->dir('ltr')->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -248,9 +248,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" dir="ltr">
+            <input id="inputrange-" type="range" dir="ltr">
             HTML,
-            InputWeek::tag()->id('inputweek-')->dir(Direction::LTR)->render(),
+            InputRange::tag()->id('inputrange-')->dir(Direction::LTR)->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -259,9 +259,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" disabled>
+            <input id="inputrange-" type="range" disabled>
             HTML,
-            InputWeek::tag()->id('inputweek-')->disabled(true)->render(),
+            InputRange::tag()->id('inputrange-')->disabled(true)->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -270,33 +270,33 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" form="form-id">
+            <input id="inputrange-" type="range" form="form-id">
             HTML,
-            InputWeek::tag()->form('form-id')->id('inputweek-')->render(),
+            InputRange::tag()->form('form-id')->id('inputrange-')->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputWeek::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(InputRange::class, ['class' => 'default-class']);
 
         self::assertStringContainsString(
             'class="default-class"',
-            InputWeek::tag()->render(),
+            InputRange::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputWeek::class, []);
+        SimpleFactory::setDefaults(InputRange::class, []);
     }
 
     public function testRenderWithHidden(): void
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" hidden>
+            <input id="inputrange-" type="range" hidden>
             HTML,
-            InputWeek::tag()->id('inputweek-')->hidden(true)->render(),
+            InputRange::tag()->id('inputrange-')->hidden(true)->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -305,9 +305,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="week-input" type="week">
+            <input id="range-input" type="range">
             HTML,
-            InputWeek::tag()->id('week-input')->render(),
+            InputRange::tag()->id('range-input')->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -316,9 +316,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" lang="en">
+            <input id="inputrange-" type="range" lang="en">
             HTML,
-            InputWeek::tag()->id('inputweek-')->lang('en')->render(),
+            InputRange::tag()->id('inputrange-')->lang('en')->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -327,9 +327,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" lang="en">
+            <input id="inputrange-" type="range" lang="en">
             HTML,
-            InputWeek::tag()->id('inputweek-')->lang(Language::ENGLISH)->render(),
+            InputRange::tag()->id('inputrange-')->lang(Language::ENGLISH)->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -338,9 +338,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" list="weeks">
+            <input id="inputrange-" type="range" list="ranges">
             HTML,
-            InputWeek::tag()->id('inputweek-')->list('weeks')->render(),
+            InputRange::tag()->id('inputrange-')->list('ranges')->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -349,9 +349,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" max="2018-W26">
+            <input id="inputrange-" type="range" max="100">
             HTML,
-            InputWeek::tag()->id('inputweek-')->max('2018-W26')->render(),
+            InputRange::tag()->id('inputrange-')->max(100)->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
         );
     }
@@ -360,9 +360,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" min="2018-W18">
+            <input id="inputrange-" type="range" min="10">
             HTML,
-            InputWeek::tag()->id('inputweek-')->min('2018-W18')->render(),
+            InputRange::tag()->id('inputrange-')->min(10)->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
         );
     }
@@ -371,12 +371,12 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" min="2018-W01" max="2018-W52">
+            <input id="inputrange-" type="range" min="10" max="100">
             HTML,
-            InputWeek::tag()
-                ->id('inputweek-')
-                ->min('2018-W01')
-                ->max('2018-W52')
+            InputRange::tag()
+                ->id('inputrange-')
+                ->min(10)
+                ->max(100)
                 ->render(),
             "Failed asserting that element renders correctly with both 'min' and 'max' attributes.",
         );
@@ -386,21 +386,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" name="camp-week" type="week">
+            <input id="inputrange-" name="volume" type="range">
             HTML,
-            InputWeek::tag()->id('inputweek-')->name('camp-week')->render(),
+            InputRange::tag()->id('inputrange-')->name('volume')->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
-        );
-    }
-
-    public function testRenderWithReadonly(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek-" type="week" readonly>
-            HTML,
-            InputWeek::tag()->id('inputweek-')->readonly(true)->render(),
-            "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
 
@@ -408,10 +397,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week">
+            <input id="inputrange-" type="range">
             HTML,
-            InputWeek::tag()
-                ->id('inputweek-')
+            InputRange::tag()
+                ->id('inputrange-')
                 ->addAriaAttribute('label', 'Close')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -423,10 +412,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week">
+            <input id="inputrange-" type="range">
             HTML,
-            InputWeek::tag()
-                ->id('inputweek-')
+            InputRange::tag()
+                ->id('inputrange-')
                 ->addAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
@@ -438,10 +427,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week">
+            <input id="inputrange-" type="range">
             HTML,
-            InputWeek::tag()
-                ->id('inputweek-')
+            InputRange::tag()
+                ->id('inputrange-')
                 ->addDataAttribute('value', 'test')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -449,24 +438,13 @@ final class InputWeekTest extends TestCase
         );
     }
 
-    public function testRenderWithRequired(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek-" type="week" required>
-            HTML,
-            InputWeek::tag()->id('inputweek-')->required(true)->render(),
-            "Failed asserting that element renders correctly with 'required' attribute.",
-        );
-    }
-
     public function testRenderWithRole(): void
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" role="textbox">
+            <input id="inputrange-" type="range" role="slider">
             HTML,
-            InputWeek::tag()->id('inputweek-')->role('textbox')->render(),
+            InputRange::tag()->id('inputrange-')->role('slider')->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -475,9 +453,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" role="textbox">
+            <input id="inputrange-" type="range" role="slider">
             HTML,
-            InputWeek::tag()->id('inputweek-')->role(Role::TEXTBOX)->render(),
+            InputRange::tag()->id('inputrange-')->role(Role::SLIDER)->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -486,9 +464,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" step="2">
+            <input id="inputrange-" type="range" step="2">
             HTML,
-            InputWeek::tag()->id('inputweek-')->step(2)->render(),
+            InputRange::tag()->id('inputrange-')->step(2)->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
         );
     }
@@ -497,9 +475,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" step="any">
+            <input id="inputrange-" type="range" step="any">
             HTML,
-            InputWeek::tag()->id('inputweek-')->step('any')->render(),
+            InputRange::tag()->id('inputrange-')->step('any')->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
         );
     }
@@ -508,9 +486,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" style='width: 200px;'>
+            <input id="inputrange-" type="range" style='width: 200px;'>
             HTML,
-            InputWeek::tag()->id('inputweek-')->style('width: 200px;')->render(),
+            InputRange::tag()->id('inputrange-')->style('width: 200px;')->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -519,9 +497,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" tabindex="1">
+            <input id="inputrange-" type="range" tabindex="1">
             HTML,
-            InputWeek::tag()->id('inputweek-')->tabIndex(1)->render(),
+            InputRange::tag()->id('inputrange-')->tabIndex(1)->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -530,9 +508,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputweek-" type="week">
+            <input class="text-muted" id="inputrange-" type="range">
             HTML,
-            InputWeek::tag()->id('inputweek-')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputRange::tag()->id('inputrange-')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -541,9 +519,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" title="Select a week">
+            <input id="inputrange-" type="range" title="Select a range">
             HTML,
-            InputWeek::tag()->id('inputweek-')->title('Select a week')->render(),
+            InputRange::tag()->id('inputrange-')->title('Select a range')->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -551,8 +529,8 @@ final class InputWeekTest extends TestCase
     public function testRenderWithToString(): void
     {
         self::assertStringContainsString(
-            'type="week"',
-            LineEndingNormalizer::normalize((string) InputWeek::tag()),
+            'type="range"',
+            LineEndingNormalizer::normalize((string) InputRange::tag()),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -561,9 +539,9 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" translate="no">
+            <input id="inputrange-" type="range" translate="no">
             HTML,
-            InputWeek::tag()->id('inputweek-')->translate(false)->render(),
+            InputRange::tag()->id('inputrange-')->translate(false)->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -572,32 +550,32 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" translate="no">
+            <input id="inputrange-" type="range" translate="no">
             HTML,
-            InputWeek::tag()->id('inputweek-')->translate(Translate::NO)->render(),
+            InputRange::tag()->id('inputrange-')->translate(Translate::NO)->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputWeek::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(InputRange::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputWeek::tag(['id' => 'id-user'])->render();
+        $output = InputRange::tag(['id' => 'id-user'])->render();
 
         self::assertStringContainsString('class="from-global"', $output);
         self::assertStringContainsString('id="id-user"', $output);
 
-        SimpleFactory::setDefaults(InputWeek::class, []);
+        SimpleFactory::setDefaults(InputRange::class, []);
     }
 
     public function testRenderWithValue(): void
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek-" type="week" value="2017-W01">
+            <input id="inputrange-" type="range" value="50">
             HTML,
-            InputWeek::tag()->id('inputweek-')->value('2017-W01')->render(),
+            InputRange::tag()->id('inputrange-')->value(50)->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

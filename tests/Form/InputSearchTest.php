@@ -225,10 +225,13 @@ final class InputSearchTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputSearch::tag()->render();
-
-        self::assertStringContainsString('type="search"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputsearch-" type="search">
+            HTML,
+            InputSearch::tag()->id('inputsearch-')->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void
