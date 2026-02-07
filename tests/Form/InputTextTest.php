@@ -207,7 +207,7 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputtext-" type="text">
             HTML,
-            InputText::tag()->id('inputtext-')->attributes(['class' => 'default-class'])->render(),
+            InputText::tag(['class' => 'default-class'])->id('inputtext-')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }

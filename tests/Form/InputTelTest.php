@@ -208,7 +208,7 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputtel-" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel-')->attributes(['class' => 'default-class'])->render(),
+            InputTel::tag(['class' => 'default-class'])->id('inputtel-')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }

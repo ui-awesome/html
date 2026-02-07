@@ -208,7 +208,7 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputurl-" type="url">
             HTML,
-            InputUrl::tag()->id('inputurl-')->attributes(['class' => 'default-class'])->render(),
+            InputUrl::tag(['class' => 'default-class'])->id('inputurl-')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }

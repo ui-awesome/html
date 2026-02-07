@@ -206,7 +206,7 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputweek-" type="week">
             HTML,
-            InputWeek::tag()->id('inputweek-')->attributes(['class' => 'default-class'])->render(),
+            InputWeek::tag(['class' => 'default-class'])->id('inputweek-')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
