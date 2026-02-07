@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\LineEndingNormalizer;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -351,11 +352,13 @@ final class InputCheckboxTest extends TestCase
             Label
             </label>
             HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id('inputcheckbox-')
-                ->label('Label')
-                ->render(),
+            LineEndingNormalizer::normalize(
+                InputCheckbox::tag()
+                    ->enclosedByLabel(true)
+                    ->id('inputcheckbox-')
+                    ->label('Label')
+                    ->render(),
+            ),
         );
     }
 
@@ -381,12 +384,14 @@ final class InputCheckboxTest extends TestCase
             Label
             </label>
             HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id('inputcheckbox-')
-                ->label('Label')
-                ->labelFor('label-for')
-                ->render(),
+            LineEndingNormalizer::normalize(
+                InputCheckbox::tag()
+                    ->enclosedByLabel(true)
+                    ->id('inputcheckbox-')
+                    ->label('Label')
+                    ->labelFor('label-for')
+                    ->render(),
+            ),
         );
     }
 
