@@ -16,6 +16,7 @@
 - Enh #27: Add `InputReset` class for HTML `<input type="reset">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #28: Add `InputRange` class for HTML `<input type="range">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #29: Add `InputPassword` class for HTML `<input type="password">` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #30: Add `InputCheckbox` class for HTML `<input type="checkbox">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
