@@ -24,7 +24,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="search">` element.
+ * Renders the HTML `<input type="search">` element.
  *
  * The `<input type="search">` element is a text field for entering search strings.
  *

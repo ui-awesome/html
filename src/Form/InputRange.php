@@ -19,7 +19,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="range">` element.
+ * Renders the HTML `<input type="range">` element.
  *
  * The `<input type="range">` element lets the user specify a numeric value which must be no less than a given value,
  * and no more than another given value.

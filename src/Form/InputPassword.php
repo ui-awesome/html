@@ -22,7 +22,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="password">` element.
+ * Renders the HTML `<input type="password">` element.
  *
  * The element is presented as a one-line plain text editor control in which the text is obscured so that it cannot be
  * read, usually by replacing each character with a symbol such as the asterisk ("*") or a dot ("•").

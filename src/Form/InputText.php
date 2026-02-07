@@ -24,7 +24,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="text">` element.
+ * Renders the HTML `<input type="text">` element.
  *
  * The value uses the `text` format (for example, `Hello World`).
  *

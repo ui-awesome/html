@@ -33,7 +33,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('html')]
-#[Group('flow')]
+#[Group('phrasing')]
 final class ITest extends TestCase
 {
     public function testContentEncodesValues(): void

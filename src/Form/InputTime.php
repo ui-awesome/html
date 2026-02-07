@@ -21,7 +21,7 @@ use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
- * Represents the HTML `<input type="time">` element.
+ * Renders the HTML `<input type="time">` element.
  *
  * The value uses the `hh:mm` format (for example, `14:30`).
  *
