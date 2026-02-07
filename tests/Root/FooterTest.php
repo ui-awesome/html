@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Flow;
+namespace UIAwesome\Html\Tests\Root;
 
 use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
