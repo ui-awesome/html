@@ -402,6 +402,40 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
+    public function testRenderWithEnclosedByLabelIsIdempotent(): void
+    {
+        $checkbox = InputCheckbox::tag()
+            ->enclosedByLabel(true)
+            ->id('inputcheckbox-')
+            ->label('Label');
+
+        $first = $checkbox->render();
+        $second = $checkbox->render();
+
+        self::assertSame(
+            $first,
+            $second,
+            'Rendering the same instance twice should produce identical output.',
+        );
+    }
+
+    public function testRenderWithEnclosedByLabelWithoutId(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <label>
+            <input type="checkbox">
+            Red
+            </label>
+            HTML,
+            InputCheckbox::tag()
+                ->enclosedByLabel(true)
+                ->id(null)
+                ->label('Red')
+                ->render(),
+        );
+    }
+
     public function testRenderWithForm(): void
     {
         self::assertSame(
