@@ -382,9 +382,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden-" type="hidden" role="textbox">
+            <input id="inputhidden-" type="hidden" role="presentation">
             HTML,
-            InputHidden::tag()->id('inputhidden-')->role('textbox')->render(),
+            InputHidden::tag()->id('inputhidden-')->role('presentation')->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -393,9 +393,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden-" type="hidden" role="textbox">
+            <input id="inputhidden-" type="hidden" role="presentation">
             HTML,
-            InputHidden::tag()->id('inputhidden-')->role(Role::TEXTBOX)->render(),
+            InputHidden::tag()->id('inputhidden-')->role(Role::PRESENTATION)->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
