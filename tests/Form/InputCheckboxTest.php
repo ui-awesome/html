@@ -428,11 +428,13 @@ final class InputCheckboxTest extends TestCase
             Red
             </label>
             HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id(null)
-                ->label('Red')
-                ->render(),
+            LineEndingNormalizer::normalize(
+                InputCheckbox::tag()
+                    ->enclosedByLabel(true)
+                    ->id(null)
+                    ->label('Red')
+                    ->render(),
+            ),
         );
     }
 
