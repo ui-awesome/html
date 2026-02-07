@@ -13,6 +13,8 @@ use UIAwesome\Html\Core\Html;
 use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, HasLabel};
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
+use function str_replace;
+
 /**
  * Represents the HTML `<input type="checkbox">` element.
  *
@@ -87,15 +89,17 @@ final class InputCheckbox extends BaseInput
 
             $labelAttributes = $this->labelAttributes;
 
-            if (isset($this->attributes['id']) && !isset($labelAttributes['for'])) {
+            if (isset($this->attributes['id']) && isset($labelAttributes['for']) === false) {
                 $labelAttributes['for'] = $this->attributes['id'];
             }
 
             $label = Html::element($this->labelTag, $labelContent, $labelAttributes);
 
-            $this->template = '{prefix}\n{label_enclosed}\n{suffix}';
+            $new = clone $this;
 
-            return $this->buildElement('', ['{label_enclosed}' => $label]);
+            $new->template = str_replace('{tag}', '{label_enclosed}', $this->template);
+
+            return $new->buildElement('', ['{label_enclosed}' => $label, '{label}' => '']);
         }
 
         return $this->buildElement('', ['{label}' => $this->renderLabelTag()]);
