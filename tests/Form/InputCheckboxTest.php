@@ -341,6 +341,7 @@ final class InputCheckboxTest extends TestCase
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
+
     public function testRenderWithEnclosedByLabel(): void
     {
         self::assertSame(
