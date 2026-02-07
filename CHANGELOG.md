@@ -12,6 +12,7 @@
 - Enh #23: Add `InputText` class for HTML `<input type="text">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #24: Add `InputTel` class for HTML `<input type="tel">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #25: Add `InputSubmit` class for HTML `<input type="submit">` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #26: Add `InputSearch` class for HTML `<input type="search">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
