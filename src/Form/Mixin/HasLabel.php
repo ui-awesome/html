@@ -184,7 +184,7 @@ trait HasLabel
      *
      * @return string The rendered label tag.
      */
-    protected function renderLabelTag(): string
+    private function renderLabelTag(): string
     {
         if ($this->notLabel || $this->label === '') {
             return '';

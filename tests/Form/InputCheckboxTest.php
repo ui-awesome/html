@@ -45,6 +45,39 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
+    public function testRenderLabelClassOverridesFalse(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox-" type="checkbox">
+            <label class="value value-override" for="inputcheckbox-">Label</label>
+            HTML,
+            InputCheckbox::tag()
+                ->id('inputcheckbox-')
+                ->label('Label')
+                ->labelAttributes(['class' => 'value'])
+                ->labelClass('value-override')
+                ->render(),
+        );
+    }
+
+
+    public function testRenderLabelClassOverridesTrue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox-" type="checkbox">
+            <label class="value-override" for="inputcheckbox-">Label</label>
+            HTML,
+            InputCheckbox::tag()
+                ->id('inputcheckbox-')
+                ->label('Label')
+                ->labelAttributes(['class' => 'value'])
+                ->labelClass('value-override', true)
+                ->render(),
+        );
+    }
+
     public function testRenderLabelClassUsingEnum(): void
     {
         self::assertSame(
@@ -493,37 +526,6 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
-    public function testRenderWithLabelClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label class="value" for="inputcheckbox-">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox-')
-                ->label('Label')
-                ->labelClass(BackedString::VALUE)
-                ->render(),
-        );
-    }
-
-    public function testRenderLabelClassOverridesTrue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label class="value-override" for="inputcheckbox-">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox-')
-                ->label('Label')
-                ->labelAttributes(['class' => 'value'])
-                ->labelClass('value-override', true)
-                ->render(),
-        );
-    }
-
     public function testRenderWithLabelClassNullValue(): void
     {
         self::assertSame(
@@ -536,6 +538,21 @@ final class InputCheckboxTest extends TestCase
                 ->label('Label')
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass(null)
+                ->render(),
+        );
+    }
+
+    public function testRenderWithLabelClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox-" type="checkbox">
+            <label class="value" for="inputcheckbox-">Label</label>
+            HTML,
+            InputCheckbox::tag()
+                ->id('inputcheckbox-')
+                ->label('Label')
+                ->labelClass(BackedString::VALUE)
                 ->render(),
         );
     }
