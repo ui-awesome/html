@@ -224,10 +224,13 @@ final class InputTimeTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputTime::tag()->render();
-
-        self::assertStringContainsString('type="time"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime-">
+            HTML,
+            InputTime::tag()->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void

@@ -224,10 +224,13 @@ final class InputRangeTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputRange::tag()->render();
-
-        self::assertStringContainsString('type="range"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputrange-">
+            HTML,
+            InputRange::tag()->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void

@@ -226,10 +226,13 @@ final class InputTelTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputTel::tag()->render();
-
-        self::assertStringContainsString('type="tel"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel-">
+            HTML,
+            InputTel::tag()->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void

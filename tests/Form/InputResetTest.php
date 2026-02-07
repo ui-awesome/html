@@ -202,10 +202,13 @@ final class InputResetTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputReset::tag()->render();
-
-        self::assertStringContainsString('type="reset"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset-">
+            HTML,
+            InputReset::tag()->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void

@@ -224,10 +224,13 @@ final class InputWeekTest extends TestCase
 
     public function testRenderWithDefaultValues(): void
     {
-        $output = InputWeek::tag()->render();
-
-        self::assertStringContainsString('type="week"', $output);
-        self::assertStringContainsString('<input', $output);
+        self::assertSame(
+            <<<HTML
+            <input id="inputweek-">
+            HTML,
+            InputWeek::tag()->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void
