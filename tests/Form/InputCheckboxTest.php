@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputCheckbox;
-use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -452,6 +451,18 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
+    public function testRenderWithGenerateId(): void
+    {
+        /** @phpstan-var string $id */
+        $id = InputCheckbox::tag()->getAttribute('id', '');
+
+        self::assertMatchesRegularExpression(
+            '/^inputcheckbox-\w+$/',
+            $id,
+            'Failed asserting that element generates an ID when not provided.',
+        );
+    }
+
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(InputCheckbox::class, ['class' => 'default-class']);
@@ -610,6 +621,21 @@ final class InputCheckboxTest extends TestCase
                 ->id('inputcheckbox-')
                 ->label('Label')
                 ->labelFor('value')
+                ->render(),
+        );
+    }
+
+    public function testRenderWithLabelForNullValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox-" type="checkbox">
+            <label>Label</label>
+            HTML,
+            InputCheckbox::tag()
+                ->id('inputcheckbox-')
+                ->label('Label')
+                ->labelFor(null)
                 ->render(),
         );
     }
@@ -902,12 +928,7 @@ final class InputCheckboxTest extends TestCase
         );
         self::assertNotSame(
             $inputCheckbox,
-            $inputCheckbox->labelFor(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputCheckbox,
-            $inputCheckbox->labelTag(Inline::LABEL),
+            $inputCheckbox->labelFor(null),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(

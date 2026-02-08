@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form\Mixin;
 
 use Stringable;
-use UIAwesome\Html\Core\Html;
 use UIAwesome\Html\Helper\CSSClass;
-use UIAwesome\Html\Interop\{BlockInterface, Inline, InlineInterface};
 use UnitEnum;
 
 /**
@@ -28,14 +26,9 @@ trait HasLabel
     /**
      * Label attributes.
      *
-     * @phpstan-var mixed[]
+     * @phpstan-var mixed[] $labelAttributes
      */
     protected array $labelAttributes = [];
-
-    /**
-     * Label tag name.
-     */
-    protected BlockInterface|InlineInterface $labelTag = Inline::LABEL;
 
     /**
      * Whether to render the label.
@@ -127,36 +120,17 @@ trait HasLabel
      * Usage example:
      * ```php
      * $element->labelFor('input-id');
+     * $element->labelFor(null);
      * ```
      *
-     * @param string $value The value of the `for` attribute.
+     * @param string|null $value The value of the `for` attribute.
      *
      * @return static New instance with the updated `labelAttributes['for']` value.
      */
-    public function labelFor(string $value): static
+    public function labelFor(string|null $value): static
     {
         $new = clone $this;
         $new->labelAttributes['for'] = $value;
-
-        return $new;
-    }
-
-    /**
-     * Sets the label tag name.
-     *
-     * Usage example:
-     * ```php
-     * $element->labelTag('span');
-     * ```
-     *
-     * @param BlockInterface|InlineInterface $value The label tag name.
-     *
-     * @return static New instance with the updated `labelTag` value.
-     */
-    public function labelTag(BlockInterface|InlineInterface $value): static
-    {
-        $new = clone $this;
-        $new->labelTag = $value;
 
         return $new;
     }
@@ -177,25 +151,5 @@ trait HasLabel
         $new->notLabel = true;
 
         return $new;
-    }
-
-    /**
-     * Renders the label tag.
-     *
-     * @return string The rendered label tag.
-     */
-    private function renderLabelTag(): string
-    {
-        if ($this->notLabel || $this->label === '') {
-            return '';
-        }
-
-        $attributes = $this->labelAttributes;
-
-        if (isset($this->attributes['id']) && isset($attributes['for']) === false) {
-            $attributes['for'] = $this->attributes['id'];
-        }
-
-        return Html::element($this->labelTag, $this->label, $attributes);
     }
 }
