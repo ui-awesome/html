@@ -876,6 +876,46 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
+    public function testRenderWithUncheckedValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input name="agree" type="hidden" value="0">
+            <input id="inputcheckbox-" name="agree" type="checkbox" value="1">
+            HTML,
+            InputCheckbox::tag()
+                ->id('inputcheckbox-')
+                ->name('agree')
+                ->uncheckedValue('0')
+                ->value('1')
+                ->render(),
+            "Failed asserting that element renders correctly with 'uncheckedValue' attribute.",
+        );
+    }
+
+    public function testRenderWithUncheckedValueAndEnclosedByLabel(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input name="agree" type="hidden" value="0">
+            <label for="inputcheckbox-">
+            <input id="inputcheckbox-" name="agree" type="checkbox" value="1">
+            Label
+            </label>
+            HTML,
+            LineEndingNormalizer::normalize(
+                InputCheckbox::tag()
+                    ->enclosedByLabel(true)
+                    ->id('inputcheckbox-')
+                    ->label('Label')
+                    ->name('agree')
+                    ->uncheckedValue('0')
+                    ->value('1')
+                    ->render(),
+            ),
+        );
+    }
+
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(InputCheckbox::class, ['class' => 'from-global', 'id' => 'id-global']);
@@ -934,6 +974,11 @@ final class InputCheckboxTest extends TestCase
         self::assertNotSame(
             $inputCheckbox,
             $inputCheckbox->notLabel(),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $inputCheckbox,
+            $inputCheckbox->uncheckedValue(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }

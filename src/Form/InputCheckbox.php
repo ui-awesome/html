@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
+use Stringable;
 use UIAwesome\Html\Attribute\Form\{HasChecked, HasRequired};
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
@@ -13,6 +14,7 @@ use UIAwesome\Html\Core\Html;
 use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, HasLabel};
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 use UIAwesome\Html\Phrasing\Label;
+use UnitEnum;
 
 /**
  * Represents the HTML `<input type="checkbox">` element.
@@ -44,6 +46,23 @@ final class InputCheckbox extends BaseInput
     use HasTabindex;
     use HasValue;
 
+    private float|int|string|Stringable|UnitEnum|null $uncheckedValue = null;
+
+    /**
+     * Set the value that should be submitted when the checkbox is not checked.
+     *
+     * @param float|int|string|Stringable|UnitEnum|null $value Value to be submitted.
+     *
+     * @return static New instance with the updated `uncheckedValue` value.
+     */
+    public function uncheckedValue(float|int|string|Stringable|UnitEnum|null $value): self
+    {
+        $new = clone $this;
+        $new->uncheckedValue = $value;
+
+        return $new;
+    }
+
     /**
      * Returns the tag enumeration for the `<input>` element.
      *
@@ -64,7 +83,7 @@ final class InputCheckbox extends BaseInput
     protected function loadDefault(): array
     {
         return [
-            'template' => ['{prefix}\n{tag}\n{label}\n{suffix}'],
+            'template' => ['{prefix}\n{unchecked}\n{tag}\n{label}\n{suffix}'],
             'type' => [Type::CHECKBOX],
         ] + parent::loadDefault();
     }
@@ -79,8 +98,21 @@ final class InputCheckbox extends BaseInput
         /** @var string|null $id */
         $id = $this->getAttribute('id', null);
 
+        $unchecked = '';
+
+        if ($this->uncheckedValue !== null) {
+            /** @phpstan-var string $name */
+            $name = $this->getAttribute('name', '');
+
+            $unchecked = InputHidden::tag()
+                ->id(null)
+                ->name($name)
+                ->value($this->uncheckedValue)
+                ->render();
+        }
+
         if ($this->notLabel || $this->label === '') {
-            return $this->buildElement('', ['{label}' => '']);
+            return $this->buildElement('', ['{label}' => '', '{unchecked}' => $unchecked]);
         }
 
         $labelTag = Label::tag();
@@ -94,7 +126,13 @@ final class InputCheckbox extends BaseInput
         if ($this->enclosedByLabel === false) {
             $labelTag = $labelTag->attributes($this->labelAttributes)->content($this->label);
 
-            return $this->buildElement('', ['{label}' => $labelTag]);
+            return $this->buildElement(
+                '',
+                [
+                    '{label}' => $labelTag,
+                    '{unchecked}' => $unchecked,
+                ],
+            );
         }
 
         $labelTag = $labelTag
@@ -107,6 +145,13 @@ final class InputCheckbox extends BaseInput
                 PHP_EOL,
             );
 
-        return $this->buildElement('', ['{tag}' => $labelTag, '{label}' => '']);
+        return $this->buildElement(
+            '',
+            [
+                '{tag}' => $labelTag,
+                '{label}' => '',
+                '{unchecked}' => $unchecked,
+            ],
+        );
     }
 }
