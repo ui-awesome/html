@@ -117,11 +117,11 @@ final class InputCheckbox extends BaseInput
 
         $labelTag = Label::tag()->attributes($this->labelAttributes);
 
-        if (array_key_exists('for', $this->labelAttributes) === false) {
-            $labelTag = $labelTag->for($id);
-        }
-
         if ($this->enclosedByLabel === false) {
+            if (array_key_exists('for', $this->labelAttributes) === false) {
+                $labelTag = $labelTag->for($id);
+            }
+
             $labelTag = $labelTag->content($this->label);
 
             return $this->buildElement(

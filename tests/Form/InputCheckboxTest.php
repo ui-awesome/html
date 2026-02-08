@@ -331,7 +331,7 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label for="inputcheckbox-">
+            <label>
             <input id="inputcheckbox-" type="checkbox">
             Label
             </label>
@@ -351,7 +351,7 @@ final class InputCheckboxTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="wrapper">
-            <label for="inputcheckbox-">
+            <label>
             <input id="inputcheckbox-" type="checkbox">
             Red
             </label>
@@ -898,7 +898,7 @@ final class InputCheckboxTest extends TestCase
         self::assertSame(
             <<<HTML
             <input name="agree" type="hidden" value="0">
-            <label for="inputcheckbox-">
+            <label>
             <input id="inputcheckbox-" name="agree" type="checkbox" value="1">
             Label
             </label>
