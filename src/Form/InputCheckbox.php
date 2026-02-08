@@ -54,12 +54,12 @@ final class InputCheckbox extends BaseInput
     private bool|float|int|string|Stringable|UnitEnum|null $checked = null;
 
     /**
-    * Value to be submitted when the checkbox is not checked.
-    *
-    * If set, an additional hidden input will be rendered with the same name as the checkbox and this value.
-    *
-    * This ensures that a value is always submitted for the checkbox, even when it is unchecked.
-    */
+     * Value to be submitted when the checkbox is not checked.
+     *
+     * If set, an additional hidden input will be rendered with the same name as the checkbox and this value.
+     *
+     * This ensures that a value is always submitted for the checkbox, even when it is unchecked.
+     */
     private bool|float|int|string|Stringable|UnitEnum|null $uncheckedValue = null;
 
     /**
