@@ -115,16 +115,14 @@ final class InputCheckbox extends BaseInput
             return $this->buildElement('', ['{label}' => '', '{unchecked}' => $unchecked]);
         }
 
-        $labelTag = Label::tag();
+        $labelTag = Label::tag()->attributes($this->labelAttributes);
 
-        $labelAttributes = $this->labelAttributes;
-
-        if (isset($labelAttributes['for']) === false) {
+        if (array_key_exists('for', $this->labelAttributes) === false) {
             $labelTag = $labelTag->for($id);
         }
 
         if ($this->enclosedByLabel === false) {
-            $labelTag = $labelTag->attributes($this->labelAttributes)->content($this->label);
+            $labelTag = $labelTag->content($this->label);
 
             return $this->buildElement(
                 '',
@@ -136,7 +134,6 @@ final class InputCheckbox extends BaseInput
         }
 
         $labelTag = $labelTag
-            ->attributes($this->labelAttributes)
             ->html(
                 PHP_EOL,
                 Html::element($this->getTag(), '', $this->getAttributes()),
