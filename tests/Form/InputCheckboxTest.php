@@ -6,12 +6,15 @@ namespace UIAwesome\Html\Tests\Form;
 
 use PHPForge\Support\LineEndingNormalizer;
 use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputCheckbox;
+use UIAwesome\Html\Tests\Provider\Form\CheckedProvider;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
+use UnitEnum;
 
 /**
  * Unit tests for the {@see InputCheckbox} class.
@@ -200,6 +203,23 @@ final class InputCheckboxTest extends TestCase
                 ->id('inputcheckbox-')
                 ->render(),
             "Failed asserting that element renders correctly with 'checked' attribute.",
+        );
+    }
+
+    #[DataProviderExternal(CheckedProvider::class, 'checked')]
+    public function testRenderWithCheckedAndValue(
+        bool|float|int|string|Stringable|UnitEnum|null $checked,
+        bool|float|int|string|Stringable|UnitEnum|null $value,
+        string $expected,
+    ): void {
+        self::assertSame(
+            $expected,
+            InputCheckbox::tag()
+                ->id('inputcheckbox-')
+                ->checked($checked)
+                ->value($value)
+                ->render(),
+            "Failed asserting that element renders correctly with 'checked' and 'value' attributes.",
         );
     }
 
@@ -946,6 +966,11 @@ final class InputCheckboxTest extends TestCase
     {
         $inputCheckbox = InputCheckbox::tag();
 
+        self::assertNotSame(
+            $inputCheckbox,
+            $inputCheckbox->checked(true),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
         self::assertNotSame(
             $inputCheckbox,
             $inputCheckbox->enclosedByLabel(true),

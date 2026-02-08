@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form;
 
 use Stringable;
-use UIAwesome\Html\Attribute\Form\{HasChecked, HasRequired};
+use UIAwesome\Html\Attribute\Form\HasRequired;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\Type;
@@ -15,6 +15,9 @@ use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, HasLabel};
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 use UIAwesome\Html\Phrasing\Label;
 use UnitEnum;
+
+use function is_bool;
+use function is_scalar;
 
 /**
  * Represents the HTML `<input type="checkbox">` element.
@@ -40,22 +43,89 @@ final class InputCheckbox extends BaseInput
 {
     use CanBeAutofocus;
     use CanBeEnclosedByLabel;
-    use HasChecked;
     use HasLabel;
     use HasRequired;
     use HasTabindex;
     use HasValue;
 
-    private float|int|string|Stringable|UnitEnum|null $uncheckedValue = null;
+    /**
+     * Determines the checked state of the checkbox.
+     */
+    private bool|float|int|string|Stringable|UnitEnum|null $checked = null;
+
+    /**
+    * Value to be submitted when the checkbox is not checked.
+    *
+    * If set, an additional hidden input will be rendered with the same name as the checkbox and this value.
+    *
+    * This ensures that a value is always submitted for the checkbox, even when it is unchecked.
+    */
+    private bool|float|int|string|Stringable|UnitEnum|null $uncheckedValue = null;
+
+    /**
+     * Sets the `checked` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->checked(true);
+     * $element->checked(false);
+     * $element->checked('active')->value('active'); // checked
+     * $element->checked('inactive')->value('active'); // unchecked
+     * ```
+     *
+     * @param bool|float|int|string|Stringable|UnitEnum|null $value Checked state.
+     *
+     * - `true`: Checkbox is checked.
+     * - `false`: Checkbox is unchecked.
+     * - `null`: Attribute is removed.
+     * - `float|int|string|Stringable|UnitEnum`: Checkbox is checked if the value matches the `value` attribute.
+     *
+     * @return static New instance with the updated `checked` attribute.
+     */
+    public function checked(bool|float|int|string|Stringable|UnitEnum|null $value): self
+    {
+        $new = clone $this;
+        $new->checked = $value;
+
+        return $new;
+    }
+
+    /**
+     * Returns the array of HTML attributes for the element.
+     *
+     * @return array Attributes array assigned to the element.
+     *
+     * @phpstan-return mixed[]
+     */
+    public function getAttributes(): array
+    {
+        $attributes = parent::getAttributes();
+
+        /** @var mixed $value */
+        $value = $attributes['value'] ?? null;
+
+        if (is_bool($value)) {
+            $value = $value ? 1 : 0;
+            $attributes['value'] = $value;
+        }
+
+        if ($this->checked === true) {
+            $attributes['checked'] = true;
+        } elseif (is_scalar($this->checked) && is_scalar($value)) {
+            $attributes['checked'] = "{$value}" === "{$this->checked}";
+        }
+
+        return $attributes;
+    }
 
     /**
      * Set the value that should be submitted when the checkbox is not checked.
      *
-     * @param float|int|string|Stringable|UnitEnum|null $value Value to be submitted.
+     * @param bool|float|int|string|Stringable|UnitEnum|null $value Value to be submitted.
      *
      * @return static New instance with the updated `uncheckedValue` value.
      */
-    public function uncheckedValue(float|int|string|Stringable|UnitEnum|null $value): self
+    public function uncheckedValue(bool|float|int|string|Stringable|UnitEnum|null $value): self
     {
         $new = clone $this;
         $new->uncheckedValue = $value;
