@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Provider\Form;
 
+use PHPForge\Support\Stub\BackedString;
+use PHPForge\Support\Stub\Unit;
+use Stringable;
+use UnitEnum;
+
 /**
  * Data provider for {@see \UIAwesome\Html\Tests\Form\InputCheckboxTest} test cases.
  *
@@ -15,7 +20,10 @@ namespace UIAwesome\Html\Tests\Provider\Form;
 final class CheckedProvider
 {
     /**
-     * @return array<string, array{bool|int|string|null, bool|int|string|null, string}>
+     * @return array<
+     *   string,
+     *   array{bool|int|string|Stringable|UnitEnum|null, bool|int|string|Stringable|UnitEnum|null, string},
+     * >
      */
     public static function checked(): array
     {
@@ -158,6 +166,64 @@ final class CheckedProvider
                 '0',
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="0">
+                HTML,
+            ],
+            // stringable that matches value
+            'stringable-match' => [
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return 'active';
+                    }
+                },
+                'active',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="active" checked>
+                HTML,
+            ],
+            // stringable that doesn't match
+            'stringable-no-match' => [
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return 'inactive';
+                    }
+                },
+                'active',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="active">
+                HTML,
+            ],
+            // backed enum that matches value
+            'backed-enum-match' => [
+                BackedString::VALUE,
+                'value',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="value" checked>
+                HTML,
+            ],
+            // backed enum that doesn't match
+            'backed-enum-no-match' => [
+                BackedString::VALUE,
+                'other',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="other">
+                HTML,
+            ],
+            // unit enum that matches value
+            'unit-enum-checked' => [
+                Unit::value,
+                'value',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="value" checked>
+                HTML,
+            ],
+            // unit enum that doesn't match
+            'unit-enum-unchecked' => [
+                Unit::value,
+                'other',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="other">
                 HTML,
             ],
         ];

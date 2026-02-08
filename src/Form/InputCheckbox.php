@@ -12,6 +12,7 @@ use UIAwesome\Html\Attribute\Values\Type;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Core\Html;
 use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, HasLabel};
+use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 use UIAwesome\Html\Phrasing\Label;
 use UnitEnum;
@@ -109,10 +110,12 @@ final class InputCheckbox extends BaseInput
             $attributes['value'] = $value;
         }
 
-        if ($this->checked === true) {
+        $normalizedChecked = Enum::normalizeValue($this->checked);
+
+        if ($normalizedChecked === true) {
             $attributes['checked'] = true;
-        } elseif (is_scalar($this->checked) && is_scalar($value)) {
-            $attributes['checked'] = "{$value}" === "{$this->checked}";
+        } elseif (is_scalar($normalizedChecked) && is_scalar($value)) {
+            $attributes['checked'] = "{$value}" === "{$normalizedChecked}";
         }
 
         return $attributes;
