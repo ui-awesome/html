@@ -17,6 +17,7 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
 use UIAwesome\Html\Phrasing\Label;
 use UnitEnum;
 
+use function is_array;
 use function is_bool;
 use function is_scalar;
 
@@ -51,8 +52,10 @@ final class InputCheckbox extends BaseInput
 
     /**
      * Determines the checked state of the checkbox.
+     *
+     * @phpstan-var mixed[]|bool|float|int|string|Stringable|UnitEnum|null $checked
      */
-    private bool|float|int|string|Stringable|UnitEnum|null $checked = null;
+    private array|bool|float|int|string|Stringable|UnitEnum|null $checked = null;
 
     /**
      * Value to be submitted when the checkbox is not checked.
@@ -74,16 +77,19 @@ final class InputCheckbox extends BaseInput
      * $element->checked('inactive')->value('active'); // unchecked
      * ```
      *
-     * @param bool|float|int|string|Stringable|UnitEnum|null $value Checked state.
+     * @param array|bool|float|int|string|Stringable|UnitEnum|null $value Checked state.
      *
-     * - `true`: Checkbox is checked.
+     * - `array`: Checkbox is checked if the value is in the array.
      * - `false`: Checkbox is unchecked.
-     * - `null`: Attribute is removed.
+     * - `true`: Checkbox is checked.
      * - `float|int|string|Stringable|UnitEnum`: Checkbox is checked if the value matches the `value` attribute.
+     * - `null`: Attribute is removed.
      *
      * @return static New instance with the updated `checked` attribute.
+     *
+     * @phpstan-param mixed[]|bool|float|int|string|Stringable|UnitEnum|null $value
      */
-    public function checked(bool|float|int|string|Stringable|UnitEnum|null $value): self
+    public function checked(array|bool|float|int|string|Stringable|UnitEnum|null $value): self
     {
         $new = clone $this;
         $new->checked = $value;
@@ -100,25 +106,7 @@ final class InputCheckbox extends BaseInput
      */
     public function getAttributes(): array
     {
-        $attributes = parent::getAttributes();
-
-        /** @var mixed $value */
-        $value = $attributes['value'] ?? null;
-
-        if (is_bool($value)) {
-            $value = $value ? 1 : 0;
-            $attributes['value'] = $value;
-        }
-
-        $normalizedChecked = Enum::normalizeValue($this->checked);
-
-        if ($normalizedChecked === true) {
-            $attributes['checked'] = true;
-        } elseif (is_scalar($normalizedChecked) && is_scalar($value)) {
-            $attributes['checked'] = "{$value}" === "{$normalizedChecked}";
-        }
-
-        return $attributes;
+        return $this->buildAttributes(parent::getAttributes());
     }
 
     /**
@@ -223,5 +211,57 @@ final class InputCheckbox extends BaseInput
                 '{unchecked}' => $unchecked,
             ],
         );
+    }
+
+    /**
+     * Builds the attributes for the `<input>` element.
+     *
+     * This method normalizes the `value` attribute and determines the `checked` state based on the current value and
+     * the configured checked options.
+     *
+     * @param array $attributes Initial attributes array.
+     *
+     * @return array Updated attributes array with the `checked` attribute if applicable.
+     *
+     * @phpstan-param mixed[] $attributes
+     * @phpstan-return mixed[]
+     */
+    private function buildAttributes(array $attributes): array
+    {
+        if (isset($attributes['value']) && is_bool($attributes['value'])) {
+            $attributes['value'] = $attributes['value'] ? 1 : 0;
+        }
+
+        $checked = $this->checked;
+
+        $normalizedChecked = is_array($checked)
+            ? Enum::normalizeArray($checked)
+            : Enum::normalizeValue($checked);
+
+        if ($normalizedChecked === false || $normalizedChecked === null) {
+            return $attributes;
+        }
+
+        $value = $attributes['value'] ?? null;
+
+        if ($normalizedChecked === true) {
+            $attributes['checked'] = true;
+        } else {
+            $valueStr = is_scalar($value) ? (string) $value : '';
+
+            if (is_array($normalizedChecked)) {
+                $attributes['checked'] = false;
+
+                foreach ($normalizedChecked as $item) {
+                    if (is_scalar($item) && "{$item}" === $valueStr) {
+                        $attributes['checked'] = true;
+                    }
+                }
+            } else {
+                $attributes['checked'] = $valueStr === "{$normalizedChecked}";
+            }
+        }
+
+        return $attributes;
     }
 }

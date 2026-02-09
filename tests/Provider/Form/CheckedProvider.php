@@ -22,12 +22,46 @@ final class CheckedProvider
     /**
      * @return array<
      *   string,
-     *   array{bool|float|int|string|Stringable|UnitEnum|null, bool|float|int|string|Stringable|UnitEnum|null, string},
+     *   array{
+     *     mixed[]|bool|float|int|string|Stringable|UnitEnum|null,
+     *     bool|float|int|string|Stringable|UnitEnum|null, string,
+     *   },
      * >
      */
     public static function checked(): array
     {
         return [
+            // array (checked)
+            'checked: [1, 2], value: 1' => [
+                [1, 2],
+                1,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1" checked>
+                HTML,
+            ],
+            // array (unchecked)
+            'checked: [1, 2], value: 3' => [
+                [1, 2],
+                3,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="3">
+                HTML,
+            ],
+            // array type juggling (checked)
+            'checked: ["1", "2"], value: 1' => [
+                ['1', '2'],
+                1,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1" checked>
+                HTML,
+            ],
+            'checked: [1, 2], value: "1"' => [
+                [1, 2],
+                '1',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1" checked>
+                HTML,
+            ],
             // backed enum (checked)
             'checked: BackedEnum("value"), value: "value"' => [
                 BackedString::VALUE,
@@ -50,6 +84,13 @@ final class CheckedProvider
                 'active',
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="active">
+                HTML,
+            ],
+            'checked: false, value: ""' => [
+                false,
+                '',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox">
                 HTML,
             ],
             'checked: false, value: 1' => [
