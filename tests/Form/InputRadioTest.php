@@ -218,6 +218,7 @@ final class InputRadioTest extends TestCase
         bool|float|int|string|Stringable|UnitEnum|null $value,
         string $expected,
     ): void {
+        // CheckedProvider returns checkbox-flavored expected HTML; adapt for radio.
         $expected = str_replace(
             ['inputcheckbox-', 'type="checkbox"'],
             ['inputradio-', 'type="radio"'],

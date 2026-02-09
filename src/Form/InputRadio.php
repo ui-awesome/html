@@ -89,7 +89,7 @@ final class InputRadio extends BaseInput
      *
      * @phpstan-param mixed[]|bool|float|int|string|Stringable|UnitEnum|null $value
      */
-    public function checked(array|bool|float|int|string|Stringable|UnitEnum|null $value): self
+    public function checked(array|bool|float|int|string|Stringable|UnitEnum|null $value): static
     {
         $new = clone $this;
         $new->checked = $value;
@@ -116,7 +116,7 @@ final class InputRadio extends BaseInput
      *
      * @return static New instance with the updated `uncheckedValue` value.
      */
-    public function uncheckedValue(bool|float|int|string|Stringable|UnitEnum|null $value): self
+    public function uncheckedValue(bool|float|int|string|Stringable|UnitEnum|null $value): static
     {
         $new = clone $this;
         $new->uncheckedValue = $value;
@@ -257,8 +257,6 @@ final class InputRadio extends BaseInput
 
             return $attributes;
         }
-
-        $attributes['checked'] = false;
 
         foreach ($normalizedChecked as $item) {
             if (is_scalar($item) && "{$item}" === $valueStr) {
