@@ -246,19 +246,23 @@ final class InputCheckbox extends BaseInput
 
         if ($normalizedChecked === true) {
             $attributes['checked'] = true;
-        } else {
-            $valueStr = is_scalar($value) ? (string) $value : '';
 
-            if (is_array($normalizedChecked)) {
-                $attributes['checked'] = false;
+            return $attributes;
+        }
 
-                foreach ($normalizedChecked as $item) {
-                    if (is_scalar($item) && "{$item}" === $valueStr) {
-                        $attributes['checked'] = true;
-                    }
-                }
-            } else {
-                $attributes['checked'] = $valueStr === "{$normalizedChecked}";
+        $valueStr = is_scalar($value) ? (string) $value : '';
+
+        if (is_array($normalizedChecked) === false) {
+            $attributes['checked'] = $valueStr === "{$normalizedChecked}";
+
+            return $attributes;
+        }
+
+        $attributes['checked'] = false;
+
+        foreach ($normalizedChecked as $item) {
+            if (is_scalar($item) && "{$item}" === $valueStr) {
+                $attributes['checked'] = true;
             }
         }
 
