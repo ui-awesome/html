@@ -22,72 +22,118 @@ final class CheckedProvider
     /**
      * @return array<
      *   string,
-     *   array{bool|int|string|Stringable|UnitEnum|null, bool|int|string|Stringable|UnitEnum|null, string},
+     *   array{bool|float|int|string|Stringable|UnitEnum|null, bool|float|int|string|Stringable|UnitEnum|null, string},
      * >
      */
     public static function checked(): array
     {
         return [
-            // boolean true (always checked)
-            'bool-true-int' => [
-                true,
-                1,
+            // backed enum (checked)
+            'checked: BackedEnum("value"), value: "value"' => [
+                BackedString::VALUE,
+                'value',
                 <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="1" checked>
+                <input id="inputcheckbox-" type="checkbox" value="value" checked>
                 HTML,
             ],
-            'bool-true-null' => [
-                true,
-                null,
+            // backed enum (unchecked)
+            'checked: BackedEnum("value"), value: "other"' => [
+                BackedString::VALUE,
+                'other',
                 <<<HTML
-                <input id="inputcheckbox-" type="checkbox" checked>
+                <input id="inputcheckbox-" type="checkbox" value="other">
                 HTML,
             ],
-            'bool-true-string' => [
-                true,
-                'active',
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="active" checked>
-                HTML,
-            ],
-            // boolean false (never checked)
-            'bool-false-int' => [
-                false,
-                1,
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="1">
-                HTML,
-            ],
-            'bool-false-null' => [
-                false,
-                null,
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox">
-                HTML,
-            ],
-            'bool-false-false' => [
-                false,
-                false,
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="0">
-                HTML,
-            ],
-            'bool-false-string' => [
+            // boolean `false` (never checked)
+            'checked: false, value: "active"' => [
                 false,
                 'active',
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="active">
                 HTML,
             ],
+            'checked: false, value: 1' => [
+                false,
+                1,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1">
+                HTML,
+            ],
+            'checked: false, value: false' => [
+                false,
+                false,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="0">
+                HTML,
+            ],
+            'checked: false, value: null' => [
+                false,
+                null,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox">
+                HTML,
+            ],
+            // boolean `true` (always checked)
+            'checked: true, value: "active"' => [
+                true,
+                'active',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="active" checked>
+                HTML,
+            ],
+            'checked: true, value: 1' => [
+                true,
+                1,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1" checked>
+                HTML,
+            ],
+            'checked: true, value: null' => [
+                true,
+                null,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" checked>
+                HTML,
+            ],
+            // float matching (checked)
+            'checked: 1.1, value: 1.1' => [
+                1.1,
+                1.1,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1.1" checked>
+                HTML,
+            ],
+            'checked: 1.1, value: "1.1"' => [
+                1.1,
+                '1.1',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1.1" checked>
+                HTML,
+            ],
+            'checked: "1.1", value: 1.1' => [
+                '1.1',
+                1.1,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1.1" checked>
+                HTML,
+            ],
+            // float mismatch (unchecked)
+            'checked: 1.1, value: 1.2' => [
+                1.1,
+                1.2,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1.2">
+                HTML,
+            ],
             // null (never checked)
-            'null-int' => [
+            'checked: null, value: 1' => [
                 null,
                 1,
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="1">
                 HTML,
             ],
-            'null-null' => [
+            'checked: null, value: null' => [
                 null,
                 null,
                 <<<HTML
@@ -95,65 +141,65 @@ final class CheckedProvider
                 HTML,
             ],
             // scalar matching (checked)
-            'int-0-int-0' => [
-                0,
-                0,
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="0" checked>
-                HTML,
-            ],
-            'int-1-int-1' => [
-                1,
-                1,
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="1" checked>
-                HTML,
-            ],
-            'string-1-boolean-true' => [
-                '1',
-                true,
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="1" checked>
-                HTML,
-            ],
-            'string-1-string-1' => [
-                '1',
-                '1',
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="1" checked>
-                HTML,
-            ],
-            'string-active-string-active' => [
+            'checked: "active", value: "active"' => [
                 'active',
                 'active',
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="active" checked>
                 HTML,
             ],
-            // scalar mismatch (unchecked)
-            'int-1-int-0' => [
-                1,
+            'checked: 0, value: 0' => [
+                0,
                 0,
                 <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="0">
+                <input id="inputcheckbox-" type="checkbox" value="0" checked>
                 HTML,
             ],
-            'string-active-string-inactive' => [
+            'checked: 1, value: 1' => [
+                1,
+                1,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1" checked>
+                HTML,
+            ],
+            'checked: "1", value: true' => [
+                '1',
+                true,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1" checked>
+                HTML,
+            ],
+            'checked: "1", value: "1"' => [
+                '1',
+                '1',
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="1" checked>
+                HTML,
+            ],
+            // scalar mismatch (unchecked)
+            'checked: "active", value: "inactive"' => [
                 'active',
                 'inactive',
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="inactive">
                 HTML,
             ],
+            'checked: 1, value: 0' => [
+                1,
+                0,
+                <<<HTML
+                <input id="inputcheckbox-" type="checkbox" value="0">
+                HTML,
+            ],
             // type juggling (checked)
-            'int-1-string-1' => [
+            'checked: 1, value: "1"' => [
                 1,
                 '1',
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="1" checked>
                 HTML,
             ],
-            'string-1-int-1' => [
+            'checked: "1", value: 1' => [
                 '1',
                 1,
                 <<<HTML
@@ -161,15 +207,15 @@ final class CheckedProvider
                 HTML,
             ],
             // type juggling (unchecked)
-            'int-1-string-0' => [
+            'checked: 1, value: "0"' => [
                 1,
                 '0',
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="0">
                 HTML,
             ],
-            // stringable that matches value
-            'stringable-match' => [
+            // stringable (checked)
+            'checked: stringable("active"), value: "active"' => [
                 new class implements Stringable {
                     public function __toString(): string
                     {
@@ -181,8 +227,8 @@ final class CheckedProvider
                 <input id="inputcheckbox-" type="checkbox" value="active" checked>
                 HTML,
             ],
-            // stringable that doesn't match
-            'stringable-no-match' => [
+            // stringable (unchecked)
+            'checked: stringable("inactive"), value: "active"' => [
                 new class implements Stringable {
                     public function __toString(): string
                     {
@@ -194,32 +240,16 @@ final class CheckedProvider
                 <input id="inputcheckbox-" type="checkbox" value="active">
                 HTML,
             ],
-            // backed enum that matches value
-            'backed-enum-match' => [
-                BackedString::VALUE,
-                'value',
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="value" checked>
-                HTML,
-            ],
-            // backed enum that doesn't match
-            'backed-enum-no-match' => [
-                BackedString::VALUE,
-                'other',
-                <<<HTML
-                <input id="inputcheckbox-" type="checkbox" value="other">
-                HTML,
-            ],
-            // unit enum that matches value
-            'unit-enum-checked' => [
+            // unit enum (checked)
+            'checked: UnitEnum("value"), value: "value"' => [
                 Unit::value,
                 'value',
                 <<<HTML
                 <input id="inputcheckbox-" type="checkbox" value="value" checked>
                 HTML,
             ],
-            // unit enum that doesn't match
-            'unit-enum-unchecked' => [
+            // unit enum (unchecked)
+            'checked: UnitEnum("value"), value: "other"' => [
                 Unit::value,
                 'other',
                 <<<HTML
