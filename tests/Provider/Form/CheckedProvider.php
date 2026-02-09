@@ -10,7 +10,8 @@ use Stringable;
 use UnitEnum;
 
 /**
- * Data provider for {@see \UIAwesome\Html\Tests\Form\InputCheckboxTest} test cases.
+ * Data provider for {@see \UIAwesome\Html\Tests\Form\InputCheckboxTest} and
+ * {@see \UIAwesome\Html\Tests\Form\InputRadioTest} test cases.
  *
  * Provides representative input/output pairs for the `checked` and `value` attribute.
  *

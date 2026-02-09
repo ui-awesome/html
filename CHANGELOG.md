@@ -20,6 +20,7 @@
 - Bug #32: Update parameter descriptions to clarify usage for form attributes and input elements (@terabytesoftw)
 - Enh #33: Add `Label` class for HTML `<label>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #34: Add `InputHidden` class for HTML `<input type="hidden">` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #35: Add `InputRadio` class for HTML `<input type="radio">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
