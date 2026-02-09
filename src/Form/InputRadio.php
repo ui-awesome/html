@@ -19,26 +19,26 @@ use UnitEnum;
 use function array_key_exists;
 
 /**
- * Represents the HTML `<input type="checkbox">` element.
+ * Represents the HTML `<input type="radio">` element.
  *
- * The checkbox is a graphical control element that allows the user to select or deselect one or more independent
- * options.
+ * The radio button is a graphical control element that allows the user to choose only one of a predefined set of mutually
+ * exclusive options.
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Form\InputCheckbox::tag()
+ * echo \UIAwesome\Html\Form\InputRadio::tag()
  *     ->checked(true)
- *     ->name('terms')
- *     ->value('accepted')
+ *     ->name('gender')
+ *     ->value('female')
  *     ->render();
  * ```
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class InputCheckbox extends BaseInput
+final class InputRadio extends BaseInput
 {
     use CanBeAutofocus;
     use CanBeEnclosedByLabel;
@@ -49,11 +49,11 @@ final class InputCheckbox extends BaseInput
     use HasValue;
 
     /**
-     * Value to be submitted when the checkbox is not checked.
+     * Value to be submitted when the radio is not checked.
      *
-     * If set, an additional hidden input will be rendered with the same name as the checkbox and this value.
+     * If set, an additional hidden input will be rendered with the same name as the radio and this value.
      *
-     * This ensures that a value is always submitted for the checkbox, even when it is unchecked.
+     * This ensures that a value is always submitted for the radio, even when it is unchecked.
      */
     private bool|float|int|string|Stringable|UnitEnum|null $uncheckedValue = null;
 
@@ -70,7 +70,7 @@ final class InputCheckbox extends BaseInput
     }
 
     /**
-     * Set the value that should be submitted when the checkbox is not checked.
+     * Set the value that should be submitted when the radio is not checked.
      *
      * @param bool|float|int|string|Stringable|UnitEnum|null $value Value to be submitted.
      *
@@ -105,7 +105,7 @@ final class InputCheckbox extends BaseInput
     {
         return [
             'template' => ['{prefix}\n{unchecked}\n{tag}\n{label}\n{suffix}'],
-            'type' => [Type::CHECKBOX],
+            'type' => [Type::RADIO],
         ] + parent::loadDefault();
     }
 
