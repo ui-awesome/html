@@ -151,13 +151,14 @@ final class HrTest extends TestCase
             <<<HTML
             <hr aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             HTML,
-            Hr::tag()->ariaAttributes(
-                [
-                    'controls' => static fn(): string => 'modal-1',
-                    'hidden' => false,
-                    'label' => 'Close',
-                ],
-            )
+            Hr::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
