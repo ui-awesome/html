@@ -1016,9 +1016,7 @@ final class InputCheckboxTest extends TestCase
             <<<HTML
             <input type="checkbox">
             HTML,
-            InputCheckbox::tag()
-                ->id(null)
-                ->render(),
+            (string) InputCheckbox::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

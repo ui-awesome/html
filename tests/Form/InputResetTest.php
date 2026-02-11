@@ -597,9 +597,7 @@ final class InputResetTest extends TestCase
             <<<HTML
             <input type="reset">
             HTML,
-            InputReset::tag()
-                ->id(null)
-                ->render(),
+            (string) InputReset::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
