@@ -23,6 +23,7 @@
 - Enh #35: Add `InputRadio` class for HTML `<input type="radio">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #36: Add `InputNumber` class for HTML `<input type="number">` element with attributes and rendering capabilities (@terabytesoftw)
 - Bug #37: Apply last changes from `ui-awesome/html-core` package to `ui-awesome/html` package (@terabytesoftw)
+- Bug #38: Remove redundant `afterRun()` method from `Dl`, `Ol`, and `Ul` classes (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
