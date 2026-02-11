@@ -6,7 +6,6 @@ namespace UIAwesome\Html\List;
 
 use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Helper\LineBreakNormalizer;
 use UIAwesome\Html\Interop\{BlockInterface, Lists};
 use UIAwesome\Html\List\Attribute\{HasReversed, HasStart};
 
