@@ -88,20 +88,6 @@ final class Ol extends BaseBlock
     }
 
     /**
-     * Cleans up the output after rendering the block element.
-     *
-     * Removes excessive consecutive newlines from the rendered output to ensure clean HTML structure.
-     *
-     * @param string $result Rendered HTML output.
-     *
-     * @return string Cleaned HTML output with excessive newlines removed.
-     */
-    protected function afterRun(string $result): string
-    {
-        return parent::afterRun(LineBreakNormalizer::normalize($result));
-    }
-
-    /**
      * Returns the tag enumeration for the `<ol>` element.
      *
      * @return BlockInterface Tag enumeration instance for `<ol>`.
