@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Sectioning;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('sectioning')]
 final class AsideTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $aside = Aside::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $aside->getContent(),
+            Aside::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Aside::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Aside::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class AsideTest extends TestCase
             <value>
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->html('<value>')->render(),
-            ),
+            Aside::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class AsideTest extends TestCase
             <aside accesskey="k">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->accesskey('k')->render(),
-            ),
+            Aside::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class AsideTest extends TestCase
             <aside aria-pressed="true">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Aside::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class AsideTest extends TestCase
             <aside aria-pressed="true">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Aside::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class AsideTest extends TestCase
             <aside data-test="value">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Aside::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class AsideTest extends TestCase
             <aside title="value">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Aside::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class AsideTest extends TestCase
             <aside data-value="value">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Aside::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class AsideTest extends TestCase
             <aside data-value="value">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Aside::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class AsideTest extends TestCase
             <aside aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Aside::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class AsideTest extends TestCase
             <aside class="value">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Aside::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class AsideTest extends TestCase
             <aside autofocus>
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->autofocus(true)->render(),
-            ),
+            Aside::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class AsideTest extends TestCase
             Content
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->begin() . 'Content' . Aside::end(),
-            ),
+            Aside::tag()->begin() . 'Content' . Aside::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class AsideTest extends TestCase
             <aside class="value">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->class('value')->render(),
-            ),
+            Aside::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class AsideTest extends TestCase
             value
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->content('value')->render(),
-            ),
+            Aside::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class AsideTest extends TestCase
             <aside contenteditable="true">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->contentEditable(true)->render(),
-            ),
+            Aside::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class AsideTest extends TestCase
             <aside contenteditable="true">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Aside::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class AsideTest extends TestCase
             <aside data-value="value">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Aside::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class AsideTest extends TestCase
             <aside class="default-class">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag(['class' => 'default-class'])->render(),
-            ),
+            Aside::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class AsideTest extends TestCase
             <aside class="default-class" title="default-title">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Aside::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class AsideTest extends TestCase
             <aside dir="ltr">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->dir('ltr')->render(),
-            ),
+            Aside::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class AsideTest extends TestCase
             <aside dir="ltr">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->dir(Direction::LTR)->render(),
-            ),
+            Aside::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class AsideTest extends TestCase
             <aside draggable="true">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->draggable(true)->render(),
-            ),
+            Aside::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class AsideTest extends TestCase
             <aside draggable="true">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Aside::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class AsideTest extends TestCase
             <aside class="default-class">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->render(),
-            ),
+            Aside::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class AsideTest extends TestCase
             <aside hidden>
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->hidden(true)->render(),
-            ),
+            Aside::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class AsideTest extends TestCase
             <aside id="test-id">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->id('test-id')->render(),
-            ),
+            Aside::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class AsideTest extends TestCase
             <aside lang="es">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->lang('es')->render(),
-            ),
+            Aside::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class AsideTest extends TestCase
             <aside lang="es">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Aside::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class AsideTest extends TestCase
             <aside itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Aside::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class AsideTest extends TestCase
             <aside>
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Aside::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class AsideTest extends TestCase
             <aside>
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Aside::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class AsideTest extends TestCase
             <aside>
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Aside::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class AsideTest extends TestCase
             <aside role="complementary">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->role('complementary')->render(),
-            ),
+            Aside::tag()
+                ->role('complementary')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class AsideTest extends TestCase
             <aside role="complementary">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->role(Role::COMPLEMENTARY)->render(),
-            ),
+            Aside::tag()
+                ->role(Role::COMPLEMENTARY)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class AsideTest extends TestCase
             <aside spellcheck="true">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->spellcheck(true)->render(),
-            ),
+            Aside::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class AsideTest extends TestCase
             <aside style='value'>
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->style('value')->render(),
-            ),
+            Aside::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class AsideTest extends TestCase
             <aside tabindex="3">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->tabIndex(3)->render(),
-            ),
+            Aside::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class AsideTest extends TestCase
             <aside class="text-muted">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Aside::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,7 +620,9 @@ final class AsideTest extends TestCase
             <aside title="value">
             </aside>
             HTML,
-            Aside::tag()->title('value')->render(),
+            Aside::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -648,9 +634,7 @@ final class AsideTest extends TestCase
             <aside>
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Aside::tag(),
-            ),
+            (string) Aside::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -662,9 +646,9 @@ final class AsideTest extends TestCase
             <aside translate="no">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->translate(false)->render(),
-            ),
+            Aside::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -676,9 +660,9 @@ final class AsideTest extends TestCase
             <aside translate="no">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag()->translate(Translate::NO)->render(),
-            ),
+            Aside::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -692,9 +676,7 @@ final class AsideTest extends TestCase
             <aside class="from-global" id="id-user">
             </aside>
             HTML,
-            LineEndingNormalizer::normalize(
-                Aside::tag(['id' => 'id-user'])->render(),
-            ),
+            Aside::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

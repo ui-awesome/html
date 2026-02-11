@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Sectioning;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('sectioning')]
 final class NavTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $nav = Nav::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $nav->getContent(),
+            Nav::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class NavTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Nav::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Nav::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class NavTest extends TestCase
             <value>
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->html('<value>')->render(),
-            ),
+            Nav::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class NavTest extends TestCase
             <nav accesskey="k">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->accesskey('k')->render(),
-            ),
+            Nav::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class NavTest extends TestCase
             <nav aria-pressed="true">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Nav::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class NavTest extends TestCase
             <nav aria-pressed="true">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Nav::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class NavTest extends TestCase
             <nav data-test="value">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Nav::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class NavTest extends TestCase
             <nav title="value">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Nav::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class NavTest extends TestCase
             <nav data-value="value">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Nav::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class NavTest extends TestCase
             <nav data-value="value">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Nav::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class NavTest extends TestCase
             <nav aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Nav::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class NavTest extends TestCase
             <nav class="value">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Nav::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class NavTest extends TestCase
             <nav autofocus>
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->autofocus(true)->render(),
-            ),
+            Nav::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class NavTest extends TestCase
             Content
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->begin() . 'Content' . Nav::end(),
-            ),
+            Nav::tag()->begin() . 'Content' . Nav::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class NavTest extends TestCase
             <nav class="value">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->class('value')->render(),
-            ),
+            Nav::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class NavTest extends TestCase
             value
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->content('value')->render(),
-            ),
+            Nav::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class NavTest extends TestCase
             <nav contenteditable="true">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->contentEditable(true)->render(),
-            ),
+            Nav::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class NavTest extends TestCase
             <nav contenteditable="true">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Nav::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class NavTest extends TestCase
             <nav data-value="value">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Nav::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class NavTest extends TestCase
             <nav class="default-class">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag(['class' => 'default-class'])->render(),
-            ),
+            Nav::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class NavTest extends TestCase
             <nav class="default-class" title="default-title">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Nav::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class NavTest extends TestCase
             <nav dir="ltr">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->dir('ltr')->render(),
-            ),
+            Nav::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class NavTest extends TestCase
             <nav dir="ltr">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->dir(Direction::LTR)->render(),
-            ),
+            Nav::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class NavTest extends TestCase
             <nav draggable="true">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->draggable(true)->render(),
-            ),
+            Nav::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class NavTest extends TestCase
             <nav draggable="true">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Nav::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class NavTest extends TestCase
             <nav class="default-class">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->render(),
-            ),
+            Nav::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class NavTest extends TestCase
             <nav hidden>
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->hidden(true)->render(),
-            ),
+            Nav::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class NavTest extends TestCase
             <nav id="test-id">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->id('test-id')->render(),
-            ),
+            Nav::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class NavTest extends TestCase
             <nav lang="es">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->lang('es')->render(),
-            ),
+            Nav::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class NavTest extends TestCase
             <nav lang="es">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Nav::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class NavTest extends TestCase
             <nav itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Nav::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class NavTest extends TestCase
             <nav>
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Nav::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class NavTest extends TestCase
             <nav>
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Nav::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class NavTest extends TestCase
             <nav>
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Nav::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class NavTest extends TestCase
             <nav role="navigation">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->role('navigation')->render(),
-            ),
+            Nav::tag()
+                ->role('navigation')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class NavTest extends TestCase
             <nav role="navigation">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->role(Role::NAVIGATION)->render(),
-            ),
+            Nav::tag()
+                ->role(Role::NAVIGATION)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class NavTest extends TestCase
             <nav spellcheck="true">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->spellcheck(true)->render(),
-            ),
+            Nav::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class NavTest extends TestCase
             <nav style='value'>
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->style('value')->render(),
-            ),
+            Nav::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class NavTest extends TestCase
             <nav tabindex="3">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->tabIndex(3)->render(),
-            ),
+            Nav::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class NavTest extends TestCase
             <nav class="text-muted">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Nav::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,7 +620,9 @@ final class NavTest extends TestCase
             <nav title="value">
             </nav>
             HTML,
-            Nav::tag()->title('value')->render(),
+            Nav::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -648,9 +634,7 @@ final class NavTest extends TestCase
             <nav>
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Nav::tag(),
-            ),
+            (string) Nav::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -662,9 +646,9 @@ final class NavTest extends TestCase
             <nav translate="no">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->translate(false)->render(),
-            ),
+            Nav::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -676,9 +660,9 @@ final class NavTest extends TestCase
             <nav translate="no">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag()->translate(Translate::NO)->render(),
-            ),
+            Nav::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -692,9 +676,7 @@ final class NavTest extends TestCase
             <nav class="from-global" id="id-user">
             </nav>
             HTML,
-            LineEndingNormalizer::normalize(
-                Nav::tag(['id' => 'id-user'])->render(),
-            ),
+            Nav::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

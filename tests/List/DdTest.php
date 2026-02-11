@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\List;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('list')]
 final class DdTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $dd = Dd::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $dd->getContent(),
+            Dd::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class DdTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Dd::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Dd::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class DdTest extends TestCase
             <value>
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->html('<value>')->render(),
-            ),
+            Dd::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class DdTest extends TestCase
             <dd accesskey="k">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->accesskey('k')->render(),
-            ),
+            Dd::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class DdTest extends TestCase
             <dd aria-pressed="true">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Dd::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class DdTest extends TestCase
             <dd aria-pressed="true">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Dd::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class DdTest extends TestCase
             <dd data-test="value">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Dd::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class DdTest extends TestCase
             <dd title="value">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Dd::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class DdTest extends TestCase
             <dd data-value="value">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Dd::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class DdTest extends TestCase
             <dd data-value="value">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Dd::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class DdTest extends TestCase
             <dd aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Dd::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class DdTest extends TestCase
             <dd class="value">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Dd::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class DdTest extends TestCase
             <dd autofocus>
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->autofocus(true)->render(),
-            ),
+            Dd::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class DdTest extends TestCase
             Content
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->begin() . 'Content' . Dd::end(),
-            ),
+            Dd::tag()->begin() . 'Content' . Dd::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class DdTest extends TestCase
             <dd class="value">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->class('value')->render(),
-            ),
+            Dd::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class DdTest extends TestCase
             value
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->content('value')->render(),
-            ),
+            Dd::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class DdTest extends TestCase
             <dd contenteditable="true">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->contentEditable(true)->render(),
-            ),
+            Dd::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class DdTest extends TestCase
             <dd contenteditable="true">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Dd::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class DdTest extends TestCase
             <dd data-value="value">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Dd::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class DdTest extends TestCase
             <dd class="default-class">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag(['class' => 'default-class'])->render(),
-            ),
+            Dd::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class DdTest extends TestCase
             <dd class="default-class" title="default-title">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Dd::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class DdTest extends TestCase
             <dd dir="ltr">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->dir('ltr')->render(),
-            ),
+            Dd::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class DdTest extends TestCase
             <dd dir="ltr">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->dir(Direction::LTR)->render(),
-            ),
+            Dd::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class DdTest extends TestCase
             <dd draggable="true">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->draggable(true)->render(),
-            ),
+            Dd::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class DdTest extends TestCase
             <dd draggable="true">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Dd::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class DdTest extends TestCase
             <dd class="default-class">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->render(),
-            ),
+            Dd::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class DdTest extends TestCase
             <dd hidden>
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->hidden(true)->render(),
-            ),
+            Dd::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class DdTest extends TestCase
             <dd id="test-id">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->id('test-id')->render(),
-            ),
+            Dd::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class DdTest extends TestCase
             <dd lang="es">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->lang('es')->render(),
-            ),
+            Dd::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class DdTest extends TestCase
             <dd lang="es">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Dd::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class DdTest extends TestCase
             <dd itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Dd::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class DdTest extends TestCase
             <dd>
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Dd::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class DdTest extends TestCase
             <dd>
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Dd::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class DdTest extends TestCase
             <dd>
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Dd::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class DdTest extends TestCase
             <dd role="definition">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->role('definition')->render(),
-            ),
+            Dd::tag()
+                ->role('definition')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class DdTest extends TestCase
             <dd role="definition">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->role(Role::DEFINITION)->render(),
-            ),
+            Dd::tag()
+                ->role(Role::DEFINITION)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class DdTest extends TestCase
             <dd spellcheck="true">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->spellcheck(true)->render(),
-            ),
+            Dd::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class DdTest extends TestCase
             <dd style='value'>
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->style('value')->render(),
-            ),
+            Dd::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class DdTest extends TestCase
             <dd tabindex="3">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->tabIndex(3)->render(),
-            ),
+            Dd::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class DdTest extends TestCase
             <dd class="text-muted">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Dd::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,9 +620,9 @@ final class DdTest extends TestCase
             <dd title="value">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->title('value')->render(),
-            ),
+            Dd::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -650,9 +634,7 @@ final class DdTest extends TestCase
             <dd>
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Dd::tag(),
-            ),
+            (string) Dd::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -664,9 +646,9 @@ final class DdTest extends TestCase
             <dd translate="no">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->translate(false)->render(),
-            ),
+            Dd::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -678,9 +660,9 @@ final class DdTest extends TestCase
             <dd translate="no">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag()->translate(Translate::NO)->render(),
-            ),
+            Dd::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -694,9 +676,7 @@ final class DdTest extends TestCase
             <dd class="from-global" id="id-user">
             </dd>
             HTML,
-            LineEndingNormalizer::normalize(
-                Dd::tag(['id' => 'id-user'])->render(),
-            ),
+            Dd::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

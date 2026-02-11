@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Sectioning;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('sectioning')]
 final class SectionTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $section = Section::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $section->getContent(),
+            Section::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class SectionTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Section::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Section::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class SectionTest extends TestCase
             <value>
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->html('<value>')->render(),
-            ),
+            Section::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class SectionTest extends TestCase
             <section accesskey="k">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->accesskey('k')->render(),
-            ),
+            Section::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class SectionTest extends TestCase
             <section aria-pressed="true">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Section::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class SectionTest extends TestCase
             <section aria-pressed="true">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Section::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class SectionTest extends TestCase
             <section data-test="value">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Section::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class SectionTest extends TestCase
             <section title="value">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Section::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class SectionTest extends TestCase
             <section data-value="value">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Section::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class SectionTest extends TestCase
             <section data-value="value">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Section::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class SectionTest extends TestCase
             <section aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Section::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class SectionTest extends TestCase
             <section class="value">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Section::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class SectionTest extends TestCase
             <section autofocus>
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->autofocus(true)->render(),
-            ),
+            Section::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class SectionTest extends TestCase
             Content
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->begin() . 'Content' . Section::end(),
-            ),
+            Section::tag()->begin() . 'Content' . Section::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class SectionTest extends TestCase
             <section class="value">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->class('value')->render(),
-            ),
+            Section::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class SectionTest extends TestCase
             value
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->content('value')->render(),
-            ),
+            Section::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class SectionTest extends TestCase
             <section contenteditable="true">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->contentEditable(true)->render(),
-            ),
+            Section::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class SectionTest extends TestCase
             <section contenteditable="true">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Section::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class SectionTest extends TestCase
             <section data-value="value">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Section::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class SectionTest extends TestCase
             <section class="default-class">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag(['class' => 'default-class'])->render(),
-            ),
+            Section::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class SectionTest extends TestCase
             <section class="default-class" title="default-title">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Section::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class SectionTest extends TestCase
             <section dir="ltr">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->dir('ltr')->render(),
-            ),
+            Section::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class SectionTest extends TestCase
             <section dir="ltr">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->dir(Direction::LTR)->render(),
-            ),
+            Section::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class SectionTest extends TestCase
             <section draggable="true">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->draggable(true)->render(),
-            ),
+            Section::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class SectionTest extends TestCase
             <section draggable="true">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Section::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class SectionTest extends TestCase
             <section class="default-class">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->render(),
-            ),
+            Section::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class SectionTest extends TestCase
             <section hidden>
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->hidden(true)->render(),
-            ),
+            Section::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class SectionTest extends TestCase
             <section id="test-id">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->id('test-id')->render(),
-            ),
+            Section::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class SectionTest extends TestCase
             <section lang="es">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->lang('es')->render(),
-            ),
+            Section::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class SectionTest extends TestCase
             <section lang="es">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Section::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class SectionTest extends TestCase
             <section itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Section::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class SectionTest extends TestCase
             <section>
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Section::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class SectionTest extends TestCase
             <section>
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Section::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class SectionTest extends TestCase
             <section>
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Section::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class SectionTest extends TestCase
             <section role="region">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->role('region')->render(),
-            ),
+            Section::tag()
+                ->role('region')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class SectionTest extends TestCase
             <section role="region">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->role(Role::REGION)->render(),
-            ),
+            Section::tag()
+                ->role(Role::REGION)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class SectionTest extends TestCase
             <section spellcheck="true">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->spellcheck(true)->render(),
-            ),
+            Section::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class SectionTest extends TestCase
             <section style='value'>
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->style('value')->render(),
-            ),
+            Section::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class SectionTest extends TestCase
             <section tabindex="3">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->tabIndex(3)->render(),
-            ),
+            Section::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class SectionTest extends TestCase
             <section class="text-muted">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Section::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,7 +620,9 @@ final class SectionTest extends TestCase
             <section title="value">
             </section>
             HTML,
-            Section::tag()->title('value')->render(),
+            Section::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -648,9 +634,7 @@ final class SectionTest extends TestCase
             <section>
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Section::tag(),
-            ),
+            (string) Section::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -662,9 +646,9 @@ final class SectionTest extends TestCase
             <section translate="no">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->translate(false)->render(),
-            ),
+            Section::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -676,9 +660,9 @@ final class SectionTest extends TestCase
             <section translate="no">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag()->translate(Translate::NO)->render(),
-            ),
+            Section::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -692,9 +676,7 @@ final class SectionTest extends TestCase
             <section class="from-global" id="id-user">
             </section>
             HTML,
-            LineEndingNormalizer::normalize(
-                Section::tag(['id' => 'id-user'])->render(),
-            ),
+            Section::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

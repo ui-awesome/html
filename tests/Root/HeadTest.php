@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Root;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('root')]
 final class HeadTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $head = Head::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $head->getContent(),
+            Head::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class HeadTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Head::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Head::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class HeadTest extends TestCase
             <value>
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->html('<value>')->render(),
-            ),
+            Head::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class HeadTest extends TestCase
             <head accesskey="k">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->accesskey('k')->render(),
-            ),
+            Head::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class HeadTest extends TestCase
             <head aria-pressed="true">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Head::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class HeadTest extends TestCase
             <head aria-pressed="true">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Head::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class HeadTest extends TestCase
             <head data-test="value">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Head::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class HeadTest extends TestCase
             <head title="value">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Head::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class HeadTest extends TestCase
             <head data-value="value">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Head::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class HeadTest extends TestCase
             <head data-value="value">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Head::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class HeadTest extends TestCase
             <head aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Head::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class HeadTest extends TestCase
             <head class="value">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Head::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class HeadTest extends TestCase
             <head autofocus>
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->autofocus(true)->render(),
-            ),
+            Head::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class HeadTest extends TestCase
             Content
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->begin() . 'Content' . Head::end(),
-            ),
+            Head::tag()->begin() . 'Content' . Head::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class HeadTest extends TestCase
             <head class="value">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->class('value')->render(),
-            ),
+            Head::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class HeadTest extends TestCase
             value
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->content('value')->render(),
-            ),
+            Head::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class HeadTest extends TestCase
             <head contenteditable="true">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->contentEditable(true)->render(),
-            ),
+            Head::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class HeadTest extends TestCase
             <head contenteditable="true">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Head::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class HeadTest extends TestCase
             <head data-value="value">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Head::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class HeadTest extends TestCase
             <head class="default-class">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag(['class' => 'default-class'])->render(),
-            ),
+            Head::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class HeadTest extends TestCase
             <head class="default-class" title="default-title">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Head::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class HeadTest extends TestCase
             <head dir="ltr">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->dir('ltr')->render(),
-            ),
+            Head::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class HeadTest extends TestCase
             <head dir="ltr">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->dir(Direction::LTR)->render(),
-            ),
+            Head::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class HeadTest extends TestCase
             <head draggable="true">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->draggable(true)->render(),
-            ),
+            Head::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class HeadTest extends TestCase
             <head draggable="true">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Head::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class HeadTest extends TestCase
             <head class="default-class">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->render(),
-            ),
+            Head::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class HeadTest extends TestCase
             <head hidden>
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->hidden(true)->render(),
-            ),
+            Head::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class HeadTest extends TestCase
             <head id="test-id">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->id('test-id')->render(),
-            ),
+            Head::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class HeadTest extends TestCase
             <head lang="es">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->lang('es')->render(),
-            ),
+            Head::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class HeadTest extends TestCase
             <head lang="es">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Head::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class HeadTest extends TestCase
             <head itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Head::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class HeadTest extends TestCase
             <head>
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Head::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class HeadTest extends TestCase
             <head>
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Head::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class HeadTest extends TestCase
             <head>
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Head::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class HeadTest extends TestCase
             <head role="banner">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->role('banner')->render(),
-            ),
+            Head::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class HeadTest extends TestCase
             <head role="banner">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->role(Role::BANNER)->render(),
-            ),
+            Head::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class HeadTest extends TestCase
             <head spellcheck="true">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->spellcheck(true)->render(),
-            ),
+            Head::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class HeadTest extends TestCase
             <head style='value'>
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->style('value')->render(),
-            ),
+            Head::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class HeadTest extends TestCase
             <head tabindex="3">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->tabIndex(3)->render(),
-            ),
+            Head::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class HeadTest extends TestCase
             <head class="text-muted">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Head::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,9 +620,9 @@ final class HeadTest extends TestCase
             <head title="value">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->title('value')->render(),
-            ),
+            Head::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -650,9 +634,7 @@ final class HeadTest extends TestCase
             <head>
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Head::tag(),
-            ),
+            (string) Head::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -664,9 +646,9 @@ final class HeadTest extends TestCase
             <head translate="no">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->translate(false)->render(),
-            ),
+            Head::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -678,9 +660,9 @@ final class HeadTest extends TestCase
             <head translate="no">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag()->translate(Translate::NO)->render(),
-            ),
+            Head::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -694,9 +676,7 @@ final class HeadTest extends TestCase
             <head class="from-global" id="id-user">
             </head>
             HTML,
-            LineEndingNormalizer::normalize(
-                Head::tag(['id' => 'id-user'])->render(),
-            ),
+            Head::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

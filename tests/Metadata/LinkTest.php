@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Metadata;
 
 use InvalidArgumentException;
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -43,7 +42,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('metadata')]
 final class LinkTest extends TestCase
 {
@@ -60,7 +58,9 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Link::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Link::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -71,7 +71,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link accesskey="k">
             HTML,
-            Link::tag()->accesskey('k')->render(),
+            Link::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -82,7 +84,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link aria-label="Stylesheet">
             HTML,
-            Link::tag()->addAriaAttribute('label', 'Stylesheet')->render(),
+            Link::tag()
+                ->addAriaAttribute('label', 'Stylesheet')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -93,7 +97,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link aria-hidden="true">
             HTML,
-            Link::tag()->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            Link::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -104,7 +110,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link data-test="value">
             HTML,
-            Link::tag()->addAttribute('data-test', 'value')->render(),
+            Link::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -115,7 +123,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link title="Stylesheet">
             HTML,
-            Link::tag()->addAttribute(GlobalAttribute::TITLE, 'Stylesheet')->render(),
+            Link::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Stylesheet')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -126,7 +136,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link data-value="value">
             HTML,
-            Link::tag()->addDataAttribute('value', 'value')->render(),
+            Link::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -137,7 +149,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link data-value="value">
             HTML,
-            Link::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+            Link::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -148,13 +162,14 @@ final class LinkTest extends TestCase
             <<<HTML
             <link aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             HTML,
-            Link::tag()->ariaAttributes(
-                [
-                    'controls' => static fn(): string => 'modal-1',
-                    'hidden' => false,
-                    'label' => 'Close',
-                ],
-            )
+            Link::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -166,7 +181,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link as="style">
             HTML,
-            Link::tag()->as('style')->render(),
+            Link::tag()
+                ->as('style')
+                ->render(),
             "Failed asserting that element renders correctly with 'as' attribute.",
         );
     }
@@ -177,7 +194,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link class="value">
             HTML,
-            Link::tag()->attributes(['class' => 'value'])->render(),
+            Link::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -188,7 +207,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link blocking="render">
             HTML,
-            Link::tag()->blocking('render')->render(),
+            Link::tag()
+                ->blocking('render')
+                ->render(),
             "Failed asserting that element renders correctly with 'blocking' attribute.",
         );
     }
@@ -199,7 +220,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link blocking="render">
             HTML,
-            Link::tag()->blocking(Blocking::RENDER)->render(),
+            Link::tag()
+                ->blocking(Blocking::RENDER)
+                ->render(),
             "Failed asserting that element renders correctly with 'blocking' attribute using enum.",
         );
     }
@@ -210,7 +233,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link class="value">
             HTML,
-            Link::tag()->class('value')->render(),
+            Link::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -221,7 +246,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link crossorigin="anonymous">
             HTML,
-            Link::tag()->crossorigin('anonymous')->render(),
+            Link::tag()
+                ->crossorigin('anonymous')
+                ->render(),
             "Failed asserting that element renders correctly with 'crossorigin' attribute.",
         );
     }
@@ -232,7 +259,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link crossorigin="anonymous">
             HTML,
-            Link::tag()->crossorigin(Crossorigin::ANONYMOUS)->render(),
+            Link::tag()
+                ->crossorigin(Crossorigin::ANONYMOUS)
+                ->render(),
             "Failed asserting that element renders correctly with 'crossorigin' attribute using enum.",
         );
     }
@@ -243,7 +272,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link data-value="value">
             HTML,
-            Link::tag()->dataAttributes(['value' => 'value'])->render(),
+            Link::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -265,7 +296,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link class="default-class" title="default-title">
             HTML,
-            Link::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+            Link::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -287,7 +320,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link dir="ltr">
             HTML,
-            Link::tag()->dir('ltr')->render(),
+            Link::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -298,7 +333,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link dir="ltr">
             HTML,
-            Link::tag()->dir(Direction::LTR)->render(),
+            Link::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -309,7 +346,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link disabled>
             HTML,
-            Link::tag()->disabled(true)->render(),
+            Link::tag()
+                ->disabled(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -320,7 +359,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link fetchpriority="high">
             HTML,
-            Link::tag()->fetchpriority('high')->render(),
+            Link::tag()
+                ->fetchpriority('high')
+                ->render(),
             "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
         );
     }
@@ -331,7 +372,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link fetchpriority="high">
             HTML,
-            Link::tag()->fetchpriority(Fetchpriority::HIGH)->render(),
+            Link::tag()
+                ->fetchpriority(Fetchpriority::HIGH)
+                ->render(),
             "Failed asserting that element renders correctly with 'fetchpriority' attribute using enum.",
         );
     }
@@ -355,7 +398,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link hidden>
             HTML,
-            Link::tag()->hidden(true)->render(),
+            Link::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -366,7 +411,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link href="https://example.com/style.css">
             HTML,
-            Link::tag()->href('https://example.com/style.css')->render(),
+            Link::tag()
+                ->href('https://example.com/style.css')
+                ->render(),
             "Failed asserting that element renders correctly with 'href' attribute.",
         );
     }
@@ -377,7 +424,10 @@ final class LinkTest extends TestCase
             <<<HTML
             <link href="https://example.com/style.css" rel="stylesheet">
             HTML,
-            Link::tag()->href('https://example.com/style.css')->rel('stylesheet')->render(),
+            Link::tag()
+                ->href('https://example.com/style.css')
+                ->rel('stylesheet')
+                ->render(),
             "Failed asserting that element renders correctly with both 'href' and 'rel' attributes.",
         );
     }
@@ -388,7 +438,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link hreflang="es">
             HTML,
-            Link::tag()->hreflang('es')->render(),
+            Link::tag()
+                ->hreflang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'hreflang' attribute.",
         );
     }
@@ -399,7 +451,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link id="test-id">
             HTML,
-            Link::tag()->id('test-id')->render(),
+            Link::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -410,7 +464,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link imagesizes="100vw">
             HTML,
-            Link::tag()->imagesizes('100vw')->render(),
+            Link::tag()
+                ->imagesizes('100vw')
+                ->render(),
             "Failed asserting that element renders correctly with 'imagesizes' attribute.",
         );
     }
@@ -421,7 +477,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link imagesrcset="image-480.jpg 480w, image-800.jpg 800w">
             HTML,
-            Link::tag()->imagesrcset('image-480.jpg 480w, image-800.jpg 800w')->render(),
+            Link::tag()
+                ->imagesrcset('image-480.jpg 480w, image-800.jpg 800w')
+                ->render(),
             "Failed asserting that element renders correctly with 'imagesrcset' attribute.",
         );
     }
@@ -432,7 +490,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link integrity="sha384-abc123">
             HTML,
-            Link::tag()->integrity('sha384-abc123')->render(),
+            Link::tag()
+                ->integrity('sha384-abc123')
+                ->render(),
             "Failed asserting that element renders correctly with 'integrity' attribute.",
         );
     }
@@ -443,7 +503,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link lang="es">
             HTML,
-            Link::tag()->lang('es')->render(),
+            Link::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -454,7 +516,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link lang="es">
             HTML,
-            Link::tag()->lang(Language::SPANISH)->render(),
+            Link::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -465,7 +529,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link media="screen and (min-width: 768px)">
             HTML,
-            Link::tag()->media('screen and (min-width: 768px)')->render(),
+            Link::tag()
+                ->media('screen and (min-width: 768px)')
+                ->render(),
             "Failed asserting that element renders correctly with 'media' attribute.",
         );
     }
@@ -476,7 +542,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link referrerpolicy="no-referrer">
             HTML,
-            Link::tag()->referrerpolicy('no-referrer')->render(),
+            Link::tag()
+                ->referrerpolicy('no-referrer')
+                ->render(),
             "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
         );
     }
@@ -487,7 +555,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link referrerpolicy="no-referrer">
             HTML,
-            Link::tag()->referrerpolicy(Referrerpolicy::NO_REFERRER)->render(),
+            Link::tag()
+                ->referrerpolicy(Referrerpolicy::NO_REFERRER)
+                ->render(),
             "Failed asserting that element renders correctly with 'referrerpolicy' attribute using enum.",
         );
     }
@@ -498,7 +568,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link rel="stylesheet">
             HTML,
-            Link::tag()->rel('stylesheet')->render(),
+            Link::tag()
+                ->rel('stylesheet')
+                ->render(),
             "Failed asserting that element renders correctly with 'rel' attribute.",
         );
     }
@@ -551,7 +623,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link role="banner">
             HTML,
-            Link::tag()->role('banner')->render(),
+            Link::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -562,7 +636,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link role="banner">
             HTML,
-            Link::tag()->role(Role::BANNER)->render(),
+            Link::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -573,7 +649,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link sizes="16x16">
             HTML,
-            Link::tag()->sizes('16x16')->render(),
+            Link::tag()
+                ->sizes('16x16')
+                ->render(),
             "Failed asserting that element renders correctly with 'sizes' attribute.",
         );
     }
@@ -584,7 +662,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link style='value'>
             HTML,
-            Link::tag()->style('value')->render(),
+            Link::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -595,7 +675,10 @@ final class LinkTest extends TestCase
             <<<HTML
             <link href="/css/site.css" rel="stylesheet">
             HTML,
-            Link::tag()->href('/css/site.css')->rel('stylesheet')->render(),
+            Link::tag()
+                ->href('/css/site.css')
+                ->rel('stylesheet')
+                ->render(),
             'Failed asserting that element renders correctly as stylesheet link.',
         );
     }
@@ -606,7 +689,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link class="text-muted">
             HTML,
-            Link::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            Link::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -617,7 +702,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link title="value">
             HTML,
-            Link::tag()->title('value')->render(),
+            Link::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -626,9 +713,7 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             '<link>',
-            LineEndingNormalizer::normalize(
-                (string) Link::tag(),
-            ),
+            (string) Link::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -639,7 +724,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link translate="no">
             HTML,
-            Link::tag()->translate(false)->render(),
+            Link::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -650,7 +737,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link translate="no">
             HTML,
-            Link::tag()->translate(Translate::NO)->render(),
+            Link::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -661,7 +750,9 @@ final class LinkTest extends TestCase
             <<<HTML
             <link type="text/css">
             HTML,
-            Link::tag()->type('text/css')->render(),
+            Link::tag()
+                ->type('text/css')
+                ->render(),
             "Failed asserting that element renders correctly with 'type' attribute.",
         );
     }

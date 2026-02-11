@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Metadata;
 
 use InvalidArgumentException;
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -38,7 +37,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('metadata')]
 final class BaseTest extends TestCase
 {
@@ -55,7 +53,9 @@ final class BaseTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Base::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Base::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -66,7 +66,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base accesskey="k">
             HTML,
-            Base::tag()->accesskey('k')->render(),
+            Base::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -77,7 +79,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base aria-label="Base URL">
             HTML,
-            Base::tag()->addAriaAttribute('label', 'Base URL')->render(),
+            Base::tag()
+                ->addAriaAttribute('label', 'Base URL')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -88,7 +92,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base aria-hidden="true">
             HTML,
-            Base::tag()->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            Base::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -99,7 +105,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base data-test="value">
             HTML,
-            Base::tag()->addAttribute('data-test', 'value')->render(),
+            Base::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -110,7 +118,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base title="Base URL">
             HTML,
-            Base::tag()->addAttribute(GlobalAttribute::TITLE, 'Base URL')->render(),
+            Base::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Base URL')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -121,7 +131,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base data-value="value">
             HTML,
-            Base::tag()->addDataAttribute('value', 'value')->render(),
+            Base::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -132,7 +144,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base data-value="value">
             HTML,
-            Base::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+            Base::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -143,13 +157,14 @@ final class BaseTest extends TestCase
             <<<HTML
             <base aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             HTML,
-            Base::tag()->ariaAttributes(
-                [
-                    'controls' => static fn(): string => 'modal-1',
-                    'hidden' => false,
-                    'label' => 'Close',
-                ],
-            )
+            Base::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -161,7 +176,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base class="value">
             HTML,
-            Base::tag()->attributes(['class' => 'value'])->render(),
+            Base::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -172,7 +189,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base class="value">
             HTML,
-            Base::tag()->class('value')->render(),
+            Base::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -183,7 +202,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base data-value="value">
             HTML,
-            Base::tag()->dataAttributes(['value' => 'value'])->render(),
+            Base::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -205,7 +226,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base class="default-class" title="default-title">
             HTML,
-            Base::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+            Base::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -227,7 +250,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base dir="ltr">
             HTML,
-            Base::tag()->dir('ltr')->render(),
+            Base::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -238,7 +263,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base dir="ltr">
             HTML,
-            Base::tag()->dir(Direction::LTR)->render(),
+            Base::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -262,7 +289,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base hidden>
             HTML,
-            Base::tag()->hidden(true)->render(),
+            Base::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -273,7 +302,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base href="https://example.com/">
             HTML,
-            Base::tag()->href('https://example.com/')->render(),
+            Base::tag()
+                ->href('https://example.com/')
+                ->render(),
             "Failed asserting that element renders correctly with 'href' attribute.",
         );
     }
@@ -284,7 +315,10 @@ final class BaseTest extends TestCase
             <<<HTML
             <base href="https://example.com/" target="_blank">
             HTML,
-            Base::tag()->href('https://example.com/')->target('_blank')->render(),
+            Base::tag()
+                ->href('https://example.com/')
+                ->target('_blank')
+                ->render(),
             "Failed asserting that element renders correctly with both 'href' and 'target' attributes.",
         );
     }
@@ -295,7 +329,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base id="test-id">
             HTML,
-            Base::tag()->id('test-id')->render(),
+            Base::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -306,7 +342,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base lang="es">
             HTML,
-            Base::tag()->lang('es')->render(),
+            Base::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -317,7 +355,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base lang="es">
             HTML,
-            Base::tag()->lang(Language::SPANISH)->render(),
+            Base::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -370,7 +410,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base role="banner">
             HTML,
-            Base::tag()->role('banner')->render(),
+            Base::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -381,7 +423,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base role="banner">
             HTML,
-            Base::tag()->role(Role::BANNER)->render(),
+            Base::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -392,7 +436,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base style='value'>
             HTML,
-            Base::tag()->style('value')->render(),
+            Base::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -403,7 +449,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base target="_blank">
             HTML,
-            Base::tag()->target('_blank')->render(),
+            Base::tag()
+                ->target('_blank')
+                ->render(),
             "Failed asserting that element renders correctly with 'target' attribute.",
         );
     }
@@ -414,7 +462,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base target="_blank">
             HTML,
-            Base::tag()->target(Target::BLANK)->render(),
+            Base::tag()
+                ->target(Target::BLANK)
+                ->render(),
             "Failed asserting that element renders correctly with 'target' attribute using Target::BLANK enum.",
         );
     }
@@ -436,7 +486,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base target="_self">
             HTML,
-            Base::tag()->target(Target::SELF)->render(),
+            Base::tag()
+                ->target(Target::SELF)
+                ->render(),
             "Failed asserting that element renders correctly with 'target' attribute using Target::SELF enum.",
         );
     }
@@ -447,7 +499,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base target="_top">
             HTML,
-            Base::tag()->target(Target::TOP)->render(),
+            Base::tag()
+                ->target(Target::TOP)
+                ->render(),
             "Failed asserting that element renders correctly with 'target' attribute using Target::TOP enum.",
         );
     }
@@ -458,7 +512,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base class="text-muted">
             HTML,
-            Base::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            Base::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -469,7 +525,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base title="value">
             HTML,
-            Base::tag()->title('value')->render(),
+            Base::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -478,9 +536,7 @@ final class BaseTest extends TestCase
     {
         self::assertSame(
             '<base>',
-            LineEndingNormalizer::normalize(
-                (string) Base::tag(),
-            ),
+            (string) Base::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -491,7 +547,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base translate="no">
             HTML,
-            Base::tag()->translate(false)->render(),
+            Base::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -502,7 +560,9 @@ final class BaseTest extends TestCase
             <<<HTML
             <base translate="no">
             HTML,
-            Base::tag()->translate(Translate::NO)->render(),
+            Base::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }

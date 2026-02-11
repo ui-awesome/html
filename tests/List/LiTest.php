@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\List;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -35,17 +34,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('list')]
 final class LiTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $li = Li::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $li->getContent(),
+            Li::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -63,7 +61,9 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Li::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Li::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -76,9 +76,9 @@ final class LiTest extends TestCase
             <value>
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->html('<value>')->render(),
-            ),
+            Li::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -90,9 +90,9 @@ final class LiTest extends TestCase
             <li accesskey="k">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->accesskey('k')->render(),
-            ),
+            Li::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -104,9 +104,9 @@ final class LiTest extends TestCase
             <li aria-pressed="true">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Li::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -118,9 +118,9 @@ final class LiTest extends TestCase
             <li aria-pressed="true">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Li::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -132,9 +132,9 @@ final class LiTest extends TestCase
             <li data-test="value">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Li::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -146,9 +146,9 @@ final class LiTest extends TestCase
             <li title="value">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Li::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -160,9 +160,9 @@ final class LiTest extends TestCase
             <li data-value="value">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Li::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -174,9 +174,9 @@ final class LiTest extends TestCase
             <li data-value="value">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Li::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -188,17 +188,15 @@ final class LiTest extends TestCase
             <li aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Li::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -210,9 +208,9 @@ final class LiTest extends TestCase
             <li class="value">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Li::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -224,9 +222,9 @@ final class LiTest extends TestCase
             <li autofocus>
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->autofocus(true)->render(),
-            ),
+            Li::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -239,9 +237,7 @@ final class LiTest extends TestCase
             Content
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->begin() . 'Content' . Li::end(),
-            ),
+            Li::tag()->begin() . 'Content' . Li::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -253,9 +249,9 @@ final class LiTest extends TestCase
             <li class="value">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->class('value')->render(),
-            ),
+            Li::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -268,9 +264,9 @@ final class LiTest extends TestCase
             value
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->content('value')->render(),
-            ),
+            Li::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -282,9 +278,9 @@ final class LiTest extends TestCase
             <li contenteditable="true">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->contentEditable(true)->render(),
-            ),
+            Li::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -296,9 +292,9 @@ final class LiTest extends TestCase
             <li contenteditable="true">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Li::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -310,9 +306,9 @@ final class LiTest extends TestCase
             <li data-value="value">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Li::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -324,9 +320,7 @@ final class LiTest extends TestCase
             <li class="default-class">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag(['class' => 'default-class'])->render(),
-            ),
+            Li::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -338,9 +332,9 @@ final class LiTest extends TestCase
             <li class="default-class" title="default-title">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Li::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -352,9 +346,9 @@ final class LiTest extends TestCase
             <li dir="ltr">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->dir('ltr')->render(),
-            ),
+            Li::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -366,9 +360,9 @@ final class LiTest extends TestCase
             <li dir="ltr">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->dir(Direction::LTR)->render(),
-            ),
+            Li::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -380,9 +374,9 @@ final class LiTest extends TestCase
             <li draggable="true">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->draggable(true)->render(),
-            ),
+            Li::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -394,9 +388,9 @@ final class LiTest extends TestCase
             <li draggable="true">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Li::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -410,9 +404,7 @@ final class LiTest extends TestCase
             <li class="default-class">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->render(),
-            ),
+            Li::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -426,9 +418,9 @@ final class LiTest extends TestCase
             <li hidden>
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->hidden(true)->render(),
-            ),
+            Li::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -440,9 +432,9 @@ final class LiTest extends TestCase
             <li id="test-id">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->id('test-id')->render(),
-            ),
+            Li::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -454,9 +446,9 @@ final class LiTest extends TestCase
             <li lang="es">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->lang('es')->render(),
-            ),
+            Li::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -468,9 +460,9 @@ final class LiTest extends TestCase
             <li lang="es">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Li::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -482,15 +474,13 @@ final class LiTest extends TestCase
             <li itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Li::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -503,9 +493,9 @@ final class LiTest extends TestCase
             Item without value
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->content('Item without value')->render(),
-            ),
+            Li::tag()
+                ->content('Item without value')
+                ->render(),
             "Failed asserting that element renders correctly without 'value' attribute.",
         );
     }
@@ -517,12 +507,10 @@ final class LiTest extends TestCase
             <li>
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Li::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -534,12 +522,10 @@ final class LiTest extends TestCase
             <li>
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Li::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -551,12 +537,10 @@ final class LiTest extends TestCase
             <li>
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Li::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -568,9 +552,9 @@ final class LiTest extends TestCase
             <li role="listitem">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->role('listitem')->render(),
-            ),
+            Li::tag()
+                ->role('listitem')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -582,9 +566,9 @@ final class LiTest extends TestCase
             <li role="listitem">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->role(Role::LISTITEM)->render(),
-            ),
+            Li::tag()
+                ->role(Role::LISTITEM)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -596,9 +580,9 @@ final class LiTest extends TestCase
             <li spellcheck="true">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->spellcheck(true)->render(),
-            ),
+            Li::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -610,9 +594,9 @@ final class LiTest extends TestCase
             <li style='value'>
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->style('value')->render(),
-            ),
+            Li::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -624,9 +608,9 @@ final class LiTest extends TestCase
             <li tabindex="3">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->tabIndex(3)->render(),
-            ),
+            Li::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -638,9 +622,9 @@ final class LiTest extends TestCase
             <li class="text-muted">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Li::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -652,9 +636,9 @@ final class LiTest extends TestCase
             <li title="value">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->title('value')->render(),
-            ),
+            Li::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -666,9 +650,7 @@ final class LiTest extends TestCase
             <li>
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Li::tag(),
-            ),
+            (string) Li::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -680,9 +662,9 @@ final class LiTest extends TestCase
             <li translate="no">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->translate(false)->render(),
-            ),
+            Li::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -694,9 +676,9 @@ final class LiTest extends TestCase
             <li translate="no">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->translate(Translate::NO)->render(),
-            ),
+            Li::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -710,9 +692,7 @@ final class LiTest extends TestCase
             <li class="from-global" id="id-user">
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag(['id' => 'id-user'])->render(),
-            ),
+            Li::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -727,9 +707,9 @@ final class LiTest extends TestCase
             Third item
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->value(3)->content('Third item')->render(),
-            ),
+            Li::tag()->value(3)
+                ->content('Third item')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }
@@ -742,9 +722,9 @@ final class LiTest extends TestCase
             Item
             </li>
             HTML,
-            LineEndingNormalizer::normalize(
-                Li::tag()->value('custom-value')->content('Item')->render(),
-            ),
+            Li::tag()->value('custom-value')
+                ->content('Item')
+                ->render(),
             "Failed asserting that element renders correctly with string 'value' attribute.",
         );
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\List;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('list')]
 final class UlTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $ul = Ul::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $ul->getContent(),
+            Ul::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Ul::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Ul::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class UlTest extends TestCase
             <value>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->html('<value>')->render(),
-            ),
+            Ul::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class UlTest extends TestCase
             <ul accesskey="k">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->accesskey('k')->render(),
-            ),
+            Ul::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class UlTest extends TestCase
             <ul aria-pressed="true">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Ul::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class UlTest extends TestCase
             <ul aria-pressed="true">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Ul::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class UlTest extends TestCase
             <ul data-test="value">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Ul::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class UlTest extends TestCase
             <ul title="value">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Ul::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class UlTest extends TestCase
             <ul data-value="value">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Ul::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class UlTest extends TestCase
             <ul data-value="value">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Ul::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class UlTest extends TestCase
             <ul aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Ul::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class UlTest extends TestCase
             <ul class="value">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Ul::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class UlTest extends TestCase
             <ul autofocus>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->autofocus(true)->render(),
-            ),
+            Ul::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class UlTest extends TestCase
             Content
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->begin() . 'Content' . Ul::end(),
-            ),
+            Ul::tag()->begin() . 'Content' . Ul::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class UlTest extends TestCase
             <ul class="value">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->class('value')->render(),
-            ),
+            Ul::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class UlTest extends TestCase
             value
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->content('value')->render(),
-            ),
+            Ul::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class UlTest extends TestCase
             <ul contenteditable="true">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->contentEditable(true)->render(),
-            ),
+            Ul::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class UlTest extends TestCase
             <ul contenteditable="true">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Ul::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class UlTest extends TestCase
             <ul data-value="value">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Ul::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class UlTest extends TestCase
             <ul class="default-class">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag(['class' => 'default-class'])->render(),
-            ),
+            Ul::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class UlTest extends TestCase
             <ul class="default-class" title="default-title">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Ul::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class UlTest extends TestCase
             <ul dir="ltr">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->dir('ltr')->render(),
-            ),
+            Ul::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class UlTest extends TestCase
             <ul dir="ltr">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->dir(Direction::LTR)->render(),
-            ),
+            Ul::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class UlTest extends TestCase
             <ul draggable="true">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->draggable(true)->render(),
-            ),
+            Ul::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class UlTest extends TestCase
             <ul draggable="true">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Ul::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class UlTest extends TestCase
             <ul class="default-class">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->render(),
-            ),
+            Ul::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class UlTest extends TestCase
             <ul hidden>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->hidden(true)->render(),
-            ),
+            Ul::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class UlTest extends TestCase
             <ul id="test-id">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->id('test-id')->render(),
-            ),
+            Ul::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -462,9 +454,9 @@ final class UlTest extends TestCase
             </li>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->items('Apple', 'Banana', 'Cherry')->render(),
-            ),
+            Ul::tag()
+                ->items('Apple', 'Banana', 'Cherry')
+                ->render(),
             "Failed asserting that element renders correctly with 'items()' method.",
         );
     }
@@ -476,9 +468,9 @@ final class UlTest extends TestCase
             <ul lang="es">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->lang('es')->render(),
-            ),
+            Ul::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -490,9 +482,9 @@ final class UlTest extends TestCase
             <ul lang="es">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Ul::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -510,9 +502,10 @@ final class UlTest extends TestCase
             </li>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->li('First item')->li('Second item')->render(),
-            ),
+            Ul::tag()
+                ->li('First item')
+                ->li('Second item')
+                ->render(),
             "Failed asserting that element renders correctly with 'li()' method.",
         );
     }
@@ -527,9 +520,9 @@ final class UlTest extends TestCase
             </li>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->li('Item', 3)->render(),
-            ),
+            Ul::tag()
+                ->li('Item', 3)
+                ->render(),
             "Failed asserting that element renders correctly with 'li()' method using a value.",
         );
     }
@@ -541,15 +534,13 @@ final class UlTest extends TestCase
             <ul itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Ul::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -561,12 +552,10 @@ final class UlTest extends TestCase
             <ul>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Ul::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -578,12 +567,10 @@ final class UlTest extends TestCase
             <ul>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Ul::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -595,12 +582,10 @@ final class UlTest extends TestCase
             <ul>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Ul::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -612,9 +597,9 @@ final class UlTest extends TestCase
             <ul role="list">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->role('list')->render(),
-            ),
+            Ul::tag()
+                ->role('list')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -626,9 +611,9 @@ final class UlTest extends TestCase
             <ul role="list">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->role(Role::LIST)->render(),
-            ),
+            Ul::tag()
+                ->role(Role::LIST)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -640,9 +625,9 @@ final class UlTest extends TestCase
             <ul spellcheck="true">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->spellcheck(true)->render(),
-            ),
+            Ul::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -654,9 +639,9 @@ final class UlTest extends TestCase
             <ul style='value'>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->style('value')->render(),
-            ),
+            Ul::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -668,9 +653,9 @@ final class UlTest extends TestCase
             <ul tabindex="3">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->tabIndex(3)->render(),
-            ),
+            Ul::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -682,9 +667,9 @@ final class UlTest extends TestCase
             <ul class="text-muted">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Ul::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -696,9 +681,9 @@ final class UlTest extends TestCase
             <ul title="value">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->title('value')->render(),
-            ),
+            Ul::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -710,9 +695,7 @@ final class UlTest extends TestCase
             <ul>
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Ul::tag(),
-            ),
+            (string) Ul::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -724,9 +707,9 @@ final class UlTest extends TestCase
             <ul translate="no">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->translate(false)->render(),
-            ),
+            Ul::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -738,9 +721,9 @@ final class UlTest extends TestCase
             <ul translate="no">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag()->translate(Translate::NO)->render(),
-            ),
+            Ul::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -754,9 +737,7 @@ final class UlTest extends TestCase
             <ul class="from-global" id="id-user">
             </ul>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ul::tag(['id' => 'id-user'])->render(),
-            ),
+            Ul::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

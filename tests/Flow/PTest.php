@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Flow;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('flow')]
 final class PTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $p = P::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $p->getContent(),
+            P::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class PTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            P::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            P::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class PTest extends TestCase
             <value>
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->html('<value>')->render(),
-            ),
+            P::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class PTest extends TestCase
             <p accesskey="k">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->accesskey('k')->render(),
-            ),
+            P::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class PTest extends TestCase
             <p aria-pressed="true">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            P::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class PTest extends TestCase
             <p aria-pressed="true">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            P::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class PTest extends TestCase
             <p data-test="value">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            P::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class PTest extends TestCase
             <p title="value">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            P::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class PTest extends TestCase
             <p data-value="value">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            P::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class PTest extends TestCase
             <p data-value="value">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            P::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class PTest extends TestCase
             <p aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            P::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class PTest extends TestCase
             <p class="value">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            P::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class PTest extends TestCase
             <p autofocus>
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->autofocus(true)->render(),
-            ),
+            P::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class PTest extends TestCase
             Content
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->begin() . 'Content' . P::end(),
-            ),
+            P::tag()->begin() . 'Content' . P::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class PTest extends TestCase
             <p class="value">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->class('value')->render(),
-            ),
+            P::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class PTest extends TestCase
             value
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->content('value')->render(),
-            ),
+            P::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class PTest extends TestCase
             <p contenteditable="true">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->contentEditable(true)->render(),
-            ),
+            P::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class PTest extends TestCase
             <p contenteditable="true">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            P::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class PTest extends TestCase
             <p data-value="value">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            P::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class PTest extends TestCase
             <p class="default-class">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag(['class' => 'default-class'])->render(),
-            ),
+            P::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class PTest extends TestCase
             <p class="default-class" title="default-title">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            P::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class PTest extends TestCase
             <p dir="ltr">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->dir('ltr')->render(),
-            ),
+            P::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class PTest extends TestCase
             <p dir="ltr">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->dir(Direction::LTR)->render(),
-            ),
+            P::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class PTest extends TestCase
             <p draggable="true">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->draggable(true)->render(),
-            ),
+            P::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class PTest extends TestCase
             <p draggable="true">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            P::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class PTest extends TestCase
             <p class="default-class">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->render(),
-            ),
+            P::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class PTest extends TestCase
             <p hidden>
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->hidden(true)->render(),
-            ),
+            P::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class PTest extends TestCase
             <p id="test-id">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->id('test-id')->render(),
-            ),
+            P::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class PTest extends TestCase
             <p lang="es">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->lang('es')->render(),
-            ),
+            P::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class PTest extends TestCase
             <p lang="es">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->lang(Language::SPANISH)->render(),
-            ),
+            P::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class PTest extends TestCase
             <p itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            P::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class PTest extends TestCase
             <p>
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            P::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class PTest extends TestCase
             <p>
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            P::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class PTest extends TestCase
             <p>
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            P::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class PTest extends TestCase
             <p role="banner">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->role('banner')->render(),
-            ),
+            P::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class PTest extends TestCase
             <p role="banner">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->role(Role::BANNER)->render(),
-            ),
+            P::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class PTest extends TestCase
             <p spellcheck="true">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->spellcheck(true)->render(),
-            ),
+            P::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class PTest extends TestCase
             <p style='value'>
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->style('value')->render(),
-            ),
+            P::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class PTest extends TestCase
             <p tabindex="3">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->tabIndex(3)->render(),
-            ),
+            P::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class PTest extends TestCase
             <p class="text-muted">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            P::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,7 +620,9 @@ final class PTest extends TestCase
             <p title="value">
             </p>
             HTML,
-            P::tag()->title('value')->render(),
+            P::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -648,9 +634,7 @@ final class PTest extends TestCase
             <p>
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) P::tag(),
-            ),
+            (string) P::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -662,9 +646,9 @@ final class PTest extends TestCase
             <p translate="no">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->translate(false)->render(),
-            ),
+            P::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -676,9 +660,9 @@ final class PTest extends TestCase
             <p translate="no">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag()->translate(Translate::NO)->render(),
-            ),
+            P::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -692,9 +676,7 @@ final class PTest extends TestCase
             <p class="from-global" id="id-user">
             </p>
             HTML,
-            LineEndingNormalizer::normalize(
-                P::tag(['id' => 'id-user'])->render(),
-            ),
+            P::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

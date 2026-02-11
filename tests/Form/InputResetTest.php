@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputReset;
+use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -27,7 +27,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('form')]
 final class InputResetTest extends TestCase
 {
@@ -44,9 +43,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" accesskey="k">
+            <input id="inputreset" type="reset" accesskey="k">
             HTML,
-            InputReset::tag()->id('inputreset-')->accesskey('k')->render(),
+            InputReset::tag()->id('inputreset')->accesskey('k')->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -55,9 +54,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" aria-label="Reset form">
+            <input id="inputreset" type="reset" aria-label="Reset form">
             HTML,
-            InputReset::tag()->id('inputreset-')->addAriaAttribute('label', 'Reset form')->render(),
+            InputReset::tag()->id('inputreset')->addAriaAttribute('label', 'Reset form')->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -66,10 +65,111 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" aria-hidden="true">
+            <input id="inputreset" type="reset" aria-hidden="true">
             HTML,
-            InputReset::tag()->id('inputreset-')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputReset::tag()->id('inputreset')->addAriaAttribute(Aria::HIDDEN, true)->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" aria-describedby="custom-help">
+            HTML,
+            InputReset::tag()
+                ->addAriaAttribute('describedby', 'custom-help')
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
+            HTML,
+            InputReset::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input type="reset">
+            HTML,
+            InputReset::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id(null)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and 'id' is 'null'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
+            <span>Suffix</span>
+            HTML,
+            InputReset::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('inputreset')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and prefix/suffix.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
+            HTML,
+            InputReset::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
+            <span>Suffix</span>
+            HTML,
+            InputReset::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('inputreset')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and prefix/suffix.",
         );
     }
 
@@ -77,9 +177,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" data-test="value">
+            <input id="inputreset" type="reset" data-test="value">
             HTML,
-            InputReset::tag()->id('inputreset-')->addAttribute('data-test', 'value')->render(),
+            InputReset::tag()->id('inputreset')->addAttribute('data-test', 'value')->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -88,9 +188,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" title="Reset form">
+            <input id="inputreset" type="reset" title="Reset form">
             HTML,
-            InputReset::tag()->id('inputreset-')->addAttribute(GlobalAttribute::TITLE, 'Reset form')->render(),
+            InputReset::tag()->id('inputreset')->addAttribute(GlobalAttribute::TITLE, 'Reset form')->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -99,9 +199,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" data-reset="value">
+            <input id="inputreset" type="reset" data-reset="value">
             HTML,
-            InputReset::tag()->id('inputreset-')->addDataAttribute('reset', 'value')->render(),
+            InputReset::tag()->id('inputreset')->addDataAttribute('reset', 'value')->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -110,9 +210,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" data-value="test">
+            <input id="inputreset" type="reset" data-value="test">
             HTML,
-            InputReset::tag()->id('inputreset-')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputReset::tag()->id('inputreset')->addDataAttribute(Data::VALUE, 'test')->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -121,10 +221,10 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" aria-controls="form-id" aria-label="Reset form">
+            <input id="inputreset" type="reset" aria-controls="form-id" aria-label="Reset form">
             HTML,
             InputReset::tag()
-                ->id('inputreset-')
+                ->id('inputreset')
                 ->ariaAttributes([
                     'controls' => 'form-id',
                     'label' => 'Reset form',
@@ -134,14 +234,70 @@ final class InputResetTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
+            HTML,
+            InputReset::tag()
+                ->ariaAttributes(['describedby' => true])
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
+            HTML,
+            InputReset::tag()
+                ->ariaAttributes(['describedby' => 'true'])
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="reset-input" id="inputreset-" type="reset">
+            <input class="reset-input" id="inputreset" type="reset">
             HTML,
-            InputReset::tag()->id('inputreset-')->attributes(['class' => 'reset-input'])->render(),
+            InputReset::tag()->id('inputreset')->attributes(['class' => 'reset-input'])->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
+            HTML,
+            InputReset::tag()
+                ->attributes(['aria-describedby' => true])
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
+            HTML,
+            InputReset::tag()
+                ->attributes(['aria-describedby' => 'true'])
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
         );
     }
 
@@ -149,9 +305,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" autofocus>
+            <input id="inputreset" type="reset" autofocus>
             HTML,
-            InputReset::tag()->autofocus(true)->id('inputreset-')->render(),
+            InputReset::tag()->autofocus(true)->id('inputreset')->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -160,9 +316,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="reset-input" id="inputreset-" type="reset">
+            <input class="reset-input" id="inputreset" type="reset">
             HTML,
-            InputReset::tag()->id('inputreset-')->class('reset-input')->render(),
+            InputReset::tag()->id('inputreset')->class('reset-input')->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -171,9 +327,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" data-reset="value">
+            <input id="inputreset" type="reset" data-reset="value">
             HTML,
-            InputReset::tag()->id('inputreset-')->dataAttributes(['reset' => 'value'])->render(),
+            InputReset::tag()->id('inputreset')->dataAttributes(['reset' => 'value'])->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -182,9 +338,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputreset-" type="reset">
+            <input class="default-class" id="inputreset" type="reset">
             HTML,
-            InputReset::tag(['class' => 'default-class'])->id('inputreset-')->render(),
+            InputReset::tag(['class' => 'default-class'])->id('inputreset')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -193,9 +349,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputreset-" type="reset" title="default-title">
+            <input class="default-class" id="inputreset" type="reset" title="default-title">
             HTML,
-            InputReset::tag()->id('inputreset-')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputReset::tag()->id('inputreset')->addDefaultProvider(DefaultProvider::class)->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -204,9 +360,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset">
+            <input id="inputreset" type="reset">
             HTML,
-            InputReset::tag()->id('inputreset-')->render(),
+            InputReset::tag()->id('inputreset')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -215,9 +371,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" dir="ltr">
+            <input id="inputreset" type="reset" dir="ltr">
             HTML,
-            InputReset::tag()->id('inputreset-')->dir('ltr')->render(),
+            InputReset::tag()->id('inputreset')->dir('ltr')->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -226,9 +382,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" dir="ltr">
+            <input id="inputreset" type="reset" dir="ltr">
             HTML,
-            InputReset::tag()->id('inputreset-')->dir(Direction::LTR)->render(),
+            InputReset::tag()->id('inputreset')->dir(Direction::LTR)->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -237,10 +393,22 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" disabled>
+            <input id="inputreset" type="reset" disabled>
             HTML,
-            InputReset::tag()->id('inputreset-')->disabled(true)->render(),
+            InputReset::tag()->id('inputreset')->disabled(true)->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
+        );
+    }
+
+    public function testRenderWithGenerateId(): void
+    {
+        /** @phpstan-var string $id */
+        $id = InputReset::tag()->getAttribute('id', '');
+
+        self::assertMatchesRegularExpression(
+            '/^inputreset-\w+$/',
+            $id,
+            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -261,9 +429,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" hidden>
+            <input id="inputreset" type="reset" hidden>
             HTML,
-            InputReset::tag()->id('inputreset-')->hidden(true)->render(),
+            InputReset::tag()->id('inputreset')->hidden(true)->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -283,9 +451,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" lang="en">
+            <input id="inputreset" type="reset" lang="en">
             HTML,
-            InputReset::tag()->id('inputreset-')->lang('en')->render(),
+            InputReset::tag()->id('inputreset')->lang('en')->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -294,9 +462,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" lang="en">
+            <input id="inputreset" type="reset" lang="en">
             HTML,
-            InputReset::tag()->id('inputreset-')->lang(Language::ENGLISH)->render(),
+            InputReset::tag()->id('inputreset')->lang(Language::ENGLISH)->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -305,9 +473,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" name="reset-form" type="reset">
+            <input id="inputreset" name="reset-form" type="reset">
             HTML,
-            InputReset::tag()->id('inputreset-')->name('reset-form')->render(),
+            InputReset::tag()->id('inputreset')->name('reset-form')->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -316,10 +484,10 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset">
+            <input id="inputreset" type="reset">
             HTML,
             InputReset::tag()
-                ->id('inputreset-')
+                ->id('inputreset')
                 ->addAriaAttribute('label', 'Close')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -331,10 +499,10 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset">
+            <input id="inputreset" type="reset">
             HTML,
             InputReset::tag()
-                ->id('inputreset-')
+                ->id('inputreset')
                 ->addAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
@@ -346,10 +514,10 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset">
+            <input id="inputreset" type="reset">
             HTML,
             InputReset::tag()
-                ->id('inputreset-')
+                ->id('inputreset')
                 ->addDataAttribute('value', 'test')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -361,9 +529,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" role="button">
+            <input id="inputreset" type="reset" role="button">
             HTML,
-            InputReset::tag()->id('inputreset-')->role('button')->render(),
+            InputReset::tag()->id('inputreset')->role('button')->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -372,9 +540,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" role="button">
+            <input id="inputreset" type="reset" role="button">
             HTML,
-            InputReset::tag()->id('inputreset-')->role(Role::BUTTON)->render(),
+            InputReset::tag()->id('inputreset')->role(Role::BUTTON)->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -383,9 +551,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" style='width: 200px;'>
+            <input id="inputreset" type="reset" style='width: 200px;'>
             HTML,
-            InputReset::tag()->id('inputreset-')->style('width: 200px;')->render(),
+            InputReset::tag()->id('inputreset')->style('width: 200px;')->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -394,9 +562,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" tabindex="1">
+            <input id="inputreset" type="reset" tabindex="1">
             HTML,
-            InputReset::tag()->id('inputreset-')->tabIndex(1)->render(),
+            InputReset::tag()->id('inputreset')->tabIndex(1)->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -405,9 +573,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputreset-" type="reset">
+            <input class="text-muted" id="inputreset" type="reset">
             HTML,
-            InputReset::tag()->id('inputreset-')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputReset::tag()->id('inputreset')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -416,18 +584,20 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" title="Reset form">
+            <input id="inputreset" type="reset" title="Reset form">
             HTML,
-            InputReset::tag()->id('inputreset-')->title('Reset form')->render(),
+            InputReset::tag()->id('inputreset')->title('Reset form')->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
 
     public function testRenderWithToString(): void
     {
-        self::assertStringContainsString(
-            'type="reset"',
-            LineEndingNormalizer::normalize((string) InputReset::tag()),
+        self::assertSame(
+            <<<HTML
+            <input type="reset">
+            HTML,
+            (string) InputReset::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -436,9 +606,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" translate="no">
+            <input id="inputreset" type="reset" translate="no">
             HTML,
-            InputReset::tag()->id('inputreset-')->translate(false)->render(),
+            InputReset::tag()->id('inputreset')->translate(false)->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -447,9 +617,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" translate="no">
+            <input id="inputreset" type="reset" translate="no">
             HTML,
-            InputReset::tag()->id('inputreset-')->translate(Translate::NO)->render(),
+            InputReset::tag()->id('inputreset')->translate(Translate::NO)->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -470,9 +640,9 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputreset-" type="reset" value="Reset">
+            <input id="inputreset" type="reset" value="Reset">
             HTML,
-            InputReset::tag()->id('inputreset-')->value('Reset')->render(),
+            InputReset::tag()->id('inputreset')->value('Reset')->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

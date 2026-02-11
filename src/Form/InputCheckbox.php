@@ -133,7 +133,13 @@ final class InputCheckbox extends BaseInput
         }
 
         if ($this->notLabel || $this->label === '') {
-            return $this->buildElement('', ['{label}' => '', '{unchecked}' => $unchecked]);
+            return $this->buildElement(
+                '',
+                [
+                    '{label}' => '',
+                    '{unchecked}' => $unchecked,
+                ],
+            );
         }
 
         $labelTag = Label::tag()->attributes($this->labelAttributes);
@@ -156,11 +162,11 @@ final class InputCheckbox extends BaseInput
 
         $labelTag = $labelTag
             ->html(
-                PHP_EOL,
+                "\n",
                 Html::element($this->getTag(), '', $this->getAttributes()),
-                PHP_EOL,
+                "\n",
                 $this->label,
-                PHP_EOL,
+                "\n",
             );
 
         return $this->buildElement(

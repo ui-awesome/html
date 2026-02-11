@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Metadata;
 
 use InvalidArgumentException;
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -44,17 +43,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('metadata')]
 final class ScriptTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $script = Script::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $script->getContent(),
+            Script::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -72,7 +70,9 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Script::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Script::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -85,9 +85,9 @@ final class ScriptTest extends TestCase
             <value>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->html('<value>')->render(),
-            ),
+            Script::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -99,9 +99,9 @@ final class ScriptTest extends TestCase
             <script accesskey="k">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->accesskey('k')->render(),
-            ),
+            Script::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -113,9 +113,9 @@ final class ScriptTest extends TestCase
             <script aria-pressed="true">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Script::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -127,9 +127,9 @@ final class ScriptTest extends TestCase
             <script aria-pressed="true">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Script::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -141,9 +141,9 @@ final class ScriptTest extends TestCase
             <script data-test="value">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Script::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -155,9 +155,9 @@ final class ScriptTest extends TestCase
             <script title="value">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Script::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -169,9 +169,9 @@ final class ScriptTest extends TestCase
             <script data-value="value">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Script::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -183,9 +183,9 @@ final class ScriptTest extends TestCase
             <script data-value="value">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Script::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -197,17 +197,15 @@ final class ScriptTest extends TestCase
             <script aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Script::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -219,9 +217,9 @@ final class ScriptTest extends TestCase
             <script async>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->async(true)->render(),
-            ),
+            Script::tag()
+                ->async(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'async' attribute.",
         );
     }
@@ -233,9 +231,9 @@ final class ScriptTest extends TestCase
             <script class="value">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Script::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -247,9 +245,9 @@ final class ScriptTest extends TestCase
             <script autofocus>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->autofocus(true)->render(),
-            ),
+            Script::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -262,9 +260,7 @@ final class ScriptTest extends TestCase
             console.log('test');
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->begin() . "console.log('test');" . Script::end(),
-            ),
+            Script::tag()->begin() . "console.log('test');" . Script::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -276,9 +272,9 @@ final class ScriptTest extends TestCase
             <script blocking="render">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->blocking('render')->render(),
-            ),
+            Script::tag()
+                ->blocking('render')
+                ->render(),
             "Failed asserting that element renders correctly with 'blocking' attribute.",
         );
     }
@@ -290,9 +286,9 @@ final class ScriptTest extends TestCase
             <script blocking="render">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->blocking(Blocking::RENDER)->render(),
-            ),
+            Script::tag()
+                ->blocking(Blocking::RENDER)
+                ->render(),
             "Failed asserting that element renders correctly with 'blocking' attribute using enum.",
         );
     }
@@ -304,9 +300,9 @@ final class ScriptTest extends TestCase
             <script class="value">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->class('value')->render(),
-            ),
+            Script::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -319,9 +315,9 @@ final class ScriptTest extends TestCase
             console.log('Hello');
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->content("console.log('Hello');")->render(),
-            ),
+            Script::tag()
+                ->content("console.log('Hello');")
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -333,9 +329,9 @@ final class ScriptTest extends TestCase
             <script contenteditable="true">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->contentEditable(true)->render(),
-            ),
+            Script::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -347,9 +343,9 @@ final class ScriptTest extends TestCase
             <script contenteditable="true">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Script::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -361,9 +357,9 @@ final class ScriptTest extends TestCase
             <script crossorigin="anonymous">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->crossorigin('anonymous')->render(),
-            ),
+            Script::tag()
+                ->crossorigin('anonymous')
+                ->render(),
             "Failed asserting that element renders correctly with 'crossorigin' attribute.",
         );
     }
@@ -375,9 +371,9 @@ final class ScriptTest extends TestCase
             <script crossorigin="anonymous">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->crossorigin(Crossorigin::ANONYMOUS)->render(),
-            ),
+            Script::tag()
+                ->crossorigin(Crossorigin::ANONYMOUS)
+                ->render(),
             "Failed asserting that element renders correctly with 'crossorigin' attribute using enum.",
         );
     }
@@ -389,9 +385,9 @@ final class ScriptTest extends TestCase
             <script data-value="value">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Script::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -403,9 +399,7 @@ final class ScriptTest extends TestCase
             <script class="default-class">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag(['class' => 'default-class'])->render(),
-            ),
+            Script::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -417,9 +411,9 @@ final class ScriptTest extends TestCase
             <script class="default-class" title="default-title">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Script::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -431,9 +425,7 @@ final class ScriptTest extends TestCase
             <script>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->render(),
-            ),
+            Script::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -445,9 +437,9 @@ final class ScriptTest extends TestCase
             <script defer>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->defer(true)->render(),
-            ),
+            Script::tag()
+                ->defer(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'defer' attribute.",
         );
     }
@@ -459,9 +451,9 @@ final class ScriptTest extends TestCase
             <script dir="ltr">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->dir('ltr')->render(),
-            ),
+            Script::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -473,9 +465,9 @@ final class ScriptTest extends TestCase
             <script dir="ltr">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->dir(Direction::LTR)->render(),
-            ),
+            Script::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -487,9 +479,9 @@ final class ScriptTest extends TestCase
             <script draggable="true">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->draggable(true)->render(),
-            ),
+            Script::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -501,9 +493,9 @@ final class ScriptTest extends TestCase
             <script draggable="true">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Script::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -515,9 +507,9 @@ final class ScriptTest extends TestCase
             <script fetchpriority="high">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->fetchpriority('high')->render(),
-            ),
+            Script::tag()
+                ->fetchpriority('high')
+                ->render(),
             "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
         );
     }
@@ -529,9 +521,9 @@ final class ScriptTest extends TestCase
             <script fetchpriority="high">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->fetchpriority(Fetchpriority::HIGH)->render(),
-            ),
+            Script::tag()
+                ->fetchpriority(Fetchpriority::HIGH)
+                ->render(),
             "Failed asserting that element renders correctly with 'fetchpriority' attribute using enum.",
         );
     }
@@ -545,9 +537,7 @@ final class ScriptTest extends TestCase
             <script class="default-class">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->render(),
-            ),
+            Script::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -561,9 +551,9 @@ final class ScriptTest extends TestCase
             <script hidden>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->hidden(true)->render(),
-            ),
+            Script::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -575,9 +565,9 @@ final class ScriptTest extends TestCase
             <script id="test-id">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->id('test-id')->render(),
-            ),
+            Script::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -589,9 +579,9 @@ final class ScriptTest extends TestCase
             <script integrity="sha384-abc123">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->integrity('sha384-abc123')->render(),
-            ),
+            Script::tag()
+                ->integrity('sha384-abc123')
+                ->render(),
             "Failed asserting that element renders correctly with 'integrity' attribute.",
         );
     }
@@ -603,9 +593,9 @@ final class ScriptTest extends TestCase
             <script lang="es">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->lang('es')->render(),
-            ),
+            Script::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -617,9 +607,9 @@ final class ScriptTest extends TestCase
             <script lang="es">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Script::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -631,15 +621,13 @@ final class ScriptTest extends TestCase
             <script itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Script::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -651,9 +639,9 @@ final class ScriptTest extends TestCase
             <script nomodule>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->nomodule(true)->render(),
-            ),
+            Script::tag()
+                ->nomodule(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'nomodule' attribute.",
         );
     }
@@ -665,9 +653,9 @@ final class ScriptTest extends TestCase
             <script referrerpolicy="no-referrer">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->referrerpolicy('no-referrer')->render(),
-            ),
+            Script::tag()
+                ->referrerpolicy('no-referrer')
+                ->render(),
             "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
         );
     }
@@ -679,9 +667,9 @@ final class ScriptTest extends TestCase
             <script referrerpolicy="no-referrer">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->referrerpolicy(Referrerpolicy::NO_REFERRER)->render(),
-            ),
+            Script::tag()
+                ->referrerpolicy(Referrerpolicy::NO_REFERRER)
+                ->render(),
             "Failed asserting that element renders correctly with 'referrerpolicy' attribute using enum.",
         );
     }
@@ -693,12 +681,10 @@ final class ScriptTest extends TestCase
             <script>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Script::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -710,12 +696,10 @@ final class ScriptTest extends TestCase
             <script>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Script::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -727,12 +711,10 @@ final class ScriptTest extends TestCase
             <script>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Script::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -744,9 +726,9 @@ final class ScriptTest extends TestCase
             <script role="banner">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->role('banner')->render(),
-            ),
+            Script::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -758,9 +740,9 @@ final class ScriptTest extends TestCase
             <script role="banner">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->role(Role::BANNER)->render(),
-            ),
+            Script::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -772,9 +754,9 @@ final class ScriptTest extends TestCase
             <script spellcheck="true">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->spellcheck(true)->render(),
-            ),
+            Script::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -786,9 +768,9 @@ final class ScriptTest extends TestCase
             <script src="https://example.com/script.js">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->src('https://example.com/script.js')->render(),
-            ),
+            Script::tag()
+                ->src('https://example.com/script.js')
+                ->render(),
             "Failed asserting that element renders correctly with 'src' attribute.",
         );
     }
@@ -800,9 +782,9 @@ final class ScriptTest extends TestCase
             <script style='value'>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->style('value')->render(),
-            ),
+            Script::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -814,9 +796,9 @@ final class ScriptTest extends TestCase
             <script tabindex="3">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->tabIndex(3)->render(),
-            ),
+            Script::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -828,9 +810,9 @@ final class ScriptTest extends TestCase
             <script class="text-muted">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Script::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -842,9 +824,9 @@ final class ScriptTest extends TestCase
             <script title="value">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->title('value')->render(),
-            ),
+            Script::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -856,9 +838,7 @@ final class ScriptTest extends TestCase
             <script>
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Script::tag(),
-            ),
+            (string) Script::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -870,9 +850,9 @@ final class ScriptTest extends TestCase
             <script translate="no">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->translate(false)->render(),
-            ),
+            Script::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -884,9 +864,9 @@ final class ScriptTest extends TestCase
             <script translate="no">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->translate(Translate::NO)->render(),
-            ),
+            Script::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -898,9 +878,9 @@ final class ScriptTest extends TestCase
             <script type="module">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag()->type('module')->render(),
-            ),
+            Script::tag()
+                ->type('module')
+                ->render(),
             "Failed asserting that element renders correctly with 'type' attribute.",
         );
     }
@@ -914,9 +894,7 @@ final class ScriptTest extends TestCase
             <script class="from-global" id="id-user">
             </script>
             HTML,
-            LineEndingNormalizer::normalize(
-                Script::tag(['id' => 'id-user'])->render(),
-            ),
+            Script::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
