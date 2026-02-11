@@ -24,6 +24,7 @@
 - Enh #36: Add `InputNumber` class for HTML `<input type="number">` element with attributes and rendering capabilities (@terabytesoftw)
 - Bug #37: Apply last changes from `ui-awesome/html-core` package to `ui-awesome/html` package (@terabytesoftw)
 - Bug #38: Remove redundant `afterRun()` method from `Dl`, `Ol`, and `Ul` classes (@terabytesoftw)
+- Enh #39: Add `InputMonth` class for HTML `<input type="month">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
