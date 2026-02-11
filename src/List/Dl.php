@@ -48,7 +48,7 @@ final class Dl extends BaseBlock
     {
         $dd = Dd::tag()->content($content);
 
-        return $this->html($dd->render(), PHP_EOL);
+        return $this->html($dd->render(), "\n");
     }
 
     /**
@@ -68,7 +68,7 @@ final class Dl extends BaseBlock
     {
         $dt = Dt::tag()->content($content);
 
-        return $this->html($dt->render(), PHP_EOL);
+        return $this->html($dt->render(), "\n");
     }
 
     /**
