@@ -447,15 +447,25 @@ final class InputWeekTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputWeek::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputWeek::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputWeek::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputweek" type="week">
+            HTML,
+            InputWeek::tag()
+                ->id('inputweek')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputWeek::class, []);
+        SimpleFactory::setDefaults(
+            InputWeek::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -722,9 +732,7 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input type="week">
             HTML,
-            InputWeek::tag()
-                ->id(null)
-                ->render(),
+            (string) InputWeek::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -755,10 +763,13 @@ final class InputWeekTest extends TestCase
     {
         SimpleFactory::setDefaults(InputWeek::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputWeek::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="week">
+            HTML,
+            InputWeek::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputWeek::class, []);
     }

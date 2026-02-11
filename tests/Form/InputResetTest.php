@@ -414,15 +414,25 @@ final class InputResetTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputReset::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputReset::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputReset::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputreset" type="reset">
+            HTML,
+            InputReset::tag()
+                ->id('inputreset')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputReset::class, []);
+        SimpleFactory::setDefaults(
+            InputReset::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -628,10 +638,13 @@ final class InputResetTest extends TestCase
     {
         SimpleFactory::setDefaults(InputReset::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputReset::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="reset">
+            HTML,
+            InputReset::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputReset::class, []);
     }

@@ -502,15 +502,25 @@ final class InputSubmitTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputSubmit::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputSubmit::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputSubmit::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputsubmit" type="submit">
+            HTML,
+            InputSubmit::tag()
+                ->id('inputsubmit')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputSubmit::class, []);
+        SimpleFactory::setDefaults(
+            InputSubmit::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -685,9 +695,7 @@ final class InputSubmitTest extends TestCase
             <<<HTML
             <input type="submit">
             HTML,
-            InputSubmit::tag()
-                ->id(null)
-                ->render(),
+            (string) InputSubmit::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -718,10 +726,13 @@ final class InputSubmitTest extends TestCase
     {
         SimpleFactory::setDefaults(InputSubmit::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputSubmit::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="submit">
+            HTML,
+            InputSubmit::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputSubmit::class, []);
     }

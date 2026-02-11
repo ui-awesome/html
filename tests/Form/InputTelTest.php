@@ -449,15 +449,25 @@ final class InputTelTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputTel::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputTel::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputTel::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputtel" type="tel">
+            HTML,
+            InputTel::tag()
+                ->id('inputtel')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputTel::class, []);
+        SimpleFactory::setDefaults(
+            InputTel::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -731,9 +741,7 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input type="tel">
             HTML,
-            InputTel::tag()
-                ->id(null)
-                ->render(),
+            (string) InputTel::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -764,10 +772,13 @@ final class InputTelTest extends TestCase
     {
         SimpleFactory::setDefaults(InputTel::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputTel::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="tel">
+            HTML,
+            InputTel::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputTel::class, []);
     }

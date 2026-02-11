@@ -636,15 +636,25 @@ final class InputCheckboxTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputCheckbox::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputCheckbox::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputCheckbox::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputcheckbox" type="checkbox">
+            HTML,
+            InputCheckbox::tag()
+                ->id('inputcheckbox')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputCheckbox::class, []);
+        SimpleFactory::setDefaults(
+            InputCheckbox::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -1089,14 +1099,26 @@ final class InputCheckboxTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputCheckbox::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputCheckbox::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
-        $output = InputCheckbox::tag(['id' => 'id-user'])->render();
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="checkbox">
+            HTML,
+            InputCheckbox::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
-
-        SimpleFactory::setDefaults(InputCheckbox::class, []);
+        SimpleFactory::setDefaults(
+            InputCheckbox::class,
+            [],
+        );
     }
 
     public function testRenderWithValue(): void

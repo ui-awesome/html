@@ -506,15 +506,25 @@ final class InputNumberTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputNumber::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputNumber::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputNumber::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputnumber" type="number">
+            HTML,
+            InputNumber::tag()
+                ->id('inputnumber')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputNumber::class, []);
+        SimpleFactory::setDefaults(
+            InputNumber::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -848,9 +858,7 @@ final class InputNumberTest extends TestCase
             <<<HTML
             <input type="number">
             HTML,
-            InputNumber::tag()
-                ->id(null)
-                ->render(),
+            (string) InputNumber::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -885,12 +893,21 @@ final class InputNumberTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputNumber::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputNumber::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
-        $output = InputNumber::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="number">
+            HTML,
+            InputNumber::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputNumber::class, []);
     }

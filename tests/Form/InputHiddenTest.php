@@ -435,15 +435,25 @@ final class InputHiddenTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputHidden::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputHidden::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputHidden::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputhidden" type="hidden">
+            HTML,
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputHidden::class, []);
+        SimpleFactory::setDefaults(
+            InputHidden::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -607,9 +617,7 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input type="hidden">
             HTML,
-            InputHidden::tag()
-                ->id(null)
-                ->render(),
+            (string) InputHidden::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -638,14 +646,26 @@ final class InputHiddenTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputHidden::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputHidden::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
-        $output = InputHidden::tag(['id' => 'id-user'])->render();
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="hidden">
+            HTML,
+            InputHidden::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
-
-        SimpleFactory::setDefaults(InputHidden::class, []);
+        SimpleFactory::setDefaults(
+            InputHidden::class,
+            [],
+        );
     }
 
     public function testRenderWithValue(): void

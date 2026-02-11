@@ -449,15 +449,25 @@ final class InputUrlTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputUrl::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputUrl::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputUrl::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputurl" type="url">
+            HTML,
+            InputUrl::tag()
+                ->id('inputurl')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputUrl::class, []);
+        SimpleFactory::setDefaults(
+            InputUrl::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -731,9 +741,7 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input type="url">
             HTML,
-            InputUrl::tag()
-                ->id(null)
-                ->render(),
+            (string) InputUrl::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -764,10 +772,13 @@ final class InputUrlTest extends TestCase
     {
         SimpleFactory::setDefaults(InputUrl::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputUrl::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="url">
+            HTML,
+            InputUrl::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputUrl::class, []);
     }

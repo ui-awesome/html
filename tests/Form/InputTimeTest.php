@@ -447,15 +447,25 @@ final class InputTimeTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputTime::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputTime::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputTime::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputtime" type="time">
+            HTML,
+            InputTime::tag()
+                ->id('inputtime')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputTime::class, []);
+        SimpleFactory::setDefaults(
+            InputTime::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -722,9 +732,7 @@ final class InputTimeTest extends TestCase
             <<<HTML
             <input type="time">
             HTML,
-            InputTime::tag()
-                ->id(null)
-                ->render(),
+            (string) InputTime::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -755,10 +763,13 @@ final class InputTimeTest extends TestCase
     {
         SimpleFactory::setDefaults(InputTime::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputTime::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="time">
+            HTML,
+            InputTime::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputTime::class, []);
     }
