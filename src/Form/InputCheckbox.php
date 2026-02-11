@@ -162,11 +162,11 @@ final class InputCheckbox extends BaseInput
 
         $labelTag = $labelTag
             ->html(
-                PHP_EOL,
+                "\n",
                 Html::element($this->getTag(), '', $this->getAttributes()),
-                PHP_EOL,
+                "\n",
                 $this->label,
-                PHP_EOL,
+                "\n",
             );
 
         return $this->buildElement(
