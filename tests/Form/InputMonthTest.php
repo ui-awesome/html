@@ -732,9 +732,7 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input type="month">
             HTML,
-            InputMonth::tag()
-                ->id(null)
-                ->render(),
+            (string) InputMonth::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
