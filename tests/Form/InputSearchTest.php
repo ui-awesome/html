@@ -459,15 +459,25 @@ final class InputSearchTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputSearch::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputSearch::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputSearch::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputsearch" type="search">
+            HTML,
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputSearch::class, []);
+        SimpleFactory::setDefaults(
+            InputSearch::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -741,9 +751,7 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input type="search">
             HTML,
-            InputSearch::tag()
-                ->id(null)
-                ->render(),
+            (string) InputSearch::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -774,10 +782,13 @@ final class InputSearchTest extends TestCase
     {
         SimpleFactory::setDefaults(InputSearch::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputSearch::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="search">
+            HTML,
+            InputSearch::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputSearch::class, []);
     }

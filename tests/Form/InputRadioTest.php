@@ -646,15 +646,25 @@ final class InputRadioTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputRadio::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputRadio::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputRadio::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputradio" type="radio">
+            HTML,
+            InputRadio::tag()
+                ->id('inputradio')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputRadio::class, []);
+        SimpleFactory::setDefaults(
+            InputRadio::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -1026,9 +1036,7 @@ final class InputRadioTest extends TestCase
             <<<HTML
             <input type="radio">
             HTML,
-            InputRadio::tag()
-                ->id(null)
-                ->render(),
+            (string) InputRadio::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -1101,12 +1109,21 @@ final class InputRadioTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputRadio::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputRadio::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
-        $output = InputRadio::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="radio">
+            HTML,
+            InputRadio::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputRadio::class, []);
     }

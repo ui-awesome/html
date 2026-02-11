@@ -459,15 +459,25 @@ final class InputTextTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(InputText::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            InputText::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertStringContainsString(
-            'class="default-class"',
-            InputText::tag()->render(),
+        self::assertSame(
+            <<<HTML
+            <input class="default-class" id="inputtext" type="text">
+            HTML,
+            InputText::tag()
+                ->id('inputtext')
+                ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(InputText::class, []);
+        SimpleFactory::setDefaults(
+            InputText::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -741,9 +751,7 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input type="text">
             HTML,
-            InputText::tag()
-                ->id(null)
-                ->render(),
+            (string) InputText::tag()->id(null),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -774,10 +782,13 @@ final class InputTextTest extends TestCase
     {
         SimpleFactory::setDefaults(InputText::class, ['class' => 'from-global', 'id' => 'id-global']);
 
-        $output = InputText::tag(['id' => 'id-user'])->render();
-
-        self::assertStringContainsString('class="from-global"', $output);
-        self::assertStringContainsString('id="id-user"', $output);
+        self::assertSame(
+            <<<HTML
+            <input class="from-global" id="id-user" type="text">
+            HTML,
+            InputText::tag(['id' => 'id-user'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
         SimpleFactory::setDefaults(InputText::class, []);
     }
