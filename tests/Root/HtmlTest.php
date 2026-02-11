@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Root;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('root')]
 final class HtmlTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $html = Html::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $html->getContent(),
+            Html::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Html::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Html::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class HtmlTest extends TestCase
             <value>
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->html('<value>')->render(),
-            ),
+            Html::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class HtmlTest extends TestCase
             <html accesskey="k">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->accesskey('k')->render(),
-            ),
+            Html::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class HtmlTest extends TestCase
             <html aria-pressed="true">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Html::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class HtmlTest extends TestCase
             <html aria-pressed="true">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Html::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class HtmlTest extends TestCase
             <html data-test="value">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Html::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class HtmlTest extends TestCase
             <html title="value">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Html::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class HtmlTest extends TestCase
             <html data-value="value">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Html::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class HtmlTest extends TestCase
             <html data-value="value">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Html::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class HtmlTest extends TestCase
             <html aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Html::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class HtmlTest extends TestCase
             <html class="value">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Html::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class HtmlTest extends TestCase
             <html autofocus>
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->autofocus(true)->render(),
-            ),
+            Html::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class HtmlTest extends TestCase
             Content
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->begin() . 'Content' . Html::end(),
-            ),
+            Html::tag()->begin() . 'Content' . Html::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class HtmlTest extends TestCase
             <html class="value">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->class('value')->render(),
-            ),
+            Html::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class HtmlTest extends TestCase
             value
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->content('value')->render(),
-            ),
+            Html::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class HtmlTest extends TestCase
             <html contenteditable="true">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->contentEditable(true)->render(),
-            ),
+            Html::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class HtmlTest extends TestCase
             <html contenteditable="true">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Html::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class HtmlTest extends TestCase
             <html data-value="value">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Html::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class HtmlTest extends TestCase
             <html class="default-class">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag(['class' => 'default-class'])->render(),
-            ),
+            Html::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class HtmlTest extends TestCase
             <html class="default-class" title="default-title">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Html::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class HtmlTest extends TestCase
             <html dir="ltr">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->dir('ltr')->render(),
-            ),
+            Html::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class HtmlTest extends TestCase
             <html dir="ltr">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->dir(Direction::LTR)->render(),
-            ),
+            Html::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class HtmlTest extends TestCase
             <html draggable="true">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->draggable(true)->render(),
-            ),
+            Html::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class HtmlTest extends TestCase
             <html draggable="true">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Html::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class HtmlTest extends TestCase
             <html class="default-class">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->render(),
-            ),
+            Html::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class HtmlTest extends TestCase
             <html hidden>
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->hidden(true)->render(),
-            ),
+            Html::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class HtmlTest extends TestCase
             <html id="test-id">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->id('test-id')->render(),
-            ),
+            Html::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class HtmlTest extends TestCase
             <html lang="es">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->lang('es')->render(),
-            ),
+            Html::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class HtmlTest extends TestCase
             <html lang="es">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Html::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class HtmlTest extends TestCase
             <html itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Html::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class HtmlTest extends TestCase
             <html>
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Html::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class HtmlTest extends TestCase
             <html>
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Html::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class HtmlTest extends TestCase
             <html>
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Html::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class HtmlTest extends TestCase
             <html role="banner">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->role('banner')->render(),
-            ),
+            Html::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class HtmlTest extends TestCase
             <html role="banner">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->role(Role::BANNER)->render(),
-            ),
+            Html::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class HtmlTest extends TestCase
             <html spellcheck="true">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->spellcheck(true)->render(),
-            ),
+            Html::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class HtmlTest extends TestCase
             <html style='value'>
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->style('value')->render(),
-            ),
+            Html::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class HtmlTest extends TestCase
             <html tabindex="3">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->tabIndex(3)->render(),
-            ),
+            Html::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class HtmlTest extends TestCase
             <html class="tag-primary">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->addThemeProvider('primary', DefaultThemeProvider::class)->render(),
-            ),
+            Html::tag()
+                ->addThemeProvider('primary', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,9 +620,9 @@ final class HtmlTest extends TestCase
             <html title="value">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->title('value')->render(),
-            ),
+            Html::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -650,9 +634,7 @@ final class HtmlTest extends TestCase
             <html>
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Html::tag(),
-            ),
+            (string) Html::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -664,9 +646,9 @@ final class HtmlTest extends TestCase
             <html translate="no">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->translate(false)->render(),
-            ),
+            Html::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -678,9 +660,9 @@ final class HtmlTest extends TestCase
             <html translate="no">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag()->translate(Translate::NO)->render(),
-            ),
+            Html::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -694,9 +676,7 @@ final class HtmlTest extends TestCase
             <html class="from-global" id="id-user">
             </html>
             HTML,
-            LineEndingNormalizer::normalize(
-                Html::tag(['id' => 'id-user'])->render(),
-            ),
+            Html::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Metadata;
 
 use InvalidArgumentException;
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -40,17 +39,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('metadata')]
 final class StyleTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $style = Style::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $style->getContent(),
+            Style::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -68,7 +66,9 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Style::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Style::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -81,9 +81,9 @@ final class StyleTest extends TestCase
             <value>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->html('<value>')->render(),
-            ),
+            Style::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -95,9 +95,9 @@ final class StyleTest extends TestCase
             <style accesskey="k">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->accesskey('k')->render(),
-            ),
+            Style::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -109,9 +109,9 @@ final class StyleTest extends TestCase
             <style aria-pressed="true">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Style::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -123,9 +123,9 @@ final class StyleTest extends TestCase
             <style aria-pressed="true">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Style::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -137,9 +137,9 @@ final class StyleTest extends TestCase
             <style data-test="value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Style::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -151,9 +151,9 @@ final class StyleTest extends TestCase
             <style title="value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Style::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -165,9 +165,9 @@ final class StyleTest extends TestCase
             <style data-value="value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Style::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -179,9 +179,9 @@ final class StyleTest extends TestCase
             <style data-value="value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Style::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -193,17 +193,15 @@ final class StyleTest extends TestCase
             <style aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Style::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -215,9 +213,9 @@ final class StyleTest extends TestCase
             <style class="value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Style::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -229,9 +227,9 @@ final class StyleTest extends TestCase
             <style autofocus>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->autofocus(true)->render(),
-            ),
+            Style::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -244,9 +242,7 @@ final class StyleTest extends TestCase
             Content
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->begin() . 'Content' . Style::end(),
-            ),
+            Style::tag()->begin() . 'Content' . Style::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -258,9 +254,9 @@ final class StyleTest extends TestCase
             <style blocking="render">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->blocking('render')->render(),
-            ),
+            Style::tag()
+                ->blocking('render')
+                ->render(),
             "Failed asserting that element renders correctly with 'blocking' attribute.",
         );
     }
@@ -272,9 +268,9 @@ final class StyleTest extends TestCase
             <style blocking="render">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->blocking(Blocking::RENDER)->render(),
-            ),
+            Style::tag()
+                ->blocking(Blocking::RENDER)
+                ->render(),
             "Failed asserting that element renders correctly with 'blocking' attribute using enum.",
         );
     }
@@ -286,9 +282,9 @@ final class StyleTest extends TestCase
             <style class="value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->class('value')->render(),
-            ),
+            Style::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -301,9 +297,9 @@ final class StyleTest extends TestCase
             value
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->content('value')->render(),
-            ),
+            Style::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -315,9 +311,9 @@ final class StyleTest extends TestCase
             <style contenteditable="true">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->contentEditable(true)->render(),
-            ),
+            Style::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -329,9 +325,9 @@ final class StyleTest extends TestCase
             <style contenteditable="true">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Style::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -343,9 +339,9 @@ final class StyleTest extends TestCase
             <style data-value="value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Style::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -357,9 +353,7 @@ final class StyleTest extends TestCase
             <style class="default-class">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag(['class' => 'default-class'])->render(),
-            ),
+            Style::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -371,9 +365,9 @@ final class StyleTest extends TestCase
             <style class="default-class" title="default-title">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Style::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -385,9 +379,7 @@ final class StyleTest extends TestCase
             <style>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->render(),
-            ),
+            Style::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -399,9 +391,9 @@ final class StyleTest extends TestCase
             <style dir="ltr">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->dir('ltr')->render(),
-            ),
+            Style::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -413,9 +405,9 @@ final class StyleTest extends TestCase
             <style dir="ltr">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->dir(Direction::LTR)->render(),
-            ),
+            Style::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -427,9 +419,9 @@ final class StyleTest extends TestCase
             <style draggable="true">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->draggable(true)->render(),
-            ),
+            Style::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -441,9 +433,9 @@ final class StyleTest extends TestCase
             <style draggable="true">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Style::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -457,9 +449,7 @@ final class StyleTest extends TestCase
             <style class="default-class">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->render(),
-            ),
+            Style::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -473,9 +463,9 @@ final class StyleTest extends TestCase
             <style hidden>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->hidden(true)->render(),
-            ),
+            Style::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -487,9 +477,9 @@ final class StyleTest extends TestCase
             <style id="test-id">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->id('test-id')->render(),
-            ),
+            Style::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -501,9 +491,9 @@ final class StyleTest extends TestCase
             <style lang="es">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->lang('es')->render(),
-            ),
+            Style::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -515,9 +505,9 @@ final class StyleTest extends TestCase
             <style lang="es">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Style::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -529,9 +519,9 @@ final class StyleTest extends TestCase
             <style media="screen">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->media('screen')->render(),
-            ),
+            Style::tag()
+                ->media('screen')
+                ->render(),
             "Failed asserting that element renders correctly with 'media' attribute.",
         );
     }
@@ -543,15 +533,13 @@ final class StyleTest extends TestCase
             <style itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Style::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -563,9 +551,9 @@ final class StyleTest extends TestCase
             <style nonce="nonce-value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->nonce('nonce-value')->render(),
-            ),
+            Style::tag()
+                ->nonce('nonce-value')
+                ->render(),
             "Failed asserting that element renders correctly with 'nonce' attribute.",
         );
     }
@@ -577,12 +565,10 @@ final class StyleTest extends TestCase
             <style>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Style::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -594,12 +580,10 @@ final class StyleTest extends TestCase
             <style>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Style::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -611,12 +595,10 @@ final class StyleTest extends TestCase
             <style>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Style::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -628,9 +610,9 @@ final class StyleTest extends TestCase
             <style role="banner">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->role('banner')->render(),
-            ),
+            Style::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -642,9 +624,9 @@ final class StyleTest extends TestCase
             <style role="banner">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->role(Role::BANNER)->render(),
-            ),
+            Style::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -656,9 +638,9 @@ final class StyleTest extends TestCase
             <style spellcheck="true">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->spellcheck(true)->render(),
-            ),
+            Style::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -670,9 +652,9 @@ final class StyleTest extends TestCase
             <style style='value'>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->style('value')->render(),
-            ),
+            Style::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -684,9 +666,9 @@ final class StyleTest extends TestCase
             <style tabindex="3">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->tabIndex(3)->render(),
-            ),
+            Style::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -698,9 +680,9 @@ final class StyleTest extends TestCase
             <style class="text-muted">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Style::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -712,9 +694,9 @@ final class StyleTest extends TestCase
             <style title="value">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->title('value')->render(),
-            ),
+            Style::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -726,9 +708,7 @@ final class StyleTest extends TestCase
             <style>
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Style::tag(),
-            ),
+            (string) Style::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -740,9 +720,9 @@ final class StyleTest extends TestCase
             <style translate="no">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->translate(false)->render(),
-            ),
+            Style::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -754,9 +734,9 @@ final class StyleTest extends TestCase
             <style translate="no">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->translate(Translate::NO)->render(),
-            ),
+            Style::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -768,9 +748,9 @@ final class StyleTest extends TestCase
             <style type="text/css">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag()->type('text/css')->render(),
-            ),
+            Style::tag()
+                ->type('text/css')
+                ->render(),
             "Failed asserting that element renders correctly with 'type' attribute.",
         );
     }
@@ -784,9 +764,7 @@ final class StyleTest extends TestCase
             <style class="from-global" id="id-user">
             </style>
             HTML,
-            LineEndingNormalizer::normalize(
-                Style::tag(['id' => 'id-user'])->render(),
-            ),
+            Style::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

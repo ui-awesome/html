@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Metadata;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('metadata')]
 final class NoScriptTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $noscript = NoScript::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $noscript->getContent(),
+            NoScript::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            NoScript::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            NoScript::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class NoScriptTest extends TestCase
             <link rel="stylesheet" href="fallback.css">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->html('<link rel="stylesheet" href="fallback.css">')->render(),
-            ),
+            NoScript::tag()
+                ->html('<link rel="stylesheet" href="fallback.css">')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class NoScriptTest extends TestCase
             <noscript accesskey="k">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->accesskey('k')->render(),
-            ),
+            NoScript::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class NoScriptTest extends TestCase
             <noscript aria-label="JavaScript required">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->addAriaAttribute('label', 'JavaScript required')->render(),
-            ),
+            NoScript::tag()
+                ->addAriaAttribute('label', 'JavaScript required')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class NoScriptTest extends TestCase
             <noscript aria-hidden="true">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->addAriaAttribute(Aria::HIDDEN, true)->render(),
-            ),
+            NoScript::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -131,9 +131,9 @@ final class NoScriptTest extends TestCase
             <noscript data-test="value">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            NoScript::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class NoScriptTest extends TestCase
             <noscript title="Fallback content">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->addAttribute(GlobalAttribute::TITLE, 'Fallback content')->render(),
-            ),
+            NoScript::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Fallback content')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class NoScriptTest extends TestCase
             <noscript data-message="enable-js">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->addDataAttribute('message', 'enable-js')->render(),
-            ),
+            NoScript::tag()
+                ->addDataAttribute('message', 'enable-js')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class NoScriptTest extends TestCase
             <noscript data-value="test">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->addDataAttribute(Data::VALUE, 'test')->render(),
-            ),
+            NoScript::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -187,16 +187,14 @@ final class NoScriptTest extends TestCase
             <noscript aria-hidden="true" aria-label="No JavaScript">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()
-                    ->ariaAttributes(
-                        [
-                            'hidden' => true,
-                            'label' => 'No JavaScript',
-                        ],
-                    )
-                    ->render(),
-            ),
+            NoScript::tag()
+                ->ariaAttributes(
+                    [
+                        'hidden' => true,
+                        'label' => 'No JavaScript',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -208,9 +206,9 @@ final class NoScriptTest extends TestCase
             <noscript class="fallback-message">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->attributes(['class' => 'fallback-message'])->render(),
-            ),
+            NoScript::tag()
+                ->attributes(['class' => 'fallback-message'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -222,9 +220,9 @@ final class NoScriptTest extends TestCase
             <noscript autofocus>
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->autofocus(true)->render(),
-            ),
+            NoScript::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -237,9 +235,7 @@ final class NoScriptTest extends TestCase
             Please enable JavaScript
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->begin() . 'Please enable JavaScript' . NoScript::end(),
-            ),
+            NoScript::tag()->begin() . 'Please enable JavaScript' . NoScript::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -251,9 +247,9 @@ final class NoScriptTest extends TestCase
             <noscript class="no-js-message">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->class('no-js-message')->render(),
-            ),
+            NoScript::tag()
+                ->class('no-js-message')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -266,9 +262,9 @@ final class NoScriptTest extends TestCase
             JavaScript is required for this application
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->content('JavaScript is required for this application')->render(),
-            ),
+            NoScript::tag()
+                ->content('JavaScript is required for this application')
+                ->render(),
             'Failed asserting that element renders correctly with content.',
         );
     }
@@ -280,9 +276,9 @@ final class NoScriptTest extends TestCase
             <noscript contenteditable="true">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->contentEditable(true)->render(),
-            ),
+            NoScript::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -294,9 +290,9 @@ final class NoScriptTest extends TestCase
             <noscript contenteditable="true">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            NoScript::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -308,9 +304,9 @@ final class NoScriptTest extends TestCase
             <noscript data-fallback="true">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->dataAttributes(['fallback' => 'true'])->render(),
-            ),
+            NoScript::tag()
+                ->dataAttributes(['fallback' => 'true'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -322,9 +318,7 @@ final class NoScriptTest extends TestCase
             <noscript class="default-class">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag(['class' => 'default-class'])->render(),
-            ),
+            NoScript::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -336,9 +330,9 @@ final class NoScriptTest extends TestCase
             <noscript class="default-class" title="default-title">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            NoScript::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -350,9 +344,7 @@ final class NoScriptTest extends TestCase
             <noscript>
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->render(),
-            ),
+            NoScript::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -364,9 +356,9 @@ final class NoScriptTest extends TestCase
             <noscript dir="ltr">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->dir('ltr')->render(),
-            ),
+            NoScript::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -378,9 +370,9 @@ final class NoScriptTest extends TestCase
             <noscript dir="rtl">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->dir(Direction::RTL)->render(),
-            ),
+            NoScript::tag()
+                ->dir(Direction::RTL)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -392,9 +384,9 @@ final class NoScriptTest extends TestCase
             <noscript draggable="true">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->draggable(true)->render(),
-            ),
+            NoScript::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -406,9 +398,9 @@ final class NoScriptTest extends TestCase
             <noscript draggable="true">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            NoScript::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -422,9 +414,7 @@ final class NoScriptTest extends TestCase
             <noscript class="default-class">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->render(),
-            ),
+            NoScript::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -438,9 +428,9 @@ final class NoScriptTest extends TestCase
             <noscript hidden>
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->hidden(true)->render(),
-            ),
+            NoScript::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -452,9 +442,9 @@ final class NoScriptTest extends TestCase
             <noscript id="noscript-fallback">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->id('noscript-fallback')->render(),
-            ),
+            NoScript::tag()
+                ->id('noscript-fallback')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -466,9 +456,9 @@ final class NoScriptTest extends TestCase
             <noscript lang="en">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->lang('en')->render(),
-            ),
+            NoScript::tag()
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -480,9 +470,9 @@ final class NoScriptTest extends TestCase
             <noscript lang="es">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->lang(Language::SPANISH)->render(),
-            ),
+            NoScript::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -494,15 +484,13 @@ final class NoScriptTest extends TestCase
             <noscript itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            NoScript::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -514,12 +502,10 @@ final class NoScriptTest extends TestCase
             <noscript>
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()
-                    ->addAriaAttribute('label', 'Test')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            NoScript::tag()
+                ->addAriaAttribute('label', 'Test')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -531,12 +517,10 @@ final class NoScriptTest extends TestCase
             <noscript>
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            NoScript::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -548,12 +532,10 @@ final class NoScriptTest extends TestCase
             <noscript>
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()
-                    ->addDataAttribute('test', 'value')
-                    ->removeDataAttribute('test')
-                    ->render(),
-            ),
+            NoScript::tag()
+                ->addDataAttribute('test', 'value')
+                ->removeDataAttribute('test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -565,9 +547,9 @@ final class NoScriptTest extends TestCase
             <noscript role="alert">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->role('alert')->render(),
-            ),
+            NoScript::tag()
+                ->role('alert')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -579,9 +561,9 @@ final class NoScriptTest extends TestCase
             <noscript role="alert">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->role(Role::ALERT)->render(),
-            ),
+            NoScript::tag()
+                ->role(Role::ALERT)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -593,9 +575,9 @@ final class NoScriptTest extends TestCase
             <noscript spellcheck="true">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->spellcheck(true)->render(),
-            ),
+            NoScript::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -607,9 +589,9 @@ final class NoScriptTest extends TestCase
             <noscript style='color: red;'>
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->style('color: red;')->render(),
-            ),
+            NoScript::tag()
+                ->style('color: red;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -621,9 +603,9 @@ final class NoScriptTest extends TestCase
             <noscript tabindex="0">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->tabIndex(0)->render(),
-            ),
+            NoScript::tag()
+                ->tabIndex(0)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -635,9 +617,9 @@ final class NoScriptTest extends TestCase
             <noscript class="text-muted">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            NoScript::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -649,9 +631,9 @@ final class NoScriptTest extends TestCase
             <noscript title="JavaScript fallback">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->title('JavaScript fallback')->render(),
-            ),
+            NoScript::tag()
+                ->title('JavaScript fallback')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -663,9 +645,7 @@ final class NoScriptTest extends TestCase
             <noscript>
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) NoScript::tag(),
-            ),
+            (string) NoScript::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -677,9 +657,9 @@ final class NoScriptTest extends TestCase
             <noscript translate="no">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->translate(false)->render(),
-            ),
+            NoScript::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -691,9 +671,9 @@ final class NoScriptTest extends TestCase
             <noscript translate="no">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag()->translate(Translate::NO)->render(),
-            ),
+            NoScript::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -707,9 +687,7 @@ final class NoScriptTest extends TestCase
             <noscript class="from-global" id="id-user">
             </noscript>
             HTML,
-            LineEndingNormalizer::normalize(
-                NoScript::tag(['id' => 'id-user'])->render(),
-            ),
+            NoScript::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

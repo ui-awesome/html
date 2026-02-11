@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputTime;
+use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -27,7 +27,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('form')]
 final class InputTimeTest extends TestCase
 {
@@ -44,9 +43,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" accesskey="k">
+            <input id="inputtime" type="time" accesskey="k">
             HTML,
-            InputTime::tag()->id('inputtime-')->accesskey('k')->render(),
+            InputTime::tag()->id('inputtime')->accesskey('k')->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -55,9 +54,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" aria-label="Time selector">
+            <input id="inputtime" type="time" aria-label="Time selector">
             HTML,
-            InputTime::tag()->id('inputtime-')->addAriaAttribute('label', 'Time selector')->render(),
+            InputTime::tag()->id('inputtime')->addAriaAttribute('label', 'Time selector')->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -66,10 +65,111 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" aria-hidden="true">
+            <input id="inputtime" type="time" aria-hidden="true">
             HTML,
-            InputTime::tag()->id('inputtime-')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputTime::tag()->id('inputtime')->addAriaAttribute(Aria::HIDDEN, true)->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" aria-describedby="custom-help">
+            HTML,
+            InputTime::tag()
+                ->addAriaAttribute('describedby', 'custom-help')
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" aria-describedby="inputtime-help">
+            HTML,
+            InputTime::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input type="time">
+            HTML,
+            InputTime::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id(null)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and 'id' is 'null'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <input id="inputtime" type="time" aria-describedby="inputtime-help">
+            <span>Suffix</span>
+            HTML,
+            InputTime::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('inputtime')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and prefix/suffix.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" aria-describedby="inputtime-help">
+            HTML,
+            InputTime::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <input id="inputtime" type="time" aria-describedby="inputtime-help">
+            <span>Suffix</span>
+            HTML,
+            InputTime::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('inputtime')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and prefix/suffix.",
         );
     }
 
@@ -77,9 +177,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" data-test="value">
+            <input id="inputtime" type="time" data-test="value">
             HTML,
-            InputTime::tag()->id('inputtime-')->addAttribute('data-test', 'value')->render(),
+            InputTime::tag()->id('inputtime')->addAttribute('data-test', 'value')->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -88,9 +188,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" title="Select time">
+            <input id="inputtime" type="time" title="Select time">
             HTML,
-            InputTime::tag()->id('inputtime-')->addAttribute(GlobalAttribute::TITLE, 'Select time')->render(),
+            InputTime::tag()->id('inputtime')->addAttribute(GlobalAttribute::TITLE, 'Select time')->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -99,9 +199,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" data-time="value">
+            <input id="inputtime" type="time" data-time="value">
             HTML,
-            InputTime::tag()->id('inputtime-')->addDataAttribute('time', 'value')->render(),
+            InputTime::tag()->id('inputtime')->addDataAttribute('time', 'value')->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -110,9 +210,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" data-value="test">
+            <input id="inputtime" type="time" data-value="test">
             HTML,
-            InputTime::tag()->id('inputtime-')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputTime::tag()->id('inputtime')->addDataAttribute(Data::VALUE, 'test')->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -121,10 +221,10 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" aria-controls="time-picker" aria-label="Select a time">
+            <input id="inputtime" type="time" aria-controls="time-picker" aria-label="Select a time">
             HTML,
             InputTime::tag()
-                ->id('inputtime-')
+                ->id('inputtime')
                 ->ariaAttributes([
                     'controls' => 'time-picker',
                     'label' => 'Select a time',
@@ -134,14 +234,70 @@ final class InputTimeTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" aria-describedby="inputtime-help">
+            HTML,
+            InputTime::tag()
+                ->ariaAttributes(['describedby' => true])
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" aria-describedby="inputtime-help">
+            HTML,
+            InputTime::tag()
+                ->ariaAttributes(['describedby' => 'true'])
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="time-input" id="inputtime-" type="time">
+            <input class="time-input" id="inputtime" type="time">
             HTML,
-            InputTime::tag()->id('inputtime-')->attributes(['class' => 'time-input'])->render(),
+            InputTime::tag()->id('inputtime')->attributes(['class' => 'time-input'])->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" aria-describedby="inputtime-help">
+            HTML,
+            InputTime::tag()
+                ->attributes(['aria-describedby' => true])
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" aria-describedby="inputtime-help">
+            HTML,
+            InputTime::tag()
+                ->attributes(['aria-describedby' => 'true'])
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
         );
     }
 
@@ -149,9 +305,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" autocomplete="on">
+            <input id="inputtime" type="time" autocomplete="on">
             HTML,
-            InputTime::tag()->autocomplete('on')->id('inputtime-')->render(),
+            InputTime::tag()->autocomplete('on')->id('inputtime')->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -160,9 +316,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" autocomplete="on">
+            <input id="inputtime" type="time" autocomplete="on">
             HTML,
-            InputTime::tag()->autocomplete(Autocomplete::ON)->id('inputtime-')->render(),
+            InputTime::tag()->autocomplete(Autocomplete::ON)->id('inputtime')->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -171,9 +327,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" autofocus>
+            <input id="inputtime" type="time" autofocus>
             HTML,
-            InputTime::tag()->autofocus(true)->id('inputtime-')->render(),
+            InputTime::tag()->autofocus(true)->id('inputtime')->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -182,9 +338,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="time-input" id="inputtime-" type="time">
+            <input class="time-input" id="inputtime" type="time">
             HTML,
-            InputTime::tag()->id('inputtime-')->class('time-input')->render(),
+            InputTime::tag()->id('inputtime')->class('time-input')->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -193,9 +349,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" data-time="value">
+            <input id="inputtime" type="time" data-time="value">
             HTML,
-            InputTime::tag()->id('inputtime-')->dataAttributes(['time' => 'value'])->render(),
+            InputTime::tag()->id('inputtime')->dataAttributes(['time' => 'value'])->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -204,9 +360,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtime-" type="time">
+            <input class="default-class" id="inputtime" type="time">
             HTML,
-            InputTime::tag(['class' => 'default-class'])->id('inputtime-')->render(),
+            InputTime::tag(['class' => 'default-class'])->id('inputtime')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -215,9 +371,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtime-" type="time" title="default-title">
+            <input class="default-class" id="inputtime" type="time" title="default-title">
             HTML,
-            InputTime::tag()->id('inputtime-')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputTime::tag()->id('inputtime')->addDefaultProvider(DefaultProvider::class)->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -226,9 +382,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time">
+            <input id="inputtime" type="time">
             HTML,
-            InputTime::tag()->id('inputtime-')->render(),
+            InputTime::tag()->id('inputtime')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -237,9 +393,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" dir="ltr">
+            <input id="inputtime" type="time" dir="ltr">
             HTML,
-            InputTime::tag()->id('inputtime-')->dir('ltr')->render(),
+            InputTime::tag()->id('inputtime')->dir('ltr')->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -248,9 +404,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" dir="ltr">
+            <input id="inputtime" type="time" dir="ltr">
             HTML,
-            InputTime::tag()->id('inputtime-')->dir(Direction::LTR)->render(),
+            InputTime::tag()->id('inputtime')->dir(Direction::LTR)->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -259,9 +415,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" disabled>
+            <input id="inputtime" type="time" disabled>
             HTML,
-            InputTime::tag()->id('inputtime-')->disabled(true)->render(),
+            InputTime::tag()->id('inputtime')->disabled(true)->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -270,10 +426,22 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" form="form-id">
+            <input id="inputtime" type="time" form="form-id">
             HTML,
-            InputTime::tag()->form('form-id')->id('inputtime-')->render(),
+            InputTime::tag()->form('form-id')->id('inputtime')->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
+        );
+    }
+
+    public function testRenderWithGenerateId(): void
+    {
+        /** @phpstan-var string $id */
+        $id = InputTime::tag()->getAttribute('id', '');
+
+        self::assertMatchesRegularExpression(
+            '/^inputtime-\w+$/',
+            $id,
+            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -294,9 +462,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" hidden>
+            <input id="inputtime" type="time" hidden>
             HTML,
-            InputTime::tag()->id('inputtime-')->hidden(true)->render(),
+            InputTime::tag()->id('inputtime')->hidden(true)->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -316,9 +484,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" lang="en">
+            <input id="inputtime" type="time" lang="en">
             HTML,
-            InputTime::tag()->id('inputtime-')->lang('en')->render(),
+            InputTime::tag()->id('inputtime')->lang('en')->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -327,9 +495,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" lang="en">
+            <input id="inputtime" type="time" lang="en">
             HTML,
-            InputTime::tag()->id('inputtime-')->lang(Language::ENGLISH)->render(),
+            InputTime::tag()->id('inputtime')->lang(Language::ENGLISH)->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -338,9 +506,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" list="times">
+            <input id="inputtime" type="time" list="times">
             HTML,
-            InputTime::tag()->id('inputtime-')->list('times')->render(),
+            InputTime::tag()->id('inputtime')->list('times')->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -349,9 +517,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" max="18:00">
+            <input id="inputtime" type="time" max="18:00">
             HTML,
-            InputTime::tag()->id('inputtime-')->max('18:00')->render(),
+            InputTime::tag()->id('inputtime')->max('18:00')->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
         );
     }
@@ -360,9 +528,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" min="09:00">
+            <input id="inputtime" type="time" min="09:00">
             HTML,
-            InputTime::tag()->id('inputtime-')->min('09:00')->render(),
+            InputTime::tag()->id('inputtime')->min('09:00')->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
         );
     }
@@ -371,10 +539,10 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" min="09:00" max="18:00">
+            <input id="inputtime" type="time" min="09:00" max="18:00">
             HTML,
             InputTime::tag()
-                ->id('inputtime-')
+                ->id('inputtime')
                 ->min('09:00')
                 ->max('18:00')
                 ->render(),
@@ -386,9 +554,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" name="alarm" type="time">
+            <input id="inputtime" name="alarm" type="time">
             HTML,
-            InputTime::tag()->id('inputtime-')->name('alarm')->render(),
+            InputTime::tag()->id('inputtime')->name('alarm')->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -397,9 +565,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" readonly>
+            <input id="inputtime" type="time" readonly>
             HTML,
-            InputTime::tag()->id('inputtime-')->readonly(true)->render(),
+            InputTime::tag()->id('inputtime')->readonly(true)->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -408,10 +576,10 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time">
+            <input id="inputtime" type="time">
             HTML,
             InputTime::tag()
-                ->id('inputtime-')
+                ->id('inputtime')
                 ->addAriaAttribute('label', 'Close')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -423,10 +591,10 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time">
+            <input id="inputtime" type="time">
             HTML,
             InputTime::tag()
-                ->id('inputtime-')
+                ->id('inputtime')
                 ->addAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
@@ -438,10 +606,10 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time">
+            <input id="inputtime" type="time">
             HTML,
             InputTime::tag()
-                ->id('inputtime-')
+                ->id('inputtime')
                 ->addDataAttribute('value', 'test')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -453,9 +621,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" required>
+            <input id="inputtime" type="time" required>
             HTML,
-            InputTime::tag()->id('inputtime-')->required(true)->render(),
+            InputTime::tag()->id('inputtime')->required(true)->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -464,9 +632,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" role="textbox">
+            <input id="inputtime" type="time" role="textbox">
             HTML,
-            InputTime::tag()->id('inputtime-')->role('textbox')->render(),
+            InputTime::tag()->id('inputtime')->role('textbox')->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -475,9 +643,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" role="textbox">
+            <input id="inputtime" type="time" role="textbox">
             HTML,
-            InputTime::tag()->id('inputtime-')->role(Role::TEXTBOX)->render(),
+            InputTime::tag()->id('inputtime')->role(Role::TEXTBOX)->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -486,9 +654,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" step="2">
+            <input id="inputtime" type="time" step="2">
             HTML,
-            InputTime::tag()->id('inputtime-')->step(2)->render(),
+            InputTime::tag()->id('inputtime')->step(2)->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
         );
     }
@@ -497,9 +665,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" step="any">
+            <input id="inputtime" type="time" step="any">
             HTML,
-            InputTime::tag()->id('inputtime-')->step('any')->render(),
+            InputTime::tag()->id('inputtime')->step('any')->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
         );
     }
@@ -508,9 +676,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" style='width: 200px;'>
+            <input id="inputtime" type="time" style='width: 200px;'>
             HTML,
-            InputTime::tag()->id('inputtime-')->style('width: 200px;')->render(),
+            InputTime::tag()->id('inputtime')->style('width: 200px;')->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -519,9 +687,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" tabindex="1">
+            <input id="inputtime" type="time" tabindex="1">
             HTML,
-            InputTime::tag()->id('inputtime-')->tabIndex(1)->render(),
+            InputTime::tag()->id('inputtime')->tabIndex(1)->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -530,9 +698,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputtime-" type="time">
+            <input class="text-muted" id="inputtime" type="time">
             HTML,
-            InputTime::tag()->id('inputtime-')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputTime::tag()->id('inputtime')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -541,18 +709,22 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" title="Select a time">
+            <input id="inputtime" type="time" title="Select a time">
             HTML,
-            InputTime::tag()->id('inputtime-')->title('Select a time')->render(),
+            InputTime::tag()->id('inputtime')->title('Select a time')->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
 
     public function testRenderWithToString(): void
     {
-        self::assertStringContainsString(
-            'type="time"',
-            LineEndingNormalizer::normalize((string) InputTime::tag()),
+        self::assertSame(
+            <<<HTML
+            <input type="time">
+            HTML,
+            InputTime::tag()
+                ->id(null)
+                ->render(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -561,9 +733,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" translate="no">
+            <input id="inputtime" type="time" translate="no">
             HTML,
-            InputTime::tag()->id('inputtime-')->translate(false)->render(),
+            InputTime::tag()->id('inputtime')->translate(false)->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -572,9 +744,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" translate="no">
+            <input id="inputtime" type="time" translate="no">
             HTML,
-            InputTime::tag()->id('inputtime-')->translate(Translate::NO)->render(),
+            InputTime::tag()->id('inputtime')->translate(Translate::NO)->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -595,9 +767,9 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtime-" type="time" value="14:30">
+            <input id="inputtime" type="time" value="14:30">
             HTML,
-            InputTime::tag()->id('inputtime-')->value('14:30')->render(),
+            InputTime::tag()->id('inputtime')->value('14:30')->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

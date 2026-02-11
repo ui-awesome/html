@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Heading;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('heading')]
 final class HGroupTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $hgroup = HGroup::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $hgroup->getContent(),
+            HGroup::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class HGroupTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            HGroup::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            HGroup::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class HGroupTest extends TestCase
             <value>
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->html('<value>')->render(),
-            ),
+            HGroup::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class HGroupTest extends TestCase
             <hgroup accesskey="k">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->accesskey('k')->render(),
-            ),
+            HGroup::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class HGroupTest extends TestCase
             <hgroup aria-pressed="true">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            HGroup::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class HGroupTest extends TestCase
             <hgroup aria-pressed="true">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            HGroup::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class HGroupTest extends TestCase
             <hgroup data-test="value">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            HGroup::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class HGroupTest extends TestCase
             <hgroup title="value">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            HGroup::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class HGroupTest extends TestCase
             <hgroup data-value="value">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            HGroup::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class HGroupTest extends TestCase
             <hgroup data-value="value">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            HGroup::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class HGroupTest extends TestCase
             <hgroup aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            HGroup::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class HGroupTest extends TestCase
             <hgroup class="value">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            HGroup::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class HGroupTest extends TestCase
             <hgroup autofocus>
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->autofocus(true)->render(),
-            ),
+            HGroup::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class HGroupTest extends TestCase
             Content
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->begin() . 'Content' . HGroup::end(),
-            ),
+            HGroup::tag()->begin() . 'Content' . HGroup::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class HGroupTest extends TestCase
             <hgroup class="value">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->class('value')->render(),
-            ),
+            HGroup::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class HGroupTest extends TestCase
             value
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->content('value')->render(),
-            ),
+            HGroup::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class HGroupTest extends TestCase
             <hgroup contenteditable="true">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->contentEditable(true)->render(),
-            ),
+            HGroup::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class HGroupTest extends TestCase
             <hgroup contenteditable="true">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            HGroup::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class HGroupTest extends TestCase
             <hgroup data-value="value">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            HGroup::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class HGroupTest extends TestCase
             <hgroup class="default-class">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag(['class' => 'default-class'])->render(),
-            ),
+            HGroup::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class HGroupTest extends TestCase
             <hgroup class="default-class" title="default-title">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            HGroup::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class HGroupTest extends TestCase
             <hgroup dir="ltr">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->dir('ltr')->render(),
-            ),
+            HGroup::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class HGroupTest extends TestCase
             <hgroup dir="ltr">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->dir(Direction::LTR)->render(),
-            ),
+            HGroup::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class HGroupTest extends TestCase
             <hgroup draggable="true">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->draggable(true)->render(),
-            ),
+            HGroup::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class HGroupTest extends TestCase
             <hgroup draggable="true">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            HGroup::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class HGroupTest extends TestCase
             <hgroup class="default-class">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->render(),
-            ),
+            HGroup::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class HGroupTest extends TestCase
             <hgroup hidden>
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->hidden(true)->render(),
-            ),
+            HGroup::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class HGroupTest extends TestCase
             <hgroup id="test-id">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->id('test-id')->render(),
-            ),
+            HGroup::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class HGroupTest extends TestCase
             <hgroup lang="es">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->lang('es')->render(),
-            ),
+            HGroup::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class HGroupTest extends TestCase
             <hgroup lang="es">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->lang(Language::SPANISH)->render(),
-            ),
+            HGroup::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class HGroupTest extends TestCase
             <hgroup itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            HGroup::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class HGroupTest extends TestCase
             <hgroup>
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            HGroup::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class HGroupTest extends TestCase
             <hgroup>
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            HGroup::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class HGroupTest extends TestCase
             <hgroup>
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            HGroup::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class HGroupTest extends TestCase
             <hgroup role="group">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->role('group')->render(),
-            ),
+            HGroup::tag()
+                ->role('group')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class HGroupTest extends TestCase
             <hgroup role="group">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->role(Role::GROUP)->render(),
-            ),
+            HGroup::tag()
+                ->role(Role::GROUP)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class HGroupTest extends TestCase
             <hgroup spellcheck="true">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->spellcheck(true)->render(),
-            ),
+            HGroup::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class HGroupTest extends TestCase
             <hgroup style='value'>
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->style('value')->render(),
-            ),
+            HGroup::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,7 @@ final class HGroupTest extends TestCase
             <hgroup tabindex="3">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->tabIndex(3)->render(),
-            ),
+            HGroup::tag()->tabIndex(3)->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +604,9 @@ final class HGroupTest extends TestCase
             <hgroup class="text-muted">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            HGroup::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,7 +618,9 @@ final class HGroupTest extends TestCase
             <hgroup title="value">
             </hgroup>
             HTML,
-            HGroup::tag()->title('value')->render(),
+            HGroup::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -648,9 +632,7 @@ final class HGroupTest extends TestCase
             <hgroup>
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) HGroup::tag(),
-            ),
+            (string) HGroup::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -662,9 +644,9 @@ final class HGroupTest extends TestCase
             <hgroup translate="no">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->translate(false)->render(),
-            ),
+            HGroup::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -676,9 +658,9 @@ final class HGroupTest extends TestCase
             <hgroup translate="no">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag()->translate(Translate::NO)->render(),
-            ),
+            HGroup::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -692,9 +674,7 @@ final class HGroupTest extends TestCase
             <hgroup class="from-global" id="id-user">
             </hgroup>
             HTML,
-            LineEndingNormalizer::normalize(
-                HGroup::tag(['id' => 'id-user'])->render(),
-            ),
+            HGroup::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Phrasing;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -32,17 +31,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('phrasing')]
 final class SpanTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $span = Span::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $span->getContent(),
+            Span::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -60,7 +58,9 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Span::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Span::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -71,9 +71,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span><value></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->html('<value>')->render(),
-            ),
+            Span::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -84,9 +84,7 @@ final class SpanTest extends TestCase
             <<<HTML
             <span accesskey="k"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->accesskey('k')->render(),
-            ),
+            Span::tag()->accesskey('k')->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -97,9 +95,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span aria-label="Span content"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->addAriaAttribute('label', 'Span content')->render(),
-            ),
+            Span::tag()
+                ->addAriaAttribute('label', 'Span content')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -110,9 +108,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span aria-hidden="true"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->addAriaAttribute(Aria::HIDDEN, true)->render(),
-            ),
+            Span::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -123,9 +121,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span data-test="value"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Span::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -136,9 +134,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span title="Span content"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->addAttribute(GlobalAttribute::TITLE, 'Span content')->render(),
-            ),
+            Span::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Span content')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -149,9 +147,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span data-value="value"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Span::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -162,9 +160,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span data-value="value"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Span::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -175,17 +173,15 @@ final class SpanTest extends TestCase
             <<<HTML
             <span aria-controls="modal-1" aria-hidden="false" aria-label="Close"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Span::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -196,9 +192,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span class="value"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Span::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -209,9 +205,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span class="value"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->class('value')->render(),
-            ),
+            Span::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -222,9 +218,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span>value</span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->content('value')->render(),
-            ),
+            Span::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -235,9 +231,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span data-value="value"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Span::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -248,9 +244,7 @@ final class SpanTest extends TestCase
             <<<HTML
             <span class="default-class"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag(['class' => 'default-class'])->render(),
-            ),
+            Span::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -261,9 +255,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span class="default-class" title="default-title"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Span::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -274,9 +268,7 @@ final class SpanTest extends TestCase
             <<<HTML
             <span></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->render(),
-            ),
+            Span::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -287,9 +279,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span dir="ltr"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->dir('ltr')->render(),
-            ),
+            Span::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -300,9 +292,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span dir="ltr"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->dir(Direction::LTR)->render(),
-            ),
+            Span::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -315,9 +307,7 @@ final class SpanTest extends TestCase
             <<<HTML
             <span class="default-class"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->render(),
-            ),
+            Span::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -330,9 +320,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span hidden></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->hidden(true)->render(),
-            ),
+            Span::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -343,9 +333,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span id="test-id"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->id('test-id')->render(),
-            ),
+            Span::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -356,9 +346,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span lang="es"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->lang('es')->render(),
-            ),
+            Span::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -369,9 +359,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span lang="es"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Span::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -382,12 +372,10 @@ final class SpanTest extends TestCase
             <<<HTML
             <span></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Span::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -398,12 +386,10 @@ final class SpanTest extends TestCase
             <<<HTML
             <span></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Span::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -414,12 +400,10 @@ final class SpanTest extends TestCase
             <<<HTML
             <span></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Span::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -430,9 +414,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span role="button"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->role('button')->render(),
-            ),
+            Span::tag()
+                ->role('button')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -443,9 +427,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span role="button"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->role(Role::BUTTON)->render(),
-            ),
+            Span::tag()
+                ->role(Role::BUTTON)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -456,9 +440,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span style='color: red;'></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->style('color: red;')->render(),
-            ),
+            Span::tag()
+                ->style('color: red;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -469,9 +453,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span class="text-muted"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Span::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -482,9 +466,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span title="value"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->title('value')->render(),
-            ),
+            Span::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -495,9 +479,7 @@ final class SpanTest extends TestCase
             <<<HTML
             <span></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Span::tag(),
-            ),
+            (string) Span::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -508,9 +490,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span translate="no"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->translate(false)->render(),
-            ),
+            Span::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -521,9 +503,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span translate="no"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag()->translate(Translate::NO)->render(),
-            ),
+            Span::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -536,9 +518,7 @@ final class SpanTest extends TestCase
             <<<HTML
             <span class="from-global" id="id-user"></span>
             HTML,
-            LineEndingNormalizer::normalize(
-                Span::tag(['id' => 'id-user'])->render(),
-            ),
+            Span::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

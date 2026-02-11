@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Heading;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('heading')]
 final class H2Test extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $h2 = H2::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $h2->getContent(),
+            H2::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class H2Test extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            H2::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            H2::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class H2Test extends TestCase
             <value>
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->html('<value>')->render(),
-            ),
+            H2::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class H2Test extends TestCase
             <h2 accesskey="k">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->accesskey('k')->render(),
-            ),
+            H2::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class H2Test extends TestCase
             <h2 aria-pressed="true">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            H2::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class H2Test extends TestCase
             <h2 aria-pressed="true">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            H2::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class H2Test extends TestCase
             <h2 data-test="value">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            H2::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class H2Test extends TestCase
             <h2 title="value">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            H2::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class H2Test extends TestCase
             <h2 data-value="value">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            H2::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class H2Test extends TestCase
             <h2 data-value="value">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            H2::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class H2Test extends TestCase
             <h2 aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            H2::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class H2Test extends TestCase
             <h2 class="value">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            H2::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class H2Test extends TestCase
             <h2 autofocus>
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->autofocus(true)->render(),
-            ),
+            H2::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class H2Test extends TestCase
             Content
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->begin() . 'Content' . H2::end(),
-            ),
+            H2::tag()->begin() . 'Content' . H2::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class H2Test extends TestCase
             <h2 class="value">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->class('value')->render(),
-            ),
+            H2::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class H2Test extends TestCase
             value
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->content('value')->render(),
-            ),
+            H2::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class H2Test extends TestCase
             <h2 contenteditable="true">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->contentEditable(true)->render(),
-            ),
+            H2::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class H2Test extends TestCase
             <h2 contenteditable="true">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            H2::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class H2Test extends TestCase
             <h2 data-value="value">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            H2::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class H2Test extends TestCase
             <h2 class="default-class">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag(['class' => 'default-class'])->render(),
-            ),
+            H2::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class H2Test extends TestCase
             <h2 class="default-class" title="default-title">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            H2::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class H2Test extends TestCase
             <h2 dir="ltr">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->dir('ltr')->render(),
-            ),
+            H2::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class H2Test extends TestCase
             <h2 dir="ltr">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->dir(Direction::LTR)->render(),
-            ),
+            H2::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class H2Test extends TestCase
             <h2 draggable="true">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->draggable(true)->render(),
-            ),
+            H2::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class H2Test extends TestCase
             <h2 draggable="true">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            H2::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class H2Test extends TestCase
             <h2 class="default-class">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->render(),
-            ),
+            H2::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class H2Test extends TestCase
             <h2 hidden>
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->hidden(true)->render(),
-            ),
+            H2::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class H2Test extends TestCase
             <h2 id="test-id">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->id('test-id')->render(),
-            ),
+            H2::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class H2Test extends TestCase
             <h2 lang="es">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->lang('es')->render(),
-            ),
+            H2::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class H2Test extends TestCase
             <h2 lang="es">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->lang(Language::SPANISH)->render(),
-            ),
+            H2::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class H2Test extends TestCase
             <h2 itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            H2::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class H2Test extends TestCase
             <h2>
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            H2::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class H2Test extends TestCase
             <h2>
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            H2::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class H2Test extends TestCase
             <h2>
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            H2::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class H2Test extends TestCase
             <h2 role="banner">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->role('banner')->render(),
-            ),
+            H2::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class H2Test extends TestCase
             <h2 role="banner">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->role(Role::BANNER)->render(),
-            ),
+            H2::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,7 @@ final class H2Test extends TestCase
             <h2 spellcheck="true">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->spellcheck(true)->render(),
-            ),
+            H2::tag()->spellcheck(true)->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +576,9 @@ final class H2Test extends TestCase
             <h2 style='value'>
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->style('value')->render(),
-            ),
+            H2::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +590,9 @@ final class H2Test extends TestCase
             <h2 tabindex="3">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->tabIndex(3)->render(),
-            ),
+            H2::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +604,9 @@ final class H2Test extends TestCase
             <h2 class="text-muted">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            H2::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,7 +618,9 @@ final class H2Test extends TestCase
             <h2 title="value">
             </h2>
             HTML,
-            H2::tag()->title('value')->render(),
+            H2::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -648,9 +632,7 @@ final class H2Test extends TestCase
             <h2>
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) H2::tag(),
-            ),
+            (string) H2::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -662,9 +644,9 @@ final class H2Test extends TestCase
             <h2 translate="no">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->translate(false)->render(),
-            ),
+            H2::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -676,9 +658,9 @@ final class H2Test extends TestCase
             <h2 translate="no">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag()->translate(Translate::NO)->render(),
-            ),
+            H2::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -692,9 +674,7 @@ final class H2Test extends TestCase
             <h2 class="from-global" id="id-user">
             </h2>
             HTML,
-            LineEndingNormalizer::normalize(
-                H2::tag(['id' => 'id-user'])->render(),
-            ),
+            H2::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

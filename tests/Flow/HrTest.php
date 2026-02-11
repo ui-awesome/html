@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Flow;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -32,7 +31,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('flow')]
 final class HrTest extends TestCase
 {
@@ -49,7 +47,9 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Hr::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Hr::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -60,7 +60,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr accesskey="k">
             HTML,
-            Hr::tag()->accesskey('k')->render(),
+            Hr::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -71,7 +73,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr aria-pressed="true">
             HTML,
-            Hr::tag()->addAriaAttribute('pressed', true)->render(),
+            Hr::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -82,7 +86,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr aria-pressed="true">
             HTML,
-            Hr::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
+            Hr::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -93,7 +99,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr data-test="value">
             HTML,
-            Hr::tag()->addAttribute('data-test', 'value')->render(),
+            Hr::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -104,7 +112,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr title="value">
             HTML,
-            Hr::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
+            Hr::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -115,7 +125,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr data-value="value">
             HTML,
-            Hr::tag()->addDataAttribute('value', 'value')->render(),
+            Hr::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -126,7 +138,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr data-value="value">
             HTML,
-            Hr::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+            Hr::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -155,7 +169,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr class="value">
             HTML,
-            Hr::tag()->attributes(['class' => 'value'])->render(),
+            Hr::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -166,7 +182,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr class="value">
             HTML,
-            Hr::tag()->class('value')->render(),
+            Hr::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -177,7 +195,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr data-value="value">
             HTML,
-            Hr::tag()->dataAttributes(['value' => 'value'])->render(),
+            Hr::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -199,7 +219,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr class="default-class" title="default-title">
             HTML,
-            Hr::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+            Hr::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -221,7 +243,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr dir="ltr">
             HTML,
-            Hr::tag()->dir('ltr')->render(),
+            Hr::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -232,7 +256,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr dir="ltr">
             HTML,
-            Hr::tag()->dir(Direction::LTR)->render(),
+            Hr::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -256,7 +282,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr hidden>
             HTML,
-            Hr::tag()->hidden(true)->render(),
+            Hr::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -267,7 +295,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr id="test-id">
             HTML,
-            Hr::tag()->id('test-id')->render(),
+            Hr::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -278,7 +308,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr lang="es">
             HTML,
-            Hr::tag()->lang('es')->render(),
+            Hr::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -289,7 +321,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr lang="es">
             HTML,
-            Hr::tag()->lang(Language::SPANISH)->render(),
+            Hr::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -342,7 +376,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr role="banner">
             HTML,
-            Hr::tag()->role('banner')->render(),
+            Hr::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -353,7 +389,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr role="banner">
             HTML,
-            Hr::tag()->role(Role::BANNER)->render(),
+            Hr::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -364,7 +402,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr style='value'>
             HTML,
-            Hr::tag()->style('value')->render(),
+            Hr::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -375,7 +415,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr class="text-muted">
             HTML,
-            Hr::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            Hr::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -386,7 +428,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr title="value">
             HTML,
-            Hr::tag()->title('value')->render(),
+            Hr::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -395,9 +439,7 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             '<hr>',
-            LineEndingNormalizer::normalize(
-                (string) Hr::tag(),
-            ),
+            (string) Hr::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -408,7 +450,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr translate="no">
             HTML,
-            Hr::tag()->translate(false)->render(),
+            Hr::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -419,7 +463,9 @@ final class HrTest extends TestCase
             <<<HTML
             <hr translate="no">
             HTML,
-            Hr::tag()->translate(Translate::NO)->render(),
+            Hr::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }

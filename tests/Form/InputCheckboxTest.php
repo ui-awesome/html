@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
@@ -12,6 +11,7 @@ use Stringable;
 use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputCheckbox;
+use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Provider\Form\CheckedProvider;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 use UnitEnum;
@@ -34,7 +34,6 @@ use UnitEnum;
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('form')]
 final class InputCheckboxTest extends TestCase
 {
@@ -42,8 +41,7 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             'default',
-            InputCheckbox::tag()
-                ->getAttribute('data-test', 'default'),
+            InputCheckbox::tag()->getAttribute('data-test', 'default'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -52,11 +50,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" accesskey="k">
+            <input id="inputcheckbox" type="checkbox" accesskey="k">
             HTML,
             InputCheckbox::tag()
                 ->accesskey('k')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -66,11 +64,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" aria-label="Checkbox selector">
+            <input id="inputcheckbox" type="checkbox" aria-label="Checkbox selector">
             HTML,
             InputCheckbox::tag()
                 ->addAriaAttribute('label', 'Checkbox selector')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -80,13 +78,114 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" aria-hidden="true">
+            <input id="inputcheckbox" type="checkbox" aria-hidden="true">
             HTML,
             InputCheckbox::tag()
                 ->addAriaAttribute(Aria::HIDDEN, true)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" aria-describedby="custom-help">
+            HTML,
+            InputCheckbox::tag()
+                ->addAriaAttribute('describedby', 'custom-help')
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" aria-describedby="inputcheckbox-help">
+            HTML,
+            InputCheckbox::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input type="checkbox">
+            HTML,
+            InputCheckbox::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id(null)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and 'id' is 'null'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <input id="inputcheckbox" type="checkbox" aria-describedby="inputcheckbox-help">
+            <span>Suffix</span>
+            HTML,
+            InputCheckbox::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('inputcheckbox')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and prefix/suffix.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" aria-describedby="inputcheckbox-help">
+            HTML,
+            InputCheckbox::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <input id="inputcheckbox" type="checkbox" aria-describedby="inputcheckbox-help">
+            <span>Suffix</span>
+            HTML,
+            InputCheckbox::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('inputcheckbox')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and prefix/suffix.",
         );
     }
 
@@ -94,11 +193,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" data-test="value">
+            <input id="inputcheckbox" type="checkbox" data-test="value">
             HTML,
             InputCheckbox::tag()
                 ->addAttribute('data-test', 'value')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
@@ -108,11 +207,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" title="Select checkbox">
+            <input id="inputcheckbox" type="checkbox" title="Select checkbox">
             HTML,
             InputCheckbox::tag()
                 ->addAttribute(GlobalAttribute::TITLE, 'Select checkbox')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
@@ -122,11 +221,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" data-checkbox="value">
+            <input id="inputcheckbox" type="checkbox" data-checkbox="value">
             HTML,
             InputCheckbox::tag()
                 ->addDataAttribute('checkbox', 'value')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -136,11 +235,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" data-value="test">
+            <input id="inputcheckbox" type="checkbox" data-value="test">
             HTML,
             InputCheckbox::tag()
                 ->addDataAttribute(Data::VALUE, 'test')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
@@ -150,7 +249,7 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" aria-controls="checkbox-picker" aria-label="Select a checkbox">
+            <input id="inputcheckbox" type="checkbox" aria-controls="checkbox-picker" aria-label="Select a checkbox">
             HTML,
             InputCheckbox::tag()
                 ->ariaAttributes(
@@ -159,9 +258,37 @@ final class InputCheckboxTest extends TestCase
                         'label' => 'Select a checkbox',
                     ],
                 )
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+        );
+    }
+
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" aria-describedby="inputcheckbox-help">
+            HTML,
+            InputCheckbox::tag()
+                ->ariaAttributes(['describedby' => true])
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" aria-describedby="inputcheckbox-help">
+            HTML,
+            InputCheckbox::tag()
+                ->ariaAttributes(['describedby' => 'true'])
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
         );
     }
 
@@ -169,13 +296,41 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="checkbox-input" id="inputcheckbox-" type="checkbox">
+            <input class="checkbox-input" id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
                 ->attributes(['class' => 'checkbox-input'])
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" aria-describedby="inputcheckbox-help">
+            HTML,
+            InputCheckbox::tag()
+                ->attributes(['aria-describedby' => true])
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" aria-describedby="inputcheckbox-help">
+            HTML,
+            InputCheckbox::tag()
+                ->attributes(['aria-describedby' => 'true'])
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
         );
     }
 
@@ -183,11 +338,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" autofocus>
+            <input id="inputcheckbox" type="checkbox" autofocus>
             HTML,
             InputCheckbox::tag()
                 ->autofocus(true)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -197,11 +352,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" checked>
+            <input id="inputcheckbox" type="checkbox" checked>
             HTML,
             InputCheckbox::tag()
                 ->checked(true)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'checked' attribute.",
         );
@@ -219,7 +374,7 @@ final class InputCheckboxTest extends TestCase
         self::assertSame(
             $expected,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->checked($checked)
                 ->value($value)
                 ->render(),
@@ -231,11 +386,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="checkbox-input" id="inputcheckbox-" type="checkbox">
+            <input class="checkbox-input" id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
                 ->class('checkbox-input')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -245,11 +400,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputcheckbox-" type="checkbox">
+            <input class="value" id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -259,11 +414,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" data-checkbox="value">
+            <input id="inputcheckbox" type="checkbox" data-checkbox="value">
             HTML,
             InputCheckbox::tag()
                 ->dataAttributes(['checkbox' => 'value'])
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -273,10 +428,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputcheckbox-" type="checkbox">
+            <input class="default-class" id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag(['class' => 'default-class'])
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
@@ -286,11 +441,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputcheckbox-" type="checkbox" title="default-title">
+            <input class="default-class" id="inputcheckbox" type="checkbox" title="default-title">
             HTML,
             InputCheckbox::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -300,10 +455,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -313,11 +468,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" dir="ltr">
+            <input id="inputcheckbox" type="checkbox" dir="ltr">
             HTML,
             InputCheckbox::tag()
                 ->dir('ltr')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -327,11 +482,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" dir="ltr">
+            <input id="inputcheckbox" type="checkbox" dir="ltr">
             HTML,
             InputCheckbox::tag()
                 ->dir(Direction::LTR)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
@@ -341,11 +496,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" disabled>
+            <input id="inputcheckbox" type="checkbox" disabled>
             HTML,
             InputCheckbox::tag()
                 ->disabled(true)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -356,17 +511,15 @@ final class InputCheckboxTest extends TestCase
         self::assertSame(
             <<<HTML
             <label>
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             Label
             </label>
             HTML,
-            LineEndingNormalizer::normalize(
-                InputCheckbox::tag()
-                    ->enclosedByLabel(true)
-                    ->id('inputcheckbox-')
-                    ->label('Label')
-                    ->render(),
-            ),
+            InputCheckbox::tag()
+                ->enclosedByLabel(true)
+                ->id('inputcheckbox')
+                ->label('Label')
+                ->render(),
         );
     }
 
@@ -376,19 +529,17 @@ final class InputCheckboxTest extends TestCase
             <<<HTML
             <div class="wrapper">
             <label>
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             Red
             </label>
             </div>
             HTML,
-            LineEndingNormalizer::normalize(
-                InputCheckbox::tag()
-                    ->enclosedByLabel(true)
-                    ->id('inputcheckbox-')
-                    ->label('Red')
-                    ->template('<div class="wrapper">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
-                    ->render(),
-            ),
+            InputCheckbox::tag()
+                ->enclosedByLabel(true)
+                ->id('inputcheckbox')
+                ->label('Red')
+                ->template('<div class="wrapper">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
         );
     }
 
@@ -396,11 +547,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
                 ->enclosedByLabel(true)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
         );
     }
@@ -410,18 +561,16 @@ final class InputCheckboxTest extends TestCase
         self::assertSame(
             <<<HTML
             <label for="label-for">
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             Label
             </label>
             HTML,
-            LineEndingNormalizer::normalize(
-                InputCheckbox::tag()
-                    ->enclosedByLabel(true)
-                    ->id('inputcheckbox-')
-                    ->label('Label')
-                    ->labelFor('label-for')
-                    ->render(),
-            ),
+            InputCheckbox::tag()
+                ->enclosedByLabel(true)
+                ->id('inputcheckbox')
+                ->label('Label')
+                ->labelFor('label-for')
+                ->render(),
         );
     }
 
@@ -429,7 +578,7 @@ final class InputCheckboxTest extends TestCase
     {
         $checkbox = InputCheckbox::tag()
             ->enclosedByLabel(true)
-            ->id('inputcheckbox-')
+            ->id('inputcheckbox')
             ->label('Label');
 
         $first = $checkbox->render();
@@ -451,13 +600,11 @@ final class InputCheckboxTest extends TestCase
             Red
             </label>
             HTML,
-            LineEndingNormalizer::normalize(
-                InputCheckbox::tag()
-                    ->enclosedByLabel(true)
-                    ->id(null)
-                    ->label('Red')
-                    ->render(),
-            ),
+            InputCheckbox::tag()
+                ->enclosedByLabel(true)
+                ->id(null)
+                ->label('Red')
+                ->render(),
         );
     }
 
@@ -465,11 +612,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" form="form-id">
+            <input id="inputcheckbox" type="checkbox" form="form-id">
             HTML,
             InputCheckbox::tag()
                 ->form('form-id')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
@@ -504,11 +651,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" hidden>
+            <input id="inputcheckbox" type="checkbox" hidden>
             HTML,
             InputCheckbox::tag()
                 ->hidden(true)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -531,11 +678,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label for="inputcheckbox-">Label</label>
+            <input id="inputcheckbox" type="checkbox">
+            <label for="inputcheckbox">Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->render(),
         );
@@ -545,11 +692,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label class="value" for="inputcheckbox-">Label</label>
+            <input id="inputcheckbox" type="checkbox">
+            <label class="value" for="inputcheckbox">Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->labelAttributes(['class' => 'value'])
                 ->render(),
@@ -560,11 +707,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label class="value" for="inputcheckbox-">Label</label>
+            <input id="inputcheckbox" type="checkbox">
+            <label class="value" for="inputcheckbox">Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->labelClass('value')
                 ->render(),
@@ -575,11 +722,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label for="inputcheckbox-">Label</label>
+            <input id="inputcheckbox" type="checkbox">
+            <label for="inputcheckbox">Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass(null)
@@ -591,11 +738,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label class="value value-override" for="inputcheckbox-">Label</label>
+            <input id="inputcheckbox" type="checkbox">
+            <label class="value value-override" for="inputcheckbox">Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass('value-override')
@@ -607,11 +754,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label class="value-override" for="inputcheckbox-">Label</label>
+            <input id="inputcheckbox" type="checkbox">
+            <label class="value-override" for="inputcheckbox">Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass('value-override', true)
@@ -623,11 +770,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
-            <label class="value" for="inputcheckbox-">Label</label>
+            <input id="inputcheckbox" type="checkbox">
+            <label class="value" for="inputcheckbox">Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->labelClass(BackedString::VALUE)
                 ->render(),
@@ -638,11 +785,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             <label for="value">Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->labelFor('value')
                 ->render(),
@@ -653,11 +800,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             <label>Label</label>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->labelFor(null)
                 ->render(),
@@ -668,10 +815,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" lang="en">
+            <input id="inputcheckbox" type="checkbox" lang="en">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -682,10 +829,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" lang="en">
+            <input id="inputcheckbox" type="checkbox" lang="en">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
@@ -696,10 +843,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" name="agree" type="checkbox">
+            <input id="inputcheckbox" name="agree" type="checkbox">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->name('agree')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -710,10 +857,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->label('Label')
                 ->notLabel()
                 ->render(),
@@ -724,11 +871,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
                 ->addAriaAttribute('label', 'Close')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -739,11 +886,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
                 ->addAttribute('data-test', 'value')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -754,11 +901,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox">
+            <input id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
                 ->addDataAttribute('value', 'test')
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -769,10 +916,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" required>
+            <input id="inputcheckbox" type="checkbox" required>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -783,10 +930,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" role="checkbox">
+            <input id="inputcheckbox" type="checkbox" role="checkbox">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->role('checkbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -797,10 +944,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" role="checkbox">
+            <input id="inputcheckbox" type="checkbox" role="checkbox">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->role(Role::CHECKBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
@@ -811,10 +958,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" style='width: 20px;'>
+            <input id="inputcheckbox" type="checkbox" style='width: 20px;'>
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->style('width: 20px;')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -825,10 +972,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" tabindex="1">
+            <input id="inputcheckbox" type="checkbox" tabindex="1">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -839,11 +986,11 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputcheckbox-" type="checkbox">
+            <input class="text-muted" id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -853,10 +1000,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" title="Select a checkbox">
+            <input id="inputcheckbox" type="checkbox" title="Select a checkbox">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->title('Select a checkbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -865,9 +1012,13 @@ final class InputCheckboxTest extends TestCase
 
     public function testRenderWithToString(): void
     {
-        self::assertStringContainsString(
-            'type="checkbox"',
-            (string) InputCheckbox::tag(),
+        self::assertSame(
+            <<<HTML
+            <input type="checkbox">
+            HTML,
+            InputCheckbox::tag()
+                ->id(null)
+                ->render(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -876,10 +1027,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" translate="no">
+            <input id="inputcheckbox" type="checkbox" translate="no">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -890,10 +1041,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" translate="no">
+            <input id="inputcheckbox" type="checkbox" translate="no">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
@@ -905,10 +1056,10 @@ final class InputCheckboxTest extends TestCase
         self::assertSame(
             <<<HTML
             <input name="agree" type="hidden" value="0">
-            <input id="inputcheckbox-" name="agree" type="checkbox" value="1">
+            <input id="inputcheckbox" name="agree" type="checkbox" value="1">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->name('agree')
                 ->uncheckedValue('0')
                 ->value('1')
@@ -923,20 +1074,18 @@ final class InputCheckboxTest extends TestCase
             <<<HTML
             <input name="agree" type="hidden" value="0">
             <label>
-            <input id="inputcheckbox-" name="agree" type="checkbox" value="1">
+            <input id="inputcheckbox" name="agree" type="checkbox" value="1">
             Label
             </label>
             HTML,
-            LineEndingNormalizer::normalize(
-                InputCheckbox::tag()
-                    ->enclosedByLabel(true)
-                    ->id('inputcheckbox-')
-                    ->label('Label')
-                    ->name('agree')
-                    ->uncheckedValue('0')
-                    ->value('1')
-                    ->render(),
-            ),
+            InputCheckbox::tag()
+                ->enclosedByLabel(true)
+                ->id('inputcheckbox')
+                ->label('Label')
+                ->name('agree')
+                ->uncheckedValue('0')
+                ->value('1')
+                ->render(),
         );
     }
 
@@ -956,10 +1105,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcheckbox-" type="checkbox" value="accepted">
+            <input id="inputcheckbox" type="checkbox" value="accepted">
             HTML,
             InputCheckbox::tag()
-                ->id('inputcheckbox-')
+                ->id('inputcheckbox')
                 ->value('accepted')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

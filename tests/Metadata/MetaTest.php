@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Metadata;
 
 use InvalidArgumentException;
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -38,7 +37,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2025 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('metadata')]
 final class MetaTest extends TestCase
 {
@@ -55,7 +53,9 @@ final class MetaTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Meta::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Meta::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -66,7 +66,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta accesskey="k">
             HTML,
-            Meta::tag()->accesskey('k')->render(),
+            Meta::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -77,7 +79,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta aria-label="Meta tag">
             HTML,
-            Meta::tag()->addAriaAttribute('label', 'Meta tag')->render(),
+            Meta::tag()
+                ->addAriaAttribute('label', 'Meta tag')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -88,7 +92,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta aria-hidden="true">
             HTML,
-            Meta::tag()->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            Meta::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -99,7 +105,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta data-test="value">
             HTML,
-            Meta::tag()->addAttribute('data-test', 'value')->render(),
+            Meta::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -110,7 +118,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta title="Meta tag">
             HTML,
-            Meta::tag()->addAttribute(GlobalAttribute::TITLE, 'Meta tag')->render(),
+            Meta::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Meta tag')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -121,7 +131,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta data-value="value">
             HTML,
-            Meta::tag()->addDataAttribute('value', 'value')->render(),
+            Meta::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -132,7 +144,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta data-value="value">
             HTML,
-            Meta::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+            Meta::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -143,13 +157,14 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             HTML,
-            Meta::tag()->ariaAttributes(
-                [
-                    'controls' => static fn(): string => 'modal-1',
-                    'hidden' => false,
-                    'label' => 'Close',
-                ],
-            )
+            Meta::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -161,7 +176,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta class="value">
             HTML,
-            Meta::tag()->attributes(['class' => 'value'])->render(),
+            Meta::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -172,7 +189,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta charset="utf-8">
             HTML,
-            Meta::tag()->charset('utf-8')->render(),
+            Meta::tag()
+                ->charset('utf-8')
+                ->render(),
             "Failed asserting that element renders correctly with 'charset' attribute.",
         );
     }
@@ -183,7 +202,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta class="value">
             HTML,
-            Meta::tag()->class('value')->render(),
+            Meta::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -194,7 +215,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta content="width=device-width, initial-scale=1">
             HTML,
-            Meta::tag()->content('width=device-width, initial-scale=1')->render(),
+            Meta::tag()
+                ->content('width=device-width, initial-scale=1')
+                ->render(),
             "Failed asserting that element renders correctly with 'content' attribute.",
         );
     }
@@ -205,7 +228,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta data-value="value">
             HTML,
-            Meta::tag()->dataAttributes(['value' => 'value'])->render(),
+            Meta::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -227,7 +252,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta class="default-class" title="default-title">
             HTML,
-            Meta::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+            Meta::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -249,7 +276,10 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta name="description" content="A description of the page">
             HTML,
-            Meta::tag()->name('description')->content('A description of the page')->render(),
+            Meta::tag()
+                ->name('description')
+                ->content('A description of the page')
+                ->render(),
             'Failed asserting that element renders correctly with description metadata.',
         );
     }
@@ -260,7 +290,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta dir="ltr">
             HTML,
-            Meta::tag()->dir('ltr')->render(),
+            Meta::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -271,7 +303,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta dir="ltr">
             HTML,
-            Meta::tag()->dir(Direction::LTR)->render(),
+            Meta::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -295,7 +329,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta hidden>
             HTML,
-            Meta::tag()->hidden(true)->render(),
+            Meta::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -306,7 +342,10 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta http-equiv="refresh" content="3;url=https://example.com">
             HTML,
-            Meta::tag()->httpEquiv('refresh')->content('3;url=https://example.com')->render(),
+            Meta::tag()
+                ->content('3;url=https://example.com')
+                ->httpEquiv('refresh')
+                ->render(),
             "Failed asserting that element renders correctly with 'http-equiv' attribute.",
         );
     }
@@ -317,7 +356,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta id="test-id">
             HTML,
-            Meta::tag()->id('test-id')->render(),
+            Meta::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -328,7 +369,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta lang="es">
             HTML,
-            Meta::tag()->lang('es')->render(),
+            Meta::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -339,7 +382,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta lang="es">
             HTML,
-            Meta::tag()->lang(Language::SPANISH)->render(),
+            Meta::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -350,7 +395,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta media="screen">
             HTML,
-            Meta::tag()->media('screen')->render(),
+            Meta::tag()
+                ->media('screen')
+                ->render(),
             "Failed asserting that element renders correctly with 'media' attribute.",
         );
     }
@@ -361,7 +408,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta name="viewport">
             HTML,
-            Meta::tag()->name('viewport')->render(),
+            Meta::tag()
+                ->name('viewport')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -372,7 +421,10 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta name="viewport" content="width=device-width, initial-scale=1">
             HTML,
-            Meta::tag()->name('viewport')->content('width=device-width, initial-scale=1')->render(),
+            Meta::tag()
+                ->content('width=device-width, initial-scale=1')
+                ->name('viewport')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' and 'content' attributes.",
         );
     }
@@ -436,7 +488,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta role="banner">
             HTML,
-            Meta::tag()->role(Role::BANNER)->render(),
+            Meta::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -447,7 +501,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta style='value'>
             HTML,
-            Meta::tag()->style('value')->render(),
+            Meta::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -458,7 +514,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta class="text-muted">
             HTML,
-            Meta::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            Meta::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -469,7 +527,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta title="value">
             HTML,
-            Meta::tag()->title('value')->render(),
+            Meta::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -478,9 +538,7 @@ final class MetaTest extends TestCase
     {
         self::assertSame(
             '<meta>',
-            LineEndingNormalizer::normalize(
-                (string) Meta::tag(),
-            ),
+            (string) Meta::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -491,7 +549,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta translate="no">
             HTML,
-            Meta::tag()->translate(false)->render(),
+            Meta::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -502,7 +562,9 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta translate="no">
             HTML,
-            Meta::tag()->translate(Translate::NO)->render(),
+            Meta::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -528,7 +590,10 @@ final class MetaTest extends TestCase
             <<<HTML
             <meta name="viewport" content="width=device-width, initial-scale=1">
             HTML,
-            Meta::tag()->name('viewport')->content('width=device-width, initial-scale=1')->render(),
+            Meta::tag()
+                ->content('width=device-width, initial-scale=1')
+                ->name('viewport')
+                ->render(),
             'Failed asserting that element renders correctly with viewport metadata.',
         );
     }

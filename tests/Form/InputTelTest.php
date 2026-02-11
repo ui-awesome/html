@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputTel;
+use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -29,7 +29,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('form')]
 final class InputTelTest extends TestCase
 {
@@ -46,9 +45,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" accesskey="k">
+            <input id="inputtel" type="tel" accesskey="k">
             HTML,
-            InputTel::tag()->id('inputtel-')->accesskey('k')->render(),
+            InputTel::tag()->id('inputtel')->accesskey('k')->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -57,9 +56,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" aria-label="Phone selector">
+            <input id="inputtel" type="tel" aria-label="Phone selector">
             HTML,
-            InputTel::tag()->id('inputtel-')->addAriaAttribute('label', 'Phone selector')->render(),
+            InputTel::tag()->id('inputtel')->addAriaAttribute('label', 'Phone selector')->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -68,10 +67,111 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" aria-hidden="true">
+            <input id="inputtel" type="tel" aria-hidden="true">
             HTML,
-            InputTel::tag()->id('inputtel-')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputTel::tag()->id('inputtel')->addAriaAttribute(Aria::HIDDEN, true)->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" aria-describedby="custom-help">
+            HTML,
+            InputTel::tag()
+                ->addAriaAttribute('describedby', 'custom-help')
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
+            HTML,
+            InputTel::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input type="tel">
+            HTML,
+            InputTel::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id(null)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and 'id' is 'null'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
+            <span>Suffix</span>
+            HTML,
+            InputTel::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('inputtel')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and prefix/suffix.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
+            HTML,
+            InputTel::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
+            <span>Suffix</span>
+            HTML,
+            InputTel::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('inputtel')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true' and prefix/suffix.",
         );
     }
 
@@ -79,9 +179,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" data-test="value">
+            <input id="inputtel" type="tel" data-test="value">
             HTML,
-            InputTel::tag()->id('inputtel-')->addAttribute('data-test', 'value')->render(),
+            InputTel::tag()->id('inputtel')->addAttribute('data-test', 'value')->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -90,9 +190,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" title="Select phone">
+            <input id="inputtel" type="tel" title="Select phone">
             HTML,
-            InputTel::tag()->id('inputtel-')->addAttribute(GlobalAttribute::TITLE, 'Select phone')->render(),
+            InputTel::tag()->id('inputtel')->addAttribute(GlobalAttribute::TITLE, 'Select phone')->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -101,9 +201,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" data-tel="value">
+            <input id="inputtel" type="tel" data-tel="value">
             HTML,
-            InputTel::tag()->id('inputtel-')->addDataAttribute('tel', 'value')->render(),
+            InputTel::tag()->id('inputtel')->addDataAttribute('tel', 'value')->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -112,9 +212,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" data-value="test">
+            <input id="inputtel" type="tel" data-value="test">
             HTML,
-            InputTel::tag()->id('inputtel-')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputTel::tag()->id('inputtel')->addDataAttribute(Data::VALUE, 'test')->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -123,10 +223,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" aria-controls="phone-picker" aria-label="Select a phone">
+            <input id="inputtel" type="tel" aria-controls="phone-picker" aria-label="Select a phone">
             HTML,
             InputTel::tag()
-                ->id('inputtel-')
+                ->id('inputtel')
                 ->ariaAttributes([
                     'controls' => 'phone-picker',
                     'label' => 'Select a phone',
@@ -136,14 +236,70 @@ final class InputTelTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
+            HTML,
+            InputTel::tag()
+                ->ariaAttributes(['describedby' => true])
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
+            HTML,
+            InputTel::tag()
+                ->ariaAttributes(['describedby' => 'true'])
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="tel-input" id="inputtel-" type="tel">
+            <input class="tel-input" id="inputtel" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel-')->attributes(['class' => 'tel-input'])->render(),
+            InputTel::tag()->id('inputtel')->attributes(['class' => 'tel-input'])->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
+            HTML,
+            InputTel::tag()
+                ->attributes(['aria-describedby' => true])
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
+            HTML,
+            InputTel::tag()
+                ->attributes(['aria-describedby' => 'true'])
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
         );
     }
 
@@ -151,9 +307,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" autocomplete="on">
+            <input id="inputtel" type="tel" autocomplete="on">
             HTML,
-            InputTel::tag()->autocomplete('on')->id('inputtel-')->render(),
+            InputTel::tag()->autocomplete('on')->id('inputtel')->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -162,9 +318,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" autocomplete="on">
+            <input id="inputtel" type="tel" autocomplete="on">
             HTML,
-            InputTel::tag()->autocomplete(Autocomplete::ON)->id('inputtel-')->render(),
+            InputTel::tag()->autocomplete(Autocomplete::ON)->id('inputtel')->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -173,9 +329,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" autofocus>
+            <input id="inputtel" type="tel" autofocus>
             HTML,
-            InputTel::tag()->autofocus(true)->id('inputtel-')->render(),
+            InputTel::tag()->autofocus(true)->id('inputtel')->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -184,9 +340,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="tel-input" id="inputtel-" type="tel">
+            <input class="tel-input" id="inputtel" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel-')->class('tel-input')->render(),
+            InputTel::tag()->id('inputtel')->class('tel-input')->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -195,9 +351,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" data-tel="value">
+            <input id="inputtel" type="tel" data-tel="value">
             HTML,
-            InputTel::tag()->id('inputtel-')->dataAttributes(['tel' => 'value'])->render(),
+            InputTel::tag()->id('inputtel')->dataAttributes(['tel' => 'value'])->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -206,9 +362,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtel-" type="tel">
+            <input class="default-class" id="inputtel" type="tel">
             HTML,
-            InputTel::tag(['class' => 'default-class'])->id('inputtel-')->render(),
+            InputTel::tag(['class' => 'default-class'])->id('inputtel')->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -217,9 +373,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtel-" type="tel" title="default-title">
+            <input class="default-class" id="inputtel" type="tel" title="default-title">
             HTML,
-            InputTel::tag()->id('inputtel-')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputTel::tag()->id('inputtel')->addDefaultProvider(DefaultProvider::class)->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -228,9 +384,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel">
+            <input id="inputtel" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel-')->render(),
+            InputTel::tag()->id('inputtel')->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -239,9 +395,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" dir="ltr">
+            <input id="inputtel" type="tel" dir="ltr">
             HTML,
-            InputTel::tag()->id('inputtel-')->dir('ltr')->render(),
+            InputTel::tag()->id('inputtel')->dir('ltr')->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -250,9 +406,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" dir="ltr">
+            <input id="inputtel" type="tel" dir="ltr">
             HTML,
-            InputTel::tag()->id('inputtel-')->dir(Direction::LTR)->render(),
+            InputTel::tag()->id('inputtel')->dir(Direction::LTR)->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -261,9 +417,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" disabled>
+            <input id="inputtel" type="tel" disabled>
             HTML,
-            InputTel::tag()->id('inputtel-')->disabled(true)->render(),
+            InputTel::tag()->id('inputtel')->disabled(true)->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -272,10 +428,22 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" form="form-id">
+            <input id="inputtel" type="tel" form="form-id">
             HTML,
-            InputTel::tag()->form('form-id')->id('inputtel-')->render(),
+            InputTel::tag()->form('form-id')->id('inputtel')->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
+        );
+    }
+
+    public function testRenderWithGenerateId(): void
+    {
+        /** @phpstan-var string $id */
+        $id = InputTel::tag()->getAttribute('id', '');
+
+        self::assertMatchesRegularExpression(
+            '/^inputtel-\w+$/',
+            $id,
+            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -296,9 +464,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" hidden>
+            <input id="inputtel" type="tel" hidden>
             HTML,
-            InputTel::tag()->id('inputtel-')->hidden(true)->render(),
+            InputTel::tag()->id('inputtel')->hidden(true)->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -318,9 +486,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" lang="en">
+            <input id="inputtel" type="tel" lang="en">
             HTML,
-            InputTel::tag()->id('inputtel-')->lang('en')->render(),
+            InputTel::tag()->id('inputtel')->lang('en')->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -329,9 +497,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" lang="en">
+            <input id="inputtel" type="tel" lang="en">
             HTML,
-            InputTel::tag()->id('inputtel-')->lang(Language::ENGLISH)->render(),
+            InputTel::tag()->id('inputtel')->lang(Language::ENGLISH)->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -340,9 +508,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" list="phones">
+            <input id="inputtel" type="tel" list="phones">
             HTML,
-            InputTel::tag()->id('inputtel-')->list('phones')->render(),
+            InputTel::tag()->id('inputtel')->list('phones')->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -351,9 +519,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" maxlength="10">
+            <input id="inputtel" type="tel" maxlength="10">
             HTML,
-            InputTel::tag()->id('inputtel-')->maxlength(10)->render(),
+            InputTel::tag()->id('inputtel')->maxlength(10)->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
         );
     }
@@ -362,9 +530,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" minlength="5">
+            <input id="inputtel" type="tel" minlength="5">
             HTML,
-            InputTel::tag()->id('inputtel-')->minlength(5)->render(),
+            InputTel::tag()->id('inputtel')->minlength(5)->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
         );
     }
@@ -373,9 +541,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" name="phone" type="tel">
+            <input id="inputtel" name="phone" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel-')->name('phone')->render(),
+            InputTel::tag()->id('inputtel')->name('phone')->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -384,9 +552,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'>
+            <input id="inputtel" type="tel" pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'>
             HTML,
-            InputTel::tag()->id('inputtel-')->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')->render(),
+            InputTel::tag()->id('inputtel')->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
         );
     }
@@ -395,9 +563,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" placeholder="123-456-7890">
+            <input id="inputtel" type="tel" placeholder="123-456-7890">
             HTML,
-            InputTel::tag()->id('inputtel-')->placeholder('123-456-7890')->render(),
+            InputTel::tag()->id('inputtel')->placeholder('123-456-7890')->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
     }
@@ -406,9 +574,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" readonly>
+            <input id="inputtel" type="tel" readonly>
             HTML,
-            InputTel::tag()->id('inputtel-')->readonly(true)->render(),
+            InputTel::tag()->id('inputtel')->readonly(true)->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -417,10 +585,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel">
+            <input id="inputtel" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel-')
+                ->id('inputtel')
                 ->addAriaAttribute('label', 'Close')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -432,10 +600,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel">
+            <input id="inputtel" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel-')
+                ->id('inputtel')
                 ->addAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
@@ -447,10 +615,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel">
+            <input id="inputtel" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel-')
+                ->id('inputtel')
                 ->addDataAttribute('value', 'test')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -462,9 +630,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" required>
+            <input id="inputtel" type="tel" required>
             HTML,
-            InputTel::tag()->id('inputtel-')->required(true)->render(),
+            InputTel::tag()->id('inputtel')->required(true)->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -473,9 +641,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" role="textbox">
+            <input id="inputtel" type="tel" role="textbox">
             HTML,
-            InputTel::tag()->id('inputtel-')->role('textbox')->render(),
+            InputTel::tag()->id('inputtel')->role('textbox')->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -484,9 +652,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" role="textbox">
+            <input id="inputtel" type="tel" role="textbox">
             HTML,
-            InputTel::tag()->id('inputtel-')->role(Role::TEXTBOX)->render(),
+            InputTel::tag()->id('inputtel')->role(Role::TEXTBOX)->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -495,9 +663,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" size="30">
+            <input id="inputtel" type="tel" size="30">
             HTML,
-            InputTel::tag()->id('inputtel-')->size(30)->render(),
+            InputTel::tag()->id('inputtel')->size(30)->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
         );
     }
@@ -506,9 +674,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" spellcheck="true">
+            <input id="inputtel" type="tel" spellcheck="true">
             HTML,
-            InputTel::tag()->id('inputtel-')->spellcheck(true)->render(),
+            InputTel::tag()->id('inputtel')->spellcheck(true)->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -517,9 +685,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" style='width: 200px;'>
+            <input id="inputtel" type="tel" style='width: 200px;'>
             HTML,
-            InputTel::tag()->id('inputtel-')->style('width: 200px;')->render(),
+            InputTel::tag()->id('inputtel')->style('width: 200px;')->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -528,9 +696,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" tabindex="1">
+            <input id="inputtel" type="tel" tabindex="1">
             HTML,
-            InputTel::tag()->id('inputtel-')->tabIndex(1)->render(),
+            InputTel::tag()->id('inputtel')->tabIndex(1)->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -539,9 +707,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputtel-" type="tel">
+            <input class="text-muted" id="inputtel" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel-')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputTel::tag()->id('inputtel')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -550,18 +718,22 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" title="Select a phone">
+            <input id="inputtel" type="tel" title="Select a phone">
             HTML,
-            InputTel::tag()->id('inputtel-')->title('Select a phone')->render(),
+            InputTel::tag()->id('inputtel')->title('Select a phone')->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
 
     public function testRenderWithToString(): void
     {
-        self::assertStringContainsString(
-            'type="tel"',
-            LineEndingNormalizer::normalize((string) InputTel::tag()),
+        self::assertSame(
+            <<<HTML
+            <input type="tel">
+            HTML,
+            InputTel::tag()
+                ->id(null)
+                ->render(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -570,9 +742,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" translate="no">
+            <input id="inputtel" type="tel" translate="no">
             HTML,
-            InputTel::tag()->id('inputtel-')->translate(false)->render(),
+            InputTel::tag()->id('inputtel')->translate(false)->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -581,9 +753,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" translate="no">
+            <input id="inputtel" type="tel" translate="no">
             HTML,
-            InputTel::tag()->id('inputtel-')->translate(Translate::NO)->render(),
+            InputTel::tag()->id('inputtel')->translate(Translate::NO)->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -604,9 +776,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel-" type="tel" value="123-456-7890">
+            <input id="inputtel" type="tel" value="123-456-7890">
             HTML,
-            InputTel::tag()->id('inputtel-')->value('123-456-7890')->render(),
+            InputTel::tag()->id('inputtel')->value('123-456-7890')->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

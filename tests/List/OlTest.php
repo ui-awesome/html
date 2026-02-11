@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\List;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -35,17 +34,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('list')]
 final class OlTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $ol = Ol::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $ol->getContent(),
+            Ol::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -63,7 +61,9 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Ol::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Ol::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -76,9 +76,9 @@ final class OlTest extends TestCase
             <value>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->html('<value>')->render(),
-            ),
+            Ol::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -90,9 +90,9 @@ final class OlTest extends TestCase
             <ol accesskey="k">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->accesskey('k')->render(),
-            ),
+            Ol::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -104,9 +104,9 @@ final class OlTest extends TestCase
             <ol aria-pressed="true">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Ol::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -118,9 +118,9 @@ final class OlTest extends TestCase
             <ol aria-pressed="true">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Ol::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -132,9 +132,9 @@ final class OlTest extends TestCase
             <ol data-test="value">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Ol::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -146,9 +146,9 @@ final class OlTest extends TestCase
             <ol title="value">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Ol::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -160,9 +160,9 @@ final class OlTest extends TestCase
             <ol data-value="value">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Ol::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -174,9 +174,9 @@ final class OlTest extends TestCase
             <ol data-value="value">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Ol::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -188,17 +188,15 @@ final class OlTest extends TestCase
             <ol aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Ol::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -210,9 +208,9 @@ final class OlTest extends TestCase
             <ol class="value">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Ol::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -224,9 +222,9 @@ final class OlTest extends TestCase
             <ol autofocus>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->autofocus(true)->render(),
-            ),
+            Ol::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -239,9 +237,7 @@ final class OlTest extends TestCase
             Content
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->begin() . 'Content' . Ol::end(),
-            ),
+            Ol::tag()->begin() . 'Content' . Ol::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -253,9 +249,9 @@ final class OlTest extends TestCase
             <ol class="value">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->class('value')->render(),
-            ),
+            Ol::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -268,9 +264,9 @@ final class OlTest extends TestCase
             value
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->content('value')->render(),
-            ),
+            Ol::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -282,9 +278,9 @@ final class OlTest extends TestCase
             <ol contenteditable="true">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->contentEditable(true)->render(),
-            ),
+            Ol::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -296,9 +292,9 @@ final class OlTest extends TestCase
             <ol contenteditable="true">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Ol::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -310,9 +306,9 @@ final class OlTest extends TestCase
             <ol data-value="value">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Ol::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -324,9 +320,9 @@ final class OlTest extends TestCase
             <ol class="default-class">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag(['class' => 'default-class'])->render(),
-            ),
+            Ol::tag()
+                ->attributes(['class' => 'default-class'])
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -338,9 +334,9 @@ final class OlTest extends TestCase
             <ol class="default-class" title="default-title">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Ol::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -352,9 +348,9 @@ final class OlTest extends TestCase
             <ol dir="ltr">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->dir('ltr')->render(),
-            ),
+            Ol::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -366,9 +362,9 @@ final class OlTest extends TestCase
             <ol dir="ltr">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->dir(Direction::LTR)->render(),
-            ),
+            Ol::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -380,9 +376,9 @@ final class OlTest extends TestCase
             <ol draggable="true">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->draggable(true)->render(),
-            ),
+            Ol::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -394,9 +390,9 @@ final class OlTest extends TestCase
             <ol draggable="true">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Ol::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -410,9 +406,7 @@ final class OlTest extends TestCase
             <ol class="default-class">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->render(),
-            ),
+            Ol::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -426,9 +420,9 @@ final class OlTest extends TestCase
             <ol hidden>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->hidden(true)->render(),
-            ),
+            Ol::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -440,9 +434,9 @@ final class OlTest extends TestCase
             <ol id="test-id">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->id('test-id')->render(),
-            ),
+            Ol::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -463,9 +457,9 @@ final class OlTest extends TestCase
             </li>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->items('Apple', 'Banana', 'Cherry')->render(),
-            ),
+            Ol::tag()
+                ->items('Apple', 'Banana', 'Cherry')
+                ->render(),
             "Failed asserting that element renders correctly with 'items()' method.",
         );
     }
@@ -477,9 +471,9 @@ final class OlTest extends TestCase
             <ol lang="es">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->lang('es')->render(),
-            ),
+            Ol::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -491,9 +485,9 @@ final class OlTest extends TestCase
             <ol lang="es">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Ol::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -511,9 +505,10 @@ final class OlTest extends TestCase
             </li>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->li('First item')->li('Second item')->render(),
-            ),
+            Ol::tag()
+                ->li('First item')
+                ->li('Second item')
+                ->render(),
             "Failed asserting that element renders correctly with 'li()' method.",
         );
     }
@@ -528,9 +523,9 @@ final class OlTest extends TestCase
             </li>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->li('Item', 3)->render(),
-            ),
+            Ol::tag()
+                ->li('Item', 3)
+                ->render(),
             "Failed asserting that element renders correctly with 'li()' method using a value.",
         );
     }
@@ -542,15 +537,13 @@ final class OlTest extends TestCase
             <ol itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Ol::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -562,12 +555,10 @@ final class OlTest extends TestCase
             <ol>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Ol::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -579,12 +570,10 @@ final class OlTest extends TestCase
             <ol>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Ol::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -596,12 +585,10 @@ final class OlTest extends TestCase
             <ol>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Ol::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -616,9 +603,10 @@ final class OlTest extends TestCase
             </li>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->reversed(true)->li('Item')->render(),
-            ),
+            Ol::tag()
+                ->reversed(true)
+                ->li('Item')
+                ->render(),
             "Failed asserting that element renders correctly with 'reversed' attribute.",
         );
     }
@@ -630,9 +618,9 @@ final class OlTest extends TestCase
             <ol role="list">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->role('list')->render(),
-            ),
+            Ol::tag()
+                ->role('list')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -644,9 +632,9 @@ final class OlTest extends TestCase
             <ol role="list">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->role(Role::LIST)->render(),
-            ),
+            Ol::tag()
+                ->role(Role::LIST)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -658,9 +646,9 @@ final class OlTest extends TestCase
             <ol spellcheck="true">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->spellcheck(true)->render(),
-            ),
+            Ol::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -675,9 +663,10 @@ final class OlTest extends TestCase
             </li>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->start(5)->li('Item')->render(),
-            ),
+            Ol::tag()
+                ->li('Item')
+                ->start(5)
+                ->render(),
             "Failed asserting that element renders correctly with 'start' attribute.",
         );
     }
@@ -686,7 +675,7 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol start="10" reversed>
+            <ol reversed start="10">
             <li>
             First
             </li>
@@ -695,9 +684,12 @@ final class OlTest extends TestCase
             </li>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->start(10)->reversed(true)->li('First')->li('Second')->render(),
-            ),
+            Ol::tag()
+                ->li('First')
+                ->li('Second')
+                ->reversed(true)
+                ->start(10)
+                ->render(),
             "Failed asserting that element renders correctly with both 'start' and 'reversed' attributes.",
         );
     }
@@ -709,9 +701,9 @@ final class OlTest extends TestCase
             <ol style='value'>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->style('value')->render(),
-            ),
+            Ol::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -723,9 +715,9 @@ final class OlTest extends TestCase
             <ol tabindex="3">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->tabIndex(3)->render(),
-            ),
+            Ol::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -737,9 +729,9 @@ final class OlTest extends TestCase
             <ol class="text-muted">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Ol::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -751,9 +743,9 @@ final class OlTest extends TestCase
             <ol title="value">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->title('value')->render(),
-            ),
+            Ol::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -765,9 +757,7 @@ final class OlTest extends TestCase
             <ol>
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Ol::tag(),
-            ),
+            Ol::tag()->render(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -779,9 +769,9 @@ final class OlTest extends TestCase
             <ol translate="no">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->translate(false)->render(),
-            ),
+            Ol::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -793,9 +783,9 @@ final class OlTest extends TestCase
             <ol translate="no">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag()->translate(Translate::NO)->render(),
-            ),
+            Ol::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -809,9 +799,7 @@ final class OlTest extends TestCase
             <ol class="from-global" id="id-user">
             </ol>
             HTML,
-            LineEndingNormalizer::normalize(
-                Ol::tag(['id' => 'id-user'])->render(),
-            ),
+            Ol::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

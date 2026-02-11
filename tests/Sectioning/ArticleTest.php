@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Sectioning;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('sectioning')]
 final class ArticleTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $article = Article::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $article->getContent(),
+            Article::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class ArticleTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Article::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Article::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class ArticleTest extends TestCase
             <value>
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->html('<value>')->render(),
-            ),
+            Article::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class ArticleTest extends TestCase
             <article accesskey="k">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->accesskey('k')->render(),
-            ),
+            Article::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class ArticleTest extends TestCase
             <article aria-pressed="true">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Article::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class ArticleTest extends TestCase
             <article aria-pressed="true">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Article::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class ArticleTest extends TestCase
             <article data-test="value">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Article::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class ArticleTest extends TestCase
             <article title="value">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Article::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class ArticleTest extends TestCase
             <article data-value="value">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Article::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class ArticleTest extends TestCase
             <article data-value="value">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Article::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class ArticleTest extends TestCase
             <article aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Article::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class ArticleTest extends TestCase
             <article class="value">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Article::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class ArticleTest extends TestCase
             <article autofocus>
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->autofocus(true)->render(),
-            ),
+            Article::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class ArticleTest extends TestCase
             Content
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->begin() . 'Content' . Article::end(),
-            ),
+            Article::tag()->begin() . 'Content' . Article::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class ArticleTest extends TestCase
             <article class="value">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->class('value')->render(),
-            ),
+            Article::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class ArticleTest extends TestCase
             value
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->content('value')->render(),
-            ),
+            Article::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class ArticleTest extends TestCase
             <article contenteditable="true">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->contentEditable(true)->render(),
-            ),
+            Article::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class ArticleTest extends TestCase
             <article contenteditable="true">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Article::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class ArticleTest extends TestCase
             <article data-value="value">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Article::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class ArticleTest extends TestCase
             <article class="default-class">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag(['class' => 'default-class'])->render(),
-            ),
+            Article::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class ArticleTest extends TestCase
             <article class="default-class" title="default-title">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Article::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class ArticleTest extends TestCase
             <article dir="ltr">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->dir('ltr')->render(),
-            ),
+            Article::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class ArticleTest extends TestCase
             <article dir="ltr">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->dir(Direction::LTR)->render(),
-            ),
+            Article::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class ArticleTest extends TestCase
             <article draggable="true">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->draggable(true)->render(),
-            ),
+            Article::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class ArticleTest extends TestCase
             <article draggable="true">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Article::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class ArticleTest extends TestCase
             <article class="default-class">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->render(),
-            ),
+            Article::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class ArticleTest extends TestCase
             <article hidden>
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->hidden(true)->render(),
-            ),
+            Article::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class ArticleTest extends TestCase
             <article id="test-id">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->id('test-id')->render(),
-            ),
+            Article::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class ArticleTest extends TestCase
             <article lang="es">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->lang('es')->render(),
-            ),
+            Article::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class ArticleTest extends TestCase
             <article lang="es">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Article::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class ArticleTest extends TestCase
             <article itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Article::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class ArticleTest extends TestCase
             <article>
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Article::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class ArticleTest extends TestCase
             <article>
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Article::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class ArticleTest extends TestCase
             <article>
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Article::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class ArticleTest extends TestCase
             <article role="article">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->role('article')->render(),
-            ),
+            Article::tag()
+                ->role('article')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class ArticleTest extends TestCase
             <article role="article">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->role(Role::ARTICLE)->render(),
-            ),
+            Article::tag()
+                ->role(Role::ARTICLE)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class ArticleTest extends TestCase
             <article spellcheck="true">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->spellcheck(true)->render(),
-            ),
+            Article::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class ArticleTest extends TestCase
             <article style='value'>
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->style('value')->render(),
-            ),
+            Article::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class ArticleTest extends TestCase
             <article tabindex="3">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->tabIndex(3)->render(),
-            ),
+            Article::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class ArticleTest extends TestCase
             <article class="text-muted">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Article::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -648,9 +632,7 @@ final class ArticleTest extends TestCase
             <article>
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Article::tag(),
-            ),
+            (string) Article::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -662,9 +644,9 @@ final class ArticleTest extends TestCase
             <article translate="no">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->translate(false)->render(),
-            ),
+            Article::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -676,9 +658,9 @@ final class ArticleTest extends TestCase
             <article translate="no">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag()->translate(Translate::NO)->render(),
-            ),
+            Article::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -692,9 +674,7 @@ final class ArticleTest extends TestCase
             <article class="from-global" id="id-user">
             </article>
             HTML,
-            LineEndingNormalizer::normalize(
-                Article::tag(['id' => 'id-user'])->render(),
-            ),
+            Article::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

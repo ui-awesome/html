@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Root;
 
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -34,17 +33,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('root')]
 final class BodyTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $body = Body::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $body->getContent(),
+            Body::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -62,7 +60,9 @@ final class BodyTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Body::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Body::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -75,9 +75,9 @@ final class BodyTest extends TestCase
             <value>
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->html('<value>')->render(),
-            ),
+            Body::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -89,9 +89,9 @@ final class BodyTest extends TestCase
             <body accesskey="k">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->accesskey('k')->render(),
-            ),
+            Body::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -103,9 +103,9 @@ final class BodyTest extends TestCase
             <body aria-pressed="true">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Body::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -117,9 +117,9 @@ final class BodyTest extends TestCase
             <body aria-pressed="true">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Body::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -131,9 +131,9 @@ final class BodyTest extends TestCase
             <body data-test="value">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Body::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -145,9 +145,9 @@ final class BodyTest extends TestCase
             <body title="value">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Body::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -159,9 +159,9 @@ final class BodyTest extends TestCase
             <body data-value="value">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Body::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -173,9 +173,9 @@ final class BodyTest extends TestCase
             <body data-value="value">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Body::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -187,17 +187,15 @@ final class BodyTest extends TestCase
             <body aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
-                    ->render(),
-            ),
+            Body::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -209,9 +207,9 @@ final class BodyTest extends TestCase
             <body class="value">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Body::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -223,9 +221,9 @@ final class BodyTest extends TestCase
             <body autofocus>
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->autofocus(true)->render(),
-            ),
+            Body::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -238,9 +236,7 @@ final class BodyTest extends TestCase
             Content
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->begin() . 'Content' . Body::end(),
-            ),
+            Body::tag()->begin() . 'Content' . Body::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -252,9 +248,9 @@ final class BodyTest extends TestCase
             <body class="value">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->class('value')->render(),
-            ),
+            Body::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -267,9 +263,9 @@ final class BodyTest extends TestCase
             value
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->content('value')->render(),
-            ),
+            Body::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -281,9 +277,9 @@ final class BodyTest extends TestCase
             <body contenteditable="true">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->contentEditable(true)->render(),
-            ),
+            Body::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -295,9 +291,9 @@ final class BodyTest extends TestCase
             <body contenteditable="true">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Body::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -309,9 +305,9 @@ final class BodyTest extends TestCase
             <body data-value="value">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Body::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -323,9 +319,7 @@ final class BodyTest extends TestCase
             <body class="default-class">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag(['class' => 'default-class'])->render(),
-            ),
+            Body::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -337,9 +331,9 @@ final class BodyTest extends TestCase
             <body class="default-class" title="default-title">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Body::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -351,9 +345,9 @@ final class BodyTest extends TestCase
             <body dir="ltr">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->dir('ltr')->render(),
-            ),
+            Body::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -365,9 +359,9 @@ final class BodyTest extends TestCase
             <body dir="ltr">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->dir(Direction::LTR)->render(),
-            ),
+            Body::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -379,9 +373,9 @@ final class BodyTest extends TestCase
             <body draggable="true">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->draggable(true)->render(),
-            ),
+            Body::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -393,9 +387,9 @@ final class BodyTest extends TestCase
             <body draggable="true">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Body::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -409,9 +403,7 @@ final class BodyTest extends TestCase
             <body class="default-class">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->render(),
-            ),
+            Body::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -425,9 +417,9 @@ final class BodyTest extends TestCase
             <body hidden>
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->hidden(true)->render(),
-            ),
+            Body::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -439,9 +431,9 @@ final class BodyTest extends TestCase
             <body id="test-id">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->id('test-id')->render(),
-            ),
+            Body::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -453,9 +445,9 @@ final class BodyTest extends TestCase
             <body lang="es">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->lang('es')->render(),
-            ),
+            Body::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -467,9 +459,9 @@ final class BodyTest extends TestCase
             <body lang="es">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Body::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -481,15 +473,13 @@ final class BodyTest extends TestCase
             <body itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Body::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -501,12 +491,10 @@ final class BodyTest extends TestCase
             <body>
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Body::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -518,12 +506,10 @@ final class BodyTest extends TestCase
             <body>
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Body::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -535,12 +521,10 @@ final class BodyTest extends TestCase
             <body>
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Body::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -552,9 +536,9 @@ final class BodyTest extends TestCase
             <body role="banner">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->role('banner')->render(),
-            ),
+            Body::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -566,9 +550,9 @@ final class BodyTest extends TestCase
             <body role="banner">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->role(Role::BANNER)->render(),
-            ),
+            Body::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -580,9 +564,9 @@ final class BodyTest extends TestCase
             <body spellcheck="true">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->spellcheck(true)->render(),
-            ),
+            Body::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -594,9 +578,9 @@ final class BodyTest extends TestCase
             <body style='value'>
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->style('value')->render(),
-            ),
+            Body::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -608,9 +592,9 @@ final class BodyTest extends TestCase
             <body tabindex="3">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->tabIndex(3)->render(),
-            ),
+            Body::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -622,9 +606,9 @@ final class BodyTest extends TestCase
             <body class="text-muted">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Body::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -636,9 +620,9 @@ final class BodyTest extends TestCase
             <body title="value">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->title('value')->render(),
-            ),
+            Body::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -650,9 +634,7 @@ final class BodyTest extends TestCase
             <body>
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Body::tag(),
-            ),
+            (string) Body::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -664,9 +646,9 @@ final class BodyTest extends TestCase
             <body translate="no">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->translate(false)->render(),
-            ),
+            Body::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -678,9 +660,9 @@ final class BodyTest extends TestCase
             <body translate="no">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag()->translate(Translate::NO)->render(),
-            ),
+            Body::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -694,9 +676,7 @@ final class BodyTest extends TestCase
             <body class="from-global" id="id-user">
             </body>
             HTML,
-            LineEndingNormalizer::normalize(
-                Body::tag(['id' => 'id-user'])->render(),
-            ),
+            Body::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

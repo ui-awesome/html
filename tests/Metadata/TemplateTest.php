@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Metadata;
 
 use InvalidArgumentException;
-use PHPForge\Support\LineEndingNormalizer;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -41,17 +40,16 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('html')]
 #[Group('metadata')]
 final class TemplateTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        $template = Template::tag()->content('<value>');
-
         self::assertSame(
             '&lt;value&gt;',
-            $template->getContent(),
+            Template::tag()
+                ->content('<value>')
+                ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
         );
     }
@@ -69,7 +67,9 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             ['data-test' => 'value'],
-            Template::tag()->addAttribute('data-test', 'value')->getAttributes(),
+            Template::tag()
+                ->addAttribute('data-test', 'value')
+                ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
@@ -82,9 +82,9 @@ final class TemplateTest extends TestCase
             <value>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->html('<value>')->render(),
-            ),
+            Template::tag()
+                ->html('<value>')
+                ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
     }
@@ -96,9 +96,9 @@ final class TemplateTest extends TestCase
             <template accesskey="k">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->accesskey('k')->render(),
-            ),
+            Template::tag()
+                ->accesskey('k')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -110,9 +110,9 @@ final class TemplateTest extends TestCase
             <template aria-pressed="true">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->addAriaAttribute('pressed', true)->render(),
-            ),
+            Template::tag()
+                ->addAriaAttribute('pressed', true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -124,9 +124,9 @@ final class TemplateTest extends TestCase
             <template aria-pressed="true">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->addAriaAttribute(Aria::PRESSED, true)->render(),
-            ),
+            Template::tag()
+                ->addAriaAttribute(Aria::PRESSED, true)
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -138,9 +138,9 @@ final class TemplateTest extends TestCase
             <template data-test="value">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->addAttribute('data-test', 'value')->render(),
-            ),
+            Template::tag()
+                ->addAttribute('data-test', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -152,9 +152,9 @@ final class TemplateTest extends TestCase
             <template title="value">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->addAttribute(GlobalAttribute::TITLE, 'value')->render(),
-            ),
+            Template::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -166,9 +166,9 @@ final class TemplateTest extends TestCase
             <template data-value="value">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->addDataAttribute('value', 'value')->render(),
-            ),
+            Template::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -180,9 +180,9 @@ final class TemplateTest extends TestCase
             <template data-value="value">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
-            ),
+            Template::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -194,17 +194,15 @@ final class TemplateTest extends TestCase
             <template aria-controls="modal-1" aria-hidden="false" aria-label="Close">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()
-                    ->ariaAttributes(
-                        [
-                            'controls' => static fn(): string => 'modal-1',
-                            'hidden' => false,
-                            'label' => 'Close',
-                        ],
-                    )
+            Template::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => static fn(): string => 'modal-1',
+                        'hidden' => false,
+                        'label' => 'Close',
+                    ],
+                )
                     ->render(),
-            ),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -216,9 +214,9 @@ final class TemplateTest extends TestCase
             <template class="value">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->attributes(['class' => 'value'])->render(),
-            ),
+            Template::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -230,9 +228,9 @@ final class TemplateTest extends TestCase
             <template autofocus>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->autofocus(true)->render(),
-            ),
+            Template::tag()
+                ->autofocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -245,9 +243,7 @@ final class TemplateTest extends TestCase
             Content
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->begin() . 'Content' . Template::end(),
-            ),
+            Template::tag()->begin() . 'Content' . Template::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -259,9 +255,9 @@ final class TemplateTest extends TestCase
             <template class="value">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->class('value')->render(),
-            ),
+            Template::tag()
+                ->class('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -274,9 +270,9 @@ final class TemplateTest extends TestCase
             value
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->content('value')->render(),
-            ),
+            Template::tag()
+                ->content('value')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -288,9 +284,9 @@ final class TemplateTest extends TestCase
             <template contenteditable="true">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->contentEditable(true)->render(),
-            ),
+            Template::tag()
+                ->contentEditable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
@@ -302,9 +298,9 @@ final class TemplateTest extends TestCase
             <template contenteditable="true">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->contentEditable(ContentEditable::TRUE)->render(),
-            ),
+            Template::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
         );
     }
@@ -316,9 +312,9 @@ final class TemplateTest extends TestCase
             <template data-value="value">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->dataAttributes(['value' => 'value'])->render(),
-            ),
+            Template::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -330,9 +326,7 @@ final class TemplateTest extends TestCase
             <template class="default-class">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag(['class' => 'default-class'])->render(),
-            ),
+            Template::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -344,9 +338,9 @@ final class TemplateTest extends TestCase
             <template class="default-class" title="default-title">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->addDefaultProvider(DefaultProvider::class)->render(),
-            ),
+            Template::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -358,9 +352,7 @@ final class TemplateTest extends TestCase
             <template>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->render(),
-            ),
+            Template::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -372,9 +364,9 @@ final class TemplateTest extends TestCase
             <template dir="ltr">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->dir('ltr')->render(),
-            ),
+            Template::tag()
+                ->dir('ltr')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -386,9 +378,9 @@ final class TemplateTest extends TestCase
             <template dir="ltr">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->dir(Direction::LTR)->render(),
-            ),
+            Template::tag()
+                ->dir(Direction::LTR)
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -400,9 +392,9 @@ final class TemplateTest extends TestCase
             <template draggable="true">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->draggable(true)->render(),
-            ),
+            Template::tag()
+                ->draggable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
@@ -414,9 +406,9 @@ final class TemplateTest extends TestCase
             <template draggable="true">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->draggable(Draggable::TRUE)->render(),
-            ),
+            Template::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
         );
     }
@@ -430,9 +422,7 @@ final class TemplateTest extends TestCase
             <template class="default-class">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->render(),
-            ),
+            Template::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -446,9 +436,9 @@ final class TemplateTest extends TestCase
             <template hidden>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->hidden(true)->render(),
-            ),
+            Template::tag()
+                ->hidden(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -460,9 +450,9 @@ final class TemplateTest extends TestCase
             <template id="test-id">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->id('test-id')->render(),
-            ),
+            Template::tag()
+                ->id('test-id')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -474,9 +464,9 @@ final class TemplateTest extends TestCase
             <template lang="es">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->lang('es')->render(),
-            ),
+            Template::tag()
+                ->lang('es')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -488,9 +478,9 @@ final class TemplateTest extends TestCase
             <template lang="es">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->lang(Language::SPANISH)->render(),
-            ),
+            Template::tag()
+                ->lang(Language::SPANISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -502,15 +492,13 @@ final class TemplateTest extends TestCase
             <template itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()
-                    ->itemId('https://example.com/item')
-                    ->itemProp('name')
-                    ->itemRef('info')
-                    ->itemScope(true)
-                    ->itemType('https://schema.org/Thing')
-                    ->render(),
-            ),
+            Template::tag()
+                ->itemId('https://example.com/item')
+                ->itemProp('name')
+                ->itemRef('info')
+                ->itemScope(true)
+                ->itemType('https://schema.org/Thing')
+                ->render(),
             'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
@@ -522,12 +510,10 @@ final class TemplateTest extends TestCase
             <template>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()
-                    ->addAriaAttribute('label', 'Close')
-                    ->removeAriaAttribute('label')
-                    ->render(),
-            ),
+            Template::tag()
+                ->addAriaAttribute('label', 'Close')
+                ->removeAriaAttribute('label')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
         );
     }
@@ -539,12 +525,10 @@ final class TemplateTest extends TestCase
             <template>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()
-                    ->addAttribute('data-test', 'value')
-                    ->removeAttribute('data-test')
-                    ->render(),
-            ),
+            Template::tag()
+                ->addAttribute('data-test', 'value')
+                ->removeAttribute('data-test')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
     }
@@ -556,12 +540,10 @@ final class TemplateTest extends TestCase
             <template>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()
-                    ->addDataAttribute('value', 'test')
-                    ->removeDataAttribute('value')
-                    ->render(),
-            ),
+            Template::tag()
+                ->addDataAttribute('value', 'test')
+                ->removeDataAttribute('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
     }
@@ -573,9 +555,9 @@ final class TemplateTest extends TestCase
             <template role="banner">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->role('banner')->render(),
-            ),
+            Template::tag()
+                ->role('banner')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -587,9 +569,9 @@ final class TemplateTest extends TestCase
             <template role="banner">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->role(Role::BANNER)->render(),
-            ),
+            Template::tag()
+                ->role(Role::BANNER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -601,9 +583,9 @@ final class TemplateTest extends TestCase
             <template shadowrootclonable>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->shadowRootClonable(true)->render(),
-            ),
+            Template::tag()
+                ->shadowRootClonable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'shadowrootclonable' attribute.",
         );
     }
@@ -615,9 +597,9 @@ final class TemplateTest extends TestCase
             <template shadowrootdelegatesfocus>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->shadowRootDelegatesFocus(true)->render(),
-            ),
+            Template::tag()
+                ->shadowRootDelegatesFocus(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'shadowrootdelegatesfocus' attribute.",
         );
     }
@@ -629,9 +611,9 @@ final class TemplateTest extends TestCase
             <template shadowrootmode="open">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->shadowRootMode('open')->render(),
-            ),
+            Template::tag()
+                ->shadowRootMode('open')
+                ->render(),
             "Failed asserting that element renders correctly with 'shadowrootmode' attribute.",
         );
     }
@@ -643,9 +625,9 @@ final class TemplateTest extends TestCase
             <template shadowrootmode="open">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->shadowRootMode(ShadowRootMode::OPEN)->render(),
-            ),
+            Template::tag()
+                ->shadowRootMode(ShadowRootMode::OPEN)
+                ->render(),
             "Failed asserting that element renders correctly with 'shadowrootmode' attribute using enum.",
         );
     }
@@ -657,9 +639,9 @@ final class TemplateTest extends TestCase
             <template shadowrootreferencetarget="target">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->shadowRootReferenceTarget('target')->render(),
-            ),
+            Template::tag()
+                ->shadowRootReferenceTarget('target')
+                ->render(),
             "Failed asserting that element renders correctly with 'shadowrootreferencetarget' attribute.",
         );
     }
@@ -671,9 +653,9 @@ final class TemplateTest extends TestCase
             <template shadowrootserializable>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->shadowRootSerializable(true)->render(),
-            ),
+            Template::tag()
+                ->shadowRootSerializable(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'shadowrootserializable' attribute.",
         );
     }
@@ -685,9 +667,9 @@ final class TemplateTest extends TestCase
             <template spellcheck="true">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->spellcheck(true)->render(),
-            ),
+            Template::tag()
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -699,9 +681,9 @@ final class TemplateTest extends TestCase
             <template style='value'>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->style('value')->render(),
-            ),
+            Template::tag()
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -713,9 +695,9 @@ final class TemplateTest extends TestCase
             <template tabindex="3">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->tabIndex(3)->render(),
-            ),
+            Template::tag()
+                ->tabIndex(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -727,9 +709,9 @@ final class TemplateTest extends TestCase
             <template class="text-muted">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
-            ),
+            Template::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -741,9 +723,9 @@ final class TemplateTest extends TestCase
             <template title="value">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->title('value')->render(),
-            ),
+            Template::tag()
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -755,9 +737,7 @@ final class TemplateTest extends TestCase
             <template>
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                (string) Template::tag(),
-            ),
+            (string) Template::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -769,9 +749,9 @@ final class TemplateTest extends TestCase
             <template translate="no">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->translate(false)->render(),
-            ),
+            Template::tag()
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -783,9 +763,9 @@ final class TemplateTest extends TestCase
             <template translate="no">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag()->translate(Translate::NO)->render(),
-            ),
+            Template::tag()
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -799,9 +779,7 @@ final class TemplateTest extends TestCase
             <template class="from-global" id="id-user">
             </template>
             HTML,
-            LineEndingNormalizer::normalize(
-                Template::tag(['id' => 'id-user'])->render(),
-            ),
+            Template::tag(['id' => 'id-user'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
