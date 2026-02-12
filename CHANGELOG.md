@@ -26,6 +26,7 @@
 - Bug #38: Remove redundant `afterRun()` method from `Dl`, `Ol`, and `Ul` classes (@terabytesoftw)
 - Enh #39: Add `InputMonth` class for HTML `<input type="month">` element with attributes and rendering capabilities (@terabytesoftw)
 - Bug #40: Refactor tests to use `assertSame()` for rendering with `testRenderWithGlobalDefaultsAreApplied()` and `testRenderWithUserOverridesGlobalDefaults()` (@terabytesoftw)
+- Enh #41: Add `InputImage` class for HTML `<input type="image">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
