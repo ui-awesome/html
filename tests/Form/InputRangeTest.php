@@ -45,7 +45,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" accesskey="k">
             HTML,
-            InputRange::tag()->id('inputrange')->accesskey('k')->render(),
+            InputRange::tag()
+                ->accesskey('k')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -56,7 +59,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" aria-label="Range selector">
             HTML,
-            InputRange::tag()->id('inputrange')->addAriaAttribute('label', 'Range selector')->render(),
+            InputRange::tag()
+                ->addAriaAttribute('label', 'Range selector')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -67,7 +73,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" aria-hidden="true">
             HTML,
-            InputRange::tag()->id('inputrange')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputRange::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -96,8 +105,7 @@ final class InputRangeTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputrange')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -111,8 +119,8 @@ final class InputRangeTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -132,8 +140,8 @@ final class InputRangeTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -147,8 +155,7 @@ final class InputRangeTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputrange')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -168,8 +175,8 @@ final class InputRangeTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -179,7 +186,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" data-test="value">
             HTML,
-            InputRange::tag()->id('inputrange')->addAttribute('data-test', 'value')->render(),
+            InputRange::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -190,7 +200,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" title="Select range">
             HTML,
-            InputRange::tag()->id('inputrange')->addAttribute(GlobalAttribute::TITLE, 'Select range')->render(),
+            InputRange::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Select range')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -201,7 +214,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" data-range="value">
             HTML,
-            InputRange::tag()->id('inputrange')->addDataAttribute('range', 'value')->render(),
+            InputRange::tag()
+                ->addDataAttribute('range', 'value')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -212,7 +228,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" data-value="test">
             HTML,
-            InputRange::tag()->id('inputrange')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputRange::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -225,10 +244,12 @@ final class InputRangeTest extends TestCase
             HTML,
             InputRange::tag()
                 ->id('inputrange')
-                ->ariaAttributes([
-                    'controls' => 'range-picker',
-                    'label' => 'Select a range',
-                ])
+                ->ariaAttributes(
+                    [
+                        'controls' => 'range-picker',
+                        'label' => 'Select a range',
+                    ],
+                )
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -244,7 +265,7 @@ final class InputRangeTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputrange')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -258,7 +279,7 @@ final class InputRangeTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputrange')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -268,7 +289,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input class="range-input" id="inputrange" type="range">
             HTML,
-            InputRange::tag()->id('inputrange')->attributes(['class' => 'range-input'])->render(),
+            InputRange::tag()
+                ->attributes(['class' => 'range-input'])
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -283,7 +307,7 @@ final class InputRangeTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputrange')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -297,7 +321,7 @@ final class InputRangeTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputrange')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -307,7 +331,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" autocomplete="on">
             HTML,
-            InputRange::tag()->autocomplete('on')->id('inputrange')->render(),
+            InputRange::tag()
+                ->autocomplete('on')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -318,7 +345,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" autocomplete="on">
             HTML,
-            InputRange::tag()->autocomplete(Autocomplete::ON)->id('inputrange')->render(),
+            InputRange::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -329,7 +359,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" autofocus>
             HTML,
-            InputRange::tag()->autofocus(true)->id('inputrange')->render(),
+            InputRange::tag()
+                ->autofocus(true)
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -340,7 +373,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input class="range-input" id="inputrange" type="range">
             HTML,
-            InputRange::tag()->id('inputrange')->class('range-input')->render(),
+            InputRange::tag()
+                ->class('range-input')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -351,7 +387,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" data-range="value">
             HTML,
-            InputRange::tag()->id('inputrange')->dataAttributes(['range' => 'value'])->render(),
+            InputRange::tag()
+                ->dataAttributes(['range' => 'value'])
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -362,7 +401,9 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputrange" type="range">
             HTML,
-            InputRange::tag(['class' => 'default-class'])->id('inputrange')->render(),
+            InputRange::tag(['class' => 'default-class'])
+                ->id('inputrange')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -373,7 +414,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputrange" type="range" title="default-title">
             HTML,
-            InputRange::tag()->id('inputrange')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputRange::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputrange')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -384,7 +428,9 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range">
             HTML,
-            InputRange::tag()->id('inputrange')->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -395,7 +441,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" dir="ltr">
             HTML,
-            InputRange::tag()->id('inputrange')->dir('ltr')->render(),
+            InputRange::tag()
+                ->dir('ltr')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -406,7 +455,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" dir="ltr">
             HTML,
-            InputRange::tag()->id('inputrange')->dir(Direction::LTR)->render(),
+            InputRange::tag()
+                ->dir(Direction::LTR)
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -417,7 +469,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" disabled>
             HTML,
-            InputRange::tag()->id('inputrange')->disabled(true)->render(),
+            InputRange::tag()
+                ->disabled(true)
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -428,7 +483,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" form="form-id">
             HTML,
-            InputRange::tag()->form('form-id')->id('inputrange')->render(),
+            InputRange::tag()
+                ->form('form-id')
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -474,7 +532,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" hidden>
             HTML,
-            InputRange::tag()->id('inputrange')->hidden(true)->render(),
+            InputRange::tag()
+                ->hidden(true)
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -485,7 +546,9 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="range-input" type="range">
             HTML,
-            InputRange::tag()->id('range-input')->render(),
+            InputRange::tag()
+                ->id('range-input')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -496,7 +559,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" lang="en">
             HTML,
-            InputRange::tag()->id('inputrange')->lang('en')->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -507,7 +573,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" lang="en">
             HTML,
-            InputRange::tag()->id('inputrange')->lang(Language::ENGLISH)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -518,7 +587,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" list="ranges">
             HTML,
-            InputRange::tag()->id('inputrange')->list('ranges')->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->list('ranges')
+                ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -529,7 +601,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" max="100">
             HTML,
-            InputRange::tag()->id('inputrange')->max(100)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->max(100)
+                ->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
         );
     }
@@ -540,7 +615,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" min="10">
             HTML,
-            InputRange::tag()->id('inputrange')->min(10)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->min(10)
+                ->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
         );
     }
@@ -566,7 +644,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" name="volume" type="range">
             HTML,
-            InputRange::tag()->id('inputrange')->name('volume')->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->name('volume')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -578,8 +659,8 @@ final class InputRangeTest extends TestCase
             <input id="inputrange" type="range">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->addAriaAttribute('label', 'Close')
+                ->id('inputrange')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -593,8 +674,8 @@ final class InputRangeTest extends TestCase
             <input id="inputrange" type="range">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->addAttribute('data-test', 'value')
+                ->id('inputrange')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -608,8 +689,8 @@ final class InputRangeTest extends TestCase
             <input id="inputrange" type="range">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->addDataAttribute('value', 'test')
+                ->id('inputrange')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -622,7 +703,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" role="slider">
             HTML,
-            InputRange::tag()->id('inputrange')->role('slider')->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->role('slider')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -633,7 +717,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" role="slider">
             HTML,
-            InputRange::tag()->id('inputrange')->role(Role::SLIDER)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->role(Role::SLIDER)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -644,7 +731,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" step="2">
             HTML,
-            InputRange::tag()->id('inputrange')->step(2)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->step(2)
+                ->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
         );
     }
@@ -655,7 +745,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" step="any">
             HTML,
-            InputRange::tag()->id('inputrange')->step('any')->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->step('any')
+                ->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
         );
     }
@@ -666,7 +759,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" style='width: 200px;'>
             HTML,
-            InputRange::tag()->id('inputrange')->style('width: 200px;')->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->style('width: 200px;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -677,7 +773,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" tabindex="1">
             HTML,
-            InputRange::tag()->id('inputrange')->tabIndex(1)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -688,7 +787,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputrange" type="range">
             HTML,
-            InputRange::tag()->id('inputrange')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputRange::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputrange')
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -699,7 +801,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" title="Select a range">
             HTML,
-            InputRange::tag()->id('inputrange')->title('Select a range')->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->title('Select a range')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -721,7 +826,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" translate="no">
             HTML,
-            InputRange::tag()->id('inputrange')->translate(false)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -732,7 +840,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" translate="no">
             HTML,
-            InputRange::tag()->id('inputrange')->translate(Translate::NO)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -767,7 +878,10 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input id="inputrange" type="range" value="50">
             HTML,
-            InputRange::tag()->id('inputrange')->value(50)->render(),
+            InputRange::tag()
+                ->id('inputrange')
+                ->value(50)
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

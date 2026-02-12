@@ -45,7 +45,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" accesskey="k">
             HTML,
-            InputMonth::tag()->id('inputmonth')->accesskey('k')->render(),
+            InputMonth::tag()
+                ->accesskey('k')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -56,7 +59,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" aria-label="Month selector">
             HTML,
-            InputMonth::tag()->id('inputmonth')->addAriaAttribute('label', 'Month selector')->render(),
+            InputMonth::tag()
+                ->addAriaAttribute('label', 'Month selector')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -67,7 +73,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" aria-hidden="true">
             HTML,
-            InputMonth::tag()->id('inputmonth')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputMonth::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -96,8 +105,7 @@ final class InputMonthTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -111,8 +119,8 @@ final class InputMonthTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -132,8 +140,8 @@ final class InputMonthTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -147,8 +155,7 @@ final class InputMonthTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -168,8 +175,8 @@ final class InputMonthTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -179,7 +186,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" data-test="value">
             HTML,
-            InputMonth::tag()->id('inputmonth')->addAttribute('data-test', 'value')->render(),
+            InputMonth::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -190,7 +200,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" title="Select month">
             HTML,
-            InputMonth::tag()->id('inputmonth')->addAttribute(GlobalAttribute::TITLE, 'Select month')->render(),
+            InputMonth::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Select month')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -201,7 +214,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" data-month="value">
             HTML,
-            InputMonth::tag()->id('inputmonth')->addDataAttribute('month', 'value')->render(),
+            InputMonth::tag()
+                ->addDataAttribute('month', 'value')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -212,7 +228,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" data-value="test">
             HTML,
-            InputMonth::tag()->id('inputmonth')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputMonth::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -224,11 +243,13 @@ final class InputMonthTest extends TestCase
             <input id="inputmonth" type="month" aria-controls="month-picker" aria-label="Select a month">
             HTML,
             InputMonth::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => 'month-picker',
+                        'label' => 'Select a month',
+                    ],
+                )
                 ->id('inputmonth')
-                ->ariaAttributes([
-                    'controls' => 'month-picker',
-                    'label' => 'Select a month',
-                ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -244,7 +265,7 @@ final class InputMonthTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -258,7 +279,7 @@ final class InputMonthTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -268,7 +289,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input class="month-input" id="inputmonth" type="month">
             HTML,
-            InputMonth::tag()->id('inputmonth')->attributes(['class' => 'month-input'])->render(),
+            InputMonth::tag()
+                ->attributes(['class' => 'month-input'])
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -283,7 +307,7 @@ final class InputMonthTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -297,7 +321,7 @@ final class InputMonthTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -307,7 +331,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" autocomplete="on">
             HTML,
-            InputMonth::tag()->autocomplete('on')->id('inputmonth')->render(),
+            InputMonth::tag()
+                ->autocomplete('on')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -318,7 +345,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" autocomplete="on">
             HTML,
-            InputMonth::tag()->autocomplete(Autocomplete::ON)->id('inputmonth')->render(),
+            InputMonth::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -329,7 +359,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" autofocus>
             HTML,
-            InputMonth::tag()->autofocus(true)->id('inputmonth')->render(),
+            InputMonth::tag()
+                ->autofocus(true)
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -340,7 +373,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input class="month-input" id="inputmonth" type="month">
             HTML,
-            InputMonth::tag()->id('inputmonth')->class('month-input')->render(),
+            InputMonth::tag()
+                ->class('month-input')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -351,7 +387,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" data-month="value">
             HTML,
-            InputMonth::tag()->id('inputmonth')->dataAttributes(['month' => 'value'])->render(),
+            InputMonth::tag()
+                ->dataAttributes(['month' => 'value'])
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -362,7 +401,9 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputmonth" type="month">
             HTML,
-            InputMonth::tag(['class' => 'default-class'])->id('inputmonth')->render(),
+            InputMonth::tag(['class' => 'default-class'])
+                ->id('inputmonth')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -373,7 +414,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputmonth" type="month" title="default-title">
             HTML,
-            InputMonth::tag()->id('inputmonth')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputMonth::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputmonth')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -384,7 +428,9 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month">
             HTML,
-            InputMonth::tag()->id('inputmonth')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -395,7 +441,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" dir="ltr">
             HTML,
-            InputMonth::tag()->id('inputmonth')->dir('ltr')->render(),
+            InputMonth::tag()
+                ->dir('ltr')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -406,7 +455,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" dir="ltr">
             HTML,
-            InputMonth::tag()->id('inputmonth')->dir(Direction::LTR)->render(),
+            InputMonth::tag()
+                ->dir(Direction::LTR)
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -417,7 +469,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" disabled>
             HTML,
-            InputMonth::tag()->id('inputmonth')->disabled(true)->render(),
+            InputMonth::tag()
+                ->disabled(true)
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -428,7 +483,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" form="form-id">
             HTML,
-            InputMonth::tag()->form('form-id')->id('inputmonth')->render(),
+            InputMonth::tag()
+                ->form('form-id')
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -474,7 +532,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" hidden>
             HTML,
-            InputMonth::tag()->id('inputmonth')->hidden(true)->render(),
+            InputMonth::tag()
+                ->hidden(true)
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -485,7 +546,9 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="month-input" type="month">
             HTML,
-            InputMonth::tag()->id('month-input')->render(),
+            InputMonth::tag()
+                ->id('month-input')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -496,7 +559,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" lang="en">
             HTML,
-            InputMonth::tag()->id('inputmonth')->lang('en')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -507,7 +573,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" lang="en">
             HTML,
-            InputMonth::tag()->id('inputmonth')->lang(Language::ENGLISH)->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -518,7 +587,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" list="months">
             HTML,
-            InputMonth::tag()->id('inputmonth')->list('months')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->list('months')
+                ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -529,7 +601,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" max="2022-09">
             HTML,
-            InputMonth::tag()->id('inputmonth')->max('2022-09')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->max('2022-09')
+                ->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
         );
     }
@@ -540,7 +615,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" min="2022-06">
             HTML,
-            InputMonth::tag()->id('inputmonth')->min('2022-06')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->min('2022-06')
+                ->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
         );
     }
@@ -566,7 +644,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" name="bday-month" type="month">
             HTML,
-            InputMonth::tag()->id('inputmonth')->name('bday-month')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->name('bday-month')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -577,7 +658,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" readonly>
             HTML,
-            InputMonth::tag()->id('inputmonth')->readonly(true)->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->readonly(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -589,8 +673,8 @@ final class InputMonthTest extends TestCase
             <input id="inputmonth" type="month">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->addAriaAttribute('label', 'Close')
+                ->id('inputmonth')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -604,8 +688,8 @@ final class InputMonthTest extends TestCase
             <input id="inputmonth" type="month">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->addAttribute('data-test', 'value')
+                ->id('inputmonth')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -619,8 +703,8 @@ final class InputMonthTest extends TestCase
             <input id="inputmonth" type="month">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->addDataAttribute('value', 'test')
+                ->id('inputmonth')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -633,7 +717,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" required>
             HTML,
-            InputMonth::tag()->id('inputmonth')->required(true)->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->required(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -644,7 +731,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" role="textbox">
             HTML,
-            InputMonth::tag()->id('inputmonth')->role('textbox')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->role('textbox')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -655,7 +745,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" role="textbox">
             HTML,
-            InputMonth::tag()->id('inputmonth')->role(Role::TEXTBOX)->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->role(Role::TEXTBOX)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -666,7 +759,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" step="2">
             HTML,
-            InputMonth::tag()->id('inputmonth')->step(2)->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->step(2)
+                ->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
         );
     }
@@ -677,7 +773,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" step="any">
             HTML,
-            InputMonth::tag()->id('inputmonth')->step('any')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->step('any')
+                ->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
         );
     }
@@ -688,7 +787,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" style='width: 200px;'>
             HTML,
-            InputMonth::tag()->id('inputmonth')->style('width: 200px;')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->style('width: 200px;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -699,7 +801,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" tabindex="1">
             HTML,
-            InputMonth::tag()->id('inputmonth')->tabIndex(1)->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -710,7 +815,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputmonth" type="month">
             HTML,
-            InputMonth::tag()->id('inputmonth')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputMonth::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputmonth')
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -721,7 +829,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" title="Select a month">
             HTML,
-            InputMonth::tag()->id('inputmonth')->title('Select a month')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->title('Select a month')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -743,7 +854,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" translate="no">
             HTML,
-            InputMonth::tag()->id('inputmonth')->translate(false)->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -754,7 +868,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" translate="no">
             HTML,
-            InputMonth::tag()->id('inputmonth')->translate(Translate::NO)->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -789,7 +906,10 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input id="inputmonth" type="month" value="2017-06">
             HTML,
-            InputMonth::tag()->id('inputmonth')->value('2017-06')->render(),
+            InputMonth::tag()
+                ->id('inputmonth')
+                ->value('2017-06')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

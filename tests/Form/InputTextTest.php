@@ -46,7 +46,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" accesskey="k">
             HTML,
-            InputText::tag()->id('inputtext')->accesskey('k')->render(),
+            InputText::tag()
+                ->accesskey('k')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -57,7 +60,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" aria-label="Text input">
             HTML,
-            InputText::tag()->id('inputtext')->addAriaAttribute('label', 'Text input')->render(),
+            InputText::tag()
+                ->addAriaAttribute('label', 'Text input')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -68,7 +74,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" aria-hidden="true">
             HTML,
-            InputText::tag()->id('inputtext')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputText::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -97,8 +106,7 @@ final class InputTextTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputtext')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -112,8 +120,8 @@ final class InputTextTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -133,8 +141,8 @@ final class InputTextTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -148,8 +156,7 @@ final class InputTextTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputtext')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -169,8 +176,8 @@ final class InputTextTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -180,7 +187,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" data-test="value">
             HTML,
-            InputText::tag()->id('inputtext')->addAttribute('data-test', 'value')->render(),
+            InputText::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -191,7 +201,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" title="Enter text">
             HTML,
-            InputText::tag()->id('inputtext')->addAttribute(GlobalAttribute::TITLE, 'Enter text')->render(),
+            InputText::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Enter text')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -202,7 +215,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" data-text="value">
             HTML,
-            InputText::tag()->id('inputtext')->addDataAttribute('text', 'value')->render(),
+            InputText::tag()
+                ->addDataAttribute('text', 'value')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -213,7 +229,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" data-value="test">
             HTML,
-            InputText::tag()->id('inputtext')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputText::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -225,11 +244,13 @@ final class InputTextTest extends TestCase
             <input id="inputtext" type="text" aria-controls="text-picker" aria-label="Enter text">
             HTML,
             InputText::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => 'text-picker',
+                        'label' => 'Enter text',
+                    ],
+                )
                 ->id('inputtext')
-                ->ariaAttributes([
-                    'controls' => 'text-picker',
-                    'label' => 'Enter text',
-                ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -245,7 +266,7 @@ final class InputTextTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputtext')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -259,7 +280,7 @@ final class InputTextTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputtext')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -269,7 +290,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input class="text-input" id="inputtext" type="text">
             HTML,
-            InputText::tag()->id('inputtext')->attributes(['class' => 'text-input'])->render(),
+            InputText::tag()
+                ->attributes(['class' => 'text-input'])
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -284,7 +308,7 @@ final class InputTextTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputtext')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -298,7 +322,7 @@ final class InputTextTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputtext')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -308,7 +332,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" autocomplete="on">
             HTML,
-            InputText::tag()->autocomplete('on')->id('inputtext')->render(),
+            InputText::tag()
+                ->autocomplete('on')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -319,7 +346,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" autocomplete="on">
             HTML,
-            InputText::tag()->autocomplete(Autocomplete::ON)->id('inputtext')->render(),
+            InputText::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -330,7 +360,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" autofocus>
             HTML,
-            InputText::tag()->autofocus(true)->id('inputtext')->render(),
+            InputText::tag()
+                ->autofocus(true)
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -341,7 +374,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input class="text-input" id="inputtext" type="text">
             HTML,
-            InputText::tag()->id('inputtext')->class('text-input')->render(),
+            InputText::tag()
+                ->class('text-input')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -352,7 +388,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" data-text="value">
             HTML,
-            InputText::tag()->id('inputtext')->dataAttributes(['text' => 'value'])->render(),
+            InputText::tag()
+                ->dataAttributes(['text' => 'value'])
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -363,7 +402,9 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputtext" type="text">
             HTML,
-            InputText::tag(['class' => 'default-class'])->id('inputtext')->render(),
+            InputText::tag(['class' => 'default-class'])
+                ->id('inputtext')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -374,7 +415,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputtext" type="text" title="default-title">
             HTML,
-            InputText::tag()->id('inputtext')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputText::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputtext')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -385,7 +429,9 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text">
             HTML,
-            InputText::tag()->id('inputtext')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -396,7 +442,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" dir="ltr">
             HTML,
-            InputText::tag()->id('inputtext')->dir('ltr')->render(),
+            InputText::tag()
+                ->dir('ltr')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -407,7 +456,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" dirname="comment.dir">
             HTML,
-            InputText::tag()->dirname('comment.dir')->id('inputtext')->render(),
+            InputText::tag()
+                ->dirname('comment.dir')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'dirname' attribute.",
         );
     }
@@ -418,7 +470,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" dir="ltr">
             HTML,
-            InputText::tag()->id('inputtext')->dir(Direction::LTR)->render(),
+            InputText::tag()
+                ->dir(Direction::LTR)
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -429,7 +484,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" disabled>
             HTML,
-            InputText::tag()->id('inputtext')->disabled(true)->render(),
+            InputText::tag()
+                ->disabled(true)
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -440,7 +498,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" form="form-id">
             HTML,
-            InputText::tag()->form('form-id')->id('inputtext')->render(),
+            InputText::tag()
+                ->form('form-id')
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -486,7 +547,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" hidden>
             HTML,
-            InputText::tag()->id('inputtext')->hidden(true)->render(),
+            InputText::tag()
+                ->hidden(true)
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -497,7 +561,9 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="text-input" type="text">
             HTML,
-            InputText::tag()->id('text-input')->render(),
+            InputText::tag()
+                ->id('text-input')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -508,7 +574,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" lang="en">
             HTML,
-            InputText::tag()->id('inputtext')->lang('en')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -519,7 +588,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" lang="en">
             HTML,
-            InputText::tag()->id('inputtext')->lang(Language::ENGLISH)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -530,7 +602,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" list="texts">
             HTML,
-            InputText::tag()->id('inputtext')->list('texts')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->list('texts')
+                ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -541,7 +616,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" maxlength="10">
             HTML,
-            InputText::tag()->id('inputtext')->maxlength(10)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->maxlength(10)
+                ->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
         );
     }
@@ -552,7 +630,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" minlength="5">
             HTML,
-            InputText::tag()->id('inputtext')->minlength(5)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->minlength(5)
+                ->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
         );
     }
@@ -563,7 +644,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" name="username" type="text">
             HTML,
-            InputText::tag()->id('inputtext')->name('username')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->name('username')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -574,7 +658,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" pattern='[A-Za-z]{3}'>
             HTML,
-            InputText::tag()->id('inputtext')->pattern('[A-Za-z]{3}')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->pattern('[A-Za-z]{3}')
+                ->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
         );
     }
@@ -585,7 +672,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" placeholder="Enter text">
             HTML,
-            InputText::tag()->id('inputtext')->placeholder('Enter text')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->placeholder('Enter text')
+                ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
     }
@@ -596,7 +686,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" readonly>
             HTML,
-            InputText::tag()->id('inputtext')->readonly(true)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->readonly(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -608,8 +701,8 @@ final class InputTextTest extends TestCase
             <input id="inputtext" type="text">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->addAriaAttribute('label', 'Close')
+                ->id('inputtext')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -623,8 +716,8 @@ final class InputTextTest extends TestCase
             <input id="inputtext" type="text">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->addAttribute('data-test', 'value')
+                ->id('inputtext')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -638,8 +731,8 @@ final class InputTextTest extends TestCase
             <input id="inputtext" type="text">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->addDataAttribute('value', 'test')
+                ->id('inputtext')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -652,7 +745,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" required>
             HTML,
-            InputText::tag()->id('inputtext')->required(true)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->required(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -663,7 +759,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" role="textbox">
             HTML,
-            InputText::tag()->id('inputtext')->role('textbox')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->role('textbox')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -674,7 +773,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" role="textbox">
             HTML,
-            InputText::tag()->id('inputtext')->role(Role::TEXTBOX)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->role(Role::TEXTBOX)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -685,7 +787,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" size="20">
             HTML,
-            InputText::tag()->id('inputtext')->size(20)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->size(20)
+                ->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
         );
     }
@@ -696,7 +801,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" spellcheck="true">
             HTML,
-            InputText::tag()->id('inputtext')->spellcheck(true)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -707,7 +815,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" style='width: 200px;'>
             HTML,
-            InputText::tag()->id('inputtext')->style('width: 200px;')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->style('width: 200px;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -718,7 +829,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" tabindex="1">
             HTML,
-            InputText::tag()->id('inputtext')->tabIndex(1)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -729,7 +843,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputtext" type="text">
             HTML,
-            InputText::tag()->id('inputtext')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputText::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputtext')
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -740,7 +857,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" title="Enter text">
             HTML,
-            InputText::tag()->id('inputtext')->title('Enter text')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->title('Enter text')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -762,7 +882,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" translate="no">
             HTML,
-            InputText::tag()->id('inputtext')->translate(false)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -773,14 +896,23 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" translate="no">
             HTML,
-            InputText::tag()->id('inputtext')->translate(Translate::NO)->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputText::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputText::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -790,7 +922,10 @@ final class InputTextTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(InputText::class, []);
+        SimpleFactory::setDefaults(
+            InputText::class,
+            [],
+        );
     }
 
     public function testRenderWithValue(): void
@@ -799,7 +934,10 @@ final class InputTextTest extends TestCase
             <<<HTML
             <input id="inputtext" type="text" value="test">
             HTML,
-            InputText::tag()->id('inputtext')->value('test')->render(),
+            InputText::tag()
+                ->id('inputtext')
+                ->value('test')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }
