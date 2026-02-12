@@ -46,7 +46,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" accesskey="k">
             HTML,
-            InputSearch::tag()->id('inputsearch')->accesskey('k')->render(),
+            InputSearch::tag()
+                ->accesskey('k')
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -57,7 +60,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" aria-label="Search">
             HTML,
-            InputSearch::tag()->id('inputsearch')->addAriaAttribute('label', 'Search')->render(),
+            InputSearch::tag()
+                ->addAriaAttribute('label', 'Search')
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -68,7 +74,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" aria-hidden="true">
             HTML,
-            InputSearch::tag()->id('inputsearch')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputSearch::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -97,8 +106,7 @@ final class InputSearchTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputsearch')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -112,8 +120,8 @@ final class InputSearchTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -133,8 +141,8 @@ final class InputSearchTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -148,8 +156,7 @@ final class InputSearchTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputsearch')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -169,8 +176,8 @@ final class InputSearchTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -180,7 +187,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" data-test="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->addAttribute('data-test', 'value')->render(),
+            InputSearch::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -245,7 +255,7 @@ final class InputSearchTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputsearch')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -259,7 +269,7 @@ final class InputSearchTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputsearch')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -284,7 +294,7 @@ final class InputSearchTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputsearch')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -298,7 +308,7 @@ final class InputSearchTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputsearch')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -729,7 +739,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputsearch" type="search">
             HTML,
-            InputSearch::tag()->id('inputsearch')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputSearch::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -780,7 +793,13 @@ final class InputSearchTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputSearch::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputSearch::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -790,7 +809,10 @@ final class InputSearchTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(InputSearch::class, []);
+        SimpleFactory::setDefaults(
+            InputSearch::class,
+            [],
+        );
     }
 
     public function testRenderWithValue(): void

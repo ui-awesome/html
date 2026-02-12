@@ -112,8 +112,7 @@ final class InputCheckboxTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputcheckbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -127,8 +126,8 @@ final class InputCheckboxTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -148,8 +147,8 @@ final class InputCheckboxTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and"
+            . 'prefix/suffix.',
         );
     }
 
@@ -163,8 +162,7 @@ final class InputCheckboxTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputcheckbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -184,8 +182,8 @@ final class InputCheckboxTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -274,7 +272,7 @@ final class InputCheckboxTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputcheckbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -288,7 +286,7 @@ final class InputCheckboxTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputcheckbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -316,7 +314,7 @@ final class InputCheckboxTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputcheckbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -330,7 +328,7 @@ final class InputCheckboxTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputcheckbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -520,6 +518,7 @@ final class InputCheckboxTest extends TestCase
                 ->id('inputcheckbox')
                 ->label('Label')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and label content.',
         );
     }
 
@@ -540,6 +539,7 @@ final class InputCheckboxTest extends TestCase
                 ->label('Red')
                 ->template('<div class="wrapper">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and custom template.',
         );
     }
 
@@ -553,6 +553,7 @@ final class InputCheckboxTest extends TestCase
                 ->enclosedByLabel(true)
                 ->id('inputcheckbox')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and empty label content.',
         );
     }
 
@@ -571,6 +572,7 @@ final class InputCheckboxTest extends TestCase
                 ->label('Label')
                 ->labelFor('label-for')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and label "for" attribute.',
         );
     }
 
@@ -605,6 +607,7 @@ final class InputCheckboxTest extends TestCase
                 ->id(null)
                 ->label('Red')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and no ID.',
         );
     }
 
@@ -695,6 +698,7 @@ final class InputCheckboxTest extends TestCase
                 ->id('inputcheckbox')
                 ->label('Label')
                 ->render(),
+            'Failed asserting that element renders correctly with label.',
         );
     }
 
@@ -710,6 +714,7 @@ final class InputCheckboxTest extends TestCase
                 ->label('Label')
                 ->labelAttributes(['class' => 'value'])
                 ->render(),
+            'Failed asserting that element renders correctly with label attributes.',
         );
     }
 
@@ -725,6 +730,7 @@ final class InputCheckboxTest extends TestCase
                 ->label('Label')
                 ->labelClass('value')
                 ->render(),
+            'Failed asserting that element renders correctly with label class.',
         );
     }
 
@@ -741,6 +747,7 @@ final class InputCheckboxTest extends TestCase
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass(null)
                 ->render(),
+            "Failed asserting that element renders correctly with label class set to 'null'.",
         );
     }
 
@@ -757,6 +764,7 @@ final class InputCheckboxTest extends TestCase
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass('value-override')
                 ->render(),
+            "Failed asserting that element renders correctly with label class overrides set to 'false'.",
         );
     }
 
@@ -773,6 +781,7 @@ final class InputCheckboxTest extends TestCase
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass('value-override', true)
                 ->render(),
+            "Failed asserting that element renders correctly with label class overrides set to 'true'.",
         );
     }
 
@@ -788,6 +797,7 @@ final class InputCheckboxTest extends TestCase
                 ->label('Label')
                 ->labelClass(BackedString::VALUE)
                 ->render(),
+            'Failed asserting that element renders correctly with label class using enum.',
         );
     }
 
@@ -803,6 +813,7 @@ final class InputCheckboxTest extends TestCase
                 ->label('Label')
                 ->labelFor('value')
                 ->render(),
+            "Failed asserting that element renders correctly with label 'for' attribute.",
         );
     }
 
@@ -818,6 +829,7 @@ final class InputCheckboxTest extends TestCase
                 ->label('Label')
                 ->labelFor(null)
                 ->render(),
+            "Failed asserting that element renders correctly with label 'for' attribute set to 'null'.",
         );
     }
 
@@ -874,6 +886,7 @@ final class InputCheckboxTest extends TestCase
                 ->label('Label')
                 ->notLabel()
                 ->render(),
+            "Failed asserting that element renders correctly with 'notLabel()' method.",
         );
     }
 
@@ -1094,6 +1107,7 @@ final class InputCheckboxTest extends TestCase
                 ->uncheckedValue('0')
                 ->value('1')
                 ->render(),
+            "Failed asserting that element renders correctly with 'uncheckedValue' attribute and enclosed label.",
         );
     }
 

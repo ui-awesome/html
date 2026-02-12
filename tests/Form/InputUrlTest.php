@@ -47,7 +47,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" accesskey="k">
             HTML,
-            InputUrl::tag()->id('inputurl')->accesskey('k')->render(),
+            InputUrl::tag()
+                ->accesskey('k')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -58,7 +61,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" aria-label="Url selector">
             HTML,
-            InputUrl::tag()->id('inputurl')->addAriaAttribute('label', 'Url selector')->render(),
+            InputUrl::tag()
+                ->addAriaAttribute('label', 'Url selector')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -69,7 +75,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" aria-hidden="true">
             HTML,
-            InputUrl::tag()->id('inputurl')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputUrl::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -98,8 +107,7 @@ final class InputUrlTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -113,8 +121,8 @@ final class InputUrlTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -134,8 +142,8 @@ final class InputUrlTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -149,8 +157,7 @@ final class InputUrlTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -170,8 +177,8 @@ final class InputUrlTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -181,7 +188,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" data-test="value">
             HTML,
-            InputUrl::tag()->id('inputurl')->addAttribute('data-test', 'value')->render(),
+            InputUrl::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -192,7 +202,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" title="Select url">
             HTML,
-            InputUrl::tag()->id('inputurl')->addAttribute(GlobalAttribute::TITLE, 'Select url')->render(),
+            InputUrl::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Select url')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -203,7 +216,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" data-url="value">
             HTML,
-            InputUrl::tag()->id('inputurl')->addDataAttribute('url', 'value')->render(),
+            InputUrl::tag()
+                ->addDataAttribute('url', 'value')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -214,7 +230,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" data-value="test">
             HTML,
-            InputUrl::tag()->id('inputurl')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputUrl::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -226,11 +245,13 @@ final class InputUrlTest extends TestCase
             <input id="inputurl" type="url" aria-controls="url-picker" aria-label="Select a url">
             HTML,
             InputUrl::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => 'url-picker',
+                        'label' => 'Select a url',
+                    ],
+                )
                 ->id('inputurl')
-                ->ariaAttributes([
-                    'controls' => 'url-picker',
-                    'label' => 'Select a url',
-                ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -246,7 +267,7 @@ final class InputUrlTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -260,7 +281,7 @@ final class InputUrlTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -270,7 +291,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input class="url-input" id="inputurl" type="url">
             HTML,
-            InputUrl::tag()->id('inputurl')->attributes(['class' => 'url-input'])->render(),
+            InputUrl::tag()
+                ->class('url-input')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -285,7 +309,7 @@ final class InputUrlTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -299,7 +323,7 @@ final class InputUrlTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -309,7 +333,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" autocomplete="on">
             HTML,
-            InputUrl::tag()->autocomplete('on')->id('inputurl')->render(),
+            InputUrl::tag()
+                ->autocomplete('on')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -320,7 +347,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" autocomplete="on">
             HTML,
-            InputUrl::tag()->autocomplete(Autocomplete::ON)->id('inputurl')->render(),
+            InputUrl::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -331,7 +361,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" autofocus>
             HTML,
-            InputUrl::tag()->autofocus(true)->id('inputurl')->render(),
+            InputUrl::tag()
+                ->autofocus(true)
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -342,7 +375,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input class="url-input" id="inputurl" type="url">
             HTML,
-            InputUrl::tag()->id('inputurl')->class('url-input')->render(),
+            InputUrl::tag()
+                ->class('url-input')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -353,7 +389,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" data-url="value">
             HTML,
-            InputUrl::tag()->id('inputurl')->dataAttributes(['url' => 'value'])->render(),
+            InputUrl::tag()
+                ->dataAttributes(['url' => 'value'])
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -364,7 +403,9 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputurl" type="url">
             HTML,
-            InputUrl::tag(['class' => 'default-class'])->id('inputurl')->render(),
+            InputUrl::tag(['class' => 'default-class'])
+                ->id('inputurl')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -375,7 +416,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputurl" type="url" title="default-title">
             HTML,
-            InputUrl::tag()->id('inputurl')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputUrl::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputurl')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -386,7 +430,9 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url">
             HTML,
-            InputUrl::tag()->id('inputurl')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -397,7 +443,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" dir="ltr">
             HTML,
-            InputUrl::tag()->id('inputurl')->dir('ltr')->render(),
+            InputUrl::tag()
+                ->dir('ltr')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -408,7 +457,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" dir="ltr">
             HTML,
-            InputUrl::tag()->id('inputurl')->dir(Direction::LTR)->render(),
+            InputUrl::tag()
+                ->dir(Direction::LTR)
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -419,7 +471,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" disabled>
             HTML,
-            InputUrl::tag()->id('inputurl')->disabled(true)->render(),
+            InputUrl::tag()
+                ->disabled(true)
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -430,7 +485,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" form="form-id">
             HTML,
-            InputUrl::tag()->form('form-id')->id('inputurl')->render(),
+            InputUrl::tag()
+                ->form('form-id')
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -476,7 +534,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" hidden>
             HTML,
-            InputUrl::tag()->id('inputurl')->hidden(true)->render(),
+            InputUrl::tag()
+                ->hidden(true)
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -487,7 +548,9 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="url-input" type="url">
             HTML,
-            InputUrl::tag()->id('url-input')->render(),
+            InputUrl::tag()
+                ->id('url-input')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -498,7 +561,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" lang="en">
             HTML,
-            InputUrl::tag()->id('inputurl')->lang('en')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -509,7 +575,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" lang="en">
             HTML,
-            InputUrl::tag()->id('inputurl')->lang(Language::ENGLISH)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -520,7 +589,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" list="urls">
             HTML,
-            InputUrl::tag()->id('inputurl')->list('urls')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->list('urls')
+                ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -531,7 +603,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" maxlength="10">
             HTML,
-            InputUrl::tag()->id('inputurl')->maxlength(10)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->maxlength(10)
+                ->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
         );
     }
@@ -542,7 +617,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" minlength="5">
             HTML,
-            InputUrl::tag()->id('inputurl')->minlength(5)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->minlength(5)
+                ->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
         );
     }
@@ -553,7 +631,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" name="website" type="url">
             HTML,
-            InputUrl::tag()->id('inputurl')->name('website')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->name('website')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -564,7 +645,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" pattern="https://.*">
             HTML,
-            InputUrl::tag()->id('inputurl')->pattern('https://.*')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->pattern('https://.*')
+                ->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
         );
     }
@@ -575,7 +659,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" placeholder="https://example.com">
             HTML,
-            InputUrl::tag()->id('inputurl')->placeholder('https://example.com')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->placeholder('https://example.com')
+                ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
     }
@@ -586,7 +673,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" readonly>
             HTML,
-            InputUrl::tag()->id('inputurl')->readonly(true)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->readonly(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -598,8 +688,8 @@ final class InputUrlTest extends TestCase
             <input id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->id('inputurl')
                 ->addAriaAttribute('label', 'Close')
+                ->id('inputurl')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -613,8 +703,8 @@ final class InputUrlTest extends TestCase
             <input id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->id('inputurl')
                 ->addAttribute('data-test', 'value')
+                ->id('inputurl')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -628,8 +718,8 @@ final class InputUrlTest extends TestCase
             <input id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->id('inputurl')
                 ->addDataAttribute('value', 'test')
+                ->id('inputurl')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -642,7 +732,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" required>
             HTML,
-            InputUrl::tag()->id('inputurl')->required(true)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->required(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -653,7 +746,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" role="textbox">
             HTML,
-            InputUrl::tag()->id('inputurl')->role('textbox')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->role('textbox')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -664,7 +760,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" role="textbox">
             HTML,
-            InputUrl::tag()->id('inputurl')->role(Role::TEXTBOX)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->role(Role::TEXTBOX)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -675,7 +774,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" size="30">
             HTML,
-            InputUrl::tag()->id('inputurl')->size(30)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->size(30)
+                ->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
         );
     }
@@ -686,7 +788,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" spellcheck="true">
             HTML,
-            InputUrl::tag()->id('inputurl')->spellcheck(true)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -697,7 +802,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" style='width: 200px;'>
             HTML,
-            InputUrl::tag()->id('inputurl')->style('width: 200px;')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->style('width: 200px;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -708,7 +816,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" tabindex="1">
             HTML,
-            InputUrl::tag()->id('inputurl')->tabIndex(1)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -719,7 +830,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputurl" type="url">
             HTML,
-            InputUrl::tag()->id('inputurl')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputUrl::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputurl')
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -730,7 +844,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" title="Select a url">
             HTML,
-            InputUrl::tag()->id('inputurl')->title('Select a url')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->title('Select a url')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -752,7 +869,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" translate="no">
             HTML,
-            InputUrl::tag()->id('inputurl')->translate(false)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -763,7 +883,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" translate="no">
             HTML,
-            InputUrl::tag()->id('inputurl')->translate(Translate::NO)->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -789,7 +912,10 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input id="inputurl" type="url" value="https://example.com">
             HTML,
-            InputUrl::tag()->id('inputurl')->value('https://example.com')->render(),
+            InputUrl::tag()
+                ->id('inputurl')
+                ->value('https://example.com')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

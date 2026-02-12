@@ -106,8 +106,7 @@ final class InputNumberTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -121,8 +120,8 @@ final class InputNumberTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -142,8 +141,8 @@ final class InputNumberTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -157,8 +156,7 @@ final class InputNumberTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -178,8 +176,8 @@ final class InputNumberTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -246,10 +244,12 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number" aria-controls="number-picker" aria-label="Select a number">
             HTML,
             InputNumber::tag()
-                ->ariaAttributes([
-                    'controls' => 'number-picker',
-                    'label' => 'Select a number',
-                ])
+                ->ariaAttributes(
+                    [
+                        'controls' => 'number-picker',
+                        'label' => 'Select a number',
+                    ],
+                )
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
@@ -266,7 +266,7 @@ final class InputNumberTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -280,7 +280,7 @@ final class InputNumberTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -308,7 +308,7 @@ final class InputNumberTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -322,7 +322,7 @@ final class InputNumberTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -688,8 +688,8 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->id('inputnumber')
                 ->addAriaAttribute('label', 'Close')
+                ->id('inputnumber')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -703,8 +703,8 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->id('inputnumber')
                 ->addAttribute('data-test', 'value')
+                ->id('inputnumber')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -718,8 +718,8 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->id('inputnumber')
                 ->addDataAttribute('value', 'test')
+                ->id('inputnumber')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -831,8 +831,8 @@ final class InputNumberTest extends TestCase
             <input class="text-muted" id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->id('inputnumber')
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );

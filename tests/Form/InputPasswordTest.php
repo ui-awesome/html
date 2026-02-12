@@ -56,7 +56,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" accesskey="k">
             HTML,
-            InputPassword::tag()->id('inputpassword')->accesskey('k')->render(),
+            InputPassword::tag()
+                ->accesskey('k')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -67,7 +70,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" aria-label="Password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->addAriaAttribute('label', 'Password')->render(),
+            InputPassword::tag()
+                ->addAriaAttribute('label', 'Password')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -78,7 +84,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" aria-hidden="true">
             HTML,
-            InputPassword::tag()->id('inputpassword')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputPassword::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -107,8 +116,7 @@ final class InputPasswordTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputpassword')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -122,8 +130,8 @@ final class InputPasswordTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -143,8 +151,8 @@ final class InputPasswordTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -158,8 +166,7 @@ final class InputPasswordTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputpassword')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -179,8 +186,8 @@ final class InputPasswordTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -190,7 +197,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" data-test="value">
             HTML,
-            InputPassword::tag()->id('inputpassword')->addAttribute('data-test', 'value')->render(),
+            InputPassword::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -201,7 +211,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" title="Enter password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->addAttribute(GlobalAttribute::TITLE, 'Enter password')->render(),
+            InputPassword::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Enter password')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -212,7 +225,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" data-id="value">
             HTML,
-            InputPassword::tag()->id('inputpassword')->addDataAttribute('id', 'value')->render(),
+            InputPassword::tag()
+                ->addDataAttribute('id', 'value')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -223,7 +239,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" data-value="test">
             HTML,
-            InputPassword::tag()->id('inputpassword')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputPassword::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -235,11 +254,13 @@ final class InputPasswordTest extends TestCase
             <input id="inputpassword" type="password" aria-controls="password-field" aria-label="Enter password">
             HTML,
             InputPassword::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => 'password-field',
+                        'label' => 'Enter password',
+                    ],
+                )
                 ->id('inputpassword')
-                ->ariaAttributes([
-                    'controls' => 'password-field',
-                    'label' => 'Enter password',
-                ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -255,7 +276,7 @@ final class InputPasswordTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputpassword')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -269,7 +290,7 @@ final class InputPasswordTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputpassword')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -279,7 +300,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input class="password-input" id="inputpassword" type="password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->attributes(['class' => 'password-input'])->render(),
+            InputPassword::tag()
+                ->attributes(['class' => 'password-input'])
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -294,7 +318,7 @@ final class InputPasswordTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputpassword')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -308,7 +332,7 @@ final class InputPasswordTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputpassword')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -318,7 +342,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" autocomplete="current-password">
             HTML,
-            InputPassword::tag()->autocomplete('current-password')->id('inputpassword')->render(),
+            InputPassword::tag()
+                ->autocomplete('current-password')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -329,7 +356,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" autocomplete="off">
             HTML,
-            InputPassword::tag()->autocomplete(Autocomplete::OFF)->id('inputpassword')->render(),
+            InputPassword::tag()
+                ->autocomplete(Autocomplete::OFF)
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -340,7 +370,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" autofocus>
             HTML,
-            InputPassword::tag()->autofocus(true)->id('inputpassword')->render(),
+            InputPassword::tag()
+                ->autofocus(true)
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -351,7 +384,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input class="password-input" id="inputpassword" type="password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->class('password-input')->render(),
+            InputPassword::tag()
+                ->class('password-input')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -362,7 +398,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" data-id="value">
             HTML,
-            InputPassword::tag()->id('inputpassword')->dataAttributes(['id' => 'value'])->render(),
+            InputPassword::tag()
+                ->dataAttributes(['id' => 'value'])
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -373,7 +412,9 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputpassword" type="password">
             HTML,
-            InputPassword::tag(['class' => 'default-class'])->id('inputpassword')->render(),
+            InputPassword::tag(['class' => 'default-class'])
+                ->id('inputpassword')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -384,7 +425,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputpassword" type="password" title="default-title">
             HTML,
-            InputPassword::tag()->id('inputpassword')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputPassword::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputpassword')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -395,7 +439,9 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -406,7 +452,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" dir="ltr">
             HTML,
-            InputPassword::tag()->id('inputpassword')->dir('ltr')->render(),
+            InputPassword::tag()
+                ->dir('ltr')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -417,7 +466,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" dir="ltr">
             HTML,
-            InputPassword::tag()->id('inputpassword')->dir(Direction::LTR)->render(),
+            InputPassword::tag()
+                ->dir(Direction::LTR)
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -428,7 +480,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" disabled>
             HTML,
-            InputPassword::tag()->id('inputpassword')->disabled(true)->render(),
+            InputPassword::tag()
+                ->disabled(true)
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -439,7 +494,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" form="form-id">
             HTML,
-            InputPassword::tag()->form('form-id')->id('inputpassword')->render(),
+            InputPassword::tag()
+                ->form('form-id')
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -485,7 +543,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" hidden>
             HTML,
-            InputPassword::tag()->id('inputpassword')->hidden(true)->render(),
+            InputPassword::tag()
+                ->hidden(true)
+                ->id('inputpassword')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -496,7 +557,9 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="password-input" type="password">
             HTML,
-            InputPassword::tag()->id('password-input')->render(),
+            InputPassword::tag()
+                ->id('password-input')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -507,7 +570,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" inputmode="numeric">
             HTML,
-            InputPassword::tag()->id('inputpassword')->inputMode('numeric')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->inputMode('numeric')
+                ->render(),
             "Failed asserting that element renders correctly with 'inputmode' attribute.",
         );
     }
@@ -518,7 +584,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" inputmode="numeric">
             HTML,
-            InputPassword::tag()->id('inputpassword')->inputMode(InputMode::NUMERIC)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->inputMode(InputMode::NUMERIC)
+                ->render(),
             "Failed asserting that element renders correctly with 'inputmode' attribute using enum.",
         );
     }
@@ -529,7 +598,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" lang="en">
             HTML,
-            InputPassword::tag()->id('inputpassword')->lang('en')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -540,7 +612,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" lang="en">
             HTML,
-            InputPassword::tag()->id('inputpassword')->lang(Language::ENGLISH)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -551,7 +626,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" maxlength="12">
             HTML,
-            InputPassword::tag()->id('inputpassword')->maxlength(12)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->maxlength(12)
+                ->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
         );
     }
@@ -562,7 +640,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" minlength="8">
             HTML,
-            InputPassword::tag()->id('inputpassword')->minlength(8)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->minlength(8)
+                ->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
         );
     }
@@ -573,7 +654,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" name="password" type="password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->name('password')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->name('password')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -584,7 +668,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" pattern=".{8,}">
             HTML,
-            InputPassword::tag()->id('inputpassword')->pattern('.{8,}')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->pattern('.{8,}')
+                ->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
         );
     }
@@ -595,7 +682,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" placeholder="Password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->placeholder('Password')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->placeholder('Password')
+                ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
     }
@@ -606,7 +696,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" readonly>
             HTML,
-            InputPassword::tag()->id('inputpassword')->readonly(true)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->readonly(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -662,7 +755,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" required>
             HTML,
-            InputPassword::tag()->id('inputpassword')->required(true)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->required(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -673,7 +769,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" role="textbox">
             HTML,
-            InputPassword::tag()->id('inputpassword')->role('textbox')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->role('textbox')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -684,7 +783,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" role="textbox">
             HTML,
-            InputPassword::tag()->id('inputpassword')->role(Role::TEXTBOX)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->role(Role::TEXTBOX)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -695,7 +797,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" size="20">
             HTML,
-            InputPassword::tag()->id('inputpassword')->size(20)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->size(20)
+                ->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
         );
     }
@@ -706,7 +811,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" style='width: 200px;'>
             HTML,
-            InputPassword::tag()->id('inputpassword')->style('width: 200px;')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->style('width: 200px;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -717,7 +825,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" tabindex="1">
             HTML,
-            InputPassword::tag()->id('inputpassword')->tabIndex(1)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -728,7 +839,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputpassword" type="password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -739,7 +853,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" title="Enter password">
             HTML,
-            InputPassword::tag()->id('inputpassword')->title('Enter password')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->title('Enter password')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -761,7 +878,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" translate="no">
             HTML,
-            InputPassword::tag()->id('inputpassword')->translate(false)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -772,7 +892,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" translate="no">
             HTML,
-            InputPassword::tag()->id('inputpassword')->translate(Translate::NO)->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -807,7 +930,10 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input id="inputpassword" type="password" value="secret">
             HTML,
-            InputPassword::tag()->id('inputpassword')->value('secret')->render(),
+            InputPassword::tag()
+                ->id('inputpassword')
+                ->value('secret')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

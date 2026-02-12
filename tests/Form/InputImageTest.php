@@ -46,7 +46,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" accesskey="k">
             HTML,
-            InputImage::tag()->id('inputimage')->accesskey('k')->render(),
+            InputImage::tag()
+                ->accesskey('k')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -57,7 +60,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" aria-label="Image button">
             HTML,
-            InputImage::tag()->id('inputimage')->addAriaAttribute('label', 'Image button')->render(),
+            InputImage::tag()
+                ->addAriaAttribute('label', 'Image button')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -68,7 +74,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" aria-hidden="true">
             HTML,
-            InputImage::tag()->id('inputimage')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputImage::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -112,7 +121,7 @@ final class InputImageTest extends TestCase
                 ->id(null)
                 ->render(),
             "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . "is 'null'.",
+            . " is 'null'.",
         );
     }
 
@@ -178,7 +187,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" data-test="value">
             HTML,
-            InputImage::tag()->id('inputimage')->addAttribute('data-test', 'value')->render(),
+            InputImage::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -189,7 +201,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" title="Select image">
             HTML,
-            InputImage::tag()->id('inputimage')->addAttribute(GlobalAttribute::TITLE, 'Select image')->render(),
+            InputImage::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Select image')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -200,7 +215,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" data-url="value">
             HTML,
-            InputImage::tag()->id('inputimage')->addDataAttribute('url', 'value')->render(),
+            InputImage::tag()
+                ->addDataAttribute('url', 'value')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -211,7 +229,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" data-value="test">
             HTML,
-            InputImage::tag()->id('inputimage')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputImage::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -222,7 +243,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" alt="Login">
             HTML,
-            InputImage::tag()->id('inputimage')->alt('Login')->render(),
+            InputImage::tag()
+                ->alt('Login')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'alt' attribute.",
         );
     }
@@ -234,13 +258,13 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image" aria-controls="image-picker" aria-label="Select an image">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->ariaAttributes(
                     [
                         'controls' => 'image-picker',
                         'label' => 'Select an image',
                     ],
                 )
+                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -280,7 +304,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input class="image-input" id="inputimage" type="image">
             HTML,
-            InputImage::tag()->id('inputimage')->attributes(['class' => 'image-input'])->render(),
+            InputImage::tag()
+                ->attributes(['class' => 'image-input'])
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -319,7 +346,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" autofocus>
             HTML,
-            InputImage::tag()->autofocus(true)->id('inputimage')->render(),
+            InputImage::tag()
+                ->autofocus(true)
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -330,7 +360,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input class="image-input" id="inputimage" type="image">
             HTML,
-            InputImage::tag()->id('inputimage')->class('image-input')->render(),
+            InputImage::tag()
+                ->class('image-input')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -341,7 +374,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" data-url="value">
             HTML,
-            InputImage::tag()->id('inputimage')->dataAttributes(['url' => 'value'])->render(),
+            InputImage::tag()
+                ->dataAttributes(['url' => 'value'])
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -352,7 +388,9 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputimage" type="image">
             HTML,
-            InputImage::tag(['class' => 'default-class'])->id('inputimage')->render(),
+            InputImage::tag(['class' => 'default-class'])
+                ->id('inputimage')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -363,7 +401,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputimage" type="image" title="default-title">
             HTML,
-            InputImage::tag()->id('inputimage')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputImage::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputimage')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -374,7 +415,9 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image">
             HTML,
-            InputImage::tag()->id('inputimage')->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -385,7 +428,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" dir="ltr">
             HTML,
-            InputImage::tag()->id('inputimage')->dir('ltr')->render(),
+            InputImage::tag()
+                ->dir('ltr')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -396,7 +442,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" dir="ltr">
             HTML,
-            InputImage::tag()->id('inputimage')->dir(Direction::LTR)->render(),
+            InputImage::tag()
+                ->dir(Direction::LTR)
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -407,7 +456,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" disabled>
             HTML,
-            InputImage::tag()->id('inputimage')->disabled(true)->render(),
+            InputImage::tag()
+                ->disabled(true)
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -418,7 +470,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" formaction="/submit">
             HTML,
-            InputImage::tag()->id('inputimage')->formaction('/submit')->render(),
+            InputImage::tag()
+                ->formaction('/submit')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'formaction' attribute.",
         );
     }
@@ -429,7 +484,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" formenctype="multipart/form-data">
             HTML,
-            InputImage::tag()->id('inputimage')->formenctype('multipart/form-data')->render(),
+            InputImage::tag()
+                ->formenctype('multipart/form-data')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'formenctype' attribute.",
         );
     }
@@ -440,7 +498,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" formmethod="post">
             HTML,
-            InputImage::tag()->id('inputimage')->formmethod('post')->render(),
+            InputImage::tag()
+                ->formmethod('post')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'formmethod' attribute.",
         );
     }
@@ -451,7 +512,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" formnovalidate>
             HTML,
-            InputImage::tag()->id('inputimage')->formnovalidate(true)->render(),
+            InputImage::tag()
+                ->formnovalidate(true)
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'formnovalidate' attribute.",
         );
     }
@@ -462,7 +526,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" formtarget="_blank">
             HTML,
-            InputImage::tag()->id('inputimage')->formtarget('_blank')->render(),
+            InputImage::tag()
+                ->formtarget('_blank')
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'formtarget' attribute.",
         );
     }
@@ -508,7 +575,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" height="100">
             HTML,
-            InputImage::tag()->id('inputimage')->height(100)->render(),
+            InputImage::tag()
+                ->height(100)
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'height' attribute.",
         );
     }
@@ -519,7 +589,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" hidden>
             HTML,
-            InputImage::tag()->id('inputimage')->hidden(true)->render(),
+            InputImage::tag()
+                ->hidden(true)
+                ->id('inputimage')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -530,7 +603,9 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="image-input" type="image">
             HTML,
-            InputImage::tag()->id('image-input')->render(),
+            InputImage::tag()
+                ->id('image-input')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -541,7 +616,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" lang="en">
             HTML,
-            InputImage::tag()->id('inputimage')->lang('en')->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -552,7 +630,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" lang="en">
             HTML,
-            InputImage::tag()->id('inputimage')->lang(Language::ENGLISH)->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -563,7 +644,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" name="login" type="image">
             HTML,
-            InputImage::tag()->id('inputimage')->name('login')->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->name('login')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -575,8 +659,8 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->addAriaAttribute('label', 'Close')
+                ->id('inputimage')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -590,8 +674,8 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->addAttribute('data-test', 'value')
+                ->id('inputimage')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -605,8 +689,8 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->addDataAttribute('value', 'test')
+                ->id('inputimage')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -619,7 +703,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" role="button">
             HTML,
-            InputImage::tag()->id('inputimage')->role('button')->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->role('button')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -630,7 +717,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" role="button">
             HTML,
-            InputImage::tag()->id('inputimage')->role(Role::BUTTON)->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->role(Role::BUTTON)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -641,7 +731,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" src="/images/login.png">
             HTML,
-            InputImage::tag()->id('inputimage')->src('/images/login.png')->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->src('/images/login.png')
+                ->render(),
             "Failed asserting that element renders correctly with 'src' attribute.",
         );
     }
@@ -652,7 +745,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" style='width: 200px;'>
             HTML,
-            InputImage::tag()->id('inputimage')->style('width: 200px;')->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->style('width: 200px;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -663,7 +759,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" tabindex="1">
             HTML,
-            InputImage::tag()->id('inputimage')->tabIndex(1)->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -674,7 +773,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputimage" type="image">
             HTML,
-            InputImage::tag()->id('inputimage')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -685,7 +787,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" title="Select a image">
             HTML,
-            InputImage::tag()->id('inputimage')->title('Select a image')->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->title('Select a image')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -707,7 +812,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" translate="no">
             HTML,
-            InputImage::tag()->id('inputimage')->translate(false)->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -718,7 +826,10 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" translate="no">
             HTML,
-            InputImage::tag()->id('inputimage')->translate(Translate::NO)->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -753,7 +864,9 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input id="inputimage" type="image" width="100">
             HTML,
-            InputImage::tag()->id('inputimage')->width(100)->render(),
+            InputImage::tag()
+                ->id('inputimage')
+                ->width(100)->render(),
             "Failed asserting that element renders correctly with 'width' attribute.",
         );
     }

@@ -47,7 +47,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" accesskey="k">
             HTML,
-            InputTel::tag()->id('inputtel')->accesskey('k')->render(),
+            InputTel::tag()
+                ->accesskey('k')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -58,7 +61,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" aria-label="Phone selector">
             HTML,
-            InputTel::tag()->id('inputtel')->addAriaAttribute('label', 'Phone selector')->render(),
+            InputTel::tag()
+                ->addAriaAttribute('label', 'Phone selector')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -69,7 +75,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" aria-hidden="true">
             HTML,
-            InputTel::tag()->id('inputtel')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputTel::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -98,8 +107,7 @@ final class InputTelTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -113,8 +121,8 @@ final class InputTelTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -134,8 +142,8 @@ final class InputTelTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -149,8 +157,7 @@ final class InputTelTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -170,8 +177,8 @@ final class InputTelTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -181,7 +188,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" data-test="value">
             HTML,
-            InputTel::tag()->id('inputtel')->addAttribute('data-test', 'value')->render(),
+            InputTel::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -192,7 +202,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" title="Select phone">
             HTML,
-            InputTel::tag()->id('inputtel')->addAttribute(GlobalAttribute::TITLE, 'Select phone')->render(),
+            InputTel::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Select phone')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -203,7 +216,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" data-tel="value">
             HTML,
-            InputTel::tag()->id('inputtel')->addDataAttribute('tel', 'value')->render(),
+            InputTel::tag()
+                ->addDataAttribute('tel', 'value')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -214,7 +230,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" data-value="test">
             HTML,
-            InputTel::tag()->id('inputtel')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputTel::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -226,11 +245,13 @@ final class InputTelTest extends TestCase
             <input id="inputtel" type="tel" aria-controls="phone-picker" aria-label="Select a phone">
             HTML,
             InputTel::tag()
+                ->attributes(
+                    [
+                        'aria-controls' => 'phone-picker',
+                        'aria-label' => 'Select a phone',
+                    ],
+                )
                 ->id('inputtel')
-                ->ariaAttributes([
-                    'controls' => 'phone-picker',
-                    'label' => 'Select a phone',
-                ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -246,7 +267,7 @@ final class InputTelTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -260,7 +281,7 @@ final class InputTelTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -270,7 +291,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input class="tel-input" id="inputtel" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel')->attributes(['class' => 'tel-input'])->render(),
+            InputTel::tag()
+                ->attributes(['class' => 'tel-input'])
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -285,7 +309,7 @@ final class InputTelTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -299,7 +323,7 @@ final class InputTelTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -309,7 +333,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" autocomplete="on">
             HTML,
-            InputTel::tag()->autocomplete('on')->id('inputtel')->render(),
+            InputTel::tag()
+                ->autocomplete('on')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -320,7 +347,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" autocomplete="on">
             HTML,
-            InputTel::tag()->autocomplete(Autocomplete::ON)->id('inputtel')->render(),
+            InputTel::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -331,7 +361,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" autofocus>
             HTML,
-            InputTel::tag()->autofocus(true)->id('inputtel')->render(),
+            InputTel::tag()
+                ->autofocus(true)
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -342,7 +375,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input class="tel-input" id="inputtel" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel')->class('tel-input')->render(),
+            InputTel::tag()
+                ->class('tel-input')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -353,7 +389,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" data-tel="value">
             HTML,
-            InputTel::tag()->id('inputtel')->dataAttributes(['tel' => 'value'])->render(),
+            InputTel::tag()
+                ->dataAttributes(['tel' => 'value'])
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -364,7 +403,9 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputtel" type="tel">
             HTML,
-            InputTel::tag(['class' => 'default-class'])->id('inputtel')->render(),
+            InputTel::tag(['class' => 'default-class'])
+                ->id('inputtel')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -375,7 +416,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputtel" type="tel" title="default-title">
             HTML,
-            InputTel::tag()->id('inputtel')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputTel::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputtel')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -386,7 +430,9 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -397,7 +443,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" dir="ltr">
             HTML,
-            InputTel::tag()->id('inputtel')->dir('ltr')->render(),
+            InputTel::tag()
+                ->dir('ltr')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -408,7 +457,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" dir="ltr">
             HTML,
-            InputTel::tag()->id('inputtel')->dir(Direction::LTR)->render(),
+            InputTel::tag()
+                ->dir(Direction::LTR)
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -419,7 +471,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" disabled>
             HTML,
-            InputTel::tag()->id('inputtel')->disabled(true)->render(),
+            InputTel::tag()
+                ->disabled(true)
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -430,7 +485,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" form="form-id">
             HTML,
-            InputTel::tag()->form('form-id')->id('inputtel')->render(),
+            InputTel::tag()
+                ->form('form-id')
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -476,7 +534,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" hidden>
             HTML,
-            InputTel::tag()->id('inputtel')->hidden(true)->render(),
+            InputTel::tag()
+                ->hidden(true)
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -487,7 +548,9 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="tel-input" type="tel">
             HTML,
-            InputTel::tag()->id('tel-input')->render(),
+            InputTel::tag()
+                ->id('tel-input')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -498,7 +561,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" lang="en">
             HTML,
-            InputTel::tag()->id('inputtel')->lang('en')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -509,7 +575,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" lang="en">
             HTML,
-            InputTel::tag()->id('inputtel')->lang(Language::ENGLISH)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -520,7 +589,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" list="phones">
             HTML,
-            InputTel::tag()->id('inputtel')->list('phones')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->list('phones')
+                ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -531,7 +603,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" maxlength="10">
             HTML,
-            InputTel::tag()->id('inputtel')->maxlength(10)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->maxlength(10)
+                ->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
         );
     }
@@ -542,7 +617,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" minlength="5">
             HTML,
-            InputTel::tag()->id('inputtel')->minlength(5)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->minlength(5)
+                ->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
         );
     }
@@ -553,7 +631,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" name="phone" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel')->name('phone')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->name('phone')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -564,7 +645,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'>
             HTML,
-            InputTel::tag()->id('inputtel')->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')
+                ->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
         );
     }
@@ -575,7 +659,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" placeholder="123-456-7890">
             HTML,
-            InputTel::tag()->id('inputtel')->placeholder('123-456-7890')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->placeholder('123-456-7890')
+                ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
     }
@@ -586,7 +673,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" readonly>
             HTML,
-            InputTel::tag()->id('inputtel')->readonly(true)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->readonly(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -598,8 +688,8 @@ final class InputTelTest extends TestCase
             <input id="inputtel" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->addAriaAttribute('label', 'Close')
+                ->id('inputtel')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -613,8 +703,8 @@ final class InputTelTest extends TestCase
             <input id="inputtel" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->addAttribute('data-test', 'value')
+                ->id('inputtel')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -628,8 +718,8 @@ final class InputTelTest extends TestCase
             <input id="inputtel" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->addDataAttribute('value', 'test')
+                ->id('inputtel')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -642,7 +732,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" required>
             HTML,
-            InputTel::tag()->id('inputtel')->required(true)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->required(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -653,7 +746,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" role="textbox">
             HTML,
-            InputTel::tag()->id('inputtel')->role('textbox')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->role('textbox')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -664,7 +760,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" role="textbox">
             HTML,
-            InputTel::tag()->id('inputtel')->role(Role::TEXTBOX)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->role(Role::TEXTBOX)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -675,7 +774,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" size="30">
             HTML,
-            InputTel::tag()->id('inputtel')->size(30)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->size(30)
+                ->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
         );
     }
@@ -686,7 +788,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" spellcheck="true">
             HTML,
-            InputTel::tag()->id('inputtel')->spellcheck(true)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -697,7 +802,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" style='width: 200px;'>
             HTML,
-            InputTel::tag()->id('inputtel')->style('width: 200px;')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->style('width: 200px;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -708,7 +816,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" tabindex="1">
             HTML,
-            InputTel::tag()->id('inputtel')->tabIndex(1)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -719,7 +830,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputtel" type="tel">
             HTML,
-            InputTel::tag()->id('inputtel')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputTel::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputtel')
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -730,7 +844,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" title="Select a phone">
             HTML,
-            InputTel::tag()->id('inputtel')->title('Select a phone')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->title('Select a phone')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -752,7 +869,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" translate="no">
             HTML,
-            InputTel::tag()->id('inputtel')->translate(false)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -763,14 +883,23 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" translate="no">
             HTML,
-            InputTel::tag()->id('inputtel')->translate(Translate::NO)->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputTel::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputTel::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -780,7 +909,10 @@ final class InputTelTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(InputTel::class, []);
+        SimpleFactory::setDefaults(
+            InputTel::class,
+            [],
+        );
     }
 
     public function testRenderWithValue(): void
@@ -789,7 +921,10 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input id="inputtel" type="tel" value="123-456-7890">
             HTML,
-            InputTel::tag()->id('inputtel')->value('123-456-7890')->render(),
+            InputTel::tag()
+                ->id('inputtel')
+                ->value('123-456-7890')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

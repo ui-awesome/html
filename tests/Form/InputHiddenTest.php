@@ -44,7 +44,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" accesskey="k">
             HTML,
-            InputHidden::tag()->id('inputhidden')->accesskey('k')->render(),
+            InputHidden::tag()
+                ->accesskey('k')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -55,7 +58,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" aria-label="Hidden input">
             HTML,
-            InputHidden::tag()->id('inputhidden')->addAriaAttribute('label', 'Hidden input')->render(),
+            InputHidden::tag()
+                ->addAriaAttribute('label', 'Hidden input')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -66,7 +72,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" aria-hidden="true">
             HTML,
-            InputHidden::tag()->id('inputhidden')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputHidden::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -95,8 +104,7 @@ final class InputHiddenTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -110,8 +118,8 @@ final class InputHiddenTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -131,8 +139,8 @@ final class InputHiddenTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -146,8 +154,7 @@ final class InputHiddenTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -167,8 +174,8 @@ final class InputHiddenTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -178,7 +185,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" data-test="value">
             HTML,
-            InputHidden::tag()->id('inputhidden')->addAttribute('data-test', 'value')->render(),
+            InputHidden::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -189,7 +199,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" title="Hidden input">
             HTML,
-            InputHidden::tag()->id('inputhidden')->addAttribute(GlobalAttribute::TITLE, 'Hidden input')->render(),
+            InputHidden::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Hidden input')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -200,7 +213,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" data-hidden="value">
             HTML,
-            InputHidden::tag()->id('inputhidden')->addDataAttribute('hidden', 'value')->render(),
+            InputHidden::tag()
+                ->addDataAttribute('hidden', 'value')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -211,7 +227,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" data-value="test">
             HTML,
-            InputHidden::tag()->id('inputhidden')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputHidden::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -223,11 +242,13 @@ final class InputHiddenTest extends TestCase
             <input id="inputhidden" type="hidden" aria-controls="hidden-picker" aria-label="Select a hidden">
             HTML,
             InputHidden::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => 'hidden-picker',
+                        'label' => 'Select a hidden',
+                    ],
+                )
                 ->id('inputhidden')
-                ->ariaAttributes([
-                    'controls' => 'hidden-picker',
-                    'label' => 'Select a hidden',
-                ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -243,7 +264,7 @@ final class InputHiddenTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -257,7 +278,7 @@ final class InputHiddenTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -267,7 +288,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input class="hidden-input" id="inputhidden" type="hidden">
             HTML,
-            InputHidden::tag()->id('inputhidden')->attributes(['class' => 'hidden-input'])->render(),
+            InputHidden::tag()
+                ->attributes(['class' => 'hidden-input'])
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -282,7 +306,7 @@ final class InputHiddenTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -296,7 +320,7 @@ final class InputHiddenTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -306,7 +330,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" autocomplete="on">
             HTML,
-            InputHidden::tag()->autocomplete('on')->id('inputhidden')->render(),
+            InputHidden::tag()
+                ->autocomplete('on')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -317,7 +344,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" autocomplete="on">
             HTML,
-            InputHidden::tag()->autocomplete(Autocomplete::ON)->id('inputhidden')->render(),
+            InputHidden::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -328,7 +358,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input class="hidden-input" id="inputhidden" type="hidden">
             HTML,
-            InputHidden::tag()->id('inputhidden')->class('hidden-input')->render(),
+            InputHidden::tag()
+                ->class('hidden-input')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -339,7 +372,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" data-hidden="value">
             HTML,
-            InputHidden::tag()->id('inputhidden')->dataAttributes(['hidden' => 'value'])->render(),
+            InputHidden::tag()
+                ->dataAttributes(['hidden' => 'value'])
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -350,7 +386,9 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputhidden" type="hidden">
             HTML,
-            InputHidden::tag(['class' => 'default-class'])->id('inputhidden')->render(),
+            InputHidden::tag(['class' => 'default-class'])
+                ->id('inputhidden')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -361,7 +399,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputhidden" type="hidden" title="default-title">
             HTML,
-            InputHidden::tag()->id('inputhidden')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputHidden::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputhidden')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -372,7 +413,9 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden">
             HTML,
-            InputHidden::tag()->id('inputhidden')->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -383,7 +426,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" dir="ltr">
             HTML,
-            InputHidden::tag()->id('inputhidden')->dir('ltr')->render(),
+            InputHidden::tag()
+                ->dir('ltr')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -394,7 +440,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" dir="ltr">
             HTML,
-            InputHidden::tag()->id('inputhidden')->dir(Direction::LTR)->render(),
+            InputHidden::tag()
+                ->dir(Direction::LTR)
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -405,7 +454,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" disabled>
             HTML,
-            InputHidden::tag()->id('inputhidden')->disabled(true)->render(),
+            InputHidden::tag()
+                ->disabled(true)
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -416,7 +468,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" form="form-id">
             HTML,
-            InputHidden::tag()->form('form-id')->id('inputhidden')->render(),
+            InputHidden::tag()
+                ->form('form-id')
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -462,7 +517,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" hidden>
             HTML,
-            InputHidden::tag()->id('inputhidden')->hidden(true)->render(),
+            InputHidden::tag()
+                ->hidden(true)
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -473,7 +531,9 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="hidden-input" type="hidden">
             HTML,
-            InputHidden::tag()->id('hidden-input')->render(),
+            InputHidden::tag()
+                ->id('hidden-input')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -484,7 +544,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" lang="en">
             HTML,
-            InputHidden::tag()->id('inputhidden')->lang('en')->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -495,7 +558,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" lang="en">
             HTML,
-            InputHidden::tag()->id('inputhidden')->lang(Language::ENGLISH)->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -506,7 +572,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" name="csrf_token" type="hidden">
             HTML,
-            InputHidden::tag()->id('inputhidden')->name('csrf_token')->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->name('csrf_token')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -562,7 +631,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" role="presentation">
             HTML,
-            InputHidden::tag()->id('inputhidden')->role('presentation')->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->role('presentation')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -573,7 +645,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" role="presentation">
             HTML,
-            InputHidden::tag()->id('inputhidden')->role(Role::PRESENTATION)->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->role(Role::PRESENTATION)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -584,7 +659,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" style='display: none;'>
             HTML,
-            InputHidden::tag()->id('inputhidden')->style('display: none;')->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->style('display: none;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -595,7 +673,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputhidden" type="hidden">
             HTML,
-            InputHidden::tag()->id('inputhidden')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputHidden::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputhidden')
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -606,7 +687,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" title="Hidden input">
             HTML,
-            InputHidden::tag()->id('inputhidden')->title('Hidden input')->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->title('Hidden input')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -639,7 +723,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" translate="no">
             HTML,
-            InputHidden::tag()->id('inputhidden')->translate(Translate::NO)->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -674,7 +761,10 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input id="inputhidden" type="hidden" value="1234567890">
             HTML,
-            InputHidden::tag()->id('inputhidden')->value('1234567890')->render(),
+            InputHidden::tag()
+                ->id('inputhidden')
+                ->value('1234567890')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

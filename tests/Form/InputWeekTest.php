@@ -45,7 +45,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" accesskey="k">
             HTML,
-            InputWeek::tag()->id('inputweek')->accesskey('k')->render(),
+            InputWeek::tag()
+                ->accesskey('k')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -56,7 +59,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" aria-label="Week selector">
             HTML,
-            InputWeek::tag()->id('inputweek')->addAriaAttribute('label', 'Week selector')->render(),
+            InputWeek::tag()
+                ->addAriaAttribute('label', 'Week selector')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
@@ -67,7 +73,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" aria-hidden="true">
             HTML,
-            InputWeek::tag()->id('inputweek')->addAriaAttribute(Aria::HIDDEN, true)->render(),
+            InputWeek::tag()
+                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
         );
     }
@@ -111,8 +120,8 @@ final class InputWeekTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -132,8 +141,8 @@ final class InputWeekTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -147,8 +156,7 @@ final class InputWeekTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -168,8 +176,8 @@ final class InputWeekTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -179,7 +187,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" data-test="value">
             HTML,
-            InputWeek::tag()->id('inputweek')->addAttribute('data-test', 'value')->render(),
+            InputWeek::tag()
+                ->addAttribute('data-test', 'value')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method.",
         );
     }
@@ -190,7 +201,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" title="Select week">
             HTML,
-            InputWeek::tag()->id('inputweek')->addAttribute(GlobalAttribute::TITLE, 'Select week')->render(),
+            InputWeek::tag()
+                ->addAttribute(GlobalAttribute::TITLE, 'Select week')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
@@ -201,7 +215,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" data-week="value">
             HTML,
-            InputWeek::tag()->id('inputweek')->addDataAttribute('week', 'value')->render(),
+            InputWeek::tag()
+                ->addDataAttribute('week', 'value')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -212,7 +229,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" data-value="test">
             HTML,
-            InputWeek::tag()->id('inputweek')->addDataAttribute(Data::VALUE, 'test')->render(),
+            InputWeek::tag()
+                ->addDataAttribute(Data::VALUE, 'test')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
         );
     }
@@ -224,11 +244,13 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week" aria-controls="week-picker" aria-label="Select a week">
             HTML,
             InputWeek::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => 'week-picker',
+                        'label' => 'Select a week',
+                    ],
+                )
                 ->id('inputweek')
-                ->ariaAttributes([
-                    'controls' => 'week-picker',
-                    'label' => 'Select a week',
-                ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -244,7 +266,7 @@ final class InputWeekTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -258,7 +280,7 @@ final class InputWeekTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -268,7 +290,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input class="week-input" id="inputweek" type="week">
             HTML,
-            InputWeek::tag()->id('inputweek')->attributes(['class' => 'week-input'])->render(),
+            InputWeek::tag()
+                ->attributes(['class' => 'week-input'])
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -283,7 +308,7 @@ final class InputWeekTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -297,7 +322,7 @@ final class InputWeekTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -307,7 +332,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" autocomplete="on">
             HTML,
-            InputWeek::tag()->autocomplete('on')->id('inputweek')->render(),
+            InputWeek::tag()
+                ->autocomplete('on')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -318,7 +346,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" autocomplete="on">
             HTML,
-            InputWeek::tag()->autocomplete(Autocomplete::ON)->id('inputweek')->render(),
+            InputWeek::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
         );
     }
@@ -329,7 +360,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" autofocus>
             HTML,
-            InputWeek::tag()->autofocus(true)->id('inputweek')->render(),
+            InputWeek::tag()
+                ->autofocus(true)
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -340,7 +374,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input class="week-input" id="inputweek" type="week">
             HTML,
-            InputWeek::tag()->id('inputweek')->class('week-input')->render(),
+            InputWeek::tag()
+                ->class('week-input')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -351,7 +388,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" data-week="value">
             HTML,
-            InputWeek::tag()->id('inputweek')->dataAttributes(['week' => 'value'])->render(),
+            InputWeek::tag()
+                ->dataAttributes(['week' => 'value'])
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -362,7 +402,9 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputweek" type="week">
             HTML,
-            InputWeek::tag(['class' => 'default-class'])->id('inputweek')->render(),
+            InputWeek::tag(['class' => 'default-class'])
+                ->id('inputweek')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -373,7 +415,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputweek" type="week" title="default-title">
             HTML,
-            InputWeek::tag()->id('inputweek')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputWeek::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputweek')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -384,7 +429,9 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week">
             HTML,
-            InputWeek::tag()->id('inputweek')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -395,7 +442,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" dir="ltr">
             HTML,
-            InputWeek::tag()->id('inputweek')->dir('ltr')->render(),
+            InputWeek::tag()
+                ->dir('ltr')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -406,7 +456,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" dir="ltr">
             HTML,
-            InputWeek::tag()->id('inputweek')->dir(Direction::LTR)->render(),
+            InputWeek::tag()
+                ->dir(Direction::LTR)
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute using enum.",
         );
     }
@@ -417,7 +470,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" disabled>
             HTML,
-            InputWeek::tag()->id('inputweek')->disabled(true)->render(),
+            InputWeek::tag()
+                ->disabled(true)
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -428,7 +484,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" form="form-id">
             HTML,
-            InputWeek::tag()->form('form-id')->id('inputweek')->render(),
+            InputWeek::tag()
+                ->form('form-id')
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -474,7 +533,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" hidden>
             HTML,
-            InputWeek::tag()->id('inputweek')->hidden(true)->render(),
+            InputWeek::tag()
+                ->hidden(true)
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -496,7 +558,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" lang="en">
             HTML,
-            InputWeek::tag()->id('inputweek')->lang('en')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -507,7 +572,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" lang="en">
             HTML,
-            InputWeek::tag()->id('inputweek')->lang(Language::ENGLISH)->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->lang(Language::ENGLISH)
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute using enum.",
         );
     }
@@ -518,7 +586,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" list="weeks">
             HTML,
-            InputWeek::tag()->id('inputweek')->list('weeks')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->list('weeks')
+                ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -529,7 +600,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" max="2018-W26">
             HTML,
-            InputWeek::tag()->id('inputweek')->max('2018-W26')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->max('2018-W26')
+                ->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
         );
     }
@@ -540,7 +614,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" min="2018-W18">
             HTML,
-            InputWeek::tag()->id('inputweek')->min('2018-W18')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->min('2018-W18')
+                ->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
         );
     }
@@ -566,7 +643,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" name="camp-week" type="week">
             HTML,
-            InputWeek::tag()->id('inputweek')->name('camp-week')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->name('camp-week')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -577,7 +657,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" readonly>
             HTML,
-            InputWeek::tag()->id('inputweek')->readonly(true)->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->readonly(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -589,8 +672,8 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->id('inputweek')
                 ->addAriaAttribute('label', 'Close')
+                ->id('inputweek')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -604,8 +687,8 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->id('inputweek')
                 ->addAttribute('data-test', 'value')
+                ->id('inputweek')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -619,8 +702,8 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->id('inputweek')
                 ->addDataAttribute('value', 'test')
+                ->id('inputweek')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -633,7 +716,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" required>
             HTML,
-            InputWeek::tag()->id('inputweek')->required(true)->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->required(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -644,7 +730,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" role="textbox">
             HTML,
-            InputWeek::tag()->id('inputweek')->role('textbox')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->role('textbox')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -655,7 +744,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" role="textbox">
             HTML,
-            InputWeek::tag()->id('inputweek')->role(Role::TEXTBOX)->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->role(Role::TEXTBOX)
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
         );
     }
@@ -666,7 +758,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" step="2">
             HTML,
-            InputWeek::tag()->id('inputweek')->step(2)->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->step(2)
+                ->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
         );
     }
@@ -677,7 +772,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" step="any">
             HTML,
-            InputWeek::tag()->id('inputweek')->step('any')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->step('any')
+                ->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
         );
     }
@@ -688,7 +786,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" style='width: 200px;'>
             HTML,
-            InputWeek::tag()->id('inputweek')->style('width: 200px;')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->style('width: 200px;')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -699,7 +800,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" tabindex="1">
             HTML,
-            InputWeek::tag()->id('inputweek')->tabIndex(1)->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
         );
     }
@@ -710,7 +814,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input class="text-muted" id="inputweek" type="week">
             HTML,
-            InputWeek::tag()->id('inputweek')->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            InputWeek::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->id('inputweek')
+                ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
@@ -721,7 +828,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" title="Select a week">
             HTML,
-            InputWeek::tag()->id('inputweek')->title('Select a week')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->title('Select a week')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -743,7 +853,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" translate="no">
             HTML,
-            InputWeek::tag()->id('inputweek')->translate(false)->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -754,7 +867,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" translate="no">
             HTML,
-            InputWeek::tag()->id('inputweek')->translate(Translate::NO)->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->translate(Translate::NO)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
         );
     }
@@ -780,7 +896,10 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input id="inputweek" type="week" value="2017-W01">
             HTML,
-            InputWeek::tag()->id('inputweek')->value('2017-W01')->render(),
+            InputWeek::tag()
+                ->id('inputweek')
+                ->value('2017-W01')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

@@ -43,8 +43,7 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             'default',
-            InputRadio::tag()
-                ->getAttribute('data-test', 'default'),
+            InputRadio::tag()->getAttribute('data-test', 'default'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -115,8 +114,7 @@ final class InputRadioTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -130,8 +128,8 @@ final class InputRadioTest extends TestCase
                 ->addAriaAttribute('describedby', true)
                 ->id(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and 'id' is 'null'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
         );
     }
 
@@ -151,8 +149,8 @@ final class InputRadioTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' "
+            . 'and prefix/suffix.',
         );
     }
 
@@ -166,8 +164,7 @@ final class InputRadioTest extends TestCase
                 ->addAriaAttribute('describedby', 'true')
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -187,8 +184,8 @@ final class InputRadioTest extends TestCase
                 ->suffix('Suffix')
                 ->suffixTag(Inline::SPAN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true' and prefix/suffix.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
         );
     }
 
@@ -277,7 +274,7 @@ final class InputRadioTest extends TestCase
                 ->ariaAttributes(['describedby' => true])
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -291,7 +288,7 @@ final class InputRadioTest extends TestCase
                 ->ariaAttributes(['describedby' => 'true'])
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -319,7 +316,7 @@ final class InputRadioTest extends TestCase
                 ->attributes(['aria-describedby' => true])
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -333,7 +330,7 @@ final class InputRadioTest extends TestCase
                 ->attributes(['aria-describedby' => 'true'])
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to true.",
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -384,8 +381,8 @@ final class InputRadioTest extends TestCase
         self::assertSame(
             $expected,
             InputRadio::tag()
-                ->id('inputradio')
                 ->checked($checked)
+                ->id('inputradio')
                 ->value($value)
                 ->render(),
             "Failed asserting that element renders correctly with 'checked' and 'value' attributes.",
@@ -530,6 +527,7 @@ final class InputRadioTest extends TestCase
                 ->id('inputradio')
                 ->label('Label')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and label content.',
         );
     }
 
@@ -550,6 +548,7 @@ final class InputRadioTest extends TestCase
                 ->label('Red')
                 ->template('<div class="wrapper">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and custom template.',
         );
     }
 
@@ -563,6 +562,7 @@ final class InputRadioTest extends TestCase
                 ->enclosedByLabel(true)
                 ->id('inputradio')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and empty label content.',
         );
     }
 
@@ -581,6 +581,7 @@ final class InputRadioTest extends TestCase
                 ->label('Label')
                 ->labelFor('label-for')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and label "for" attribute.',
         );
     }
 
@@ -615,6 +616,7 @@ final class InputRadioTest extends TestCase
                 ->id(null)
                 ->label('Red')
                 ->render(),
+            'Failed asserting that element renders correctly with enclosed label and no ID.',
         );
     }
 
@@ -705,6 +707,7 @@ final class InputRadioTest extends TestCase
                 ->id('inputradio')
                 ->label('Label')
                 ->render(),
+            'Failed asserting that element renders correctly with label.',
         );
     }
 
@@ -720,6 +723,7 @@ final class InputRadioTest extends TestCase
                 ->label('Label')
                 ->labelAttributes(['class' => 'value'])
                 ->render(),
+            'Failed asserting that element renders correctly with label attributes.',
         );
     }
 
@@ -735,6 +739,7 @@ final class InputRadioTest extends TestCase
                 ->label('Label')
                 ->labelClass('value')
                 ->render(),
+            'Failed asserting that element renders correctly with label class.',
         );
     }
 
@@ -751,6 +756,7 @@ final class InputRadioTest extends TestCase
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass(null)
                 ->render(),
+            "Failed asserting that element renders correctly with label class set to 'null'.",
         );
     }
 
@@ -767,6 +773,7 @@ final class InputRadioTest extends TestCase
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass('value-override')
                 ->render(),
+            "Failed asserting that element renders correctly with label class overrides set to 'false'.",
         );
     }
 
@@ -783,6 +790,7 @@ final class InputRadioTest extends TestCase
                 ->labelAttributes(['class' => 'value'])
                 ->labelClass('value-override', true)
                 ->render(),
+            "Failed asserting that element renders correctly with label class overrides set to 'true'.",
         );
     }
 
@@ -798,6 +806,7 @@ final class InputRadioTest extends TestCase
                 ->label('Label')
                 ->labelClass(BackedString::VALUE)
                 ->render(),
+            'Failed asserting that element renders correctly with label class using enum.',
         );
     }
 
@@ -813,6 +822,7 @@ final class InputRadioTest extends TestCase
                 ->label('Label')
                 ->labelFor('value')
                 ->render(),
+            "Failed asserting that element renders correctly with label 'for' attribute.",
         );
     }
 
@@ -828,6 +838,7 @@ final class InputRadioTest extends TestCase
                 ->label('Label')
                 ->labelFor(null)
                 ->render(),
+            "Failed asserting that element renders correctly with label 'for' attribute set to 'null'.",
         );
     }
 
@@ -884,6 +895,7 @@ final class InputRadioTest extends TestCase
                 ->label('Label')
                 ->notLabel()
                 ->render(),
+            "Failed asserting that element renders correctly with 'notLabel()' method.",
         );
     }
 
@@ -1104,6 +1116,7 @@ final class InputRadioTest extends TestCase
                 ->uncheckedValue('0')
                 ->value('1')
                 ->render(),
+            "Failed asserting that element renders correctly with 'uncheckedValue' attribute and enclosed label.",
         );
     }
 
