@@ -231,14 +231,16 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" aria-controls="image-picker" aria-label="Select a image">
+            <input id="inputimage" type="image" aria-controls="image-picker" aria-label="Select an image">
             HTML,
             InputImage::tag()
                 ->id('inputimage')
-                ->ariaAttributes([
-                    'controls' => 'image-picker',
-                    'label' => 'Select a image',
-                ])
+                ->ariaAttributes(
+                    [
+                        'controls' => 'image-picker',
+                        'label' => 'Select an image',
+                    ],
+                )
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -723,7 +725,13 @@ final class InputImageTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputImage::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputImage::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -733,7 +741,10 @@ final class InputImageTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(InputImage::class, []);
+        SimpleFactory::setDefaults(
+            InputImage::class,
+            [],
+        );
     }
 
     public function testRenderWithWidth(): void
