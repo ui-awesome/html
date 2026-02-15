@@ -54,7 +54,7 @@ final class BaseTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             Base::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -106,9 +106,9 @@ final class BaseTest extends TestCase
             <base data-test="value">
             HTML,
             Base::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -119,9 +119,9 @@ final class BaseTest extends TestCase
             <base title="Base URL">
             HTML,
             Base::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Base URL')
+                ->setAttribute(GlobalAttribute::TITLE, 'Base URL')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -383,7 +383,7 @@ final class BaseTest extends TestCase
             <base>
             HTML,
             Base::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

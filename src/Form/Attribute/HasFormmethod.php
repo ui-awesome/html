@@ -10,9 +10,7 @@ use UnitEnum;
 /**
  * Provides an immutable API for the HTML `formmethod` attribute.
  *
- * @method static addAttribute(string|UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
- * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
- *
+ * @mixin \UIAwesome\Html\Mixin\HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/formmethod
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -34,6 +32,6 @@ trait HasFormmethod
      */
     public function formmethod(string|Stringable|UnitEnum|null $value): static
     {
-        return $this->addAttribute('formmethod', $value);
+        return $this->setAttribute('formmethod', $value);
     }
 }

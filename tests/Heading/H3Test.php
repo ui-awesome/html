@@ -61,7 +61,7 @@ final class H3Test extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             H3::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -132,9 +132,9 @@ final class H3Test extends TestCase
             </h3>
             HTML,
             H3::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -146,9 +146,9 @@ final class H3Test extends TestCase
             </h3>
             HTML,
             H3::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -507,7 +507,7 @@ final class H3Test extends TestCase
             </h3>
             HTML,
             H3::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

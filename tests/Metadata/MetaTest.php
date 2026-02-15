@@ -54,7 +54,7 @@ final class MetaTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             Meta::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -106,9 +106,9 @@ final class MetaTest extends TestCase
             <meta data-test="value">
             HTML,
             Meta::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -119,9 +119,9 @@ final class MetaTest extends TestCase
             <meta title="Meta tag">
             HTML,
             Meta::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Meta tag')
+                ->setAttribute(GlobalAttribute::TITLE, 'Meta tag')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -450,7 +450,7 @@ final class MetaTest extends TestCase
             <meta>
             HTML,
             Meta::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

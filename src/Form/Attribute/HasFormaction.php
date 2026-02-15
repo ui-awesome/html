@@ -10,9 +10,7 @@ use UnitEnum;
 /**
  * Provides an immutable API for the HTML `formaction` attribute.
  *
- * @method static addAttribute(string|UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
- * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
- *
+ * @mixin \UIAwesome\Html\Mixin\HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/formaction
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -34,6 +32,6 @@ trait HasFormaction
      */
     public function formaction(string|Stringable|UnitEnum|null $value): static
     {
-        return $this->addAttribute('formaction', $value);
+        return $this->setAttribute('formaction', $value);
     }
 }

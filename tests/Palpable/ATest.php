@@ -67,7 +67,7 @@ final class ATest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             A::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -132,9 +132,9 @@ final class ATest extends TestCase
             <a data-test="value"></a>
             HTML,
             A::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -145,9 +145,9 @@ final class ATest extends TestCase
             <a title="Link content"></a>
             HTML,
             A::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Link content')
+                ->setAttribute(GlobalAttribute::TITLE, 'Link content')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -527,7 +527,7 @@ final class ATest extends TestCase
             <a></a>
             HTML,
             A::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

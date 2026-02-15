@@ -187,10 +187,10 @@ final class InputSubmitTest extends TestCase
             <input id="inputsubmit" type="submit" data-test="value">
             HTML,
             InputSubmit::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputsubmit')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -201,10 +201,10 @@ final class InputSubmitTest extends TestCase
             <input id="inputsubmit" type="submit" title="Submit action">
             HTML,
             InputSubmit::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Submit action')
+                ->setAttribute(GlobalAttribute::TITLE, 'Submit action')
                 ->id('inputsubmit')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -687,7 +687,7 @@ final class InputSubmitTest extends TestCase
             <input id="inputsubmit" type="submit">
             HTML,
             InputSubmit::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputsubmit')
                 ->removeAttribute('data-test')
                 ->render(),

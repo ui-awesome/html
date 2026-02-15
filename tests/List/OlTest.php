@@ -62,7 +62,7 @@ final class OlTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             Ol::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -133,9 +133,9 @@ final class OlTest extends TestCase
             </ol>
             HTML,
             Ol::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -147,9 +147,9 @@ final class OlTest extends TestCase
             </ol>
             HTML,
             Ol::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -571,7 +571,7 @@ final class OlTest extends TestCase
             </ol>
             HTML,
             Ol::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

@@ -188,10 +188,10 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image" data-test="value">
             HTML,
             InputImage::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -202,10 +202,10 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image" title="Select image">
             HTML,
             InputImage::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select image')
+                ->setAttribute(GlobalAttribute::TITLE, 'Select image')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -674,7 +674,7 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image">
             HTML,
             InputImage::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputimage')
                 ->removeAttribute('data-test')
                 ->render(),

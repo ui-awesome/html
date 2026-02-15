@@ -198,10 +198,10 @@ final class InputPasswordTest extends TestCase
             <input id="inputpassword" type="password" data-test="value">
             HTML,
             InputPassword::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputpassword')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -212,10 +212,10 @@ final class InputPasswordTest extends TestCase
             <input id="inputpassword" type="password" title="Enter password">
             HTML,
             InputPassword::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Enter password')
+                ->setAttribute(GlobalAttribute::TITLE, 'Enter password')
                 ->id('inputpassword')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -727,7 +727,7 @@ final class InputPasswordTest extends TestCase
             HTML,
             InputPassword::tag()
                 ->id('inputpassword')
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

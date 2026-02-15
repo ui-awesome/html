@@ -188,10 +188,10 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week" data-test="value">
             HTML,
             InputWeek::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -202,10 +202,10 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week" title="Select week">
             HTML,
             InputWeek::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select week')
+                ->setAttribute(GlobalAttribute::TITLE, 'Select week')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -687,7 +687,7 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputweek')
                 ->removeAttribute('data-test')
                 ->render(),

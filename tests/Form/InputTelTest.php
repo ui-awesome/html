@@ -189,10 +189,10 @@ final class InputTelTest extends TestCase
             <input id="inputtel" type="tel" data-test="value">
             HTML,
             InputTel::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -203,10 +203,10 @@ final class InputTelTest extends TestCase
             <input id="inputtel" type="tel" title="Select phone">
             HTML,
             InputTel::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select phone')
+                ->setAttribute(GlobalAttribute::TITLE, 'Select phone')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -703,7 +703,7 @@ final class InputTelTest extends TestCase
             <input id="inputtel" type="tel">
             HTML,
             InputTel::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputtel')
                 ->removeAttribute('data-test')
                 ->render(),

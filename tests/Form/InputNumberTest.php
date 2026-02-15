@@ -188,10 +188,10 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number" data-test="value">
             HTML,
             InputNumber::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -202,10 +202,10 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number" title="Select number">
             HTML,
             InputNumber::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select number')
+                ->setAttribute(GlobalAttribute::TITLE, 'Select number')
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -703,7 +703,7 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputnumber')
                 ->removeAttribute('data-test')
                 ->render(),

@@ -194,10 +194,10 @@ final class InputCheckboxTest extends TestCase
             <input id="inputcheckbox" type="checkbox" data-test="value">
             HTML,
             InputCheckbox::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputcheckbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -208,10 +208,10 @@ final class InputCheckboxTest extends TestCase
             <input id="inputcheckbox" type="checkbox" title="Select checkbox">
             HTML,
             InputCheckbox::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select checkbox')
+                ->setAttribute(GlobalAttribute::TITLE, 'Select checkbox')
                 ->id('inputcheckbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -739,7 +739,7 @@ final class InputCheckboxTest extends TestCase
         self::assertSame(
             <<<HTML
             <input id="inputcheckbox" type="checkbox">
-            <label for="inputcheckbox">Label</label>
+            <label class="value" for="inputcheckbox">Label</label>
             HTML,
             InputCheckbox::tag()
                 ->id('inputcheckbox')
@@ -912,7 +912,7 @@ final class InputCheckboxTest extends TestCase
             <input id="inputcheckbox" type="checkbox">
             HTML,
             InputCheckbox::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputcheckbox')
                 ->removeAttribute('data-test')
                 ->render(),

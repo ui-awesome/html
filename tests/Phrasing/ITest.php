@@ -59,7 +59,7 @@ final class ITest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             I::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -124,9 +124,9 @@ final class ITest extends TestCase
             <i data-test="value"></i>
             HTML,
             I::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -137,9 +137,9 @@ final class ITest extends TestCase
             <i title="Idiomatic text"></i>
             HTML,
             I::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Idiomatic text')
+                ->setAttribute(GlobalAttribute::TITLE, 'Idiomatic text')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -389,7 +389,7 @@ final class ITest extends TestCase
             <i></i>
             HTML,
             I::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

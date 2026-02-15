@@ -188,10 +188,10 @@ final class InputSearchTest extends TestCase
             <input id="inputsearch" type="search" data-test="value">
             HTML,
             InputSearch::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputsearch')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -201,8 +201,8 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" title="Search here">
             HTML,
-            InputSearch::tag()->id('inputsearch')->addAttribute(GlobalAttribute::TITLE, 'Search here')->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            InputSearch::tag()->id('inputsearch')->setAttribute(GlobalAttribute::TITLE, 'Search here')->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -634,7 +634,7 @@ final class InputSearchTest extends TestCase
             HTML,
             InputSearch::tag()
                 ->id('inputsearch')
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

@@ -4,19 +4,10 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use Stringable;
-use UIAwesome\Html\Attribute\Form\HasRequired;
-use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
-use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\Type;
-use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Core\Html;
-use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, HasCheckedState, HasLabel};
+use UIAwesome\Html\Form\Base\BaseChoice;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
-use UIAwesome\Html\Phrasing\Label;
-use UnitEnum;
-
-use function array_key_exists;
 
 /**
  * Represents the HTML `<input type="radio">` element.
@@ -38,52 +29,8 @@ use function array_key_exists;
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class InputRadio extends BaseInput
+final class InputRadio extends BaseChoice
 {
-    use CanBeAutofocus;
-    use CanBeEnclosedByLabel;
-    use HasCheckedState;
-    use HasLabel;
-    use HasRequired;
-    use HasTabindex;
-    use HasValue;
-
-    /**
-     * Value to be submitted when the radio is not checked.
-     *
-     * If set, an additional hidden input will be rendered with the same name as the radio and this value.
-     *
-     * This ensures that a value is always submitted for the radio, even when it is unchecked.
-     */
-    private bool|float|int|string|Stringable|UnitEnum|null $uncheckedValue = null;
-
-    /**
-     * Returns the array of HTML attributes for the element.
-     *
-     * @return array Attributes array assigned to the element.
-     *
-     * @phpstan-return mixed[]
-     */
-    public function getAttributes(): array
-    {
-        return $this->buildAttributes(parent::getAttributes());
-    }
-
-    /**
-     * Set the value that should be submitted when the radio is not checked.
-     *
-     * @param bool|float|int|string|Stringable|UnitEnum|null $value Value to be submitted.
-     *
-     * @return static New instance with the updated `uncheckedValue` value.
-     */
-    public function uncheckedValue(bool|float|int|string|Stringable|UnitEnum|null $value): static
-    {
-        $new = clone $this;
-        $new->uncheckedValue = $value;
-
-        return $new;
-    }
-
     /**
      * Returns the tag enumeration for the `<input>` element.
      *
@@ -107,69 +54,5 @@ final class InputRadio extends BaseInput
             'template' => ['{prefix}\n{unchecked}\n{tag}\n{label}\n{suffix}'],
             'type' => [Type::RADIO],
         ] + parent::loadDefault();
-    }
-
-    /**
-     * Renders the `<input>` element with its attributes.
-     *
-     * @return string Rendered HTML for the `<input>` element.
-     */
-    protected function run(): string
-    {
-        /** @var string|null $id */
-        $id = $this->getAttribute('id', null);
-
-        $unchecked = '';
-
-        if ($this->uncheckedValue !== null) {
-            /** @phpstan-var string $name */
-            $name = $this->getAttribute('name', '');
-
-            $unchecked = InputHidden::tag()
-                ->id(null)
-                ->name($name)
-                ->value($this->uncheckedValue)
-                ->render();
-        }
-
-        if ($this->notLabel || $this->label === '') {
-            return $this->buildElement('', ['{label}' => '', '{unchecked}' => $unchecked]);
-        }
-
-        $labelTag = Label::tag()->attributes($this->labelAttributes);
-
-        if ($this->enclosedByLabel === false) {
-            if (array_key_exists('for', $this->labelAttributes) === false) {
-                $labelTag = $labelTag->for($id);
-            }
-
-            $labelTag = $labelTag->content($this->label);
-
-            return $this->buildElement(
-                '',
-                [
-                    '{label}' => $labelTag,
-                    '{unchecked}' => $unchecked,
-                ],
-            );
-        }
-
-        $labelTag = $labelTag
-            ->html(
-                "\n",
-                Html::element($this->getTag(), '', $this->getAttributes()),
-                "\n",
-                $this->label,
-                "\n",
-            );
-
-        return $this->buildElement(
-            '',
-            [
-                '{tag}' => $labelTag,
-                '{label}' => '',
-                '{unchecked}' => $unchecked,
-            ],
-        );
     }
 }

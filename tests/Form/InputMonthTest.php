@@ -187,10 +187,10 @@ final class InputMonthTest extends TestCase
             <input id="inputmonth" type="month" data-test="value">
             HTML,
             InputMonth::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -201,10 +201,10 @@ final class InputMonthTest extends TestCase
             <input id="inputmonth" type="month" title="Select month">
             HTML,
             InputMonth::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select month')
+                ->setAttribute(GlobalAttribute::TITLE, 'Select month')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -688,7 +688,7 @@ final class InputMonthTest extends TestCase
             <input id="inputmonth" type="month">
             HTML,
             InputMonth::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputmonth')
                 ->removeAttribute('data-test')
                 ->render(),

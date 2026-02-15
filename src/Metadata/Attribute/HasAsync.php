@@ -7,9 +7,7 @@ namespace UIAwesome\Html\Metadata\Attribute;
 /**
  * Provides an immutable API for the HTML `async` attribute.
  *
- * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
- * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
- *
+ * @mixin \UIAwesome\Html\Mixin\HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script#async
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -34,6 +32,6 @@ trait HasAsync
      */
     public function async(bool $value): static
     {
-        return $this->addAttribute('async', $value);
+        return $this->setAttribute('async', $value);
     }
 }

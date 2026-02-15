@@ -187,10 +187,10 @@ final class InputResetTest extends TestCase
             <input id="inputreset" type="reset" data-test="value">
             HTML,
             InputReset::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputreset')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -201,10 +201,10 @@ final class InputResetTest extends TestCase
             <input id="inputreset" type="reset" title="Reset form">
             HTML,
             InputReset::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Reset form')
+                ->setAttribute(GlobalAttribute::TITLE, 'Reset form')
                 ->id('inputreset')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -575,7 +575,7 @@ final class InputResetTest extends TestCase
             <input id="inputreset" type="reset">
             HTML,
             InputReset::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputreset')
                 ->removeAttribute('data-test')
                 ->render(),

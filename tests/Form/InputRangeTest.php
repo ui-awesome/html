@@ -187,10 +187,10 @@ final class InputRangeTest extends TestCase
             <input id="inputrange" type="range" data-test="value">
             HTML,
             InputRange::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputrange')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -201,10 +201,10 @@ final class InputRangeTest extends TestCase
             <input id="inputrange" type="range" title="Select range">
             HTML,
             InputRange::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select range')
+                ->setAttribute(GlobalAttribute::TITLE, 'Select range')
                 ->id('inputrange')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -674,7 +674,7 @@ final class InputRangeTest extends TestCase
             <input id="inputrange" type="range">
             HTML,
             InputRange::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputrange')
                 ->removeAttribute('data-test')
                 ->render(),

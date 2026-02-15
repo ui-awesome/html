@@ -59,7 +59,7 @@ final class LabelTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             Label::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -124,9 +124,9 @@ final class LabelTest extends TestCase
             <label data-test="value"></label>
             HTML,
             Label::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -137,9 +137,9 @@ final class LabelTest extends TestCase
             <label title="Label content"></label>
             HTML,
             Label::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Label content')
+                ->setAttribute(GlobalAttribute::TITLE, 'Label content')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -402,7 +402,7 @@ final class LabelTest extends TestCase
             <label></label>
             HTML,
             Label::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

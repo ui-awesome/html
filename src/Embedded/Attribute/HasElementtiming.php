@@ -9,9 +9,7 @@ use UnitEnum;
 /**
  * Provides an immutable API for the HTML `elementtiming` attribute.
  *
- * @method static addAttribute(string|UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
- * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
- *
+ * @mixin \UIAwesome\Html\Mixin\HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/elementtiming
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -35,6 +33,6 @@ trait HasElementtiming
      */
     public function elementtiming(string|UnitEnum|null $value): static
     {
-        return $this->addAttribute('elementtiming', $value);
+        return $this->setAttribute('elementtiming', $value);
     }
 }

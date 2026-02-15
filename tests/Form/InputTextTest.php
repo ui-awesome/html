@@ -188,10 +188,10 @@ final class InputTextTest extends TestCase
             <input id="inputtext" type="text" data-test="value">
             HTML,
             InputText::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputtext')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -202,10 +202,10 @@ final class InputTextTest extends TestCase
             <input id="inputtext" type="text" title="Enter text">
             HTML,
             InputText::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Enter text')
+                ->setAttribute(GlobalAttribute::TITLE, 'Enter text')
                 ->id('inputtext')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -716,7 +716,7 @@ final class InputTextTest extends TestCase
             <input id="inputtext" type="text">
             HTML,
             InputText::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputtext')
                 ->removeAttribute('data-test')
                 ->render(),

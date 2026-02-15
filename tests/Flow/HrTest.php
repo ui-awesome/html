@@ -48,7 +48,7 @@ final class HrTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             Hr::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -100,9 +100,9 @@ final class HrTest extends TestCase
             <hr data-test="value">
             HTML,
             Hr::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -113,9 +113,9 @@ final class HrTest extends TestCase
             <hr title="value">
             HTML,
             Hr::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -350,7 +350,7 @@ final class HrTest extends TestCase
             <hr>
             HTML,
             Hr::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",

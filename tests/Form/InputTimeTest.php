@@ -187,10 +187,10 @@ final class InputTimeTest extends TestCase
             <input id="inputtime" type="time" data-test="value">
             HTML,
             InputTime::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputtime')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -201,10 +201,10 @@ final class InputTimeTest extends TestCase
             <input id="inputtime" type="time" title="Select time">
             HTML,
             InputTime::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select time')
+                ->setAttribute(GlobalAttribute::TITLE, 'Select time')
                 ->id('inputtime')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -688,7 +688,7 @@ final class InputTimeTest extends TestCase
             <input id="inputtime" type="time">
             HTML,
             InputTime::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputtime')
                 ->removeAttribute('data-test')
                 ->render(),

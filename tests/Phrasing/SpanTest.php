@@ -59,7 +59,7 @@ final class SpanTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             Span::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -122,9 +122,9 @@ final class SpanTest extends TestCase
             <span data-test="value"></span>
             HTML,
             Span::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -135,9 +135,9 @@ final class SpanTest extends TestCase
             <span title="Span content"></span>
             HTML,
             Span::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Span content')
+                ->setAttribute(GlobalAttribute::TITLE, 'Span content')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
@@ -387,7 +387,7 @@ final class SpanTest extends TestCase
             <span></span>
             HTML,
             Span::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
