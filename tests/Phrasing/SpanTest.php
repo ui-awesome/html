@@ -59,7 +59,7 @@ final class SpanTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             Span::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -112,32 +112,6 @@ final class SpanTest extends TestCase
                 ->addAriaAttribute(Aria::HIDDEN, true)
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
-        );
-    }
-
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span data-test="value"></span>
-            HTML,
-            Span::tag()
-                ->addAttribute('data-test', 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span title="Span content"></span>
-            HTML,
-            Span::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Span content')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
 
@@ -387,7 +361,7 @@ final class SpanTest extends TestCase
             <span></span>
             HTML,
             Span::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -431,6 +405,32 @@ final class SpanTest extends TestCase
                 ->role(Role::BUTTON)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span data-test="value"></span>
+            HTML,
+            Span::tag()
+                ->setAttribute('data-test', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span title="Span content"></span>
+            HTML,
+            Span::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Span content')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

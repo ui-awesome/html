@@ -7,9 +7,7 @@ namespace UIAwesome\Html\List\Attribute;
 /**
  * Provides an immutable API for the HTML `start` attribute.
  *
- * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
- * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
- *
+ * @mixin \UIAwesome\Html\Mixin\HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol#start
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -32,6 +30,6 @@ trait HasStart
      */
     public function start(int|null $value): static
     {
-        return $this->addAttribute('start', $value);
+        return $this->setAttribute('start', $value);
     }
 }

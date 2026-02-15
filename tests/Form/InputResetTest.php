@@ -180,34 +180,6 @@ final class InputResetTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" data-test="value">
-            HTML,
-            InputReset::tag()
-                ->addAttribute('data-test', 'value')
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" title="Reset form">
-            HTML,
-            InputReset::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Reset form')
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -575,7 +547,7 @@ final class InputResetTest extends TestCase
             <input id="inputreset" type="reset">
             HTML,
             InputReset::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputreset')
                 ->removeAttribute('data-test')
                 ->render(),
@@ -623,6 +595,34 @@ final class InputResetTest extends TestCase
                 ->role(Role::BUTTON)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" data-test="value">
+            HTML,
+            InputReset::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" title="Reset form">
+            HTML,
+            InputReset::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Reset form')
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

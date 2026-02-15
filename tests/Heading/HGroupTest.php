@@ -61,7 +61,7 @@ final class HGroupTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             HGroup::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -121,34 +121,6 @@ final class HGroupTest extends TestCase
                 ->addAriaAttribute(Aria::PRESSED, true)
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <hgroup data-test="value">
-            </hgroup>
-            HTML,
-            HGroup::tag()
-                ->addAttribute('data-test', 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <hgroup title="value">
-            </hgroup>
-            HTML,
-            HGroup::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
 
@@ -507,7 +479,7 @@ final class HGroupTest extends TestCase
             </hgroup>
             HTML,
             HGroup::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -554,6 +526,34 @@ final class HGroupTest extends TestCase
                 ->role(Role::GROUP)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <hgroup data-test="value">
+            </hgroup>
+            HTML,
+            HGroup::tag()
+                ->setAttribute('data-test', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <hgroup title="value">
+            </hgroup>
+            HTML,
+            HGroup::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

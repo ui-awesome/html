@@ -7,9 +7,7 @@ namespace UIAwesome\Html\Metadata\Attribute;
 /**
  * Provides an immutable API for the HTML `shadowrootserializable` attribute.
  *
- * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
- * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
- *
+ * @mixin \UIAwesome\Html\Mixin\HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#shadowrootserializable
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -33,6 +31,6 @@ trait HasShadowRootSerializable
      */
     public function shadowRootSerializable(bool $value): static
     {
-        return $this->addAttribute('shadowrootserializable', $value);
+        return $this->setAttribute('shadowrootserializable', $value);
     }
 }

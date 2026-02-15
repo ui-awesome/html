@@ -61,7 +61,7 @@ final class NoScriptTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             NoScript::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -121,34 +121,6 @@ final class NoScriptTest extends TestCase
                 ->addAriaAttribute(Aria::HIDDEN, true)
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
-        );
-    }
-
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <noscript data-test="value">
-            </noscript>
-            HTML,
-            NoScript::tag()
-                ->addAttribute('data-test', 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <noscript title="Fallback content">
-            </noscript>
-            HTML,
-            NoScript::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Fallback content')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
 
@@ -518,7 +490,7 @@ final class NoScriptTest extends TestCase
             </noscript>
             HTML,
             NoScript::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -565,6 +537,34 @@ final class NoScriptTest extends TestCase
                 ->role(Role::ALERT)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <noscript data-test="value">
+            </noscript>
+            HTML,
+            NoScript::tag()
+                ->setAttribute('data-test', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <noscript title="Fallback content">
+            </noscript>
+            HTML,
+            NoScript::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Fallback content')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

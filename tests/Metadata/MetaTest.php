@@ -54,7 +54,7 @@ final class MetaTest extends TestCase
         self::assertSame(
             ['data-test' => 'value'],
             Meta::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -96,32 +96,6 @@ final class MetaTest extends TestCase
                 ->addAriaAttribute(Aria::HIDDEN, true)
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
-        );
-    }
-
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <meta data-test="value">
-            HTML,
-            Meta::tag()
-                ->addAttribute('data-test', 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <meta title="Meta tag">
-            HTML,
-            Meta::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Meta tag')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
         );
     }
 
@@ -450,7 +424,7 @@ final class MetaTest extends TestCase
             <meta>
             HTML,
             Meta::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->removeAttribute('data-test')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -492,6 +466,32 @@ final class MetaTest extends TestCase
                 ->role(Role::BANNER)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <meta data-test="value">
+            HTML,
+            Meta::tag()
+                ->setAttribute('data-test', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <meta title="Meta tag">
+            HTML,
+            Meta::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Meta tag')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

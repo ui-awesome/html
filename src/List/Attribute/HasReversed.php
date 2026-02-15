@@ -7,9 +7,7 @@ namespace UIAwesome\Html\List\Attribute;
 /**
  * Provides an immutable API for the HTML `reversed` attribute.
  *
- * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
- * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
- *
+ * @mixin \UIAwesome\Html\Mixin\HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol#reversed
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -31,6 +29,6 @@ trait HasReversed
      */
     public function reversed(bool $value): static
     {
-        return $this->addAttribute('reversed', $value);
+        return $this->setAttribute('reversed', $value);
     }
 }

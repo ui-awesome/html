@@ -181,34 +181,6 @@ final class InputTextTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtext" type="text" data-test="value">
-            HTML,
-            InputText::tag()
-                ->addAttribute('data-test', 'value')
-                ->id('inputtext')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtext" type="text" title="Enter text">
-            HTML,
-            InputText::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Enter text')
-                ->id('inputtext')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -716,7 +688,7 @@ final class InputTextTest extends TestCase
             <input id="inputtext" type="text">
             HTML,
             InputText::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputtext')
                 ->removeAttribute('data-test')
                 ->render(),
@@ -778,6 +750,34 @@ final class InputTextTest extends TestCase
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtext" type="text" data-test="value">
+            HTML,
+            InputText::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputtext')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtext" type="text" title="Enter text">
+            HTML,
+            InputText::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Enter text')
+                ->id('inputtext')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

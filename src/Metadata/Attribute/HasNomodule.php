@@ -7,9 +7,7 @@ namespace UIAwesome\Html\Metadata\Attribute;
 /**
  * Provides an immutable API for the HTML `nomodule` attribute.
  *
- * @method static addAttribute(string|\UnitEnum $key, mixed $value) Adds an attribute and returns a new instance.
- * {@see \UIAwesome\Html\Mixin\HasAttributes} for managing the underlying attributes array.
- *
+ * @mixin \UIAwesome\Html\Mixin\HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script#nomodule
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -34,6 +32,6 @@ trait HasNomodule
      */
     public function nomodule(bool $value): static
     {
-        return $this->addAttribute('nomodule', $value);
+        return $this->setAttribute('nomodule', $value);
     }
 }

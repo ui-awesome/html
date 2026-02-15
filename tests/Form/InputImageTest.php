@@ -181,34 +181,6 @@ final class InputImageTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputimage" type="image" data-test="value">
-            HTML,
-            InputImage::tag()
-                ->addAttribute('data-test', 'value')
-                ->id('inputimage')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputimage" type="image" title="Select image">
-            HTML,
-            InputImage::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'Select image')
-                ->id('inputimage')
-                ->render(),
-            "Failed asserting that element renders correctly with 'addAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -674,7 +646,7 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image">
             HTML,
             InputImage::tag()
-                ->addAttribute('data-test', 'value')
+                ->setAttribute('data-test', 'value')
                 ->id('inputimage')
                 ->removeAttribute('data-test')
                 ->render(),
@@ -722,6 +694,34 @@ final class InputImageTest extends TestCase
                 ->role(Role::BUTTON)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputimage" type="image" data-test="value">
+            HTML,
+            InputImage::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputimage')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputimage" type="image" title="Select image">
+            HTML,
+            InputImage::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select image')
+                ->id('inputimage')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
