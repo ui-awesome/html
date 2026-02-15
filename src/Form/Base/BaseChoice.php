@@ -39,7 +39,6 @@ abstract class BaseChoice extends BaseInput
         return $this->buildAttributes(parent::getAttributes());
     }
 
-
     /**
      * Renders the `<input>` element with its attributes.
      *
