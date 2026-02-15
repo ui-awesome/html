@@ -124,34 +124,6 @@ final class MainTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <main data-test="value">
-            </main>
-            HTML,
-            Main::tag()
-                ->setAttribute('data-test', 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <main title="value">
-            </main>
-            HTML,
-            Main::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -554,6 +526,34 @@ final class MainTest extends TestCase
                 ->role(Role::BANNER)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <main data-test="value">
+            </main>
+            HTML,
+            Main::tag()
+                ->setAttribute('data-test', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <main title="value">
+            </main>
+            HTML,
+            Main::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

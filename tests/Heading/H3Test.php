@@ -124,34 +124,6 @@ final class H3Test extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <h3 data-test="value">
-            </h3>
-            HTML,
-            H3::tag()
-                ->setAttribute('data-test', 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <h3 title="value">
-            </h3>
-            HTML,
-            H3::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -554,6 +526,34 @@ final class H3Test extends TestCase
                 ->role(Role::BANNER)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <h3 data-test="value">
+            </h3>
+            HTML,
+            H3::tag()
+                ->setAttribute('data-test', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <h3 title="value">
+            </h3>
+            HTML,
+            H3::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

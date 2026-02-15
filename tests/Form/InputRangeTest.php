@@ -180,34 +180,6 @@ final class InputRangeTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" data-test="value">
-            HTML,
-            InputRange::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" title="Select range">
-            HTML,
-            InputRange::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select range')
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -722,6 +694,34 @@ final class InputRangeTest extends TestCase
                 ->role(Role::SLIDER)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputrange" type="range" data-test="value">
+            HTML,
+            InputRange::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputrange')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputrange" type="range" title="Select range">
+            HTML,
+            InputRange::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select range')
+                ->id('inputrange')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

@@ -191,34 +191,6 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" data-test="value">
-            HTML,
-            InputPassword::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputpassword')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" title="Enter password">
-            HTML,
-            InputPassword::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Enter password')
-                ->id('inputpassword')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -788,6 +760,34 @@ final class InputPasswordTest extends TestCase
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputpassword" type="password" data-test="value">
+            HTML,
+            InputPassword::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputpassword')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputpassword" type="password" title="Enter password">
+            HTML,
+            InputPassword::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Enter password')
+                ->id('inputpassword')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

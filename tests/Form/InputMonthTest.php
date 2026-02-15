@@ -180,34 +180,6 @@ final class InputMonthTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputmonth" type="month" data-test="value">
-            HTML,
-            InputMonth::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputmonth')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputmonth" type="month" title="Select month">
-            HTML,
-            InputMonth::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select month')
-                ->id('inputmonth')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -750,6 +722,34 @@ final class InputMonthTest extends TestCase
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputmonth" type="month" data-test="value">
+            HTML,
+            InputMonth::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputmonth')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputmonth" type="month" title="Select month">
+            HTML,
+            InputMonth::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select month')
+                ->id('inputmonth')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

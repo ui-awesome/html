@@ -182,34 +182,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" data-test="value">
-            HTML,
-            InputUrl::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" title="Select url">
-            HTML,
-            InputUrl::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select url')
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -765,6 +737,34 @@ final class InputUrlTest extends TestCase
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputurl" type="url" data-test="value">
+            HTML,
+            InputUrl::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputurl')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputurl" type="url" title="Select url">
+            HTML,
+            InputUrl::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select url')
+                ->id('inputurl')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

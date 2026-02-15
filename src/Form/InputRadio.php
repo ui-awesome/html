@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form;
 
 use UIAwesome\Html\Attribute\Values\Type;
-use UIAwesome\Html\Core\Html;
 use UIAwesome\Html\Form\Base\BaseChoice;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 

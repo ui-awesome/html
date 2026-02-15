@@ -182,34 +182,6 @@ final class InputTelTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" data-test="value">
-            HTML,
-            InputTel::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" title="Select phone">
-            HTML,
-            InputTel::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select phone')
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -765,6 +737,34 @@ final class InputTelTest extends TestCase
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" data-test="value">
+            HTML,
+            InputTel::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" title="Select phone">
+            HTML,
+            InputTel::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select phone')
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

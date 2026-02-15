@@ -180,34 +180,6 @@ final class InputTimeTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtime" type="time" data-test="value">
-            HTML,
-            InputTime::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputtime')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtime" type="time" title="Select time">
-            HTML,
-            InputTime::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select time')
-                ->id('inputtime')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -750,6 +722,34 @@ final class InputTimeTest extends TestCase
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" data-test="value">
+            HTML,
+            InputTime::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtime" type="time" title="Select time">
+            HTML,
+            InputTime::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select time')
+                ->id('inputtime')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

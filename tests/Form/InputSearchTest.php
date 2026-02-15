@@ -181,31 +181,6 @@ final class InputSearchTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsearch" type="search" data-test="value">
-            HTML,
-            InputSearch::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputsearch')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsearch" type="search" title="Search here">
-            HTML,
-            InputSearch::tag()->id('inputsearch')->setAttribute(GlobalAttribute::TITLE, 'Search here')->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -686,6 +661,31 @@ final class InputSearchTest extends TestCase
             HTML,
             InputSearch::tag()->id('inputsearch')->role(Role::SEARCHBOX)->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputsearch" type="search" data-test="value">
+            HTML,
+            InputSearch::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputsearch')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputsearch" type="search" title="Search here">
+            HTML,
+            InputSearch::tag()->id('inputsearch')->setAttribute(GlobalAttribute::TITLE, 'Search here')->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

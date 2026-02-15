@@ -189,34 +189,6 @@ final class InputRadioTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" data-test="value">
-            HTML,
-            InputRadio::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" title="Select radio">
-            HTML,
-            InputRadio::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select radio')
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -983,6 +955,34 @@ final class InputRadioTest extends TestCase
                 ->role(Role::RADIO)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputradio" type="radio" data-test="value">
+            HTML,
+            InputRadio::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputradio')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputradio" type="radio" title="Select radio">
+            HTML,
+            InputRadio::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select radio')
+                ->id('inputradio')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

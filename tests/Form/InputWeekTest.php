@@ -181,34 +181,6 @@ final class InputWeekTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" data-test="value">
-            HTML,
-            InputWeek::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" title="Select week">
-            HTML,
-            InputWeek::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select week')
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -749,6 +721,34 @@ final class InputWeekTest extends TestCase
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputweek" type="week" data-test="value">
+            HTML,
+            InputWeek::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputweek')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputweek" type="week" title="Select week">
+            HTML,
+            InputWeek::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select week')
+                ->id('inputweek')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

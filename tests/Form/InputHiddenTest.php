@@ -179,34 +179,6 @@ final class InputHiddenTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" data-test="value">
-            HTML,
-            InputHidden::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" title="Hidden input">
-            HTML,
-            InputHidden::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Hidden input')
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -650,6 +622,34 @@ final class InputHiddenTest extends TestCase
                 ->role(Role::PRESENTATION)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputhidden" type="hidden" data-test="value">
+            HTML,
+            InputHidden::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputhidden')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputhidden" type="hidden" title="Hidden input">
+            HTML,
+            InputHidden::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Hidden input')
+                ->id('inputhidden')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 

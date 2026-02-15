@@ -181,34 +181,6 @@ final class InputNumberTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" data-test="value">
-            HTML,
-            InputNumber::tag()
-                ->setAttribute('data-test', 'value')
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" title="Select number">
-            HTML,
-            InputNumber::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select number')
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -765,6 +737,34 @@ final class InputNumberTest extends TestCase
                 ->role(Role::SPINBUTTON)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithSetAttribute(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputnumber" type="number" data-test="value">
+            HTML,
+            InputNumber::tag()
+                ->setAttribute('data-test', 'value')
+                ->id('inputnumber')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithSetAttributeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputnumber" type="number" title="Select number">
+            HTML,
+            InputNumber::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'Select number')
+                ->id('inputnumber')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
         );
     }
 
