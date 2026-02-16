@@ -32,10 +32,10 @@ abstract class BaseChoice extends BaseInput
     use CanBeAutofocus;
     use CanBeEnclosedByLabel;
     use CanBeRequired;
-    use HasUnchecked;
     use HasCheckedState;
     use HasLabelCollection;
     use HasTabindex;
+    use HasUnchecked;
     use HasValue;
 
     /**
