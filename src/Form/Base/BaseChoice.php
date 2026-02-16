@@ -10,7 +10,7 @@ use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Core\Html;
 use UIAwesome\Html\Form\InputHidden;
-use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, HasUnchecked, HasCheckedState};
+use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, HasCheckedState, HasUnchecked};
 use UIAwesome\Html\Mixin\HasLabelCollection;
 use UIAwesome\Html\Phrasing\Label;
 
