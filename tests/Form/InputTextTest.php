@@ -13,13 +13,13 @@ use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see InputText} text input behavior.
+ * Unit tests for {@see InputText} class.
  *
  * Test coverage.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Applies input-text-specific attributes (`autocomplete`, `autofocus`, `dirname`, `disabled`, `form`, `list`,
  *   `maxlength`, `minlength`, `name`, `pattern`, `placeholder`, `readonly`, `required`, `size`, `spellcheck`,
  *   `tabindex`, `value`) and renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
@@ -206,6 +206,20 @@ final class InputTextTest extends TestCase
                 ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtext" type="text" onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            InputText::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputtext')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -464,6 +478,25 @@ final class InputTextTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtext" type="text" onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            InputText::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->id('inputtext')
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithForm(): void
     {
         self::assertSame(
@@ -708,6 +741,21 @@ final class InputTextTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtext" type="text">
+            HTML,
+            InputText::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputtext')
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 

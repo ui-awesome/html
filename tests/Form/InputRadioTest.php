@@ -22,10 +22,9 @@ use function str_replace;
  * Unit tests for the {@see InputRadio} class.
  *
  * Test coverage.
- *
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Applies input-radio-specific attributes (`autofocus`, `checked`, `disabled`, `form`, `name`, `required`,
  *   `tabindex`, `value`) and renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Handles edge cases for `checked` attribute with various data types and value comparisons.
  * - Renders attributes and string casting for a void element.
  * - Renders label configurations, including content, attributes, and tag name.
@@ -214,6 +213,20 @@ final class InputRadioTest extends TestCase
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputradio" type="radio" onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            InputRadio::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputradio')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -592,6 +605,25 @@ final class InputRadioTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputradio" type="radio" onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            InputRadio::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->id('inputradio')
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithForm(): void
     {
         self::assertSame(
@@ -913,6 +945,21 @@ final class InputRadioTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputradio" type="radio">
+            HTML,
+            InputRadio::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputradio')
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 
