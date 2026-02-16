@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form\Base;
 
-use UIAwesome\Html\Attribute\Form\HasRequired;
+use UIAwesome\Html\Attribute\Form\CanBeRequired;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Core\Element\BaseInput;
@@ -20,10 +20,10 @@ abstract class BaseChoice extends BaseInput
 {
     use CanBeAutofocus;
     use CanBeEnclosedByLabel;
+    use CanBeRequired;
     use CanBeUnchecked;
     use HasCheckedState;
     use HasLabelCollection;
-    use HasRequired;
     use HasTabindex;
     use HasValue;
 

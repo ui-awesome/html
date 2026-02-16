@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata;
 
 use UIAwesome\Html\Attribute\{
+    CanBeDisabled,
     HasAs,
     HasBlocking,
     HasCrossorigin,
-    HasDisabled,
     HasFetchpriority,
     HasHreflang,
     HasImagesizes,
@@ -43,10 +43,10 @@ use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
  */
 final class Link extends BaseVoid
 {
+    use CanBeDisabled;
     use HasAs;
     use HasBlocking;
     use HasCrossorigin;
-    use HasDisabled;
     use HasFetchpriority;
     use HasHref;
     use HasHreflang;

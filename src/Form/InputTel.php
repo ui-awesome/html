@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form;
 
 use UIAwesome\Html\Attribute\Form\{
+    CanBeReadonly,
+    CanBeRequired,
     HasAutocomplete,
     HasForm,
     HasList,
@@ -12,9 +14,7 @@ use UIAwesome\Html\Attribute\Form\{
     HasMinlength,
     HasPattern,
     HasPlaceholder,
-    HasReadonly,
-    HasRequired,
-    HasSize
+    HasSize,
 };
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasSpellcheck, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
@@ -46,6 +46,8 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
 final class InputTel extends BaseInput
 {
     use CanBeAutofocus;
+    use CanBeReadonly;
+    use CanBeRequired;
     use HasAutocomplete;
     use HasForm;
     use HasList;
@@ -53,8 +55,6 @@ final class InputTel extends BaseInput
     use HasMinlength;
     use HasPattern;
     use HasPlaceholder;
-    use HasReadonly;
-    use HasRequired;
     use HasSize;
     use HasSpellcheck;
     use HasTabindex;
