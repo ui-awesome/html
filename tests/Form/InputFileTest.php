@@ -54,21 +54,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-    public function testRenderWithAcceptUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputfile" name="inputfile" type="file" accept=".jpg, .png">
-            HTML,
-            InputFile::tag()
-                ->accept('.jpg, .png')
-                ->id('inputfile')
-                ->name('inputfile')
-                ->render(),
-            "Failed asserting that element renders correctly with 'accept' attribute.",
-        );
-    }
-
     public function testRenderWithAccesskey(): void
     {
         self::assertSame(
@@ -236,6 +221,20 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputfile" type="file" onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            InputFile::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputfile')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -484,6 +483,25 @@ final class InputFileTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputfile" type="file" onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            InputFile::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->id('inputfile')
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithForm(): void
     {
         self::assertSame(
@@ -678,6 +696,21 @@ final class InputFileTest extends TestCase
         );
     }
 
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputfile" type="file">
+            HTML,
+            InputFile::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputfile')
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+        );
+    }
+
     public function testRenderWithRequired(): void
     {
         self::assertSame(
@@ -828,6 +861,22 @@ final class InputFileTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+        );
+    }
+
+    public function testRenderWithUncheckedValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input name="inputfile" type="hidden" value="0">
+            <input id="inputfile" name="inputfile" type="file">
+            HTML,
+            InputFile::tag()
+                ->id('inputfile')
+                ->name('inputfile')
+                ->uncheckedValue('0')
+                ->render(),
+            'Failed asserting that element renders correctly with unchecked value.',
         );
     }
 
