@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form;
 
 use UIAwesome\Html\Attribute\Form\{
+    CanBeReadonly,
+    CanBeRequired,
     HasAutocomplete,
     HasForm,
     HasList,
     HasMax,
     HasMin,
     HasPlaceholder,
-    HasReadonly,
-    HasRequired,
-    HasStep
+    HasStep,
 };
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
@@ -44,14 +44,14 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
 final class InputNumber extends BaseInput
 {
     use CanBeAutofocus;
+    use CanBeReadonly;
+    use CanBeRequired;
     use HasAutocomplete;
     use HasForm;
     use HasList;
     use HasMax;
     use HasMin;
     use HasPlaceholder;
-    use HasReadonly;
-    use HasRequired;
     use HasStep;
     use HasTabindex;
     use HasValue;

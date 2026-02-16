@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form;
 
 use UIAwesome\Html\Attribute\Form\{
+    CanBeReadonly,
+    CanBeRequired,
     HasAutocomplete,
     HasDirname,
     HasForm,
@@ -13,9 +15,7 @@ use UIAwesome\Html\Attribute\Form\{
     HasMinlength,
     HasPattern,
     HasPlaceholder,
-    HasReadonly,
-    HasRequired,
-    HasSize
+    HasSize,
 };
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasSpellcheck, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
@@ -49,6 +49,8 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
 final class InputSearch extends BaseInput
 {
     use CanBeAutofocus;
+    use CanBeReadonly;
+    use CanBeRequired;
     use HasAutocomplete;
     use HasDirname;
     use HasForm;
@@ -57,8 +59,6 @@ final class InputSearch extends BaseInput
     use HasMinlength;
     use HasPattern;
     use HasPlaceholder;
-    use HasReadonly;
-    use HasRequired;
     use HasSize;
     use HasSpellcheck;
     use HasTabindex;

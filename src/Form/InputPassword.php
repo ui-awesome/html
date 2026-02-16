@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form;
 
 use UIAwesome\Html\Attribute\Form\{
+    CanBeReadonly,
+    CanBeRequired,
     HasAutocomplete,
     HasForm,
     HasMaxlength,
     HasMinlength,
     HasPattern,
     HasPlaceholder,
-    HasReadonly,
-    HasRequired,
-    HasSize
+    HasSize,
 };
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasInputMode, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
@@ -44,6 +44,8 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
 final class InputPassword extends BaseInput
 {
     use CanBeAutofocus;
+    use CanBeReadonly;
+    use CanBeRequired;
     use HasAutocomplete;
     use HasForm;
     use HasInputMode;
@@ -51,8 +53,6 @@ final class InputPassword extends BaseInput
     use HasMinlength;
     use HasPattern;
     use HasPlaceholder;
-    use HasReadonly;
-    use HasRequired;
     use HasSize;
     use HasTabindex;
     use HasValue;
