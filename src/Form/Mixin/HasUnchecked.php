@@ -13,7 +13,7 @@ use UnitEnum;
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-trait CanBeUnchecked
+trait HasUnchecked
 {
     /**
      * Value to be submitted when the element is not checked.

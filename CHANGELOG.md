@@ -30,6 +30,7 @@
 - Bug #42: Fix messages in `assert()` methods and code style (@terabytesoftw)
 - Bug #43: Update `ui-awesome/html-helper` to version `^0.7` and `ui-awesome/html-mixin` to version `^0.4` in `composer.json` and apply necessary changes to `src` and `tests` directories (@terabytesoftw)
 - Bug #44: Update last modified from `ui-awesome/html-attribute` in related classes (@terabytesoftw)
+- Bug #45: Better naming for `CanBeUnchecked` to `HasUnchecked` and update phpdoc `BaseChoice` classes (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 

@@ -10,21 +10,32 @@ use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Core\Html;
 use UIAwesome\Html\Form\InputHidden;
-use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, CanBeUnchecked, HasCheckedState};
+use UIAwesome\Html\Form\Mixin\{CanBeEnclosedByLabel, HasCheckedState, HasUnchecked};
 use UIAwesome\Html\Mixin\HasLabelCollection;
 use UIAwesome\Html\Phrasing\Label;
 
 use function array_key_exists;
 
+/**
+ * Provides a shared base for checkbox and radio input elements.
+ *
+ * Handles unchecked hidden input rendering, label rendering (enclosed or separate), and checked-state and value
+ * attributes through mixins.
+ *
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+ *
+ * @copyright Copyright (C) 2026 Terabytesoftw.
+ * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ */
 abstract class BaseChoice extends BaseInput
 {
     use CanBeAutofocus;
     use CanBeEnclosedByLabel;
     use CanBeRequired;
-    use CanBeUnchecked;
     use HasCheckedState;
     use HasLabelCollection;
     use HasTabindex;
+    use HasUnchecked;
     use HasValue;
 
     /**
