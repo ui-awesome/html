@@ -20,10 +20,9 @@ use UnitEnum;
  * Unit tests for the {@see InputCheckbox} class.
  *
  * Test coverage.
- *
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Applies input-checkbox-specific attributes (`autofocus`, `checked`, `disabled`, `form`, `name`, `required`,
  *   `tabindex`, `value`) and renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Handles edge cases for `checked` attribute with various data types and value comparisons.
  * - Renders attributes and string casting for a void element.
  * - Renders label configurations, including content, attributes, and tag name.
@@ -212,6 +211,20 @@ final class InputCheckboxTest extends TestCase
                 ->id('inputcheckbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            InputCheckbox::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -583,6 +596,25 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox" onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            InputCheckbox::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->id('inputcheckbox')
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithForm(): void
     {
         self::assertSame(
@@ -904,6 +936,21 @@ final class InputCheckboxTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcheckbox" type="checkbox">
+            HTML,
+            InputCheckbox::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputcheckbox')
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 

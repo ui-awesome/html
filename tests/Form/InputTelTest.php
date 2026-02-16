@@ -16,11 +16,10 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for the {@see InputTel} class.
  *
  * Test coverage.
- *
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Applies input-tel-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `maxlength`,
  *   `minlength`, `name`, `pattern`, `placeholder`, `readonly`, `required`, `size`, `spellcheck`, `tabindex`, `value`)
  *   and renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
@@ -207,6 +206,20 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            InputTel::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -448,6 +461,25 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
+        );
+    }
+
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            InputTel::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
         );
     }
 
@@ -695,6 +727,21 @@ final class InputTelTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel">
+            HTML,
+            InputTel::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputtel')
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 

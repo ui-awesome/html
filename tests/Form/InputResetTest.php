@@ -13,12 +13,12 @@ use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see InputReset} reset input behavior.
+ * Unit tests for {@see InputReset} class.
  *
  * Test coverage.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Applies input-reset-specific attributes (`autofocus`, `disabled`, `name`, `tabindex`, `value`) and renders expected
  *   output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
@@ -205,6 +205,20 @@ final class InputResetTest extends TestCase
                 ->id('inputreset')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            InputReset::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -421,6 +435,25 @@ final class InputResetTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset" onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            InputReset::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->id('inputreset')
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithGenerateId(): void
     {
         /** @phpstan-var string $id */
@@ -567,6 +600,21 @@ final class InputResetTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputreset" type="reset">
+            HTML,
+            InputReset::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputreset')
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 

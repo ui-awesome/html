@@ -23,13 +23,13 @@ use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see InputPassword} password input behavior.
+ * Unit tests for {@see InputPassword} class.
  *
  * Test coverage.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Applies input-password-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `inputmode`,
  *   `maxlength`, `minlength`, `name`, `pattern`, `placeholder`, `readonly`, `required`, `size`, `tabindex`, `value`)
  *   and renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
@@ -216,6 +216,20 @@ final class InputPasswordTest extends TestCase
                 ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputpassword" type="password" onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            InputPassword::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputpassword')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -457,6 +471,25 @@ final class InputPasswordTest extends TestCase
                 ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
+        );
+    }
+
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputpassword" type="password" onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            InputPassword::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->id('inputpassword')
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
         );
     }
 
@@ -718,6 +751,21 @@ final class InputPasswordTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputpassword" type="password">
+            HTML,
+            InputPassword::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->id('inputpassword')
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 
