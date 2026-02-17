@@ -30,9 +30,9 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Form\InputNumber::tag()
- *     ->name('quantity')
- *     ->min(1)
  *     ->max(5)
+ *     ->min(1)
+ *     ->name('quantity')
  *     ->render();
  * ```
  *

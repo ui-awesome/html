@@ -31,15 +31,15 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  *     ->name('vacation-week')
  *     ->render();
  * echo InputWeek::tag()
- *     ->name('camp-week')
- *     ->min('2018-W18')
  *     ->max('2018-W26')
+ *     ->min('2018-W18')
+ *     ->name('camp-week')
  *     ->required(true)
  *     ->render();
  * echo InputWeek::tag()
  *     ->name('report-week')
- *     ->value('2024-W15')
  *     ->readonly(true)
+ *     ->value('2024-W15')
  *     ->render();
  * ```
  *

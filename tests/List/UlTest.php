@@ -25,7 +25,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Ul} rendering and global attribute behavior.
  *
  * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, and string casting with expected encoding behavior.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -149,6 +149,20 @@ final class UlTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <ul onclick="alert(&apos;Clicked!&apos;)">
+            </ul>
+            HTML,
+            Ul::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -366,9 +380,31 @@ final class UlTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <ul onfocus="handleFocus()" onblur="handleBlur()">
+            </ul>
+            HTML,
+            Ul::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Ul::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            Ul::class,
+            ['class' => 'default-class'],
+        );
 
         self::assertSame(
             <<<HTML
@@ -379,7 +415,10 @@ final class UlTest extends TestCase
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Ul::class, []);
+        SimpleFactory::setDefaults(
+            Ul::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -562,6 +601,21 @@ final class UlTest extends TestCase
         );
     }
 
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <ul>
+            </ul>
+            HTML,
+            Ul::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+        );
+    }
+
     public function testRenderWithRole(): void
     {
         self::assertSame(
@@ -730,7 +784,13 @@ final class UlTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Ul::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            Ul::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -741,7 +801,10 @@ final class UlTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Ul::class, []);
+        SimpleFactory::setDefaults(
+            Ul::class,
+            [],
+        );
     }
 
     public function testReturnNewInstanceWhenSettingAttribute(): void

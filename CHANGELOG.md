@@ -32,7 +32,7 @@
 - Bug #44: Update last modified from `ui-awesome/html-attribute` in related classes (@terabytesoftw)
 - Bug #45: Better naming for `CanBeUnchecked` to `HasUnchecked` and update PHPDoc `BaseChoice` classes (@terabytesoftw)
 - Enh #46: Add `InputFile` class for HTML `<input type="file">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #47: Update PHPDoc in `tests`and add new tests for `on*` attribute (@terabytesoftw)
+- Bug #47: Update PHPDoc in `tests` and add new tests for `on*` attribute (@terabytesoftw)
 - Enh #48: Add `InputEmail` class for HTML `<input type="email">` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024

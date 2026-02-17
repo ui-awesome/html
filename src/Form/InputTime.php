@@ -31,15 +31,15 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  *     ->name('meeting-time')
  *     ->render();
  * echo InputTime::tag()
- *     ->name('alarm')
- *     ->min('09:00')
  *     ->max('18:00')
+ *     ->min('09:00')
+ *     ->name('alarm')
  *     ->required(true)
  *     ->render();
  * echo InputTime::tag()
  *     ->name('appointment')
- *     ->value('14:30')
  *     ->readonly(true)
+ *     ->value('14:30')
  *     ->render();
  * ```
  *

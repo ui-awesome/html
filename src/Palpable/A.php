@@ -23,8 +23,9 @@ use UIAwesome\Html\Interop\{Inline, InlineInterface};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Palpable\A::tag()
+ *     ->content('Visit Example')
  *     ->href('https://example.com')
- *     ->content('Visit Example');
+ *     ->render();
  * ```
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a

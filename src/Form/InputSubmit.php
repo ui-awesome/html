@@ -24,8 +24,8 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Form\InputSubmit::tag()
- *     ->value('Save')
  *     ->class('btn btn-primary')
+ *     ->value('Save')
  *     ->render();
  * ```
  *

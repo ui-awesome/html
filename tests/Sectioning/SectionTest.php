@@ -25,7 +25,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Section} sectioning content behavior.
  *
  * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, and string casting with expected encoding behavior.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -149,6 +149,20 @@ final class SectionTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <section onclick="alert(&apos;Clicked!&apos;)">
+            </section>
+            HTML,
+            Section::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -366,9 +380,31 @@ final class SectionTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <section onfocus="handleFocus()" onblur="handleBlur()">
+            </section>
+            HTML,
+            Section::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Section::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            Section::class,
+            ['class' => 'default-class'],
+        );
 
         self::assertSame(
             <<<HTML
@@ -379,7 +415,10 @@ final class SectionTest extends TestCase
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Section::class, []);
+        SimpleFactory::setDefaults(
+            Section::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -498,6 +537,21 @@ final class SectionTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <section>
+            </section>
+            HTML,
+            Section::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 
@@ -669,7 +723,13 @@ final class SectionTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Section::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            Section::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -680,6 +740,9 @@ final class SectionTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Section::class, []);
+        SimpleFactory::setDefaults(
+            Section::class,
+            [],
+        );
     }
 }

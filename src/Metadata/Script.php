@@ -23,8 +23,8 @@ use UIAwesome\Html\Metadata\Attribute\{HasAsync, HasDefer, HasNomodule};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Metadata\Script::tag()
- *     ->src('https://example.com/app.js')
  *     ->async(true)
+ *     ->src('https://example.com/app.js')
  *     ->render();
  * ```
  *

@@ -31,10 +31,10 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * ```php
  * echo \UIAwesome\Html\Form\InputTel::tag()
  *     ->name('phone')
- *     ->placeholder('123-456-7890')
  *     ->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')
- *     ->size(20)
+ *     ->placeholder('123-456-7890')
  *     ->required(true)
+ *     ->size(20)
  *     ->render();
  * ```
  *

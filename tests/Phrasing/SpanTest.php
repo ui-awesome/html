@@ -23,7 +23,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Span} inline phrasing behavior.
  *
  * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, and string casting with expected encoding behavior.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -138,6 +138,19 @@ final class SpanTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span onclick="alert(&apos;Clicked!&apos;)"></span>
+            HTML,
+            Span::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -273,9 +286,30 @@ final class SpanTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span onfocus="handleFocus()" onblur="handleBlur()"></span>
+            HTML,
+            Span::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Span::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            Span::class,
+            ['class' => 'default-class'],
+        );
 
         self::assertSame(
             <<<HTML
@@ -285,7 +319,10 @@ final class SpanTest extends TestCase
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Span::class, []);
+        SimpleFactory::setDefaults(
+            Span::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -379,6 +416,20 @@ final class SpanTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span></span>
+            HTML,
+            Span::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 
@@ -512,7 +563,13 @@ final class SpanTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Span::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            Span::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -522,6 +579,9 @@ final class SpanTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Span::class, []);
+        SimpleFactory::setDefaults(
+            Span::class,
+            [],
+        );
     }
 }

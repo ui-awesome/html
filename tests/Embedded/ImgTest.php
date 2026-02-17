@@ -29,9 +29,9 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Img} rendering and image attribute behavior.
  *
  * Test coverage.
- * - Applies image-specific attributes (`alt`, `crossorigin`, `decoding`, `elementtiming`, `fetchpriority`, `height`,
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
+ * - Applies image specific attributes (`alt`, `crossorigin`, `decoding`, `elementtiming`, `fetchpriority`, `height`,
  *   `ismap`, `loading`, `referrerpolicy`, `sizes`, `src`, `srcset`, `usemap`, `width`) and renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Ensures fluent attribute setters return new instances (immutability).
  * - Renders attributes and string casting for a void element.
@@ -128,6 +128,19 @@ final class ImgTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <img onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            Img::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -328,6 +341,24 @@ final class ImgTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <img onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            Img::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithFetchpriority(): void
     {
         self::assertSame(
@@ -356,7 +387,10 @@ final class ImgTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Img::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            Img::class,
+            ['class' => 'default-class'],
+        );
 
         self::assertSame(
             '<img class="default-class">',
@@ -364,7 +398,10 @@ final class ImgTest extends TestCase
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Img::class, []);
+        SimpleFactory::setDefaults(
+            Img::class,
+            [],
+        );
     }
 
     public function testRenderWithHeight(): void
@@ -552,6 +589,20 @@ final class ImgTest extends TestCase
         );
     }
 
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <img>
+            HTML,
+            Img::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+        );
+    }
+
     public function testRenderWithRole(): void
     {
         self::assertSame(
@@ -732,7 +783,13 @@ final class ImgTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Img::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            Img::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -742,7 +799,10 @@ final class ImgTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Img::class, []);
+        SimpleFactory::setDefaults(
+            Img::class,
+            [],
+        );
     }
 
     public function testRenderWithWidth(): void
@@ -841,7 +901,7 @@ final class ImgTest extends TestCase
             "Value 'invalid' is not in the list of valid values for 'crossorigin': 'anonymous', 'use-credentials'.",
         );
 
-        Img::tag()->crossorigin('invalid')->render();
+        Img::tag()->crossorigin('invalid');
     }
 
     public function testThrowInvalidArgumentExceptionWhenInvalidDecoding(): void
@@ -851,7 +911,7 @@ final class ImgTest extends TestCase
             "Value 'invalid' is not in the list of valid values for 'decoding': 'async', 'auto', 'sync'.",
         );
 
-        Img::tag()->decoding('invalid')->render();
+        Img::tag()->decoding('invalid');
     }
 
     public function testThrowInvalidArgumentExceptionWhenInvalidFetchpriority(): void
@@ -861,7 +921,7 @@ final class ImgTest extends TestCase
             "Value 'invalid' is not in the list of valid values for 'fetchpriority': 'auto', 'high', 'low'.",
         );
 
-        Img::tag()->fetchpriority('invalid')->render();
+        Img::tag()->fetchpriority('invalid');
     }
 
     public function testThrowInvalidArgumentExceptionWhenInvalidLoading(): void
@@ -871,7 +931,7 @@ final class ImgTest extends TestCase
             "Value 'invalid' is not in the list of valid values for 'loading': 'eager', 'lazy'.",
         );
 
-        Img::tag()->loading('invalid')->render();
+        Img::tag()->loading('invalid');
     }
 
     public function testThrowInvalidArgumentExceptionWhenInvalidReferrerpolicy(): void
@@ -883,6 +943,6 @@ final class ImgTest extends TestCase
             . "'same-origin', 'strict-origin', 'strict-origin-when-cross-origin', 'unsafe-url'.",
         );
 
-        Img::tag()->referrerpolicy('invalid')->render();
+        Img::tag()->referrerpolicy('invalid');
     }
 }

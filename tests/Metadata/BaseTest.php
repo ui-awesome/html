@@ -27,8 +27,8 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Base} rendering and base attribute behavior.
  *
  * Test coverage.
- * - Applies `base`-specific attributes (`href`, `target`) and renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Applies base specific attributes (`href`, `target`) and renders expected output.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -122,6 +122,19 @@ final class BaseTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <base onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            Base::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -244,9 +257,30 @@ final class BaseTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <base onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            Base::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Base::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            Base::class,
+            ['class' => 'default-class'],
+        );
 
         self::assertSame(
             '<base class="default-class">',
@@ -254,7 +288,10 @@ final class BaseTest extends TestCase
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Base::class, []);
+        SimpleFactory::setDefaults(
+            Base::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -375,6 +412,20 @@ final class BaseTest extends TestCase
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <base>
+            HTML,
+            Base::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
         );
     }
 
@@ -569,7 +620,13 @@ final class BaseTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Base::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            Base::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -579,7 +636,10 @@ final class BaseTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Base::class, []);
+        SimpleFactory::setDefaults(
+            Base::class,
+            [],
+        );
     }
 
     public function testThrowInvalidArgumentExceptionForSettingTarget(): void
