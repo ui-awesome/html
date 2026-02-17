@@ -13,8 +13,8 @@ use UIAwesome\Html\Interop\{BlockInterface, Root};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Root\Html::tag()
- *     ->lang('en')
  *     ->content('value')
+ *     ->lang('en')
  *     ->render();
  * ```
  *

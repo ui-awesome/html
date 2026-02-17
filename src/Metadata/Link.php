@@ -30,8 +30,8 @@ use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Metadata\Link::tag()
- *     ->rel('stylesheet')
  *     ->href('/css/site.css')
+ *     ->rel('stylesheet')
  *     ->render();
  * ```
  *

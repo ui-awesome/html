@@ -27,9 +27,9 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * ```php
  * echo \UIAwesome\Html\Form\InputImage::tag()
  *     ->alt('Login')
+ *     ->height(30)
  *     ->src('/images/login.png')
  *     ->width(100)
- *     ->height(30)
  *     ->render();
  * ```
  *

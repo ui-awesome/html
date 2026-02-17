@@ -36,8 +36,8 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  *     ->render();
  * echo InputSearch::tag()
  *     ->name('search')
- *     ->value('PHP')
  *     ->required(true)
+ *     ->value('PHP')
  *     ->render();
  * ```
  *

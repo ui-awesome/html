@@ -26,9 +26,9 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see A} rendering and anchor attribute behavior.
  *
  * Test coverage.
- * - Applies anchor-specific attributes (`download`, `href`, `hreflang`, `ping`, `referrerpolicy`, `rel`, `target`,
+ * - Applies anchor specific attributes (`download`, `href`, `hreflang`, `ping`, `referrerpolicy`, `rel`, `target`,
  *   `type`) and renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Ensures fluent attribute setters return new instances (immutability).
  * - Renders content, raw HTML, and string casting with expected encoding behavior.
@@ -148,6 +148,19 @@ final class ATest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <a onclick="alert(&apos;Clicked!&apos;)"></a>
+            HTML,
+            A::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -309,9 +322,30 @@ final class ATest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <a onfocus="handleFocus()" onblur="handleBlur()"></a>
+            HTML,
+            A::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(A::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            A::class,
+            ['class' => 'default-class'],
+        );
 
         self::assertSame(
             <<<HTML
@@ -321,7 +355,10 @@ final class ATest extends TestCase
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(A::class, []);
+        SimpleFactory::setDefaults(
+            A::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -522,6 +559,20 @@ final class ATest extends TestCase
         );
     }
 
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <a></a>
+            HTML,
+            A::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+        );
+    }
+
     public function testRenderWithRole(): void
     {
         self::assertSame(
@@ -691,7 +742,13 @@ final class ATest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(A::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            A::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -701,7 +758,10 @@ final class ATest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(A::class, []);
+        SimpleFactory::setDefaults(
+            A::class,
+            [],
+        );
     }
 
     public function testReturnNewInstanceWhenSettingAttribute(): void

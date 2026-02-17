@@ -14,8 +14,8 @@ use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Metadata\Meta::tag()
- *     ->name('viewport')
  *     ->content('width=device-width, initial-scale=1')
+ *     ->name('viewport')
  *     ->render();
  * ```
  *

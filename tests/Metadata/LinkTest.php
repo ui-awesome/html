@@ -30,10 +30,10 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Link} rendering and link attribute behavior.
  *
  * Test coverage.
- * - Applies `link`-specific attributes (`as`, `crossorigin`, `disabled`, `fetchpriority`, `href`, `hreflang`,
- *   `imagesizes`, `imagesrcset`, `integrity`, `media`, `referrerpolicy`, `rel`, `sizes`, `title`, `type`) and
- *   renders expected output.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, and enum-backed values.
+ * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
+ * - Applies link specific attributes (`as`, `crossorigin`, `disabled`, `fetchpriority`, `href`, `hreflang`,
+ *   `imagesizes`, `imagesrcset`, `integrity`, `media`, `referrerpolicy`, `rel`, `sizes`, `title`, `type`) and renders
+ *   expected output.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -127,6 +127,19 @@ final class LinkTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <link onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            Link::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -327,6 +340,24 @@ final class LinkTest extends TestCase
         );
     }
 
+    public function testRenderWithEvents(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <link onfocus="handleFocus()" onblur="handleBlur()">
+            HTML,
+            Link::tag()
+                ->events(
+                    [
+                        'focus' => 'handleFocus()',
+                        'blur' => 'handleBlur()',
+                    ],
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'events()' method.",
+        );
+    }
+
     public function testRenderWithFetchpriority(): void
     {
         self::assertSame(
@@ -355,7 +386,10 @@ final class LinkTest extends TestCase
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Link::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            Link::class,
+            ['class' => 'default-class'],
+        );
 
         self::assertSame(
             '<link class="default-class">',
@@ -363,7 +397,10 @@ final class LinkTest extends TestCase
             'Failed asserting that global defaults are applied correctly.',
         );
 
-        SimpleFactory::setDefaults(Link::class, []);
+        SimpleFactory::setDefaults(
+            Link::class,
+            [],
+        );
     }
 
     public function testRenderWithHidden(): void
@@ -591,6 +628,20 @@ final class LinkTest extends TestCase
         );
     }
 
+    public function testRenderWithRemoveEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <link>
+            HTML,
+            Link::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->removeEvent('click')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+        );
+    }
+
     public function testRenderWithRole(): void
     {
         self::assertSame(
@@ -759,7 +810,13 @@ final class LinkTest extends TestCase
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Link::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            Link::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
@@ -769,7 +826,10 @@ final class LinkTest extends TestCase
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(Link::class, []);
+        SimpleFactory::setDefaults(
+            Link::class,
+            [],
+        );
     }
 
     public function testThrowInvalidArgumentExceptionForSettingBlocking(): void

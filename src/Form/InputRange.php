@@ -27,16 +27,16 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Form\InputRange::tag()
- *     ->name('volume')
- *     ->min(0)
  *     ->max(11)
+ *     ->min(0)
+ *     ->name('volume')
  *     ->render();
  * echo InputRange::tag()
- *     ->name('cowbell')
- *     ->min(0)
  *     ->max(100)
- *     ->value(90)
+ *     ->min(0)
+ *     ->name('cowbell')
  *     ->step(10)
+ *     ->value(90)
  *     ->render();
  * ```
  *

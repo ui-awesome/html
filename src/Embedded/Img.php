@@ -26,11 +26,11 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Embedded\Img::tag()
- *     ->src('image.jpg')
  *     ->alt('A beautiful landscape')
- *     ->width(800)
  *     ->height(600)
  *     ->loading('lazy')
+ *     ->src('image.jpg')
+ *     ->width(800)
  *     ->render();
  * ```
  *

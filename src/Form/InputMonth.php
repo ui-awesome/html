@@ -28,8 +28,8 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Form\InputMonth::tag()
- *     ->name('start')
  *     ->min('2018-03')
+ *     ->name('start')
  *     ->value('2018-05')
  *     ->render();
  * echo InputMonth::tag()
@@ -37,9 +37,9 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  *     ->value('2001-06')
  *     ->render();
  * echo InputMonth::tag()
- *     ->name('month')
- *     ->min('2022-06')
  *     ->max('2022-09')
+ *     ->min('2022-06')
+ *     ->name('month')
  *     ->required(true)
  *     ->render();
  * ```

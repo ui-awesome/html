@@ -31,10 +31,10 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * ```php
  * echo \UIAwesome\Html\Form\InputUrl::tag()
  *     ->name('website')
- *     ->placeholder('https://example.com')
  *     ->pattern('https://.*')
- *     ->size(30)
+ *     ->placeholder('https://example.com')
  *     ->required(true)
+ *     ->size(30)
  *     ->render();
  * ```
  *
