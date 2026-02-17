@@ -968,11 +968,11 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" value="value">
+            <input id="inputdatetimelocal" type="datetime-local" value="2018-06-07T00:00">
             HTML,
             InputDateTimeLocal::tag()
                 ->id('inputdatetimelocal')
-                ->value('value')
+                ->value('2018-06-07T00:00')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
