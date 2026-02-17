@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
@@ -33,8 +34,8 @@ final class InputDateTimeLocalTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            InputDateTimeLocal::tag()->getAttribute('data-test', 'default'),
+            'value',
+            InputDateTimeLocal::tag()->getAttribute('data-test', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -368,6 +369,20 @@ final class InputDateTimeLocalTest extends TestCase
         );
     }
 
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input class="value" id="inputdatetimelocal" type="datetime-local">
+            HTML,
+            InputDateTimeLocal::tag()
+                ->class(BackedString::VALUE)
+                ->id('inputdatetimelocal')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
     public function testRenderWithDataAttributes(): void
     {
         self::assertSame(
@@ -605,11 +620,11 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" max="value">
+            <input id="inputdatetimelocal" type="datetime-local" max="2018-06-14T00:00">
             HTML,
             InputDateTimeLocal::tag()
                 ->id('inputdatetimelocal')
-                ->max('value')
+                ->max('2018-06-14T00:00')
                 ->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
         );
@@ -619,11 +634,11 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" min="value">
+            <input id="inputdatetimelocal" type="datetime-local" min="2018-06-07T00:00">
             HTML,
             InputDateTimeLocal::tag()
                 ->id('inputdatetimelocal')
-                ->min('value')
+                ->min('2018-06-07T00:00')
                 ->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
         );
@@ -633,12 +648,12 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" min="value" max="value">
+            <input id="inputdatetimelocal" type="datetime-local" min="2018-06-07T00:00" max="2018-06-14T00:00">
             HTML,
             InputDateTimeLocal::tag()
                 ->id('inputdatetimelocal')
-                ->min('value')
-                ->max('value')
+                ->min('2018-06-07T00:00')
+                ->max('2018-06-14T00:00')
                 ->render(),
             "Failed asserting that element renders correctly with both 'min' and 'max' attributes.",
         );
