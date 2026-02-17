@@ -725,7 +725,10 @@ final class DivTest extends TestCase
     {
         SimpleFactory::setDefaults(
             Div::class,
-            ['class' => 'from-global', 'id' => 'id-global'],
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
         );
 
         self::assertSame(
