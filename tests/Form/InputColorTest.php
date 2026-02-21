@@ -967,6 +967,22 @@ final class InputColorTest extends TestCase
         );
     }
 
+    public function testReturnNewInstanceWhenSettingAttribute(): void
+    {
+        $inputColor = InputColor::tag();
+
+        self::assertNotSame(
+            $inputColor,
+            $inputColor->alpha(false),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $inputColor,
+            $inputColor->colorspace(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+    }
+
     public function testThrowInvalidArgumentExceptionForSettingColorspace(): void
     {
         $this->expectException(InvalidArgumentException::class);
