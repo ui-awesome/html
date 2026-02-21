@@ -911,7 +911,7 @@ final class ImgTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenInvalidCrossorigin(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingCrossorigin(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
