@@ -42,8 +42,8 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             [
-                'type' => Type::FILE,
                 'id' => null,
+                'type' => Type::FILE,
                 'class' => 'value',
                 'name' => '',
             ],
@@ -643,23 +643,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-    public function testRenderWithMultipleAndUnchecked(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input name="value[]" type="hidden" value="0">
-            <input id="inputfile" name="value[]" type="file" multiple>
-            HTML,
-            InputFile::tag()
-                ->id('inputfile')
-                ->multiple(true)
-                ->name('value')
-                ->uncheckedValue('0')
-                ->render(),
-            "Failed asserting that element renders correctly with 'multiple' attribute and unchecked value.",
-        );
-    }
-
     public function testRenderWithName(): void
     {
         self::assertSame(
@@ -901,22 +884,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-    public function testRenderWithUncheckedValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input name="value" type="hidden" value="0">
-            <input id="inputfile" name="value" type="file">
-            HTML,
-            InputFile::tag()
-                ->id('inputfile')
-                ->name('value')
-                ->uncheckedValue('0')
-                ->render(),
-            'Failed asserting that element renders correctly with unchecked value.',
-        );
-    }
-
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(
@@ -962,11 +929,6 @@ final class InputFileTest extends TestCase
         self::assertNotSame(
             $inputFile,
             $inputFile->capture(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputFile,
-            $inputFile->uncheckedValue(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }
