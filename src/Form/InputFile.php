@@ -90,7 +90,6 @@ final class InputFile extends BaseInput
         return parent::loadDefault() + ['type' => [Type::FILE]];
     }
 
-
     /**
      * Renders the `<input>` element with its attributes.
      *
