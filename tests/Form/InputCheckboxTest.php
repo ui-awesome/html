@@ -25,7 +25,6 @@ use UnitEnum;
  *   `tabindex`, `value`) and renders expected output.
  * - Handles edge cases for `checked` attribute with various data types and value comparisons.
  * - Renders attributes and string casting for a void element.
- * - Renders label configurations, including content, attributes, and tag name.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -47,8 +46,8 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             [
-                'type' => Type::CHECKBOX,
                 'id' => null,
+                'type' => Type::CHECKBOX,
                 'class' => 'value',
             ],
             InputCheckbox::tag()
@@ -503,113 +502,6 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
-    public function testRenderWithEnclosedByLabel(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <label>
-            <input id="inputcheckbox" type="checkbox">
-            Label
-            </label>
-            HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->render(),
-            'Failed asserting that element renders correctly with enclosed label and label content.',
-        );
-    }
-
-    public function testRenderWithEnclosedByLabelAndCustomTemplate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="value">
-            <label>
-            <input id="inputcheckbox" type="checkbox">
-            Label
-            </label>
-            </div>
-            HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
-                ->render(),
-            'Failed asserting that element renders correctly with a custom template wrapper.',
-        );
-    }
-
-    public function testRenderWithEnclosedByLabelAndLabelContentEmpty(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id('inputcheckbox')
-                ->render(),
-            'Failed asserting that element renders correctly with enclosed label and empty label content.',
-        );
-    }
-
-    public function testRenderWithEnclosedByLabelAndLabelFor(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <label for="inputcheckbox">
-            <input id="inputcheckbox" type="checkbox">
-            Label
-            </label>
-            HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelFor('inputcheckbox')
-                ->render(),
-            'Failed asserting that element renders correctly with enclosed label and label "for" attribute.',
-        );
-    }
-
-    public function testRenderWithEnclosedByLabelIsIdempotent(): void
-    {
-        $checkbox = InputCheckbox::tag()
-            ->enclosedByLabel(true)
-            ->id('inputcheckbox')
-            ->label('Label');
-
-        $first = $checkbox->render();
-        $second = $checkbox->render();
-
-        self::assertSame(
-            $first,
-            $second,
-            'Rendering the same instance twice should produce identical output.',
-        );
-    }
-
-    public function testRenderWithEnclosedByLabelWithoutId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <label>
-            <input type="checkbox">
-            Label
-            </label>
-            HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id(null)
-                ->label('Label')
-                ->render(),
-            'Failed asserting that element renders correctly with enclosed label and no ID.',
-        );
-    }
-
     public function testRenderWithEvents(): void
     {
         self::assertSame(
@@ -705,152 +597,6 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
-    public function testRenderWithLabel(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label for="inputcheckbox">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->render(),
-            'Failed asserting that element renders correctly with label.',
-        );
-    }
-
-    public function testRenderWithLabelAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label class="value" for="inputcheckbox">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelAttributes(['class' => 'value'])
-                ->render(),
-            'Failed asserting that element renders correctly with label attributes.',
-        );
-    }
-
-    public function testRenderWithLabelClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label class="value" for="inputcheckbox">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelClass('value')
-                ->render(),
-            'Failed asserting that element renders correctly with label class.',
-        );
-    }
-
-    public function testRenderWithLabelClassNullValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label class="value" for="inputcheckbox">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelAttributes(['class' => 'value'])
-                ->labelClass(null)
-                ->render(),
-            "Failed asserting that element renders correctly with label class set to 'null'.",
-        );
-    }
-
-    public function testRenderWithLabelClassOverridesFalse(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label class="value value-override" for="inputcheckbox">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelAttributes(['class' => 'value'])
-                ->labelClass('value-override')
-                ->render(),
-            "Failed asserting that element renders correctly with label class overrides set to 'false'.",
-        );
-    }
-
-    public function testRenderWithLabelClassOverridesTrue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label class="value-override" for="inputcheckbox">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelAttributes(['class' => 'value'])
-                ->labelClass('value-override', true)
-                ->render(),
-            "Failed asserting that element renders correctly with label class overrides set to 'true'.",
-        );
-    }
-
-    public function testRenderWithLabelClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label class="value" for="inputcheckbox">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelClass(BackedString::VALUE)
-                ->render(),
-            'Failed asserting that element renders correctly with label class.',
-        );
-    }
-
-    public function testRenderWithLabelFor(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label for="inputcheckbox">Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelFor('inputcheckbox')
-                ->render(),
-            "Failed asserting that element renders correctly with label 'for' attribute.",
-        );
-    }
-
-    public function testRenderWithLabelForNullValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            <label>Label</label>
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->labelFor(null)
-                ->render(),
-            "Failed asserting that element renders correctly with label 'for' attribute set to 'null'.",
-        );
-    }
-
     public function testRenderWithLang(): void
     {
         self::assertSame(
@@ -890,21 +636,6 @@ final class InputCheckboxTest extends TestCase
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
-        );
-    }
-
-    public function testRenderWithNotLabel(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcheckbox" type="checkbox">
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->notLabel()
-                ->render(),
-            "Failed asserting that element renders correctly with 'notLabel()' method.",
         );
     }
 
@@ -1133,45 +864,6 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
-    public function testRenderWithUncheckedValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input name="value" type="hidden" value="0">
-            <input id="inputcheckbox" name="value" type="checkbox" value="1">
-            HTML,
-            InputCheckbox::tag()
-                ->id('inputcheckbox')
-                ->name('value')
-                ->uncheckedValue('0')
-                ->value('1')
-                ->render(),
-            "Failed asserting that element renders correctly with 'uncheckedValue' attribute.",
-        );
-    }
-
-    public function testRenderWithUncheckedValueAndEnclosedByLabel(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input name="value" type="hidden" value="0">
-            <label>
-            <input id="inputcheckbox" name="value" type="checkbox" value="1">
-            Label
-            </label>
-            HTML,
-            InputCheckbox::tag()
-                ->enclosedByLabel(true)
-                ->id('inputcheckbox')
-                ->label('Label')
-                ->name('value')
-                ->uncheckedValue('0')
-                ->value('1')
-                ->render(),
-            "Failed asserting that element renders correctly with 'uncheckedValue' attribute and enclosed label.",
-        );
-    }
-
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(
@@ -1217,41 +909,6 @@ final class InputCheckboxTest extends TestCase
         self::assertNotSame(
             $inputCheckbox,
             $inputCheckbox->checked(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputCheckbox,
-            $inputCheckbox->enclosedByLabel(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputCheckbox,
-            $inputCheckbox->label(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputCheckbox,
-            $inputCheckbox->labelAttributes([]),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputCheckbox,
-            $inputCheckbox->labelClass(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputCheckbox,
-            $inputCheckbox->labelFor(null),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputCheckbox,
-            $inputCheckbox->notLabel(),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $inputCheckbox,
-            $inputCheckbox->uncheckedValue(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }

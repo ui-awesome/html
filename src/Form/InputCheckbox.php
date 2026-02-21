@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
+use UIAwesome\Html\Attribute\Form\CanBeRequired;
+use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
+use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\Type;
-use UIAwesome\Html\Form\Base\BaseChoice;
+use UIAwesome\Html\Core\Element\BaseInput;
+use UIAwesome\Html\Form\Mixin\HasCheckedState;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
 /**
@@ -28,8 +32,26 @@ use UIAwesome\Html\Interop\{VoidInterface, Voids};
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-final class InputCheckbox extends BaseChoice
+final class InputCheckbox extends BaseInput
 {
+    use CanBeAutofocus;
+    use CanBeRequired;
+    use HasCheckedState;
+    use HasTabindex;
+    use HasValue;
+
+    /**
+     * Returns the array of HTML attributes for the element.
+     *
+     * @return array Attributes array assigned to the element.
+     *
+     * @phpstan-return mixed[]
+     */
+    public function getAttributes(): array
+    {
+        return $this->buildAttributes(parent::getAttributes());
+    }
+
     /**
      * Returns the tag enumeration for the `<input>` element.
      *
@@ -49,9 +71,16 @@ final class InputCheckbox extends BaseChoice
      */
     protected function loadDefault(): array
     {
-        return [
-            'template' => ['{prefix}\n{unchecked}\n{tag}\n{label}\n{suffix}'],
-            'type' => [Type::CHECKBOX],
-        ] + parent::loadDefault();
+        return parent::loadDefault() + ['type' => [Type::CHECKBOX]];
+    }
+
+    /**
+     * Renders the `<input>` element with its attributes.
+     *
+     * @return string Rendered HTML for the `<input>` element.
+     */
+    protected function run(): string
+    {
+        return $this->buildElement();
     }
 }

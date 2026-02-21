@@ -9,7 +9,6 @@ use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\Values\Type;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Form\Attribute\HasCapture;
-use UIAwesome\Html\Form\Mixin\HasUnchecked;
 use UIAwesome\Html\Helper\Naming;
 use UIAwesome\Html\Interop\{VoidInterface, Voids};
 
@@ -49,7 +48,6 @@ final class InputFile extends BaseInput
     use HasCapture;
     use HasForm;
     use HasTabindex;
-    use HasUnchecked;
 
     /**
      * Returns the array of HTML attributes for the element.
@@ -61,6 +59,7 @@ final class InputFile extends BaseInput
     public function getAttributes(): array
     {
         $attributes = parent::getAttributes();
+
         $attributes['name'] = $this->generateNameWithMultiple();
 
         // value attribute is not allowed for the `<input type="file">` element, so we remove it if it exists.
@@ -88,10 +87,7 @@ final class InputFile extends BaseInput
      */
     protected function loadDefault(): array
     {
-        return [
-            'template' => ['{prefix}\n{unchecked}\n{tag}\n{suffix}'],
-            'type' => [Type::FILE],
-        ] + parent::loadDefault();
+        return parent::loadDefault() + ['type' => [Type::FILE]];
     }
 
     /**
@@ -101,22 +97,7 @@ final class InputFile extends BaseInput
      */
     protected function run(): string
     {
-        $uncheckedValue = $this->getUncheckedValue();
-
-        if ($uncheckedValue !== null && $uncheckedValue !== '') {
-            $unchecked = InputHidden::tag()
-                ->id(null)
-                ->name($this->generateNameWithMultiple())
-                ->value($uncheckedValue)
-                ->render();
-        }
-
-        return $this->buildElement(
-            '',
-            [
-                '{unchecked}' => $unchecked ?? '',
-            ],
-        );
+        return $this->buildElement();
     }
 
     /**
