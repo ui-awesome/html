@@ -38,6 +38,7 @@
 - Bug #50: Standardize `tests` for clarity and consistency across all test cases (@terabytesoftw)
 - Enh #51: Add `InputDate` class for HTML `<input type="date">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #52: Add `InputColor` class for HTML `<input type="color">` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #53: Add `TextArea` class for HTML `<textarea>` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
