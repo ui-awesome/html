@@ -51,8 +51,8 @@ final class OlTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Ol::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Ol::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -60,9 +60,9 @@ final class OlTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Ol::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -87,11 +87,11 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol accesskey="k">
+            <ol accesskey="value">
             </ol>
             HTML,
             Ol::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -101,11 +101,11 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol aria-pressed="true">
+            <ol aria-label="value">
             </ol>
             HTML,
             Ol::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -115,11 +115,11 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol aria-pressed="true">
+            <ol aria-label="value">
             </ol>
             HTML,
             Ol::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -171,15 +171,14 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <ol aria-controls="value" aria-label="value">
             </ol>
             HTML,
             Ol::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -281,7 +280,7 @@ final class OlTest extends TestCase
             Ol::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -351,7 +350,7 @@ final class OlTest extends TestCase
             Ol::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -379,7 +378,7 @@ final class OlTest extends TestCase
             Ol::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -442,11 +441,11 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol id="test-id">
+            <ol id="value">
             </ol>
             HTML,
             Ol::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -458,18 +457,12 @@ final class OlTest extends TestCase
             <<<HTML
             <ol>
             <li>
-            Apple
-            </li>
-            <li>
-            Banana
-            </li>
-            <li>
-            Cherry
+            value
             </li>
             </ol>
             HTML,
             Ol::tag()
-                ->items('Apple', 'Banana', 'Cherry')
+                ->items('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'items()' method.",
         );
@@ -479,11 +472,11 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol lang="es">
+            <ol lang="en">
             </ol>
             HTML,
             Ol::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -493,13 +486,13 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol lang="es">
+            <ol lang="en">
             </ol>
             HTML,
             Ol::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -509,16 +502,12 @@ final class OlTest extends TestCase
             <<<HTML
             <ol>
             <li>
-            First item
-            </li>
-            <li>
-            Second item
+            value
             </li>
             </ol>
             HTML,
             Ol::tag()
-                ->li('First item')
-                ->li('Second item')
+                ->li('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'li()' method.",
         );
@@ -530,12 +519,12 @@ final class OlTest extends TestCase
             <<<HTML
             <ol>
             <li value="3">
-            Item
+            value
             </li>
             </ol>
             HTML,
             Ol::tag()
-                ->li('Item', 3)
+                ->li('value', 3)
                 ->render(),
             "Failed asserting that element renders correctly with 'li()' method using a value.",
         );
@@ -567,7 +556,7 @@ final class OlTest extends TestCase
             </ol>
             HTML,
             Ol::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -582,8 +571,8 @@ final class OlTest extends TestCase
             </ol>
             HTML,
             Ol::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -597,7 +586,7 @@ final class OlTest extends TestCase
             </ol>
             HTML,
             Ol::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -625,13 +614,13 @@ final class OlTest extends TestCase
             <<<HTML
             <ol reversed>
             <li>
-            Item
+            value
             </li>
             </ol>
             HTML,
             Ol::tag()
                 ->reversed(true)
-                ->li('Item')
+                ->li('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'reversed' attribute.",
         );
@@ -661,7 +650,7 @@ final class OlTest extends TestCase
             Ol::tag()
                 ->role(Role::LIST)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -669,11 +658,11 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol data-test="value">
+            <ol class="value">
             </ol>
             HTML,
             Ol::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -689,7 +678,7 @@ final class OlTest extends TestCase
             Ol::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -713,12 +702,12 @@ final class OlTest extends TestCase
             <<<HTML
             <ol start="5">
             <li>
-            Item
+            value
             </li>
             </ol>
             HTML,
             Ol::tag()
-                ->li('Item')
+                ->li('value')
                 ->start(5)
                 ->render(),
             "Failed asserting that element renders correctly with 'start' attribute.",
@@ -731,16 +720,12 @@ final class OlTest extends TestCase
             <<<HTML
             <ol reversed start="10">
             <li>
-            First
-            </li>
-            <li>
-            Second
+            value
             </li>
             </ol>
             HTML,
             Ol::tag()
-                ->li('First')
-                ->li('Second')
+                ->li('value')
                 ->reversed(true)
                 ->start(10)
                 ->render(),
@@ -840,7 +825,7 @@ final class OlTest extends TestCase
             Ol::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -856,10 +841,10 @@ final class OlTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <ol class="from-global" id="id-user">
+            <ol class="from-global" id="value">
             </ol>
             HTML,
-            Ol::tag(['id' => 'id-user'])->render(),
+            Ol::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

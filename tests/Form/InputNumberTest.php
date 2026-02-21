@@ -4,9 +4,20 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{
+    Aria,
+    Autocomplete,
+    Data,
+    Direction,
+    GlobalAttribute,
+    Language,
+    Role,
+    Translate,
+    Type,
+};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputNumber;
 use UIAwesome\Html\Interop\Inline;
@@ -17,12 +28,10 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input-number-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `max`, `min`,
+ * - Applies input number specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `max`, `min`,
  *   `name`, `placeholder`, `readonly`, `required`, `step`, `tabindex`, `value`) and renders expected output.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
- *
- * {@see InputNumber} for the base implementation.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -33,10 +42,26 @@ final class InputNumberTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
+            'value',
             InputNumber::tag()
-                ->getAttribute('data-test', 'default'),
+                ->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'id' => null,
+                'type' => Type::NUMBER,
+                'class' => 'value',
+            ],
+            InputNumber::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -44,10 +69,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" accesskey="k">
+            <input id="inputnumber" type="number" accesskey="value">
             HTML,
             InputNumber::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -58,10 +83,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" aria-label="Number selector">
+            <input id="inputnumber" type="number" aria-label="value">
             HTML,
             InputNumber::tag()
-                ->addAriaAttribute('label', 'Number selector')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -72,13 +97,13 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" aria-hidden="true">
+            <input id="inputnumber" type="number" aria-label="value">
             HTML,
             InputNumber::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -86,10 +111,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" aria-describedby="custom-help">
+            <input id="inputnumber" type="number" aria-describedby="value">
             HTML,
             InputNumber::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
+                ->addAriaAttribute('describedby', 'value')
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
@@ -185,10 +210,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" data-number="value">
+            <input id="inputnumber" type="number" data-value="value">
             HTML,
             InputNumber::tag()
-                ->addDataAttribute('number', 'value')
+                ->addDataAttribute('value', 'value')
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -199,13 +224,13 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" data-value="test">
+            <input id="inputnumber" type="number" data-value="value">
             HTML,
             InputNumber::tag()
-                ->addDataAttribute(Data::VALUE, 'test')
+                ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -227,13 +252,13 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" aria-controls="number-picker" aria-label="Select a number">
+            <input id="inputnumber" type="number" aria-controls="value" aria-label="value">
             HTML,
             InputNumber::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => 'number-picker',
-                        'label' => 'Select a number',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->id('inputnumber')
@@ -274,10 +299,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="number-input" id="inputnumber" type="number">
+            <input class="value" id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->attributes(['class' => 'number-input'])
+                ->attributes(['class' => 'value'])
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -336,7 +361,7 @@ final class InputNumberTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputnumber')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
+            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
 
@@ -358,10 +383,24 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="number-input" id="inputnumber" type="number">
+            <input class="value" id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->class('number-input')
+                ->class('value')
+                ->id('inputnumber')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input class="value" id="inputnumber" type="number">
+            HTML,
+            InputNumber::tag()
+                ->class(BackedString::VALUE)
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -372,10 +411,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" data-number="value">
+            <input id="inputnumber" type="number" data-value="value">
             HTML,
             InputNumber::tag()
-                ->dataAttributes(['number' => 'value'])
+                ->dataAttributes(['value' => 'value'])
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -446,7 +485,7 @@ final class InputNumberTest extends TestCase
                 ->id('inputnumber')
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -487,10 +526,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" form="form-id">
+            <input id="inputnumber" type="number" form="value">
             HTML,
             InputNumber::tag()
-                ->form('form-id')
+                ->form('value')
                 ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
@@ -550,10 +589,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="number-input" type="number">
+            <input id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->id('number-input')
+                ->id('inputnumber')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -583,7 +622,7 @@ final class InputNumberTest extends TestCase
                 ->id('inputnumber')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -591,11 +630,11 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" list="numbers">
+            <input id="inputnumber" type="number" list="value">
             HTML,
             InputNumber::tag()
                 ->id('inputnumber')
-                ->list('numbers')
+                ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
@@ -633,12 +672,12 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" min="1" max="5">
+            <input id="inputnumber" type="number" min="10" max="100">
             HTML,
             InputNumber::tag()
                 ->id('inputnumber')
-                ->min(1)
-                ->max(5)
+                ->min(10)
+                ->max(100)
                 ->render(),
             "Failed asserting that element renders correctly with both 'min' and 'max' attributes.",
         );
@@ -648,11 +687,11 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" name="quantity" type="number">
+            <input id="inputnumber" name="value" type="number">
             HTML,
             InputNumber::tag()
                 ->id('inputnumber')
-                ->name('quantity')
+                ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
@@ -662,11 +701,11 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" placeholder="Enter a number">
+            <input id="inputnumber" type="number" placeholder="value">
             HTML,
             InputNumber::tag()
                 ->id('inputnumber')
-                ->placeholder('Enter a number')
+                ->placeholder('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
@@ -693,7 +732,7 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputnumber')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -708,9 +747,9 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->id('inputnumber')
-                ->removeAttribute('data-test')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -723,7 +762,7 @@ final class InputNumberTest extends TestCase
             <input id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->id('inputnumber')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -784,7 +823,7 @@ final class InputNumberTest extends TestCase
                 ->id('inputnumber')
                 ->role(Role::SPINBUTTON)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -792,11 +831,11 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" data-test="value">
+            <input class="value" id="inputnumber" type="number">
             HTML,
             InputNumber::tag()
-                ->setAttribute('data-test', 'value')
                 ->id('inputnumber')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -806,13 +845,13 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" title="Select number">
+            <input id="inputnumber" type="number" title="value">
             HTML,
             InputNumber::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select number')
                 ->id('inputnumber')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -848,11 +887,11 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" style='width: 200px;'>
+            <input id="inputnumber" type="number" style='value'>
             HTML,
             InputNumber::tag()
                 ->id('inputnumber')
-                ->style('width: 200px;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -869,6 +908,22 @@ final class InputNumberTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTemplate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="value">
+            <input id="inputnumber" type="number">
+            </div>
+            HTML,
+            InputNumber::tag()
+                ->id('inputnumber')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
+            'Failed asserting that element renders correctly with a custom template wrapper.',
         );
     }
 
@@ -890,11 +945,11 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" title="Select a number">
+            <input id="inputnumber" type="number" title="value">
             HTML,
             InputNumber::tag()
                 ->id('inputnumber')
-                ->title('Select a number')
+                ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -935,7 +990,7 @@ final class InputNumberTest extends TestCase
                 ->id('inputnumber')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -951,9 +1006,9 @@ final class InputNumberTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="from-global" id="id-user" type="number">
+            <input class="from-global" id="value" type="number">
             HTML,
-            InputNumber::tag(['id' => 'id-user'])->render(),
+            InputNumber::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -964,11 +1019,11 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputnumber" type="number" value="42">
+            <input id="inputnumber" type="number" value="10">
             HTML,
             InputNumber::tag()
                 ->id('inputnumber')
-                ->value(42)
+                ->value(10)
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );

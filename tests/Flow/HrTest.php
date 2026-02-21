@@ -4,17 +4,10 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Flow;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Data,
-    Direction,
-    GlobalAttribute,
-    Language,
-    Role,
-    Translate,
-};
+use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Flow\Hr;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
@@ -37,8 +30,8 @@ final class HrTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Hr::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Hr::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -46,9 +39,9 @@ final class HrTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Hr::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -58,10 +51,10 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hr accesskey="k">
+            <hr accesskey="value">
             HTML,
             Hr::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -71,10 +64,10 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hr aria-pressed="true">
+            <hr aria-label="value">
             HTML,
             Hr::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -84,10 +77,10 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hr aria-pressed="true">
+            <hr aria-label="value">
             HTML,
             Hr::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -136,14 +129,13 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hr aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <hr aria-controls="value" aria-label="value">
             HTML,
             Hr::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -172,6 +164,19 @@ final class HrTest extends TestCase
             HTML,
             Hr::tag()
                 ->class('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <hr class="value">
+            HTML,
+            Hr::tag()
+                ->class(BackedString::VALUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -247,7 +252,7 @@ final class HrTest extends TestCase
             Hr::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -305,10 +310,10 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hr id="test-id">
+            <hr id="value">
             HTML,
             Hr::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -318,10 +323,10 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hr lang="es">
+            <hr lang="en">
             HTML,
             Hr::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -331,12 +336,12 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hr lang="es">
+            <hr lang="en">
             HTML,
             Hr::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -347,7 +352,7 @@ final class HrTest extends TestCase
             <hr>
             HTML,
             Hr::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -361,8 +366,8 @@ final class HrTest extends TestCase
             <hr>
             HTML,
             Hr::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -375,7 +380,7 @@ final class HrTest extends TestCase
             <hr>
             HTML,
             Hr::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -418,7 +423,7 @@ final class HrTest extends TestCase
             Hr::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -426,10 +431,10 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hr data-test="value">
+            <hr class="value">
             HTML,
             Hr::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -444,7 +449,7 @@ final class HrTest extends TestCase
             Hr::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -518,7 +523,7 @@ final class HrTest extends TestCase
             Hr::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -534,9 +539,9 @@ final class HrTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <hr class="from-global" id="id-user">
+            <hr class="from-global" id="value">
             HTML,
-            Hr::tag(['id' => 'id-user'])->render(),
+            Hr::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

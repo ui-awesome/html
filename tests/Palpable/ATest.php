@@ -17,6 +17,7 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Target,
     Translate,
+    Type,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Palpable\A;
@@ -56,8 +57,8 @@ final class ATest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            A::tag()->getAttribute('data-test', 'default'),
+            'value',
+            A::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -65,9 +66,9 @@ final class ATest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             A::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -90,10 +91,10 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a accesskey="k"></a>
+            <a accesskey="value"></a>
             HTML,
             A::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -103,10 +104,10 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a aria-label="Link content"></a>
+            <a aria-label="value"></a>
             HTML,
             A::tag()
-                ->addAriaAttribute('label', 'Link content')
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -116,12 +117,12 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a aria-hidden="true"></a>
+            <a aria-label="value"></a>
             HTML,
             A::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -147,7 +148,7 @@ final class ATest extends TestCase
             A::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -168,14 +169,13 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a aria-controls="modal-1" aria-hidden="false" aria-label="Close"></a>
+            <a aria-controls="value" aria-label="value"></a>
             HTML,
             A::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -213,10 +213,10 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a>value</a>
+            <a>&lt;value&gt;</a>
             HTML,
             A::tag()
-                ->content('value')
+                ->content('<value>')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -292,7 +292,7 @@ final class ATest extends TestCase
             A::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -404,12 +404,12 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a hreflang="es"></a>
+            <a hreflang="en"></a>
             HTML,
             A::tag()
-                ->hreflang(Language::SPANISH)
+                ->hreflang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hreflang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'hreflang' attribute.",
         );
     }
 
@@ -417,10 +417,10 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a id="test-id"></a>
+            <a id="value"></a>
             HTML,
             A::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -430,10 +430,10 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a lang="es"></a>
+            <a lang="en"></a>
             HTML,
             A::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -443,12 +443,12 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a lang="es"></a>
+            <a lang="en"></a>
             HTML,
             A::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -487,7 +487,7 @@ final class ATest extends TestCase
             A::tag()
                 ->referrerpolicy(Referrerpolicy::NO_REFERRER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute using enum.",
+            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
         );
     }
 
@@ -513,7 +513,7 @@ final class ATest extends TestCase
             A::tag()
                 ->rel(Rel::NOOPENER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'rel' attribute using enum.",
+            "Failed asserting that element renders correctly with 'rel' attribute.",
         );
     }
 
@@ -524,7 +524,7 @@ final class ATest extends TestCase
             <a></a>
             HTML,
             A::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -538,8 +538,8 @@ final class ATest extends TestCase
             <a></a>
             HTML,
             A::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -552,7 +552,7 @@ final class ATest extends TestCase
             <a></a>
             HTML,
             A::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -595,7 +595,7 @@ final class ATest extends TestCase
             A::tag()
                 ->role(Role::BUTTON)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -603,10 +603,10 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a data-test="value"></a>
+            <a class="value"></a>
             HTML,
             A::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -616,12 +616,12 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a title="Link content"></a>
+            <a title="value"></a>
             HTML,
             A::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Link content')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -629,10 +629,10 @@ final class ATest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <a style='color: red;'></a>
+            <a style='value'></a>
             HTML,
             A::tag()
-                ->style('color: red;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -660,7 +660,7 @@ final class ATest extends TestCase
             A::tag()
                 ->target(Target::BLANK)
                 ->render(),
-            "Failed asserting that element renders correctly with 'target' attribute using enum.",
+            "Failed asserting that element renders correctly with 'target' attribute.",
         );
     }
 
@@ -723,7 +723,7 @@ final class ATest extends TestCase
             A::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -735,6 +735,19 @@ final class ATest extends TestCase
             HTML,
             A::tag()
                 ->type('text/html')
+                ->render(),
+            "Failed asserting that element renders correctly with 'type' attribute.",
+        );
+    }
+
+    public function testRenderWithTypeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <a type="text/html"></a>
+            HTML,
+            A::tag()
+                ->type(Type::TEXT_HTML)
                 ->render(),
             "Failed asserting that element renders correctly with 'type' attribute.",
         );
@@ -752,9 +765,9 @@ final class ATest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <a class="from-global" id="id-user"></a>
+            <a class="from-global" id="value"></a>
             HTML,
-            A::tag(['id' => 'id-user'])->render(),
+            A::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

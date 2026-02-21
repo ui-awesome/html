@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Target, Translate, Type};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputSubmit;
 use UIAwesome\Html\Interop\Inline;
@@ -17,12 +18,10 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input-submit-specific attributes (`autofocus`, `form`, `formaction`, `formenctype`, `formmethod`,
+ * - Applies input submit specific attributes (`autofocus`, `form`, `formaction`, `formenctype`, `formmethod`,
  *   `formnovalidate`, `formtarget`, `name`, `tabindex`, `value`) and renders expected output.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
- *
- * {@see InputSubmit} for the base implementation.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -33,9 +32,25 @@ final class InputSubmitTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            InputSubmit::tag()->getAttribute('data-test', 'default'),
+            'value',
+            InputSubmit::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'id' => null,
+                'type' => Type::SUBMIT,
+                'class' => 'value',
+            ],
+            InputSubmit::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -43,10 +58,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" accesskey="k">
+            <input id="inputsubmit" type="submit" accesskey="value">
             HTML,
             InputSubmit::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->id('inputsubmit')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -57,10 +72,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" aria-label="Submit form">
+            <input id="inputsubmit" type="submit" aria-label="value">
             HTML,
             InputSubmit::tag()
-                ->addAriaAttribute('label', 'Submit form')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputsubmit')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -71,13 +86,13 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" aria-hidden="true">
+            <input id="inputsubmit" type="submit" aria-label="value">
             HTML,
             InputSubmit::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputsubmit')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -85,10 +100,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" aria-describedby="custom-help">
+            <input id="inputsubmit" type="submit" aria-describedby="value">
             HTML,
             InputSubmit::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
+                ->addAriaAttribute('describedby', 'value')
                 ->id('inputsubmit')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
@@ -184,10 +199,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" data-submit="value">
+            <input id="inputsubmit" type="submit" data-value="value">
             HTML,
             InputSubmit::tag()
-                ->addDataAttribute('submit', 'value')
+                ->addDataAttribute('value', 'value')
                 ->id('inputsubmit')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -198,13 +213,13 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" data-value="test">
+            <input id="inputsubmit" type="submit" data-value="value">
             HTML,
             InputSubmit::tag()
-                ->addDataAttribute(Data::VALUE, 'test')
+                ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputsubmit')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -226,13 +241,13 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" aria-controls="submit-region" aria-label="Submit now">
+            <input id="inputsubmit" type="submit" aria-controls="value" aria-label="value">
             HTML,
             InputSubmit::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => 'submit-region',
-                        'label' => 'Submit now',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->id('inputsubmit')
@@ -273,10 +288,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="submit-input" id="inputsubmit" type="submit">
+            <input class="value" id="inputsubmit" type="submit">
             HTML,
             InputSubmit::tag()
-                ->attributes(['class' => 'submit-input'])
+                ->attributes(['class' => 'value'])
                 ->id('inputsubmit')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -329,10 +344,24 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="submit-input" id="inputsubmit" type="submit">
+            <input class="value" id="inputsubmit" type="submit">
             HTML,
             InputSubmit::tag()
-                ->class('submit-input')
+                ->class('value')
+                ->id('inputsubmit')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input class="value" id="inputsubmit" type="submit">
+            HTML,
+            InputSubmit::tag()
+                ->class(BackedString::VALUE)
                 ->id('inputsubmit')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -343,10 +372,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" data-submit="value">
+            <input id="inputsubmit" type="submit" data-value="value">
             HTML,
             InputSubmit::tag()
-                ->dataAttributes(['submit' => 'value'])
+                ->dataAttributes(['value' => 'value'])
                 ->id('inputsubmit')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -357,9 +386,9 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputsubmit" type="submit">
+            <input class="value" id="inputsubmit" type="submit">
             HTML,
-            InputSubmit::tag(['class' => 'default-class'])
+            InputSubmit::tag(['class' => 'value'])
                 ->id('inputsubmit')
                 ->render(),
             'Failed asserting that default configuration values are applied correctly.',
@@ -417,7 +446,7 @@ final class InputSubmitTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputsubmit')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -458,10 +487,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" form="form-id">
+            <input id="inputsubmit" type="submit" form="value">
             HTML,
             InputSubmit::tag()
-                ->form('form-id')
+                ->form('value')
                 ->id('inputsubmit')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
@@ -566,6 +595,20 @@ final class InputSubmitTest extends TestCase
         );
     }
 
+    public function testRenderWithFormtargetUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputsubmit" type="submit" formtarget="_blank">
+            HTML,
+            InputSubmit::tag()
+                ->formtarget(Target::BLANK)
+                ->id('inputsubmit')
+                ->render(),
+            "Failed asserting that element renders correctly with 'formtarget' attribute.",
+        );
+    }
+
     public function testRenderWithGenerateId(): void
     {
         /** @phpstan-var string $id */
@@ -619,10 +662,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="submit-input" type="submit">
+            <input id="inputsubmit" type="submit">
             HTML,
             InputSubmit::tag()
-                ->id('submit-input')
+                ->id('inputsubmit')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -652,7 +695,7 @@ final class InputSubmitTest extends TestCase
                 ->id('inputsubmit')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -660,11 +703,11 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" name="save" type="submit">
+            <input id="inputsubmit" name="value" type="submit">
             HTML,
             InputSubmit::tag()
                 ->id('inputsubmit')
-                ->name('save')
+                ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
@@ -677,7 +720,7 @@ final class InputSubmitTest extends TestCase
             <input id="inputsubmit" type="submit">
             HTML,
             InputSubmit::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputsubmit')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -692,9 +735,9 @@ final class InputSubmitTest extends TestCase
             <input id="inputsubmit" type="submit">
             HTML,
             InputSubmit::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->id('inputsubmit')
-                ->removeAttribute('data-test')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -707,7 +750,7 @@ final class InputSubmitTest extends TestCase
             <input id="inputsubmit" type="submit">
             HTML,
             InputSubmit::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->id('inputsubmit')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -754,7 +797,7 @@ final class InputSubmitTest extends TestCase
                 ->id('inputsubmit')
                 ->role(Role::BUTTON)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -762,11 +805,11 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" data-test="value">
+            <input class="value" id="inputsubmit" type="submit">
             HTML,
             InputSubmit::tag()
-                ->setAttribute('data-test', 'value')
                 ->id('inputsubmit')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -776,13 +819,13 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" title="Submit action">
+            <input id="inputsubmit" type="submit" title="value">
             HTML,
             InputSubmit::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Submit action')
                 ->id('inputsubmit')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -790,11 +833,11 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" style='width: 200px;'>
+            <input id="inputsubmit" type="submit" style='value'>
             HTML,
             InputSubmit::tag()
                 ->id('inputsubmit')
-                ->style('width: 200px;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -811,6 +854,22 @@ final class InputSubmitTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTemplate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="value">
+            <input id="inputsubmit" type="submit">
+            </div>
+            HTML,
+            InputSubmit::tag()
+                ->id('inputsubmit')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
+            'Failed asserting that element renders correctly with a custom template wrapper.',
         );
     }
 
@@ -832,11 +891,11 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" title="Submit form">
+            <input id="inputsubmit" type="submit" title="value">
             HTML,
             InputSubmit::tag()
                 ->id('inputsubmit')
-                ->title('Submit form')
+                ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -877,7 +936,7 @@ final class InputSubmitTest extends TestCase
                 ->id('inputsubmit')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -893,9 +952,9 @@ final class InputSubmitTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="from-global" id="id-user" type="submit">
+            <input class="from-global" id="value" type="submit">
             HTML,
-            InputSubmit::tag(['id' => 'id-user'])->render(),
+            InputSubmit::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -909,11 +968,11 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsubmit" type="submit" value="Save">
+            <input id="inputsubmit" type="submit" value="value">
             HTML,
             InputSubmit::tag()
                 ->id('inputsubmit')
-                ->value('Save')
+                ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );

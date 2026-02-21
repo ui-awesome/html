@@ -48,8 +48,8 @@ final class LabelTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Label::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Label::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -57,9 +57,9 @@ final class LabelTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Label::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -82,10 +82,10 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label accesskey="k"></label>
+            <label accesskey="value"></label>
             HTML,
             Label::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -95,10 +95,10 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label aria-label="Label content"></label>
+            <label aria-label="value"></label>
             HTML,
             Label::tag()
-                ->addAriaAttribute('label', 'Label content')
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -108,12 +108,12 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label aria-hidden="true"></label>
+            <label aria-label="value"></label>
             HTML,
             Label::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -139,7 +139,7 @@ final class LabelTest extends TestCase
             Label::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -160,14 +160,13 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label aria-controls="modal-1" aria-hidden="false" aria-label="Close"></label>
+            <label aria-controls="value" aria-label="value"></label>
             HTML,
             Label::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -284,7 +283,7 @@ final class LabelTest extends TestCase
             Label::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -310,10 +309,10 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label for="email"></label>
+            <label for="value"></label>
             HTML,
             Label::tag()
-                ->for('email')
+                ->for('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'for' attribute.",
         );
@@ -357,10 +356,10 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label id="test-id"></label>
+            <label id="value"></label>
             HTML,
             Label::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -370,10 +369,10 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label lang="es"></label>
+            <label lang="en"></label>
             HTML,
             Label::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -383,12 +382,12 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label lang="es"></label>
+            <label lang="en"></label>
             HTML,
             Label::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -399,7 +398,7 @@ final class LabelTest extends TestCase
             <label></label>
             HTML,
             Label::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -413,8 +412,8 @@ final class LabelTest extends TestCase
             <label></label>
             HTML,
             Label::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -427,7 +426,7 @@ final class LabelTest extends TestCase
             <label></label>
             HTML,
             Label::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -470,7 +469,7 @@ final class LabelTest extends TestCase
             Label::tag()
                 ->role(Role::BUTTON)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -478,10 +477,10 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label data-test="value"></label>
+            <label class="value"></label>
             HTML,
             Label::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -491,12 +490,12 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label title="Label content"></label>
+            <label title="value"></label>
             HTML,
             Label::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Label content')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -504,10 +503,10 @@ final class LabelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label style='color: red;'></label>
+            <label style='value'></label>
             HTML,
             Label::tag()
-                ->style('color: red;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -572,7 +571,7 @@ final class LabelTest extends TestCase
             Label::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -588,9 +587,9 @@ final class LabelTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <label class="from-global" id="id-user"></label>
+            <label class="from-global" id="value"></label>
             HTML,
-            Label::tag(['id' => 'id-user'])->render(),
+            Label::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

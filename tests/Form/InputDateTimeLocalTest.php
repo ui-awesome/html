@@ -7,7 +7,17 @@ namespace UIAwesome\Html\Tests\Form;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{
+    Aria,
+    Autocomplete,
+    Data,
+    Direction,
+    GlobalAttribute,
+    Language,
+    Role,
+    Translate,
+    Type,
+};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputDateTimeLocal;
 use UIAwesome\Html\Interop\Inline;
@@ -18,12 +28,10 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies inputdatetimelocal-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`,
- *   `max`, `min`, `name`, `readonly`, `required`, `step`, `tabindex`, `value`) and renders expected output.
+ * - Applies input datetimelocal specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `max`,
+ *   `min`, `name`, `readonly`, `required`, `step`, `tabindex`, `value`) and renders expected output.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
- *
- * {@see InputDateTimeLocal} for the base implementation.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -35,8 +43,24 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             'value',
-            InputDateTimeLocal::tag()->getAttribute('data-test', 'value'),
+            InputDateTimeLocal::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'id' => null,
+                'type' => Type::DATETIME_LOCAL,
+                'class' => 'value',
+            ],
+            InputDateTimeLocal::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -72,13 +96,13 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" aria-hidden="true">
+            <input id="inputdatetimelocal" type="datetime-local" aria-label="value">
             HTML,
             InputDateTimeLocal::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputdatetimelocal')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -206,7 +230,7 @@ final class InputDateTimeLocalTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputdatetimelocal')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -337,7 +361,7 @@ final class InputDateTimeLocalTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputdatetimelocal')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
+            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
 
@@ -461,7 +485,7 @@ final class InputDateTimeLocalTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputdatetimelocal')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -598,7 +622,7 @@ final class InputDateTimeLocalTest extends TestCase
                 ->id('inputdatetimelocal')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -785,7 +809,7 @@ final class InputDateTimeLocalTest extends TestCase
                 ->id('inputdatetimelocal')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -796,8 +820,8 @@ final class InputDateTimeLocalTest extends TestCase
             <input class="value" id="inputdatetimelocal" type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
-                ->setAttribute('class', 'value')
                 ->id('inputdatetimelocal')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -810,10 +834,10 @@ final class InputDateTimeLocalTest extends TestCase
             <input id="inputdatetimelocal" type="datetime-local" title="value">
             HTML,
             InputDateTimeLocal::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->id('inputdatetimelocal')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -870,6 +894,22 @@ final class InputDateTimeLocalTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTemplate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="value">
+            <input id="inputdatetimelocal" type="datetime-local">
+            </div>
+            HTML,
+            InputDateTimeLocal::tag()
+                ->id('inputdatetimelocal')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
+            'Failed asserting that element renders correctly with a custom template wrapper.',
         );
     }
 
@@ -936,7 +976,7 @@ final class InputDateTimeLocalTest extends TestCase
                 ->id('inputdatetimelocal')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 

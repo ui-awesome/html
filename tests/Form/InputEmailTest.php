@@ -4,9 +4,20 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{
+    Aria,
+    Autocomplete,
+    Data,
+    Direction,
+    GlobalAttribute,
+    Language,
+    Role,
+    Translate,
+    Type,
+};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputEmail;
 use UIAwesome\Html\Interop\Inline;
@@ -23,8 +34,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
- * {@see InputEmail} for the base implementation.
- *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
@@ -34,9 +43,25 @@ final class InputEmailTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            InputEmail::tag()->getAttribute('data-test', 'default'),
+            'value',
+            InputEmail::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'id' => null,
+                'type' => Type::EMAIL,
+                'class' => 'value',
+            ],
+            InputEmail::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -44,10 +69,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" accesskey="k">
+            <input id="inputemail" type="email" accesskey="value">
             HTML,
             InputEmail::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->id('inputemail')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -58,10 +83,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" aria-label="Email selector">
+            <input id="inputemail" type="email" aria-label="value">
             HTML,
             InputEmail::tag()
-                ->addAriaAttribute('label', 'Email selector')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputemail')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -72,13 +97,13 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" aria-hidden="true">
+            <input id="inputemail" type="email" aria-label="value">
             HTML,
             InputEmail::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputemail')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -86,10 +111,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" aria-describedby="custom-help">
+            <input id="inputemail" type="email" aria-describedby="value">
             HTML,
             InputEmail::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
+                ->addAriaAttribute('describedby', 'value')
                 ->id('inputemail')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
@@ -185,10 +210,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" data-email="value">
+            <input id="inputemail" type="email" data-value="value">
             HTML,
             InputEmail::tag()
-                ->addDataAttribute('email', 'value')
+                ->addDataAttribute('value', 'value')
                 ->id('inputemail')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -199,13 +224,13 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" data-value="test">
+            <input id="inputemail" type="email" data-value="value">
             HTML,
             InputEmail::tag()
-                ->addDataAttribute(Data::VALUE, 'test')
+                ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputemail')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -227,13 +252,13 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" aria-controls="email-picker" aria-label="Select an email">
+            <input id="inputemail" type="email" aria-controls="value" aria-label="value">
             HTML,
             InputEmail::tag()
                 ->attributes(
                     [
-                        'aria-controls' => 'email-picker',
-                        'aria-label' => 'Select an email',
+                        'aria-controls' => 'value',
+                        'aria-label' => 'value',
                     ],
                 )
                 ->id('inputemail')
@@ -274,10 +299,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="email-input" id="inputemail" type="email">
+            <input class="value" id="inputemail" type="email">
             HTML,
             InputEmail::tag()
-                ->attributes(['class' => 'email-input'])
+                ->attributes(['class' => 'value'])
                 ->id('inputemail')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -336,7 +361,7 @@ final class InputEmailTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputemail')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
+            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
 
@@ -358,10 +383,24 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="email-input" id="inputemail" type="email">
+            <input class="value" id="inputemail" type="email">
             HTML,
             InputEmail::tag()
-                ->class('email-input')
+                ->class('value')
+                ->id('inputemail')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input class="value" id="inputemail" type="email">
+            HTML,
+            InputEmail::tag()
+                ->class(BackedString::VALUE)
                 ->id('inputemail')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -372,10 +411,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" data-email="value">
+            <input id="inputemail" type="email" data-value="value">
             HTML,
             InputEmail::tag()
-                ->dataAttributes(['email' => 'value'])
+                ->dataAttributes(['value' => 'value'])
                 ->id('inputemail')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -446,7 +485,7 @@ final class InputEmailTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputemail')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -487,10 +526,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" form="form-id">
+            <input id="inputemail" type="email" form="value">
             HTML,
             InputEmail::tag()
-                ->form('form-id')
+                ->form('value')
                 ->id('inputemail')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
@@ -550,10 +589,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="email-input" type="email">
+            <input id="inputemail" type="email">
             HTML,
             InputEmail::tag()
-                ->id('email-input')
+                ->id('inputemail')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -583,7 +622,7 @@ final class InputEmailTest extends TestCase
                 ->id('inputemail')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -591,11 +630,11 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" list="emails">
+            <input id="inputemail" type="email" list="value">
             HTML,
             InputEmail::tag()
                 ->id('inputemail')
-                ->list('emails')
+                ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
@@ -647,11 +686,11 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" name="email" type="email">
+            <input id="inputemail" name="value" type="email">
             HTML,
             InputEmail::tag()
                 ->id('inputemail')
-                ->name('email')
+                ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
@@ -675,11 +714,11 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" placeholder="hello@example.com">
+            <input id="inputemail" type="email" placeholder="value">
             HTML,
             InputEmail::tag()
                 ->id('inputemail')
-                ->placeholder('hello@example.com')
+                ->placeholder('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
@@ -706,7 +745,7 @@ final class InputEmailTest extends TestCase
             <input id="inputemail" type="email">
             HTML,
             InputEmail::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputemail')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -721,9 +760,9 @@ final class InputEmailTest extends TestCase
             <input id="inputemail" type="email">
             HTML,
             InputEmail::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->id('inputemail')
-                ->removeAttribute('data-test')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -736,7 +775,7 @@ final class InputEmailTest extends TestCase
             <input id="inputemail" type="email">
             HTML,
             InputEmail::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->id('inputemail')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -797,7 +836,7 @@ final class InputEmailTest extends TestCase
                 ->id('inputemail')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -805,11 +844,11 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" data-test="value">
+            <input class="value" id="inputemail" type="email">
             HTML,
             InputEmail::tag()
-                ->setAttribute('data-test', 'value')
                 ->id('inputemail')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -819,13 +858,13 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" title="Select email">
+            <input id="inputemail" type="email" title="value">
             HTML,
             InputEmail::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select email')
                 ->id('inputemail')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -861,11 +900,11 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" style='width: 200px;'>
+            <input id="inputemail" type="email" style='value'>
             HTML,
             InputEmail::tag()
                 ->id('inputemail')
-                ->style('width: 200px;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -882,6 +921,22 @@ final class InputEmailTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTemplate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="value">
+            <input id="inputemail" type="email">
+            </div>
+            HTML,
+            InputEmail::tag()
+                ->id('inputemail')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
+            'Failed asserting that element renders correctly with a custom template wrapper.',
         );
     }
 
@@ -903,11 +958,11 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" title="Select an email">
+            <input id="inputemail" type="email" title="value">
             HTML,
             InputEmail::tag()
                 ->id('inputemail')
-                ->title('Select an email')
+                ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -948,7 +1003,7 @@ final class InputEmailTest extends TestCase
                 ->id('inputemail')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -964,9 +1019,9 @@ final class InputEmailTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="from-global" id="id-user" type="email">
+            <input class="from-global" id="value" type="email">
             HTML,
-            InputEmail::tag(['id' => 'id-user'])->render(),
+            InputEmail::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

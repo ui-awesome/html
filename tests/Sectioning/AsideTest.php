@@ -50,8 +50,8 @@ final class AsideTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Aside::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Aside::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -59,9 +59,9 @@ final class AsideTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Aside::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -86,11 +86,11 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside accesskey="k">
+            <aside accesskey="value">
             </aside>
             HTML,
             Aside::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +100,11 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside aria-pressed="true">
+            <aside aria-label="value">
             </aside>
             HTML,
             Aside::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +114,11 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside aria-pressed="true">
+            <aside aria-label="value">
             </aside>
             HTML,
             Aside::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -170,15 +170,14 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <aside aria-controls="value" aria-label="value">
             </aside>
             HTML,
             Aside::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -246,11 +245,11 @@ final class AsideTest extends TestCase
         self::assertSame(
             <<<HTML
             <aside>
-            value
+            &lt;value&gt;
             </aside>
             HTML,
             Aside::tag()
-                ->content('value')
+                ->content('<value>')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -280,7 +279,7 @@ final class AsideTest extends TestCase
             Aside::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -348,7 +347,7 @@ final class AsideTest extends TestCase
             Aside::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -376,7 +375,7 @@ final class AsideTest extends TestCase
             Aside::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -439,11 +438,11 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside id="test-id">
+            <aside id="value">
             </aside>
             HTML,
             Aside::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -453,11 +452,11 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside lang="es">
+            <aside lang="en">
             </aside>
             HTML,
             Aside::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -467,13 +466,13 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside lang="es">
+            <aside lang="en">
             </aside>
             HTML,
             Aside::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -503,7 +502,7 @@ final class AsideTest extends TestCase
             </aside>
             HTML,
             Aside::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -518,8 +517,8 @@ final class AsideTest extends TestCase
             </aside>
             HTML,
             Aside::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -533,7 +532,7 @@ final class AsideTest extends TestCase
             </aside>
             HTML,
             Aside::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -579,7 +578,7 @@ final class AsideTest extends TestCase
             Aside::tag()
                 ->role(Role::COMPLEMENTARY)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -587,11 +586,11 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside data-test="value">
+            <aside class="value">
             </aside>
             HTML,
             Aside::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -607,7 +606,7 @@ final class AsideTest extends TestCase
             Aside::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -717,7 +716,7 @@ final class AsideTest extends TestCase
             Aside::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -733,10 +732,10 @@ final class AsideTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <aside class="from-global" id="id-user">
+            <aside class="from-global" id="value">
             </aside>
             HTML,
-            Aside::tag(['id' => 'id-user'])->render(),
+            Aside::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

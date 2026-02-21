@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Flow;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -50,8 +51,8 @@ final class PTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            P::tag()->getAttribute('data-test', 'default'),
+            'value',
+            P::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -59,9 +60,9 @@ final class PTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             P::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -86,11 +87,11 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p accesskey="k">
+            <p accesskey="value">
             </p>
             HTML,
             P::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +101,11 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p aria-pressed="true">
+            <p aria-label="value">
             </p>
             HTML,
             P::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +115,11 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p aria-pressed="true">
+            <p aria-label="value">
             </p>
             HTML,
             P::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -170,15 +171,14 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <p aria-controls="value" aria-label="value">
             </p>
             HTML,
             P::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -241,6 +241,20 @@ final class PTest extends TestCase
         );
     }
 
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <p class="value">
+            </p>
+            HTML,
+            P::tag()
+                ->class(BackedString::VALUE)
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
     public function testRenderWithContent(): void
     {
         self::assertSame(
@@ -280,7 +294,7 @@ final class PTest extends TestCase
             P::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -348,7 +362,7 @@ final class PTest extends TestCase
             P::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -376,7 +390,7 @@ final class PTest extends TestCase
             P::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -439,11 +453,11 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p id="test-id">
+            <p id="value">
             </p>
             HTML,
             P::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -453,11 +467,11 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p lang="es">
+            <p lang="en">
             </p>
             HTML,
             P::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -467,13 +481,13 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p lang="es">
+            <p lang="en">
             </p>
             HTML,
             P::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -503,7 +517,7 @@ final class PTest extends TestCase
             </p>
             HTML,
             P::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -518,8 +532,8 @@ final class PTest extends TestCase
             </p>
             HTML,
             P::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -533,7 +547,7 @@ final class PTest extends TestCase
             </p>
             HTML,
             P::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -579,7 +593,7 @@ final class PTest extends TestCase
             P::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -587,11 +601,11 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p data-test="value">
+            <p class="value">
             </p>
             HTML,
             P::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -607,7 +621,7 @@ final class PTest extends TestCase
             P::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -717,7 +731,7 @@ final class PTest extends TestCase
             P::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -733,10 +747,10 @@ final class PTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <p class="from-global" id="id-user">
+            <p class="from-global" id="value">
             </p>
             HTML,
-            P::tag(['id' => 'id-user'])->render(),
+            P::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

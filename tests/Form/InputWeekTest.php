@@ -4,9 +4,20 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{
+    Aria,
+    Autocomplete,
+    Data,
+    Direction,
+    GlobalAttribute,
+    Language,
+    Role,
+    Translate,
+    Type,
+};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputWeek;
 use UIAwesome\Html\Interop\Inline;
@@ -17,7 +28,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input-week-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `max`, `min`,
+ * - Applies input week specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `max`, `min`,
  *   `name`, `readonly`, `required`, `step`, `tabindex`, `value`) and renders expected output.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -33,9 +44,25 @@ final class InputWeekTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            InputWeek::tag()->getAttribute('data-test', 'default'),
+            'value',
+            InputWeek::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'id' => null,
+                'type' => Type::WEEK,
+                'class' => 'value',
+            ],
+            InputWeek::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -43,10 +70,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" accesskey="k">
+            <input id="inputweek" type="week" accesskey="value">
             HTML,
             InputWeek::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -57,10 +84,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" aria-label="Week selector">
+            <input id="inputweek" type="week" aria-label="value">
             HTML,
             InputWeek::tag()
-                ->addAriaAttribute('label', 'Week selector')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -71,13 +98,13 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" aria-hidden="true">
+            <input id="inputweek" type="week" aria-label="value">
             HTML,
             InputWeek::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -85,10 +112,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" aria-describedby="custom-help">
+            <input id="inputweek" type="week" aria-describedby="value">
             HTML,
             InputWeek::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
+                ->addAriaAttribute('describedby', 'value')
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
@@ -185,10 +212,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" data-week="value">
+            <input id="inputweek" type="week" data-value="value">
             HTML,
             InputWeek::tag()
-                ->addDataAttribute('week', 'value')
+                ->addDataAttribute('value', 'value')
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -199,13 +226,13 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" data-value="test">
+            <input id="inputweek" type="week" data-value="value">
             HTML,
             InputWeek::tag()
-                ->addDataAttribute(Data::VALUE, 'test')
+                ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -227,13 +254,13 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" aria-controls="week-picker" aria-label="Select a week">
+            <input id="inputweek" type="week" aria-controls="value" aria-label="value">
             HTML,
             InputWeek::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => 'week-picker',
-                        'label' => 'Select a week',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->id('inputweek')
@@ -274,10 +301,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="week-input" id="inputweek" type="week">
+            <input class="value" id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->attributes(['class' => 'week-input'])
+                ->attributes(['class' => 'value'])
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -336,7 +363,7 @@ final class InputWeekTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
+            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
 
@@ -358,10 +385,24 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="week-input" id="inputweek" type="week">
+            <input class="value" id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->class('week-input')
+                ->class('value')
+                ->id('inputweek')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input class="value" id="inputweek" type="week">
+            HTML,
+            InputWeek::tag()
+                ->class(BackedString::VALUE)
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -372,10 +413,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" data-week="value">
+            <input id="inputweek" type="week" data-value="value">
             HTML,
             InputWeek::tag()
-                ->dataAttributes(['week' => 'value'])
+                ->dataAttributes(['value' => 'value'])
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -446,7 +487,7 @@ final class InputWeekTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -487,10 +528,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" form="form-id">
+            <input id="inputweek" type="week" form="value">
             HTML,
             InputWeek::tag()
-                ->form('form-id')
+                ->form('value')
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
@@ -550,10 +591,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="week-input" type="week">
+            <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->id('week-input')
+                ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -583,7 +624,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -591,11 +632,11 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" list="weeks">
+            <input id="inputweek" type="week" list="value">
             HTML,
             InputWeek::tag()
                 ->id('inputweek')
-                ->list('weeks')
+                ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
@@ -633,12 +674,12 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" min="2018-W01" max="2018-W52">
+            <input id="inputweek" type="week" min="2018-W18" max="2018-W26">
             HTML,
             InputWeek::tag()
                 ->id('inputweek')
-                ->min('2018-W01')
-                ->max('2018-W52')
+                ->min('2018-W18')
+                ->max('2018-W26')
                 ->render(),
             "Failed asserting that element renders correctly with both 'min' and 'max' attributes.",
         );
@@ -648,11 +689,11 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" name="camp-week" type="week">
+            <input id="inputweek" name="value" type="week">
             HTML,
             InputWeek::tag()
                 ->id('inputweek')
-                ->name('camp-week')
+                ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
@@ -679,7 +720,7 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputweek')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -694,9 +735,9 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->id('inputweek')
-                ->removeAttribute('data-test')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -709,7 +750,7 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->id('inputweek')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -770,7 +811,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -778,11 +819,11 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" data-test="value">
+            <input class="value" id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->setAttribute('data-test', 'value')
                 ->id('inputweek')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -792,13 +833,13 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" title="Select week">
+            <input id="inputweek" type="week" title="value">
             HTML,
             InputWeek::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select week')
                 ->id('inputweek')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -834,11 +875,11 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" style='width: 200px;'>
+            <input id="inputweek" type="week" style='value'>
             HTML,
             InputWeek::tag()
                 ->id('inputweek')
-                ->style('width: 200px;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -855,6 +896,22 @@ final class InputWeekTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTemplate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="value">
+            <input id="inputweek" type="week">
+            </div>
+            HTML,
+            InputWeek::tag()
+                ->id('inputweek')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
+            'Failed asserting that element renders correctly with a custom template wrapper.',
         );
     }
 
@@ -876,11 +933,11 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" title="Select a week">
+            <input id="inputweek" type="week" title="value">
             HTML,
             InputWeek::tag()
                 ->id('inputweek')
-                ->title('Select a week')
+                ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -921,7 +978,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -937,9 +994,9 @@ final class InputWeekTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="from-global" id="id-user" type="week">
+            <input class="from-global" id="value" type="week">
             HTML,
-            InputWeek::tag(['id' => 'id-user'])->render(),
+            InputWeek::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -953,11 +1010,11 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputweek" type="week" value="2017-W01">
+            <input id="inputweek" type="week" value="2018-W18">
             HTML,
             InputWeek::tag()
                 ->id('inputweek')
-                ->value('2017-W01')
+                ->value('2018-W18')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );

@@ -50,8 +50,8 @@ final class NoScriptTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            NoScript::tag()->getAttribute('data-test', 'default'),
+            'value',
+            NoScript::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -59,9 +59,9 @@ final class NoScriptTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             NoScript::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -72,11 +72,11 @@ final class NoScriptTest extends TestCase
         self::assertSame(
             <<<HTML
             <noscript>
-            <link rel="stylesheet" href="fallback.css">
+            <value>
             </noscript>
             HTML,
             NoScript::tag()
-                ->html('<link rel="stylesheet" href="fallback.css">')
+                ->html('<value>')
                 ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
         );
@@ -86,11 +86,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript accesskey="k">
+            <noscript accesskey="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +100,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript aria-label="JavaScript required">
+            <noscript aria-label="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->addAriaAttribute('label', 'JavaScript required')
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,13 +114,13 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript aria-hidden="true">
+            <noscript aria-label="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -128,11 +128,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript data-message="enable-js">
+            <noscript data-value="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->addDataAttribute('message', 'enable-js')
+                ->addDataAttribute('value', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -142,13 +142,13 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript data-value="test">
+            <noscript data-value="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->addDataAttribute(Data::VALUE, 'test')
+                ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -170,14 +170,14 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript aria-hidden="true" aria-label="No JavaScript">
+            <noscript aria-controls="value" aria-label="value">
             </noscript>
             HTML,
             NoScript::tag()
                 ->ariaAttributes(
                     [
-                        'hidden' => true,
-                        'label' => 'No JavaScript',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -189,11 +189,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript class="fallback-message">
+            <noscript class="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->attributes(['class' => 'fallback-message'])
+                ->attributes(['class' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -218,10 +218,10 @@ final class NoScriptTest extends TestCase
         self::assertSame(
             <<<HTML
             <noscript>
-            Please enable JavaScript
+            Content
             </noscript>
             HTML,
-            NoScript::tag()->begin() . 'Please enable JavaScript' . NoScript::end(),
+            NoScript::tag()->begin() . 'Content' . NoScript::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -230,11 +230,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript class="no-js-message">
+            <noscript class="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->class('no-js-message')
+                ->class('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -245,11 +245,11 @@ final class NoScriptTest extends TestCase
         self::assertSame(
             <<<HTML
             <noscript>
-            JavaScript is required for this application
+            &lt;value&gt;
             </noscript>
             HTML,
             NoScript::tag()
-                ->content('JavaScript is required for this application')
+                ->content('<value>')
                 ->render(),
             'Failed asserting that element renders correctly with content.',
         );
@@ -279,7 +279,7 @@ final class NoScriptTest extends TestCase
             NoScript::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -287,11 +287,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript data-fallback="true">
+            <noscript data-value="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->dataAttributes(['fallback' => 'true'])
+                ->dataAttributes(['value' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -359,7 +359,7 @@ final class NoScriptTest extends TestCase
             NoScript::tag()
                 ->dir(Direction::RTL)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -387,7 +387,7 @@ final class NoScriptTest extends TestCase
             NoScript::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -450,11 +450,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript id="noscript-fallback">
+            <noscript id="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->id('noscript-fallback')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -478,13 +478,13 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript lang="es">
+            <noscript lang="en">
             </noscript>
             HTML,
             NoScript::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -514,7 +514,7 @@ final class NoScriptTest extends TestCase
             </noscript>
             HTML,
             NoScript::tag()
-                ->addAriaAttribute('label', 'Test')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -529,8 +529,8 @@ final class NoScriptTest extends TestCase
             </noscript>
             HTML,
             NoScript::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -544,8 +544,8 @@ final class NoScriptTest extends TestCase
             </noscript>
             HTML,
             NoScript::tag()
-                ->addDataAttribute('test', 'value')
-                ->removeDataAttribute('test')
+                ->addDataAttribute('value', 'value')
+                ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
         );
@@ -590,7 +590,7 @@ final class NoScriptTest extends TestCase
             NoScript::tag()
                 ->role(Role::ALERT)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -598,11 +598,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript data-test="value">
+            <noscript class="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -612,13 +612,13 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript title="Fallback content">
+            <noscript title="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Fallback content')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -640,11 +640,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript style='color: red;'>
+            <noscript style='value'>
             </noscript>
             HTML,
             NoScript::tag()
-                ->style('color: red;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -682,11 +682,11 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript title="JavaScript fallback">
+            <noscript title="value">
             </noscript>
             HTML,
             NoScript::tag()
-                ->title('JavaScript fallback')
+                ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -728,7 +728,7 @@ final class NoScriptTest extends TestCase
             NoScript::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -744,10 +744,10 @@ final class NoScriptTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <noscript class="from-global" id="id-user">
+            <noscript class="from-global" id="value">
             </noscript>
             HTML,
-            NoScript::tag(['id' => 'id-user'])->render(),
+            NoScript::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

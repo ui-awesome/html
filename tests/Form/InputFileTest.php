@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate, Type};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputFile;
 use UIAwesome\Html\Form\Values\Capture;
@@ -18,11 +19,9 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input-file-specific attributes (`accept`, `capture`, `multiple`, `required`) and renders expected output.
+ * - Applies input file specific attributes (`accept`, `capture`, `multiple`, `required`) and renders expected output.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
- *
- * {@see InputFile} for the base implementation.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -33,9 +32,26 @@ final class InputFileTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            InputFile::tag()->getAttribute('data-test', 'default'),
+            'value',
+            InputFile::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'type' => Type::FILE,
+                'id' => null,
+                'class' => 'value',
+                'name' => '',
+            ],
+            InputFile::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -43,12 +59,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file" accept="image/*">
+            <input id="inputfile" type="file" accept="image/*">
             HTML,
             InputFile::tag()
                 ->accept('image/*')
                 ->id('inputfile')
-                ->name('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'accept' attribute.",
         );
@@ -58,10 +73,10 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" accesskey="k">
+            <input id="inputfile" type="file" accesskey="value">
             HTML,
             InputFile::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->id('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -72,10 +87,10 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" aria-label="File selector">
+            <input id="inputfile" type="file" aria-label="value">
             HTML,
             InputFile::tag()
-                ->addAriaAttribute('label', 'File selector')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -86,13 +101,13 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" aria-hidden="true">
+            <input id="inputfile" type="file" aria-label="value">
             HTML,
             InputFile::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -100,10 +115,10 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" aria-describedby="custom-help">
+            <input id="inputfile" type="file" aria-describedby="value">
             HTML,
             InputFile::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
+                ->addAriaAttribute('describedby', 'value')
                 ->id('inputfile')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
@@ -200,10 +215,10 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" data-file="value">
+            <input id="inputfile" type="file" data-value="value">
             HTML,
             InputFile::tag()
-                ->addDataAttribute('file', 'value')
+                ->addDataAttribute('value', 'value')
                 ->id('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -214,13 +229,13 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" data-value="test">
+            <input id="inputfile" type="file" data-value="value">
             HTML,
             InputFile::tag()
-                ->addDataAttribute(Data::VALUE, 'test')
+                ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -242,13 +257,13 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" aria-controls="file-picker" aria-label="Select a file">
+            <input id="inputfile" type="file" aria-controls="value" aria-label="value">
             HTML,
             InputFile::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => 'file-picker',
-                        'label' => 'Select a file',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->id('inputfile')
@@ -289,10 +304,10 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="file-input" id="inputfile" type="file">
+            <input class="value" id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->attributes(['class' => 'file-input'])
+                ->attributes(['class' => 'value'])
                 ->id('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -331,12 +346,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file" autofocus>
+            <input id="inputfile" type="file" autofocus>
             HTML,
             InputFile::tag()
                 ->autofocus(true)
                 ->id('inputfile')
-                ->name('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -346,12 +360,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file" capture="user">
+            <input id="inputfile" type="file" capture="user">
             HTML,
             InputFile::tag()
                 ->capture('user')
                 ->id('inputfile')
-                ->name('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'capture' attribute.",
         );
@@ -361,14 +374,13 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file" capture="environment">
+            <input id="inputfile" type="file" capture="environment">
             HTML,
             InputFile::tag()
                 ->capture(Capture::ENVIRONMENT)
                 ->id('inputfile')
-                ->name('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'capture' attribute using enum.",
+            "Failed asserting that element renders correctly with 'capture' attribute.",
         );
     }
 
@@ -386,14 +398,28 @@ final class InputFileTest extends TestCase
         );
     }
 
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input class="value" id="inputfile" type="file">
+            HTML,
+            InputFile::tag()
+                ->class(BackedString::VALUE)
+                ->id('inputfile')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
     public function testRenderWithDataAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" data-week="value">
+            <input id="inputfile" type="file" data-value="value">
             HTML,
             InputFile::tag()
-                ->dataAttributes(['week' => 'value'])
+                ->dataAttributes(['value' => 'value'])
                 ->id('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -417,12 +443,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputfile" name="inputfile" type="file" title="default-title">
+            <input class="default-class" id="inputfile" type="file" title="default-title">
             HTML,
             InputFile::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->id('inputfile')
-                ->name('inputfile')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -465,7 +490,7 @@ final class InputFileTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -506,12 +531,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file" form="form-id">
+            <input id="inputfile" type="file" form="value">
             HTML,
             InputFile::tag()
-                ->form('form-id')
+                ->form('value')
                 ->id('inputfile')
-                ->name('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
@@ -538,11 +562,10 @@ final class InputFileTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputfile" name="inputfile" type="file">
+            <input class="default-class" id="inputfile" type="file">
             HTML,
             InputFile::tag()
                 ->id('inputfile')
-                ->name('inputfile')
                 ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
@@ -568,10 +591,10 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="file-input" type="file">
+            <input id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->id('file-input')
+                ->id('inputfile')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -601,7 +624,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -609,12 +632,12 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile[]" type="file" multiple>
+            <input id="inputfile" name="value[]" type="file" multiple>
             HTML,
             InputFile::tag()
                 ->id('inputfile')
                 ->multiple(true)
-                ->name('inputfile')
+                ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'multiple' attribute.",
         );
@@ -624,13 +647,13 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input name="inputfile[]" type="hidden" value="0">
-            <input id="inputfile" name="inputfile[]" type="file" multiple>
+            <input name="value[]" type="hidden" value="0">
+            <input id="inputfile" name="value[]" type="file" multiple>
             HTML,
             InputFile::tag()
                 ->id('inputfile')
                 ->multiple(true)
-                ->name('inputfile')
+                ->name('value')
                 ->uncheckedValue('0')
                 ->render(),
             "Failed asserting that element renders correctly with 'multiple' attribute and unchecked value.",
@@ -641,11 +664,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file">
+            <input id="inputfile" name="value" type="file">
             HTML,
             InputFile::tag()
                 ->id('inputfile')
-                ->name('inputfile')
+                ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
@@ -658,7 +681,7 @@ final class InputFileTest extends TestCase
             <input id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputfile')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -673,9 +696,9 @@ final class InputFileTest extends TestCase
             <input id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->id('inputfile')
-                ->removeAttribute('data-test')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -688,7 +711,7 @@ final class InputFileTest extends TestCase
             <input id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->id('inputfile')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -715,11 +738,10 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file" required>
+            <input id="inputfile" type="file" required>
             HTML,
             InputFile::tag()
                 ->id('inputfile')
-                ->name('inputfile')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -750,7 +772,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -758,11 +780,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" data-test="value">
+            <input class="value" id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->setAttribute('data-test', 'value')
                 ->id('inputfile')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -772,13 +794,13 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" title="Select week">
+            <input id="inputfile" type="file" title="value">
             HTML,
             InputFile::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select week')
                 ->id('inputfile')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -786,14 +808,29 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file" tabindex="1">
+            <input id="inputfile" type="file" tabindex="1">
             HTML,
             InputFile::tag()
                 ->id('inputfile')
-                ->name('inputfile')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTemplate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="value">
+            <input id="inputfile" type="file">
+            </div>
+            HTML,
+            InputFile::tag()
+                ->id('inputfile')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
+            'Failed asserting that element renders correctly with a custom template wrapper.',
         );
     }
 
@@ -815,11 +852,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" type="file" title="Select a week">
+            <input id="inputfile" type="file" title="value">
             HTML,
             InputFile::tag()
                 ->id('inputfile')
-                ->title('Select a week')
+                ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -860,7 +897,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -868,12 +905,12 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input name="inputfile" type="hidden" value="0">
-            <input id="inputfile" name="inputfile" type="file">
+            <input name="value" type="hidden" value="0">
+            <input id="inputfile" name="value" type="file">
             HTML,
             InputFile::tag()
                 ->id('inputfile')
-                ->name('inputfile')
+                ->name('value')
                 ->uncheckedValue('0')
                 ->render(),
             'Failed asserting that element renders correctly with unchecked value.',
@@ -892,9 +929,9 @@ final class InputFileTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="from-global" id="id-user" type="file">
+            <input class="from-global" id="value" type="file">
             HTML,
-            InputFile::tag(['id' => 'id-user'])->render(),
+            InputFile::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -908,12 +945,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputfile" name="inputfile" type="file">
+            <input id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->setAttribute('value', 'something')
+                ->setAttribute('value', 'value')
                 ->id('inputfile')
-                ->name('inputfile')
                 ->render(),
             "Failed asserting that 'value' attribute is removed.",
         );

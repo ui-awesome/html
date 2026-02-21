@@ -35,6 +35,7 @@
 - Bug #47: Update PHPDoc in `tests` and add new tests for `on*` attribute (@terabytesoftw)
 - Enh #48: Add `InputEmail` class for HTML `<input type="email">` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #49: Add `InputDateTimeLocal` class for HTML `<input type="datetime-local">` element with attributes and rendering capabilities (@terabytesoftw)
+- Bug #50: Standardize `tests` for clarity and consistency across all test cases (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
