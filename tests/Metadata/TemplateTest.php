@@ -879,7 +879,7 @@ final class TemplateTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingShadowRootMode(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingShadowRootMode(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

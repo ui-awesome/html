@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
+    Attribute,
     ContentEditable,
     Data,
     Direction,
@@ -874,13 +875,13 @@ final class StyleTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingBlocking(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingBlocking(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                'blocking',
+                Attribute::BLOCKING->value,
                 implode("', '", Enum::normalizeArray(Blocking::cases())),
             ),
         );

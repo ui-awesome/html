@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
+    Attribute,
     Blocking,
     ContentEditable,
     Crossorigin,
@@ -1034,13 +1035,13 @@ final class ScriptTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingBlocking(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingBlocking(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                'blocking',
+                Attribute::BLOCKING->value,
                 implode("', '", Enum::normalizeArray(Blocking::cases())),
             ),
         );
@@ -1048,13 +1049,13 @@ final class ScriptTest extends TestCase
         Script::tag()->blocking('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingCrossorigin(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingCrossorigin(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                'crossorigin',
+                Attribute::CROSSORIGIN->value,
                 implode("', '", Enum::normalizeArray(Crossorigin::cases())),
             ),
         );
@@ -1062,13 +1063,13 @@ final class ScriptTest extends TestCase
         Script::tag()->crossorigin('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingFetchpriority(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingFetchpriority(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                'fetchpriority',
+                Attribute::FETCHPRIORITY->value,
                 implode("', '", Enum::normalizeArray(Fetchpriority::cases())),
             ),
         );
@@ -1076,13 +1077,13 @@ final class ScriptTest extends TestCase
         Script::tag()->fetchpriority('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingReferrerpolicy(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingReferrerpolicy(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                'referrerpolicy',
+                Attribute::REFERRERPOLICY->value,
                 implode("', '", Enum::normalizeArray(Referrerpolicy::cases())),
             ),
         );

@@ -983,7 +983,7 @@ final class InputColorTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingColorspace(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingColorspace(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

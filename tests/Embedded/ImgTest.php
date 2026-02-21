@@ -10,10 +10,12 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
+    Attribute,
     Crossorigin,
     Data,
     Decoding,
     Direction,
+    ElementAttribute,
     Fetchpriority,
     GlobalAttribute,
     Language,
@@ -24,6 +26,8 @@ use UIAwesome\Html\Attribute\Values\{
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Embedded\Img;
+use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -907,55 +911,73 @@ final class ImgTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenInvalidCrossorigin(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingCrossorigin(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            "Value 'invalid' is not in the list of valid values for 'crossorigin': 'anonymous', 'use-credentials'.",
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                Attribute::CROSSORIGIN->value,
+                implode("', '", Enum::normalizeArray(Crossorigin::cases())),
+            ),
         );
 
-        Img::tag()->crossorigin('invalid');
+        Img::tag()->crossorigin('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionWhenInvalidDecoding(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingDecoding(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            "Value 'invalid' is not in the list of valid values for 'decoding': 'async', 'auto', 'sync'.",
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                ElementAttribute::DECODING->value,
+                implode("', '", Enum::normalizeArray(Decoding::cases())),
+            ),
         );
 
-        Img::tag()->decoding('invalid');
+        Img::tag()->decoding('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionWhenInvalidFetchpriority(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingFetchpriority(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            "Value 'invalid' is not in the list of valid values for 'fetchpriority': 'auto', 'high', 'low'.",
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                Attribute::FETCHPRIORITY->value,
+                implode("', '", Enum::normalizeArray(Fetchpriority::cases())),
+            ),
         );
 
-        Img::tag()->fetchpriority('invalid');
+        Img::tag()->fetchpriority('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionWhenInvalidLoading(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingLoading(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            "Value 'invalid' is not in the list of valid values for 'loading': 'eager', 'lazy'.",
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                ElementAttribute::LOADING->value,
+                implode("', '", Enum::normalizeArray(Loading::cases())),
+            ),
         );
 
-        Img::tag()->loading('invalid');
+        Img::tag()->loading('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionWhenInvalidReferrerpolicy(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingReferrerpolicy(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            "Value 'invalid' is not in the list of valid values for 'referrerpolicy': "
-            . "'no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', "
-            . "'same-origin', 'strict-origin', 'strict-origin-when-cross-origin', 'unsafe-url'.",
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                Attribute::REFERRERPOLICY->value,
+                implode("', '", Enum::normalizeArray(Referrerpolicy::cases())),
+            ),
         );
 
-        Img::tag()->referrerpolicy('invalid');
+        Img::tag()->referrerpolicy('invalid-value');
     }
 }
