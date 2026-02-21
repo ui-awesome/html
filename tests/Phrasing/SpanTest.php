@@ -48,8 +48,8 @@ final class SpanTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Span::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Span::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -57,9 +57,9 @@ final class SpanTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Span::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -82,9 +82,9 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span accesskey="k"></span>
+            <span accesskey="value"></span>
             HTML,
-            Span::tag()->accesskey('k')->render(),
+            Span::tag()->accesskey('value')->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
     }
@@ -93,10 +93,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span aria-label="Span content"></span>
+            <span aria-label="value"></span>
             HTML,
             Span::tag()
-                ->addAriaAttribute('label', 'Span content')
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -106,12 +106,12 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span aria-hidden="true"></span>
+            <span aria-label="value"></span>
             HTML,
             Span::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -137,7 +137,7 @@ final class SpanTest extends TestCase
             Span::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -158,14 +158,13 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span aria-controls="modal-1" aria-hidden="false" aria-label="Close"></span>
+            <span aria-controls="value" aria-label="value"></span>
             HTML,
             Span::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -203,10 +202,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span>value</span>
+            <span>&lt;value&gt;</span>
             HTML,
             Span::tag()
-                ->content('value')
+                ->content('<value>')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -282,7 +281,7 @@ final class SpanTest extends TestCase
             Span::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -342,10 +341,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span id="test-id"></span>
+            <span id="value"></span>
             HTML,
             Span::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -355,10 +354,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span lang="es"></span>
+            <span lang="en"></span>
             HTML,
             Span::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -368,12 +367,12 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span lang="es"></span>
+            <span lang="en"></span>
             HTML,
             Span::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -384,7 +383,7 @@ final class SpanTest extends TestCase
             <span></span>
             HTML,
             Span::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -398,8 +397,8 @@ final class SpanTest extends TestCase
             <span></span>
             HTML,
             Span::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -412,7 +411,7 @@ final class SpanTest extends TestCase
             <span></span>
             HTML,
             Span::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -455,7 +454,7 @@ final class SpanTest extends TestCase
             Span::tag()
                 ->role(Role::BUTTON)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -463,10 +462,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span data-test="value"></span>
+            <span class="value"></span>
             HTML,
             Span::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -476,12 +475,12 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span title="Span content"></span>
+            <span title="value"></span>
             HTML,
             Span::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Span content')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -489,10 +488,10 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <span style='color: red;'></span>
+            <span style='value'></span>
             HTML,
             Span::tag()
-                ->style('color: red;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -557,7 +556,7 @@ final class SpanTest extends TestCase
             Span::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -573,9 +572,9 @@ final class SpanTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <span class="from-global" id="id-user"></span>
+            <span class="from-global" id="value"></span>
             HTML,
-            Span::tag(['id' => 'id-user'])->render(),
+            Span::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

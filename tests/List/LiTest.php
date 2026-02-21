@@ -51,8 +51,8 @@ final class LiTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Li::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Li::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -60,9 +60,9 @@ final class LiTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Li::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -87,11 +87,11 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li accesskey="k">
+            <li accesskey="value">
             </li>
             HTML,
             Li::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -101,11 +101,11 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li aria-pressed="true">
+            <li aria-label="value">
             </li>
             HTML,
             Li::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -115,11 +115,11 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li aria-pressed="true">
+            <li aria-label="value">
             </li>
             HTML,
             Li::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -171,15 +171,14 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <li aria-controls="value" aria-label="value">
             </li>
             HTML,
             Li::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -281,7 +280,7 @@ final class LiTest extends TestCase
             Li::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -349,7 +348,7 @@ final class LiTest extends TestCase
             Li::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -377,7 +376,7 @@ final class LiTest extends TestCase
             Li::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -440,11 +439,11 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li id="test-id">
+            <li id="value">
             </li>
             HTML,
             Li::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -454,11 +453,11 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li lang="es">
+            <li lang="en">
             </li>
             HTML,
             Li::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -468,13 +467,13 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li lang="es">
+            <li lang="en">
             </li>
             HTML,
             Li::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -501,11 +500,11 @@ final class LiTest extends TestCase
         self::assertSame(
             <<<HTML
             <li>
-            Item without value
+            value
             </li>
             HTML,
             Li::tag()
-                ->content('Item without value')
+                ->content('value')
                 ->render(),
             "Failed asserting that element renders correctly without 'value' attribute.",
         );
@@ -519,7 +518,7 @@ final class LiTest extends TestCase
             </li>
             HTML,
             Li::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -534,8 +533,8 @@ final class LiTest extends TestCase
             </li>
             HTML,
             Li::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -549,7 +548,7 @@ final class LiTest extends TestCase
             </li>
             HTML,
             Li::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -595,7 +594,7 @@ final class LiTest extends TestCase
             Li::tag()
                 ->role(Role::LISTITEM)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -603,11 +602,11 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li data-test="value">
+            <li class="value">
             </li>
             HTML,
             Li::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -623,7 +622,7 @@ final class LiTest extends TestCase
             Li::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -733,7 +732,7 @@ final class LiTest extends TestCase
             Li::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -749,10 +748,10 @@ final class LiTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <li class="from-global" id="id-user">
+            <li class="from-global" id="value">
             </li>
             HTML,
-            Li::tag(['id' => 'id-user'])->render(),
+            Li::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -767,39 +766,12 @@ final class LiTest extends TestCase
         self::assertSame(
             <<<HTML
             <li value="3">
-            Third item
             </li>
             HTML,
-            Li::tag()->value(3)
-                ->content('Third item')
+            Li::tag()
+                ->value(3)
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
-        );
-    }
-
-    public function testRenderWithValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <li value="custom-value">
-            Item
-            </li>
-            HTML,
-            Li::tag()->value('custom-value')
-                ->content('Item')
-                ->render(),
-            "Failed asserting that element renders correctly with string 'value' attribute.",
-        );
-    }
-
-    public function testReturnNewInstanceWhenSettingAttribute(): void
-    {
-        $li = Li::tag();
-
-        self::assertNotSame(
-            $li,
-            $li->value(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }
 }

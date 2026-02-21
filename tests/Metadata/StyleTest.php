@@ -17,6 +17,7 @@ use UIAwesome\Html\Attribute\Values\{
     Language,
     Role,
     Translate,
+    Type,
 };
 use UIAwesome\Html\Attribute\Values\Blocking;
 use UIAwesome\Html\Core\Factory\SimpleFactory;
@@ -56,8 +57,8 @@ final class StyleTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Style::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Style::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -65,9 +66,9 @@ final class StyleTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Style::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -92,11 +93,11 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style accesskey="k">
+            <style accesskey="value">
             </style>
             HTML,
             Style::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -106,11 +107,11 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style aria-pressed="true">
+            <style aria-label="value">
             </style>
             HTML,
             Style::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -120,11 +121,11 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style aria-pressed="true">
+            <style aria-label="value">
             </style>
             HTML,
             Style::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -176,15 +177,14 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <style aria-controls="value" aria-label="value">
             </style>
             HTML,
             Style::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -257,7 +257,7 @@ final class StyleTest extends TestCase
             Style::tag()
                 ->blocking(Blocking::RENDER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'blocking' attribute using enum.",
+            "Failed asserting that element renders correctly with 'blocking' attribute.",
         );
     }
 
@@ -280,11 +280,11 @@ final class StyleTest extends TestCase
         self::assertSame(
             <<<HTML
             <style>
-            value
+            &lt;value&gt;
             </style>
             HTML,
             Style::tag()
-                ->content('value')
+                ->content('<value>')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -314,7 +314,7 @@ final class StyleTest extends TestCase
             Style::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -394,7 +394,7 @@ final class StyleTest extends TestCase
             Style::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -422,7 +422,7 @@ final class StyleTest extends TestCase
             Style::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -485,11 +485,11 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style id="test-id">
+            <style id="value">
             </style>
             HTML,
             Style::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -499,11 +499,11 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style lang="es">
+            <style lang="en">
             </style>
             HTML,
             Style::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -513,13 +513,13 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style lang="es">
+            <style lang="en">
             </style>
             HTML,
             Style::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -577,7 +577,7 @@ final class StyleTest extends TestCase
             </style>
             HTML,
             Style::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -592,8 +592,8 @@ final class StyleTest extends TestCase
             </style>
             HTML,
             Style::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -607,7 +607,7 @@ final class StyleTest extends TestCase
             </style>
             HTML,
             Style::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -653,7 +653,7 @@ final class StyleTest extends TestCase
             Style::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -661,11 +661,11 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style data-test="value">
+            <style class="value">
             </style>
             HTML,
             Style::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -681,7 +681,7 @@ final class StyleTest extends TestCase
             Style::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -791,7 +791,7 @@ final class StyleTest extends TestCase
             Style::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -809,6 +809,20 @@ final class StyleTest extends TestCase
         );
     }
 
+    public function testRenderWithTypeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <style type="text/css">
+            </style>
+            HTML,
+            Style::tag()
+                ->type(Type::TEXT_CSS)
+                ->render(),
+            "Failed asserting that element renders correctly with 'type' attribute.",
+        );
+    }
+
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(
@@ -821,10 +835,10 @@ final class StyleTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <style class="from-global" id="id-user">
+            <style class="from-global" id="value">
             </style>
             HTML,
-            Style::tag(['id' => 'id-user'])->render(),
+            Style::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -840,22 +854,22 @@ final class StyleTest extends TestCase
 
         self::assertNotSame(
             $style,
-            $style->blocking(Blocking::RENDER),
+            $style->blocking(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
             $style,
-            $style->media('screen'),
+            $style->media(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
             $style,
-            $style->nonce('nonce-value'),
+            $style->nonce(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
             $style,
-            $style->type('text/css'),
+            $style->type(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }

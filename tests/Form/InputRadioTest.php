@@ -8,7 +8,7 @@ use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use Stringable;
-use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Translate, Type};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputRadio;
 use UIAwesome\Html\Interop\Inline;
@@ -23,14 +23,12 @@ use function str_replace;
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input-radio-specific attributes (`autofocus`, `checked`, `disabled`, `form`, `name`, `required`,
+ * - Applies input radio specific attributes (`autofocus`, `checked`, `disabled`, `form`, `name`, `required`,
  *   `tabindex`, `value`) and renders expected output.
  * - Handles edge cases for `checked` attribute with various data types and value comparisons.
  * - Renders attributes and string casting for a void element.
  * - Renders label configurations, including content, attributes, and tag name.
  * - Resolves default and theme providers, including global defaults and user overrides.
- *
- * {@see InputRadio} for the base implementation.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -41,9 +39,25 @@ final class InputRadioTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            InputRadio::tag()->getAttribute('data-test', 'default'),
+            'value',
+            InputRadio::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'type' => Type::RADIO,
+                'id' => null,
+                'class' => 'value',
+            ],
+            InputRadio::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -51,10 +65,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" accesskey="k">
+            <input id="inputradio" type="radio" accesskey="value">
             HTML,
             InputRadio::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -65,10 +79,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" aria-label="Radio selector">
+            <input id="inputradio" type="radio" aria-label="value">
             HTML,
             InputRadio::tag()
-                ->addAriaAttribute('label', 'Radio selector')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -79,13 +93,13 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" aria-hidden="true">
+            <input id="inputradio" type="radio" aria-label="value">
             HTML,
             InputRadio::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -93,10 +107,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="custom-help">
+            <input id="inputradio" type="radio" aria-describedby="value">
             HTML,
             InputRadio::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
+                ->addAriaAttribute('describedby', 'value')
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
@@ -192,10 +206,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" data-radio="value">
+            <input id="inputradio" type="radio" data-value="value">
             HTML,
             InputRadio::tag()
-                ->addDataAttribute('radio', 'value')
+                ->addDataAttribute('value', 'value')
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -206,13 +220,13 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" data-value="test">
+            <input id="inputradio" type="radio" data-value="value">
             HTML,
             InputRadio::tag()
-                ->addDataAttribute(Data::VALUE, 'test')
+                ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -234,13 +248,13 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" aria-controls="radio-picker" aria-label="Select a radio">
+            <input id="inputradio" type="radio" aria-controls="value" aria-label="value">
             HTML,
             InputRadio::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => 'radio-picker',
-                        'label' => 'Select a radio',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->id('inputradio')
@@ -281,10 +295,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="radio-input" id="inputradio" type="radio">
+            <input class="value" id="inputradio" type="radio">
             HTML,
             InputRadio::tag()
-                ->attributes(['class' => 'radio-input'])
+                ->attributes(['class' => 'value'])
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -378,10 +392,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="radio-input" id="inputradio" type="radio">
+            <input class="value" id="inputradio" type="radio">
             HTML,
             InputRadio::tag()
-                ->class('radio-input')
+                ->class('value')
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -406,10 +420,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" data-radio="value">
+            <input id="inputradio" type="radio" data-value="value">
             HTML,
             InputRadio::tag()
-                ->dataAttributes(['radio' => 'value'])
+                ->dataAttributes(['value' => 'value'])
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -480,7 +494,7 @@ final class InputRadioTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputradio')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -520,18 +534,18 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <div class="wrapper">
+            <div class="value">
             <label>
             <input id="inputradio" type="radio">
-            Red
+            Label
             </label>
             </div>
             HTML,
             InputRadio::tag()
                 ->enclosedByLabel(true)
                 ->id('inputradio')
-                ->label('Red')
-                ->template('<div class="wrapper">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->label('Label')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with enclosed label and custom template.',
         );
@@ -555,7 +569,7 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <label for="label-for">
+            <label for="inputradio">
             <input id="inputradio" type="radio">
             Label
             </label>
@@ -564,7 +578,7 @@ final class InputRadioTest extends TestCase
                 ->enclosedByLabel(true)
                 ->id('inputradio')
                 ->label('Label')
-                ->labelFor('label-for')
+                ->labelFor('inputradio')
                 ->render(),
             'Failed asserting that element renders correctly with enclosed label and label "for" attribute.',
         );
@@ -593,13 +607,13 @@ final class InputRadioTest extends TestCase
             <<<HTML
             <label>
             <input type="radio">
-            Red
+            Label
             </label>
             HTML,
             InputRadio::tag()
                 ->enclosedByLabel(true)
                 ->id(null)
-                ->label('Red')
+                ->label('Label')
                 ->render(),
             'Failed asserting that element renders correctly with enclosed label and no ID.',
         );
@@ -628,10 +642,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" form="form-id">
+            <input id="inputradio" type="radio" form="value">
             HTML,
             InputRadio::tag()
-                ->form('form-id')
+                ->form('value')
                 ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
@@ -691,10 +705,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="radio-input" type="radio">
+            <input id="inputradio" type="radio">
             HTML,
             InputRadio::tag()
-                ->id('radio-input')
+                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -810,7 +824,7 @@ final class InputRadioTest extends TestCase
                 ->label('Label')
                 ->labelClass(BackedString::VALUE)
                 ->render(),
-            'Failed asserting that element renders correctly with label class using enum.',
+            'Failed asserting that element renders correctly with label class.',
         );
     }
 
@@ -819,12 +833,12 @@ final class InputRadioTest extends TestCase
         self::assertSame(
             <<<HTML
             <input id="inputradio" type="radio">
-            <label for="value">Label</label>
+            <label for="inputradio">Label</label>
             HTML,
             InputRadio::tag()
                 ->id('inputradio')
                 ->label('Label')
-                ->labelFor('value')
+                ->labelFor('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with label 'for' attribute.",
         );
@@ -870,7 +884,7 @@ final class InputRadioTest extends TestCase
                 ->id('inputradio')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -878,11 +892,11 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" name="agree" type="radio">
+            <input id="inputradio" name="value" type="radio">
             HTML,
             InputRadio::tag()
                 ->id('inputradio')
-                ->name('agree')
+                ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
@@ -910,7 +924,7 @@ final class InputRadioTest extends TestCase
             <input id="inputradio" type="radio">
             HTML,
             InputRadio::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputradio')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -925,9 +939,9 @@ final class InputRadioTest extends TestCase
             <input id="inputradio" type="radio">
             HTML,
             InputRadio::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->id('inputradio')
-                ->removeAttribute('data-test')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -940,7 +954,7 @@ final class InputRadioTest extends TestCase
             <input id="inputradio" type="radio">
             HTML,
             InputRadio::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->id('inputradio')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -1001,7 +1015,7 @@ final class InputRadioTest extends TestCase
                 ->id('inputradio')
                 ->role(Role::RADIO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -1009,11 +1023,11 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" data-test="value">
+            <input class="value" id="inputradio" type="radio">
             HTML,
             InputRadio::tag()
-                ->setAttribute('data-test', 'value')
                 ->id('inputradio')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -1023,13 +1037,13 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" title="Select radio">
+            <input id="inputradio" type="radio" title="value">
             HTML,
             InputRadio::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select radio')
                 ->id('inputradio')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -1037,11 +1051,11 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" style='width: 20px;'>
+            <input id="inputradio" type="radio" style='value'>
             HTML,
             InputRadio::tag()
                 ->id('inputradio')
-                ->style('width: 20px;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -1079,11 +1093,11 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" title="Select a radio">
+            <input id="inputradio" type="radio" title="value">
             HTML,
             InputRadio::tag()
                 ->id('inputradio')
-                ->title('Select a radio')
+                ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -1124,7 +1138,7 @@ final class InputRadioTest extends TestCase
                 ->id('inputradio')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -1132,12 +1146,12 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input name="agree" type="hidden" value="0">
-            <input id="inputradio" name="agree" type="radio" value="1">
+            <input name="value" type="hidden" value="0">
+            <input id="inputradio" name="value" type="radio" value="1">
             HTML,
             InputRadio::tag()
                 ->id('inputradio')
-                ->name('agree')
+                ->name('value')
                 ->uncheckedValue('0')
                 ->value('1')
                 ->render(),
@@ -1149,9 +1163,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input name="agree" type="hidden" value="0">
+            <input name="value" type="hidden" value="0">
             <label>
-            <input id="inputradio" name="agree" type="radio" value="1">
+            <input id="inputradio" name="value" type="radio" value="1">
             Label
             </label>
             HTML,
@@ -1159,7 +1173,7 @@ final class InputRadioTest extends TestCase
                 ->enclosedByLabel(true)
                 ->id('inputradio')
                 ->label('Label')
-                ->name('agree')
+                ->name('value')
                 ->uncheckedValue('0')
                 ->value('1')
                 ->render(),
@@ -1179,9 +1193,9 @@ final class InputRadioTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="from-global" id="id-user" type="radio">
+            <input class="from-global" id="value" type="radio">
             HTML,
-            InputRadio::tag(['id' => 'id-user'])->render(),
+            InputRadio::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -1192,11 +1206,11 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" value="accepted">
+            <input id="inputradio" type="radio" value="value">
             HTML,
             InputRadio::tag()
                 ->id('inputradio')
-                ->value('accepted')
+                ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );

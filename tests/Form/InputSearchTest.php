@@ -4,9 +4,20 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{
+    Aria,
+    Autocomplete,
+    Data,
+    Direction,
+    GlobalAttribute,
+    Language,
+    Role,
+    Translate,
+    Type,
+};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputSearch;
 use UIAwesome\Html\Interop\Inline;
@@ -17,13 +28,11 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input-search-specific attributes (`autocomplete`, `autofocus`, `dirname`, `disabled`, `form`, `list`,
+ * - Applies input search specific attributes (`autocomplete`, `autofocus`, `dirname`, `disabled`, `form`, `list`,
  *   `maxlength`, `minlength`, `name`, `pattern`, `placeholder`, `readonly`, `required`, `size`, `spellcheck`,
  *   `tabindex`, `value`) and renders expected output.
  * - Renders attributes and string casting for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
- *
- * {@see InputSearch} for the base implementation.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -34,9 +43,25 @@ final class InputSearchTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            InputSearch::tag()->getAttribute('data-test', 'default'),
+            'value',
+            InputSearch::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'id' => null,
+                'type' => Type::SEARCH,
+                'class' => 'value',
+            ],
+            InputSearch::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -44,10 +69,10 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" accesskey="k">
+            <input id="inputsearch" type="search" accesskey="value">
             HTML,
             InputSearch::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->id('inputsearch')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -58,10 +83,10 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" aria-label="Search">
+            <input id="inputsearch" type="search" aria-label="value">
             HTML,
             InputSearch::tag()
-                ->addAriaAttribute('label', 'Search')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputsearch')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -72,13 +97,13 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" aria-hidden="true">
+            <input id="inputsearch" type="search" aria-label="value">
             HTML,
             InputSearch::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputsearch')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -86,10 +111,10 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" aria-describedby="custom-help">
+            <input id="inputsearch" type="search" aria-describedby="value">
             HTML,
             InputSearch::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
+                ->addAriaAttribute('describedby', 'value')
                 ->id('inputsearch')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
@@ -185,9 +210,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" data-search="value">
+            <input id="inputsearch" type="search" data-value="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->addDataAttribute('search', 'value')->render(),
+            InputSearch::tag()
+                ->addDataAttribute('value', 'value')
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -196,10 +224,13 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" data-value="test">
+            <input id="inputsearch" type="search" data-value="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->addDataAttribute(Data::VALUE, 'test')->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            InputSearch::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->id('inputsearch')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -221,13 +252,13 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" aria-controls="search-results" aria-label="Search">
+            <input id="inputsearch" type="search" aria-controls="value" aria-label="value">
             HTML,
             InputSearch::tag()
                 ->id('inputsearch')
                 ->ariaAttributes([
-                    'controls' => 'search-results',
-                    'label' => 'Search',
+                    'controls' => 'value',
+                    'label' => 'value',
                 ])
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
@@ -266,9 +297,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="search-input" id="inputsearch" type="search">
+            <input class="value" id="inputsearch" type="search">
             HTML,
-            InputSearch::tag()->id('inputsearch')->attributes(['class' => 'search-input'])->render(),
+            InputSearch::tag()
+                ->attributes(['class' => 'value'])
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
@@ -307,7 +341,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" autocomplete="on">
             HTML,
-            InputSearch::tag()->autocomplete('on')->id('inputsearch')->render(),
+            InputSearch::tag()
+                ->autocomplete('on')
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
@@ -318,8 +355,11 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" autocomplete="on">
             HTML,
-            InputSearch::tag()->autocomplete(Autocomplete::ON)->id('inputsearch')->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
+            InputSearch::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->id('inputsearch')
+                ->render(),
+            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
 
@@ -329,7 +369,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" autofocus>
             HTML,
-            InputSearch::tag()->autofocus(true)->id('inputsearch')->render(),
+            InputSearch::tag()
+                ->autofocus(true)
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
     }
@@ -338,9 +381,26 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="search-input" id="inputsearch" type="search">
+            <input class="value" id="inputsearch" type="search">
             HTML,
-            InputSearch::tag()->id('inputsearch')->class('search-input')->render(),
+            InputSearch::tag()
+                ->class('value')
+                ->id('inputsearch')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input class="value" id="inputsearch" type="search">
+            HTML,
+            InputSearch::tag()
+                ->class(BackedString::VALUE)
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
     }
@@ -349,9 +409,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" data-search="value">
+            <input id="inputsearch" type="search" data-value="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->dataAttributes(['search' => 'value'])->render(),
+            InputSearch::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
@@ -362,7 +425,9 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputsearch" type="search">
             HTML,
-            InputSearch::tag(['class' => 'default-class'])->id('inputsearch')->render(),
+            InputSearch::tag(['class' => 'default-class'])
+                ->id('inputsearch')
+                ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -373,7 +438,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input class="default-class" id="inputsearch" type="search" title="default-title">
             HTML,
-            InputSearch::tag()->id('inputsearch')->addDefaultProvider(DefaultProvider::class)->render(),
+            InputSearch::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->id('inputsearch')
+                ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
     }
@@ -384,7 +452,9 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search">
             HTML,
-            InputSearch::tag()->id('inputsearch')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -395,7 +465,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" dir="ltr">
             HTML,
-            InputSearch::tag()->id('inputsearch')->dir('ltr')->render(),
+            InputSearch::tag()
+                ->dir('ltr')
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
@@ -406,7 +479,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" dirname="search.dir">
             HTML,
-            InputSearch::tag()->dirname('search.dir')->id('inputsearch')->render(),
+            InputSearch::tag()
+                ->dirname('search.dir')
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'dirname' attribute.",
         );
     }
@@ -417,8 +493,11 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" dir="ltr">
             HTML,
-            InputSearch::tag()->id('inputsearch')->dir(Direction::LTR)->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            InputSearch::tag()
+                ->dir(Direction::LTR)
+                ->id('inputsearch')
+                ->render(),
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -428,7 +507,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" disabled>
             HTML,
-            InputSearch::tag()->id('inputsearch')->disabled(true)->render(),
+            InputSearch::tag()
+                ->disabled(true)
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
@@ -456,9 +538,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" form="form-id">
+            <input id="inputsearch" type="search" form="value">
             HTML,
-            InputSearch::tag()->form('form-id')->id('inputsearch')->render(),
+            InputSearch::tag()
+                ->form('value')
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
     }
@@ -504,7 +589,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" hidden>
             HTML,
-            InputSearch::tag()->id('inputsearch')->hidden(true)->render(),
+            InputSearch::tag()
+                ->hidden(true)
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
     }
@@ -513,9 +601,11 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="search-input" type="search">
+            <input id="inputsearch" type="search">
             HTML,
-            InputSearch::tag()->id('search-input')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
     }
@@ -526,7 +616,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" lang="en">
             HTML,
-            InputSearch::tag()->id('inputsearch')->lang('en')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->lang('en')
+                ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
@@ -537,8 +630,11 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" lang="en">
             HTML,
-            InputSearch::tag()->id('inputsearch')->lang(Language::ENGLISH)->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->lang(Language::ENGLISH)
+                ->render(),
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -546,9 +642,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" list="search-list">
+            <input id="inputsearch" type="search" list="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->list('search-list')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->list('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
     }
@@ -559,7 +658,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" maxlength="10">
             HTML,
-            InputSearch::tag()->id('inputsearch')->maxlength(10)->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->maxlength(10)
+                ->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
         );
     }
@@ -570,7 +672,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" minlength="3">
             HTML,
-            InputSearch::tag()->id('inputsearch')->minlength(3)->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->minlength(3)
+                ->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
         );
     }
@@ -579,9 +684,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" name="search" type="search">
+            <input id="inputsearch" name="value" type="search">
             HTML,
-            InputSearch::tag()->id('inputsearch')->name('search')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->name('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
     }
@@ -592,7 +700,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" pattern="search.*">
             HTML,
-            InputSearch::tag()->id('inputsearch')->pattern('search.*')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->pattern('search.*')
+                ->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
         );
     }
@@ -601,9 +712,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" placeholder="Search...">
+            <input id="inputsearch" type="search" placeholder="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->placeholder('Search...')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->placeholder('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
     }
@@ -614,7 +728,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" readonly>
             HTML,
-            InputSearch::tag()->id('inputsearch')->readonly(true)->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->readonly(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
         );
     }
@@ -626,8 +743,8 @@ final class InputSearchTest extends TestCase
             <input id="inputsearch" type="search">
             HTML,
             InputSearch::tag()
+                ->addAriaAttribute('label', 'value')
                 ->id('inputsearch')
-                ->addAriaAttribute('label', 'Close')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -641,9 +758,9 @@ final class InputSearchTest extends TestCase
             <input id="inputsearch" type="search">
             HTML,
             InputSearch::tag()
+                ->setAttribute('class', 'value')
                 ->id('inputsearch')
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -656,8 +773,8 @@ final class InputSearchTest extends TestCase
             <input id="inputsearch" type="search">
             HTML,
             InputSearch::tag()
+                ->addDataAttribute('value', 'value')
                 ->id('inputsearch')
-                ->addDataAttribute('value', 'test')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -685,7 +802,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" required>
             HTML,
-            InputSearch::tag()->id('inputsearch')->required(true)->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->required(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
         );
     }
@@ -696,7 +816,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" role="searchbox">
             HTML,
-            InputSearch::tag()->id('inputsearch')->role('searchbox')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->role('searchbox')
+                ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
@@ -707,8 +830,11 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" role="searchbox">
             HTML,
-            InputSearch::tag()->id('inputsearch')->role(Role::SEARCHBOX)->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->role(Role::SEARCHBOX)
+                ->render(),
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -716,11 +842,11 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" data-test="value">
+            <input class="value" id="inputsearch" type="search">
             HTML,
             InputSearch::tag()
-                ->setAttribute('data-test', 'value')
                 ->id('inputsearch')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -730,10 +856,13 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" title="Search here">
+            <input id="inputsearch" type="search" title="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->setAttribute(GlobalAttribute::TITLE, 'Search here')->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -743,7 +872,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" size="20">
             HTML,
-            InputSearch::tag()->id('inputsearch')->size(20)->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->size(20)
+                ->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
         );
     }
@@ -754,7 +886,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" spellcheck="true">
             HTML,
-            InputSearch::tag()->id('inputsearch')->spellcheck(true)->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->spellcheck(true)
+                ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
         );
     }
@@ -763,9 +898,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" style='width: 200px;'>
+            <input id="inputsearch" type="search" style='value'>
             HTML,
-            InputSearch::tag()->id('inputsearch')->style('width: 200px;')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->style('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
     }
@@ -776,8 +914,27 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" tabindex="1">
             HTML,
-            InputSearch::tag()->id('inputsearch')->tabIndex(1)->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->tabIndex(1)
+                ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTemplate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="value">
+            <input id="inputsearch" type="search">
+            </div>
+            HTML,
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
+            'Failed asserting that element renders correctly with enclosed label and custom template.',
         );
     }
 
@@ -799,9 +956,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" title="Search here">
+            <input id="inputsearch" type="search" title="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->title('Search here')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->title('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
     }
@@ -823,7 +983,10 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" translate="no">
             HTML,
-            InputSearch::tag()->id('inputsearch')->translate(false)->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->translate(false)
+                ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
@@ -834,8 +997,11 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input id="inputsearch" type="search" translate="no">
             HTML,
-            InputSearch::tag()->id('inputsearch')->translate(Translate::NO)->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->translate(Translate::NO)
+                ->render(),
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -851,9 +1017,9 @@ final class InputSearchTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="from-global" id="id-user" type="search">
+            <input class="from-global" id="value" type="search">
             HTML,
-            InputSearch::tag(['id' => 'id-user'])->render(),
+            InputSearch::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
@@ -867,9 +1033,12 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputsearch" type="search" value="PHP">
+            <input id="inputsearch" type="search" value="value">
             HTML,
-            InputSearch::tag()->id('inputsearch')->value('PHP')->render(),
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->value('value')
+                ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
     }

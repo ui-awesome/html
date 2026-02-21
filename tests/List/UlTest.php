@@ -50,8 +50,8 @@ final class UlTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Ul::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Ul::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -59,9 +59,9 @@ final class UlTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Ul::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -86,11 +86,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul accesskey="k">
+            <ul accesskey="value">
             </ul>
             HTML,
             Ul::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +100,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul aria-pressed="true">
+            <ul aria-label="value">
             </ul>
             HTML,
             Ul::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +114,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul aria-pressed="true">
+            <ul aria-label="value">
             </ul>
             HTML,
             Ul::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -170,15 +170,14 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <ul aria-controls="value" aria-label="value">
             </ul>
             HTML,
             Ul::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -280,7 +279,7 @@ final class UlTest extends TestCase
             Ul::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -348,7 +347,7 @@ final class UlTest extends TestCase
             Ul::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -376,7 +375,7 @@ final class UlTest extends TestCase
             Ul::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -439,11 +438,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul id="test-id">
+            <ul id="value">
             </ul>
             HTML,
             Ul::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -455,18 +454,12 @@ final class UlTest extends TestCase
             <<<HTML
             <ul>
             <li>
-            Apple
-            </li>
-            <li>
-            Banana
-            </li>
-            <li>
-            Cherry
+            value
             </li>
             </ul>
             HTML,
             Ul::tag()
-                ->items('Apple', 'Banana', 'Cherry')
+                ->items('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'items()' method.",
         );
@@ -476,11 +469,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul lang="es">
+            <ul lang="en">
             </ul>
             HTML,
             Ul::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -490,13 +483,13 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul lang="es">
+            <ul lang="en">
             </ul>
             HTML,
             Ul::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -506,16 +499,12 @@ final class UlTest extends TestCase
             <<<HTML
             <ul>
             <li>
-            First item
-            </li>
-            <li>
-            Second item
+            value
             </li>
             </ul>
             HTML,
             Ul::tag()
-                ->li('First item')
-                ->li('Second item')
+                ->li('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'li()' method.",
         );
@@ -527,12 +516,12 @@ final class UlTest extends TestCase
             <<<HTML
             <ul>
             <li value="3">
-            Item
+            value
             </li>
             </ul>
             HTML,
             Ul::tag()
-                ->li('Item', 3)
+                ->li('value', 3)
                 ->render(),
             "Failed asserting that element renders correctly with 'li()' method using a value.",
         );
@@ -564,7 +553,7 @@ final class UlTest extends TestCase
             </ul>
             HTML,
             Ul::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -579,8 +568,8 @@ final class UlTest extends TestCase
             </ul>
             HTML,
             Ul::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -594,7 +583,7 @@ final class UlTest extends TestCase
             </ul>
             HTML,
             Ul::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -640,7 +629,7 @@ final class UlTest extends TestCase
             Ul::tag()
                 ->role(Role::LIST)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -648,11 +637,11 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul data-test="value">
+            <ul class="value">
             </ul>
             HTML,
             Ul::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -668,7 +657,7 @@ final class UlTest extends TestCase
             Ul::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -778,7 +767,7 @@ final class UlTest extends TestCase
             Ul::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -794,10 +783,10 @@ final class UlTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <ul class="from-global" id="id-user">
+            <ul class="from-global" id="value">
             </ul>
             HTML,
-            Ul::tag(['id' => 'id-user'])->render(),
+            Ul::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

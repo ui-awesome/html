@@ -50,8 +50,8 @@ final class H5Test extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            H5::tag()->getAttribute('data-test', 'default'),
+            'value',
+            H5::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -59,9 +59,9 @@ final class H5Test extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             H5::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -86,11 +86,11 @@ final class H5Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h5 accesskey="k">
+            <h5 accesskey="value">
             </h5>
             HTML,
             H5::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +100,11 @@ final class H5Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h5 aria-pressed="true">
+            <h5 aria-label="value">
             </h5>
             HTML,
             H5::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +114,11 @@ final class H5Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h5 aria-pressed="true">
+            <h5 aria-label="value">
             </h5>
             HTML,
             H5::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -131,7 +131,9 @@ final class H5Test extends TestCase
             <h5 data-value="value">
             </h5>
             HTML,
-            H5::tag()->addDataAttribute('value', 'value')->render(),
+            H5::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
@@ -168,15 +170,14 @@ final class H5Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h5 aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <h5 aria-controls="value" aria-label="value">
             </h5>
             HTML,
             H5::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -278,7 +279,7 @@ final class H5Test extends TestCase
             H5::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -346,7 +347,7 @@ final class H5Test extends TestCase
             H5::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -374,7 +375,7 @@ final class H5Test extends TestCase
             H5::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -437,11 +438,11 @@ final class H5Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h5 id="test-id">
+            <h5 id="value">
             </h5>
             HTML,
             H5::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -451,11 +452,11 @@ final class H5Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h5 lang="es">
+            <h5 lang="en">
             </h5>
             HTML,
             H5::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -465,13 +466,13 @@ final class H5Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h5 lang="es">
+            <h5 lang="en">
             </h5>
             HTML,
             H5::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -501,7 +502,7 @@ final class H5Test extends TestCase
             </h5>
             HTML,
             H5::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -516,8 +517,8 @@ final class H5Test extends TestCase
             </h5>
             HTML,
             H5::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -577,7 +578,7 @@ final class H5Test extends TestCase
             H5::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -585,11 +586,11 @@ final class H5Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h5 data-test="value">
+            <h5 class="value">
             </h5>
             HTML,
             H5::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -605,7 +606,7 @@ final class H5Test extends TestCase
             H5::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -715,7 +716,7 @@ final class H5Test extends TestCase
             H5::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -731,10 +732,10 @@ final class H5Test extends TestCase
 
         self::assertSame(
             <<<HTML
-            <h5 class="from-global" id="id-user">
+            <h5 class="from-global" id="value">
             </h5>
             HTML,
-            H5::tag(['id' => 'id-user'])->render(),
+            H5::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

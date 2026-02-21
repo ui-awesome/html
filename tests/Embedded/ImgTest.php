@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Embedded;
 
 use InvalidArgumentException;
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -49,8 +50,8 @@ final class ImgTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Img::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Img::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -58,9 +59,9 @@ final class ImgTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Img::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -70,10 +71,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img accesskey="k">
+            <img accesskey="value">
             HTML,
             Img::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -83,10 +84,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img aria-pressed="true">
+            <img aria-label="value">
             HTML,
             Img::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -96,10 +97,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img aria-pressed="true">
+            <img aria-label="value">
             HTML,
             Img::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -148,10 +149,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img alt="A beautiful landscape">
+            <img alt="value">
             HTML,
             Img::tag()
-                ->alt('A beautiful landscape')
+                ->alt('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'alt' attribute.",
         );
@@ -161,14 +162,13 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <img aria-controls="value" aria-label="value">
             HTML,
             Img::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -202,6 +202,19 @@ final class ImgTest extends TestCase
         );
     }
 
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <img class="value">
+            HTML,
+            Img::tag()
+                ->class(BackedString::VALUE)
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
     public function testRenderWithCrossorigin(): void
     {
         self::assertSame(
@@ -224,7 +237,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->crossorigin(Crossorigin::USE_CREDENTIALS)
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute using enum.",
+            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
         );
     }
 
@@ -263,7 +276,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->decoding(Decoding::SYNC)
                 ->render(),
-            "Failed asserting that element renders correctly with 'decoding' attribute using enum.",
+            "Failed asserting that element renders correctly with 'decoding' attribute.",
         );
     }
 
@@ -324,7 +337,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -332,10 +345,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img elementtiming="hero-image">
+            <img elementtiming="value">
             HTML,
             Img::tag()
-                ->elementtiming('hero-image')
+                ->elementtiming('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'elementtiming' attribute.",
         );
@@ -381,7 +394,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->fetchpriority(Fetchpriority::LOW)
                 ->render(),
-            "Failed asserting that element renders correctly with 'fetchpriority' attribute using enum.",
+            "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
         );
     }
 
@@ -434,10 +447,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img id="test-id">
+            <img id="value">
             HTML,
             Img::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -473,10 +486,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img lang="es">
+            <img lang="en">
             HTML,
             Img::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -486,12 +499,12 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img lang="es">
+            <img lang="en">
             HTML,
             Img::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -499,10 +512,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img loading="lazy">
+            <img loading="eager">
             HTML,
             Img::tag()
-                ->loading('lazy')
+                ->loading('eager')
                 ->render(),
             "Failed asserting that element renders correctly with 'loading' attribute.",
         );
@@ -517,7 +530,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->loading(Loading::EAGER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'loading' attribute using enum.",
+            "Failed asserting that element renders correctly with 'loading' attribute.",
         );
     }
 
@@ -543,7 +556,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->referrerpolicy(Referrerpolicy::ORIGIN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute using enum.",
+            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
         );
     }
 
@@ -554,7 +567,7 @@ final class ImgTest extends TestCase
             <img>
             HTML,
             Img::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -568,8 +581,8 @@ final class ImgTest extends TestCase
             <img>
             HTML,
             Img::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -582,7 +595,7 @@ final class ImgTest extends TestCase
             <img>
             HTML,
             Img::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -625,7 +638,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -633,10 +646,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img data-test="value">
+            <img data-value="value">
             HTML,
             Img::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('data-value', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -651,7 +664,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -672,10 +685,10 @@ final class ImgTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <img src="image.jpg">
+            <img src="value">
             HTML,
             Img::tag()
-                ->src('image.jpg')
+                ->src('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'src' attribute.",
         );
@@ -764,7 +777,7 @@ final class ImgTest extends TestCase
             Img::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -793,9 +806,9 @@ final class ImgTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <img class="from-global" id="id-user">
+            <img class="from-global" id="value">
             HTML,
-            Img::tag(['id' => 'id-user'])->render(),
+            Img::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

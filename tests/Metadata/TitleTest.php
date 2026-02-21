@@ -50,8 +50,8 @@ final class TitleTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Title::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Title::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -59,9 +59,9 @@ final class TitleTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Title::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -86,11 +86,11 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title accesskey="k">
+            <title accesskey="value">
             </title>
             HTML,
             Title::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +100,11 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title aria-pressed="true">
+            <title aria-label="value">
             </title>
             HTML,
             Title::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +114,11 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title aria-pressed="true">
+            <title aria-label="value">
             </title>
             HTML,
             Title::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -170,15 +170,14 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <title aria-controls="value" aria-label="value">
             </title>
             HTML,
             Title::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -246,11 +245,11 @@ final class TitleTest extends TestCase
         self::assertSame(
             <<<HTML
             <title>
-            value
+            &lt;value&gt;
             </title>
             HTML,
             Title::tag()
-                ->content('value')
+                ->content('<value>')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -280,7 +279,7 @@ final class TitleTest extends TestCase
             Title::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -360,7 +359,7 @@ final class TitleTest extends TestCase
             Title::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -388,7 +387,7 @@ final class TitleTest extends TestCase
             Title::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -451,11 +450,11 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title id="test-id">
+            <title id="value">
             </title>
             HTML,
             Title::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -465,11 +464,11 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title lang="es">
+            <title lang="en">
             </title>
             HTML,
             Title::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -479,13 +478,13 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title lang="es">
+            <title lang="en">
             </title>
             HTML,
             Title::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -515,7 +514,7 @@ final class TitleTest extends TestCase
             </title>
             HTML,
             Title::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -530,8 +529,8 @@ final class TitleTest extends TestCase
             </title>
             HTML,
             Title::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -545,7 +544,7 @@ final class TitleTest extends TestCase
             </title>
             HTML,
             Title::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -591,7 +590,7 @@ final class TitleTest extends TestCase
             Title::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -599,11 +598,11 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title data-test="value">
+            <title class="value">
             </title>
             HTML,
             Title::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -619,7 +618,7 @@ final class TitleTest extends TestCase
             Title::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -729,7 +728,7 @@ final class TitleTest extends TestCase
             Title::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -745,10 +744,10 @@ final class TitleTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <title class="from-global" id="id-user">
+            <title class="from-global" id="value">
             </title>
             HTML,
-            Title::tag(['id' => 'id-user'])->render(),
+            Title::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

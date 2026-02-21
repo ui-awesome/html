@@ -50,8 +50,8 @@ final class H1Test extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            H1::tag()->getAttribute('data-test', 'default'),
+            'value',
+            H1::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -59,9 +59,9 @@ final class H1Test extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             H1::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -86,11 +86,11 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 accesskey="k">
+            <h1 accesskey="value">
             </h1>
             HTML,
             H1::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -100,11 +100,11 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 aria-pressed="true">
+            <h1 aria-label="value">
             </h1>
             HTML,
             H1::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +114,11 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 aria-pressed="true">
+            <h1 aria-label="value">
             </h1>
             HTML,
             H1::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -170,15 +170,14 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <h1 aria-controls="value" aria-label="value">
             </h1>
             HTML,
             H1::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -280,7 +279,7 @@ final class H1Test extends TestCase
             H1::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -348,7 +347,7 @@ final class H1Test extends TestCase
             H1::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -376,7 +375,7 @@ final class H1Test extends TestCase
             H1::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -439,11 +438,11 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 id="test-id">
+            <h1 id="value">
             </h1>
             HTML,
             H1::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -453,11 +452,11 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 lang="es">
+            <h1 lang="en">
             </h1>
             HTML,
             H1::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -467,13 +466,13 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 lang="es">
+            <h1 lang="en">
             </h1>
             HTML,
             H1::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -503,7 +502,7 @@ final class H1Test extends TestCase
             </h1>
             HTML,
             H1::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -518,8 +517,8 @@ final class H1Test extends TestCase
             </h1>
             HTML,
             H1::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -579,7 +578,7 @@ final class H1Test extends TestCase
             H1::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -587,11 +586,11 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 data-test="value">
+            <h1 class="value">
             </h1>
             HTML,
             H1::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -607,7 +606,7 @@ final class H1Test extends TestCase
             H1::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -717,7 +716,7 @@ final class H1Test extends TestCase
             H1::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -733,10 +732,10 @@ final class H1Test extends TestCase
 
         self::assertSame(
             <<<HTML
-            <h1 class="from-global" id="id-user">
+            <h1 class="from-global" id="value">
             </h1>
             HTML,
-            H1::tag(['id' => 'id-user'])->render(),
+            H1::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

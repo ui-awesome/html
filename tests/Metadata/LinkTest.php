@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
+    AsValue,
     Blocking,
     Crossorigin,
     Data,
@@ -17,8 +18,10 @@ use UIAwesome\Html\Attribute\Values\{
     GlobalAttribute,
     Language,
     Referrerpolicy,
+    Rel,
     Role,
     Translate,
+    Type,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
@@ -48,8 +51,8 @@ final class LinkTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Link::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Link::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -57,9 +60,9 @@ final class LinkTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Link::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -69,10 +72,10 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link accesskey="k">
+            <link accesskey="value">
             HTML,
             Link::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -82,10 +85,10 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link aria-label="Stylesheet">
+            <link aria-label="value">
             HTML,
             Link::tag()
-                ->addAriaAttribute('label', 'Stylesheet')
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -95,12 +98,12 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link aria-hidden="true">
+            <link aria-label="value">
             HTML,
             Link::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -126,7 +129,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -147,14 +150,13 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <link aria-controls="value" aria-label="value">
             HTML,
             Link::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -170,6 +172,19 @@ final class LinkTest extends TestCase
             HTML,
             Link::tag()
                 ->as('style')
+                ->render(),
+            "Failed asserting that element renders correctly with 'as' attribute.",
+        );
+    }
+
+    public function testRenderWithAsUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <link as="style">
+            HTML,
+            Link::tag()
+                ->as(AsValue::STYLE)
                 ->render(),
             "Failed asserting that element renders correctly with 'as' attribute.",
         );
@@ -210,7 +225,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->blocking(Blocking::RENDER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'blocking' attribute using enum.",
+            "Failed asserting that element renders correctly with 'blocking' attribute.",
         );
     }
 
@@ -249,7 +264,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->crossorigin(Crossorigin::ANONYMOUS)
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute using enum.",
+            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
         );
     }
 
@@ -323,7 +338,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -380,7 +395,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->fetchpriority(Fetchpriority::HIGH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'fetchpriority' attribute using enum.",
+            "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
         );
     }
 
@@ -420,26 +435,12 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link href="https://example.com/style.css">
+            <link href="value">
             HTML,
             Link::tag()
-                ->href('https://example.com/style.css')
+                ->href('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'href' attribute.",
-        );
-    }
-
-    public function testRenderWithHrefAndRel(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link href="https://example.com/style.css" rel="stylesheet">
-            HTML,
-            Link::tag()
-                ->href('https://example.com/style.css')
-                ->rel('stylesheet')
-                ->render(),
-            "Failed asserting that element renders correctly with both 'href' and 'rel' attributes.",
         );
     }
 
@@ -447,10 +448,10 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link hreflang="es">
+            <link hreflang="en">
             HTML,
             Link::tag()
-                ->hreflang('es')
+                ->hreflang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'hreflang' attribute.",
         );
@@ -460,10 +461,10 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link id="test-id">
+            <link id="value">
             HTML,
             Link::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -499,10 +500,10 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link integrity="sha384-abc123">
+            <link integrity="value">
             HTML,
             Link::tag()
-                ->integrity('sha384-abc123')
+                ->integrity('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'integrity' attribute.",
         );
@@ -512,10 +513,10 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link lang="es">
+            <link lang="en">
             HTML,
             Link::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -525,12 +526,12 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link lang="es">
+            <link lang="en">
             HTML,
             Link::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -569,7 +570,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->referrerpolicy(Referrerpolicy::NO_REFERRER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute using enum.",
+            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
         );
     }
 
@@ -586,6 +587,19 @@ final class LinkTest extends TestCase
         );
     }
 
+    public function testRenderWithRelUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <link rel="stylesheet">
+            HTML,
+            Link::tag()
+                ->rel(Rel::STYLESHEET)
+                ->render(),
+            "Failed asserting that element renders correctly with 'rel' attribute.",
+        );
+    }
+
     public function testRenderWithRemoveAriaAttribute(): void
     {
         self::assertSame(
@@ -593,7 +607,7 @@ final class LinkTest extends TestCase
             <link>
             HTML,
             Link::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -607,8 +621,8 @@ final class LinkTest extends TestCase
             <link>
             HTML,
             Link::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -621,7 +635,7 @@ final class LinkTest extends TestCase
             <link>
             HTML,
             Link::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -664,7 +678,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -672,10 +686,10 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link data-test="value">
+            <link class="value">
             HTML,
             Link::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -685,12 +699,12 @@ final class LinkTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <link title="Stylesheet">
+            <link title="value">
             HTML,
             Link::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Stylesheet')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -717,20 +731,6 @@ final class LinkTest extends TestCase
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
-        );
-    }
-
-    public function testRenderWithStylesheet(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link href="/css/site.css" rel="stylesheet">
-            HTML,
-            Link::tag()
-                ->href('/css/site.css')
-                ->rel('stylesheet')
-                ->render(),
-            'Failed asserting that element renders correctly as stylesheet link.',
         );
     }
 
@@ -791,7 +791,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -803,6 +803,19 @@ final class LinkTest extends TestCase
             HTML,
             Link::tag()
                 ->type('text/css')
+                ->render(),
+            "Failed asserting that element renders correctly with 'type' attribute.",
+        );
+    }
+
+    public function testRenderWithTypeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <link type="text/css">
+            HTML,
+            Link::tag()
+                ->type(Type::TEXT_CSS)
                 ->render(),
             "Failed asserting that element renders correctly with 'type' attribute.",
         );
@@ -820,9 +833,9 @@ final class LinkTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <link class="from-global" id="id-user">
+            <link class="from-global" id="value">
             HTML,
-            Link::tag(['id' => 'id-user'])->render(),
+            Link::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

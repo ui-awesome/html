@@ -21,6 +21,7 @@ use UIAwesome\Html\Attribute\Values\{
     Referrerpolicy,
     Role,
     Translate,
+    Type,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
@@ -60,8 +61,8 @@ final class ScriptTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            Script::tag()->getAttribute('data-test', 'default'),
+            'value',
+            Script::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -69,9 +70,9 @@ final class ScriptTest extends TestCase
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(
-            ['data-test' => 'value'],
+            ['class' => 'value'],
             Script::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
@@ -96,11 +97,11 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script accesskey="k">
+            <script accesskey="value">
             </script>
             HTML,
             Script::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -110,11 +111,11 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script aria-pressed="true">
+            <script aria-label="value">
             </script>
             HTML,
             Script::tag()
-                ->addAriaAttribute('pressed', true)
+                ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -124,11 +125,11 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script aria-pressed="true">
+            <script aria-label="value">
             </script>
             HTML,
             Script::tag()
-                ->addAriaAttribute(Aria::PRESSED, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -180,15 +181,14 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script aria-controls="modal-1" aria-hidden="false" aria-label="Close">
+            <script aria-controls="value" aria-label="value">
             </script>
             HTML,
             Script::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => static fn(): string => 'modal-1',
-                        'hidden' => false,
-                        'label' => 'Close',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->render(),
@@ -243,10 +243,10 @@ final class ScriptTest extends TestCase
         self::assertSame(
             <<<HTML
             <script>
-            console.log('test');
+            Content
             </script>
             HTML,
-            Script::tag()->begin() . "console.log('test');" . Script::end(),
+            Script::tag()->begin() . 'Content' . Script::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -275,7 +275,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->blocking(Blocking::RENDER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'blocking' attribute using enum.",
+            "Failed asserting that element renders correctly with 'blocking' attribute.",
         );
     }
 
@@ -298,11 +298,11 @@ final class ScriptTest extends TestCase
         self::assertSame(
             <<<HTML
             <script>
-            console.log('Hello');
+            &lt;value&gt;
             </script>
             HTML,
             Script::tag()
-                ->content("console.log('Hello');")
+                ->content('<value>')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -332,7 +332,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
@@ -360,7 +360,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->crossorigin(Crossorigin::ANONYMOUS)
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute using enum.",
+            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
         );
     }
 
@@ -454,7 +454,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -482,7 +482,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute using enum.",
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
@@ -529,7 +529,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->fetchpriority(Fetchpriority::HIGH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'fetchpriority' attribute using enum.",
+            "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
         );
     }
 
@@ -573,11 +573,11 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script id="test-id">
+            <script id="value">
             </script>
             HTML,
             Script::tag()
-                ->id('test-id')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -587,11 +587,11 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script integrity="sha384-abc123">
+            <script integrity="value">
             </script>
             HTML,
             Script::tag()
-                ->integrity('sha384-abc123')
+                ->integrity('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'integrity' attribute.",
         );
@@ -601,11 +601,11 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script lang="es">
+            <script lang="en">
             </script>
             HTML,
             Script::tag()
-                ->lang('es')
+                ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
         );
@@ -615,13 +615,13 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script lang="es">
+            <script lang="en">
             </script>
             HTML,
             Script::tag()
-                ->lang(Language::SPANISH)
+                ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -681,7 +681,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->referrerpolicy(Referrerpolicy::NO_REFERRER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute using enum.",
+            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
         );
     }
 
@@ -693,7 +693,7 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -708,8 +708,8 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()
-                ->setAttribute('data-test', 'value')
-                ->removeAttribute('data-test')
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -723,7 +723,7 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -769,7 +769,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -777,11 +777,11 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script data-test="value">
+            <script class="value">
             </script>
             HTML,
             Script::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -797,7 +797,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -819,11 +819,11 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script src="https://example.com/script.js">
+            <script src="value">
             </script>
             HTML,
             Script::tag()
-                ->src('https://example.com/script.js')
+                ->src('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'src' attribute.",
         );
@@ -921,7 +921,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
@@ -939,6 +939,20 @@ final class ScriptTest extends TestCase
         );
     }
 
+    public function testRenderWithTypeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <script type="module">
+            </script>
+            HTML,
+            Script::tag()
+                ->type(Type::MODULE)
+                ->render(),
+            "Failed asserting that element renders correctly with 'type' attribute.",
+        );
+    }
+
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(
@@ -951,10 +965,10 @@ final class ScriptTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <script class="from-global" id="id-user">
+            <script class="from-global" id="value">
             </script>
             HTML,
-            Script::tag(['id' => 'id-user'])->render(),
+            Script::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

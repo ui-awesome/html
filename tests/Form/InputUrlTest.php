@@ -4,9 +4,20 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Autocomplete, Data, Direction, GlobalAttribute, Language, Role, Translate};
+use UIAwesome\Html\Attribute\Values\{
+    Aria,
+    Autocomplete,
+    Data,
+    Direction,
+    GlobalAttribute,
+    Language,
+    Role,
+    Translate,
+    Type,
+};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputUrl;
 use UIAwesome\Html\Interop\Inline;
@@ -17,7 +28,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input-url-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `maxlength`,
+ * - Applies input url specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `maxlength`,
  *   `minlength`, `name`, `pattern`, `placeholder`, `readonly`, `required`, `size`, `spellcheck`, `tabindex`, `value`)
  *   and renders expected output.
  * - Renders attributes and string casting for a void element.
@@ -34,9 +45,25 @@ final class InputUrlTest extends TestCase
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
-            'default',
-            InputUrl::tag()->getAttribute('data-test', 'default'),
+            'value',
+            InputUrl::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
+    }
+
+    public function testGetAttributesReturnsAssignedAttributes(): void
+    {
+        self::assertSame(
+            [
+                'id' => null,
+                'type' => Type::URL,
+                'class' => 'value',
+            ],
+            InputUrl::tag()
+                ->id(null)
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
         );
     }
 
@@ -44,10 +71,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" accesskey="k">
+            <input id="inputurl" type="url" accesskey="value">
             HTML,
             InputUrl::tag()
-                ->accesskey('k')
+                ->accesskey('value')
                 ->id('inputurl')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -58,10 +85,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" aria-label="Url selector">
+            <input id="inputurl" type="url" aria-label="value">
             HTML,
             InputUrl::tag()
-                ->addAriaAttribute('label', 'Url selector')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputurl')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -72,13 +99,13 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" aria-hidden="true">
+            <input id="inputurl" type="url" aria-label="value">
             HTML,
             InputUrl::tag()
-                ->addAriaAttribute(Aria::HIDDEN, true)
+                ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
@@ -86,10 +113,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" aria-describedby="custom-help">
+            <input id="inputurl" type="url" aria-describedby="value">
             HTML,
             InputUrl::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
+                ->addAriaAttribute('describedby', 'value')
                 ->id('inputurl')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
@@ -185,10 +212,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" data-url="value">
+            <input id="inputurl" type="url" data-value="value">
             HTML,
             InputUrl::tag()
-                ->addDataAttribute('url', 'value')
+                ->addDataAttribute('value', 'value')
                 ->id('inputurl')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -199,13 +226,13 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" data-value="test">
+            <input id="inputurl" type="url" data-value="value">
             HTML,
             InputUrl::tag()
-                ->addDataAttribute(Data::VALUE, 'test')
+                ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
@@ -227,13 +254,13 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" aria-controls="url-picker" aria-label="Select a url">
+            <input id="inputurl" type="url" aria-controls="value" aria-label="value">
             HTML,
             InputUrl::tag()
                 ->ariaAttributes(
                     [
-                        'controls' => 'url-picker',
-                        'label' => 'Select a url',
+                        'controls' => 'value',
+                        'label' => 'value',
                     ],
                 )
                 ->id('inputurl')
@@ -274,10 +301,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="url-input" id="inputurl" type="url">
+            <input class="value" id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->class('url-input')
+                ->class('value')
                 ->id('inputurl')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -336,7 +363,7 @@ final class InputUrlTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute using enum.",
+            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
 
@@ -358,10 +385,24 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="url-input" id="inputurl" type="url">
+            <input class="value" id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->class('url-input')
+                ->class('value')
+                ->id('inputurl')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input class="value" id="inputurl" type="url">
+            HTML,
+            InputUrl::tag()
+                ->class(BackedString::VALUE)
                 ->id('inputurl')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -372,10 +413,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" data-url="value">
+            <input id="inputurl" type="url" data-value="value">
             HTML,
             InputUrl::tag()
-                ->dataAttributes(['url' => 'value'])
+                ->dataAttributes(['value' => 'value'])
                 ->id('inputurl')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -446,7 +487,7 @@ final class InputUrlTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputurl')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute using enum.",
+            "Failed asserting that element renders correctly with 'dir' attribute.",
         );
     }
 
@@ -487,10 +528,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" form="form-id">
+            <input id="inputurl" type="url" form="value">
             HTML,
             InputUrl::tag()
-                ->form('form-id')
+                ->form('value')
                 ->id('inputurl')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
@@ -550,10 +591,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="url-input" type="url">
+            <input id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->id('url-input')
+                ->id('inputurl')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -583,7 +624,7 @@ final class InputUrlTest extends TestCase
                 ->id('inputurl')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute using enum.",
+            "Failed asserting that element renders correctly with 'lang' attribute.",
         );
     }
 
@@ -591,11 +632,11 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" list="urls">
+            <input id="inputurl" type="url" list="value">
             HTML,
             InputUrl::tag()
                 ->id('inputurl')
-                ->list('urls')
+                ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
         );
@@ -633,11 +674,11 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" name="website" type="url">
+            <input id="inputurl" name="value" type="url">
             HTML,
             InputUrl::tag()
                 ->id('inputurl')
-                ->name('website')
+                ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
         );
@@ -661,11 +702,11 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" placeholder="https://example.com">
+            <input id="inputurl" type="url" placeholder="value">
             HTML,
             InputUrl::tag()
                 ->id('inputurl')
-                ->placeholder('https://example.com')
+                ->placeholder('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
         );
@@ -692,7 +733,7 @@ final class InputUrlTest extends TestCase
             <input id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->addAriaAttribute('label', 'Close')
+                ->addAriaAttribute('label', 'value')
                 ->id('inputurl')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -707,9 +748,9 @@ final class InputUrlTest extends TestCase
             <input id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->setAttribute('data-test', 'value')
+                ->setAttribute('class', 'value')
                 ->id('inputurl')
-                ->removeAttribute('data-test')
+                ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
         );
@@ -722,7 +763,7 @@ final class InputUrlTest extends TestCase
             <input id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->addDataAttribute('value', 'test')
+                ->addDataAttribute('value', 'value')
                 ->id('inputurl')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -783,7 +824,7 @@ final class InputUrlTest extends TestCase
                 ->id('inputurl')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute using enum.",
+            "Failed asserting that element renders correctly with 'role' attribute.",
         );
     }
 
@@ -791,11 +832,11 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" data-test="value">
+            <input class="value" id="inputurl" type="url">
             HTML,
             InputUrl::tag()
-                ->setAttribute('data-test', 'value')
                 ->id('inputurl')
+                ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
@@ -805,13 +846,13 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" title="Select url">
+            <input id="inputurl" type="url" title="value">
             HTML,
             InputUrl::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'Select url')
                 ->id('inputurl')
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method using enum.",
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
@@ -847,11 +888,11 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" style='width: 200px;'>
+            <input id="inputurl" type="url" style='value'>
             HTML,
             InputUrl::tag()
                 ->id('inputurl')
-                ->style('width: 200px;')
+                ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
         );
@@ -868,6 +909,22 @@ final class InputUrlTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTemplate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="value">
+            <input id="inputurl" type="url">
+            </div>
+            HTML,
+            InputUrl::tag()
+                ->id('inputurl')
+                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
+                ->render(),
+            'Failed asserting that element renders correctly with enclosed label and custom template.',
         );
     }
 
@@ -889,11 +946,11 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" title="Select a url">
+            <input id="inputurl" type="url" title="value">
             HTML,
             InputUrl::tag()
                 ->id('inputurl')
-                ->title('Select a url')
+                ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
         );
@@ -934,34 +991,43 @@ final class InputUrlTest extends TestCase
                 ->id('inputurl')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute using enum.",
+            "Failed asserting that element renders correctly with 'translate' attribute.",
         );
     }
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(InputUrl::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            InputUrl::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
         self::assertSame(
             <<<HTML
-            <input class="from-global" id="id-user" type="url">
+            <input class="from-global" id="value" type="url">
             HTML,
-            InputUrl::tag(['id' => 'id-user'])->render(),
+            InputUrl::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
-        SimpleFactory::setDefaults(InputUrl::class, []);
+        SimpleFactory::setDefaults(
+            InputUrl::class,
+            [],
+        );
     }
 
     public function testRenderWithValue(): void
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" value="https://example.com">
+            <input id="inputurl" type="url" value="value">
             HTML,
             InputUrl::tag()
                 ->id('inputurl')
-                ->value('https://example.com')
+                ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
