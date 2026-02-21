@@ -7,7 +7,17 @@ namespace UIAwesome\Html\Tests\Metadata;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Language, Role, Target, Translate};
+use UIAwesome\Html\Attribute\Values\{
+    Aria,
+    Attribute,
+    Data,
+    Direction,
+    GlobalAttribute,
+    Language,
+    Role,
+    Target,
+    Translate,
+};
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -581,13 +591,13 @@ final class BaseTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingTarget(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingTarget(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                'target',
+                Attribute::TARGET->value,
                 implode("', '", Enum::normalizeArray(Target::cases())),
             ),
         );

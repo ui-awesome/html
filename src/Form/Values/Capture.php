@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form\Values;
 
 /**
- * Represents the values for the HTML `capture` attribute.
+ * Represents values for the HTML `capture` attribute.
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture
  *

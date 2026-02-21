@@ -1006,7 +1006,7 @@ final class TextAreaTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingCols(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingCols(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -1020,7 +1020,7 @@ final class TextAreaTest extends TestCase
         TextArea::tag()->cols(0);
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingRows(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingRows(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -1034,7 +1034,7 @@ final class TextAreaTest extends TestCase
         TextArea::tag()->rows(0);
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingWrap(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingWrap(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(

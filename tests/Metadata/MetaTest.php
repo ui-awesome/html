@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
+    Attribute,
     Charset,
     Data,
     Direction,
@@ -641,13 +642,13 @@ final class MetaTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionForSettingHttpEquiv(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingHttpEquiv(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                'http-equiv',
+                Attribute::HTTP_EQUIV->value,
                 implode("', '", Enum::normalizeArray(HttpEquiv::cases())),
             ),
         );

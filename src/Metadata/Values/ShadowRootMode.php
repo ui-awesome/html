@@ -5,13 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata\Values;
 
 /**
- * Represents tokens for the HTML `shadowrootmode` attribute.
- *
- * Usage example:
- * ```php
- * $mode = \UIAwesome\Html\Metadata\Values\ShadowRootMode::OPEN;
- * echo $mode->value;
- * ```
+ * Represents values for the HTML `shadowrootmode` attribute.
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#shadowrootmode
  *
