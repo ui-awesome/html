@@ -909,7 +909,7 @@ final class InputDateTimeLocalTest extends TestCase
                 ->id('inputdatetimelocal')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
-            'Failed asserting that element renders correctly with enclosed label and custom template.',
+            'Failed asserting that element renders correctly with a custom template wrapper.',
         );
     }
 
