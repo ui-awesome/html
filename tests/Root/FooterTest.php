@@ -725,7 +725,7 @@ final class FooterTest extends TestCase
         SimpleFactory::setDefaults(
             Footer::class,
             [
-                'class' => 'value',
+                'class' => 'from-global',
                 'id' => 'id-global',
             ],
         );
@@ -735,7 +735,7 @@ final class FooterTest extends TestCase
             <footer class="from-global" id="value">
             </footer>
             HTML,
-            Footer::tag(['id' => 'id-user'])->render(),
+            Footer::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 

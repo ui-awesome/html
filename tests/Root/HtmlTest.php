@@ -656,11 +656,11 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html class="text-muted">
+            <html class="tag-default">
             </html>
             HTML,
             Html::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->addThemeProvider('default', DefaultThemeProvider::class)
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
