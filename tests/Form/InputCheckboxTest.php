@@ -25,7 +25,6 @@ use UnitEnum;
  *   `tabindex`, `value`) and renders expected output.
  * - Handles edge cases for `checked` attribute with various data types and value comparisons.
  * - Renders attributes and string casting for a void element.
- * - Renders label configurations, including content, attributes, and tag name.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
