@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
+    Attribute,
     Autocomplete,
     Data,
     Direction,
@@ -995,5 +996,89 @@ final class InputColorTest extends TestCase
         );
 
         InputColor::tag()->colorspace('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::DIR->value,
+                implode("', '", Enum::normalizeArray(Direction::cases())),
+            ),
+        );
+
+        InputColor::tag()->dir('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::LANG->value,
+                implode("', '", Enum::normalizeArray(Language::cases())),
+            ),
+        );
+
+        InputColor::tag()->lang('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::ROLE->value,
+                implode("', '", Enum::normalizeArray(Role::cases())),
+            ),
+        );
+
+        InputColor::tag()->role('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                '-2',
+                GlobalAttribute::TABINDEX->value,
+                'value >= -1',
+            ),
+        );
+
+        InputColor::tag()->tabIndex(-2);
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::TRANSLATE->value,
+                implode("', '", Enum::normalizeArray(Translate::cases())),
+            ),
+        );
+
+        InputColor::tag()->translate('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                Attribute::TYPE->value,
+                implode("', '", Enum::normalizeArray(Type::cases())),
+            ),
+        );
+
+        InputColor::tag()->type('invalid-value');
     }
 }

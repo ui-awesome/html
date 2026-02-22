@@ -2,52 +2,56 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Metadata;
+namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
+    Attribute,
+    Autocapitalize,
+    Autocomplete,
     ContentEditable,
     Data,
     Direction,
     Draggable,
     GlobalAttribute,
     Language,
+    Rel,
     Role,
+    Target,
     Translate,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
+use UIAwesome\Html\Form\Form;
+use UIAwesome\Html\Form\Values\{Enctype, Method};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Metadata\Template;
-use UIAwesome\Html\Metadata\Values\ShadowRootMode;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Template} rendering and template attribute behavior.
+ * Unit tests for {@see Form} rendering and attribute behavior.
  *
  * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies template specific attributes (`shadowrootclonable`, `shadowrootdelegatesfocus`, `shadowrootmode`,
- *   `shadowrootreferencetarget`, `shadowrootserializable`) and renders expected output.
+ * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, and string casting with expected encoding behavior.
  * - Resolves default and theme providers, including global defaults and user overrides.
- * - Verifies invalid enumerated values throw {@see InvalidArgumentException}.
+ * - Covers all `<form>` element-specific attributes per MDN specification.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('metadata')]
-final class TemplateTest extends TestCase
+#[Group('form')]
+final class FormTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
         self::assertSame(
             '&lt;value&gt;',
-            Template::tag()
+            Form::tag()
                 ->content('<value>')
                 ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
@@ -58,7 +62,7 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             'value',
-            Template::tag()->getAttribute('class', 'value'),
+            Form::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -67,7 +71,7 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             ['class' => 'value'],
-            Template::tag()
+            Form::tag()
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -78,14 +82,28 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template>
+            <form>
             <value>
-            </template>
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->html('<value>')
                 ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
+        );
+    }
+
+    public function testRenderWithAcceptCharset(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form accept-charset="UTF-8">
+            </form>
+            HTML,
+            Form::tag()
+                ->acceptCharset('UTF-8')
+                ->render(),
+            "Failed asserting that element renders correctly with 'accept-charset' attribute.",
         );
     }
 
@@ -93,13 +111,27 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template accesskey="value">
-            </template>
+            <form accesskey="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
+        );
+    }
+
+    public function testRenderWithAction(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form action="/submit">
+            </form>
+            HTML,
+            Form::tag()
+                ->action('/submit')
+                ->render(),
+            "Failed asserting that element renders correctly with 'action' attribute.",
         );
     }
 
@@ -107,10 +139,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template aria-label="value">
-            </template>
+            <form aria-label="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -121,10 +153,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template aria-label="value">
-            </template>
+            <form aria-label="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -135,10 +167,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template data-value="value">
-            </template>
+            <form data-value="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -149,27 +181,13 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template data-value="value">
-            </template>
+            <form data-value="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template onclick="alert(&apos;Clicked!&apos;)">
-            </template>
-            HTML,
-            Template::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -177,17 +195,17 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template aria-controls="value" aria-label="value">
-            </template>
+            <form aria-controls="value" aria-label="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->ariaAttributes(
                     [
                         'controls' => 'value',
                         'label' => 'value',
                     ],
                 )
-                    ->render(),
+                ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
@@ -196,13 +214,69 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template class="value">
-            </template>
+            <form class="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
+        );
+    }
+
+    public function testRenderWithAutocapitalize(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form autocapitalize="sentences">
+            </form>
+            HTML,
+            Form::tag()
+                ->autocapitalize('sentences')
+                ->render(),
+            "Failed asserting that element renders correctly with 'autocapitalize' attribute.",
+        );
+    }
+
+    public function testRenderWithAutocapitalizeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form autocapitalize="sentences">
+            </form>
+            HTML,
+            Form::tag()
+                ->autocapitalize(Autocapitalize::SENTENCES)
+                ->render(),
+            "Failed asserting that element renders correctly with 'autocapitalize' attribute.",
+        );
+    }
+
+    public function testRenderWithAutocomplete(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form autocomplete="on">
+            </form>
+            HTML,
+            Form::tag()
+                ->autocomplete('on')
+                ->render(),
+            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+        );
+    }
+
+    public function testRenderWithAutocompleteUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form autocomplete="on">
+            </form>
+            HTML,
+            Form::tag()
+                ->autocomplete(Autocomplete::ON)
+                ->render(),
+            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
     }
 
@@ -210,10 +284,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template autofocus>
-            </template>
+            <form autofocus>
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->autofocus(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
@@ -224,11 +298,11 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template>
+            <form>
             Content
-            </template>
+            </form>
             HTML,
-            Template::tag()->begin() . 'Content' . Template::end(),
+            Form::tag()->begin() . 'Content' . Form::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -237,11 +311,25 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template class="value">
-            </template>
+            <form class="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->class('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithClassUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form class="value">
+            </form>
+            HTML,
+            Form::tag()
+                ->class(BackedString::VALUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -251,12 +339,12 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template>
-            &lt;value&gt;
-            </template>
+            <form>
+            value
+            </form>
             HTML,
-            Template::tag()
-                ->content('<value>')
+            Form::tag()
+                ->content('value')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
         );
@@ -266,10 +354,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template contenteditable="true">
-            </template>
+            <form contenteditable="true">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->contentEditable(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
@@ -280,10 +368,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template contenteditable="true">
-            </template>
+            <form contenteditable="true">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
@@ -294,10 +382,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template data-value="value">
-            </template>
+            <form data-value="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -308,10 +396,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template class="default-class">
-            </template>
+            <form class="default-class">
+            </form>
             HTML,
-            Template::tag(['class' => 'default-class'])->render(),
+            Form::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -320,25 +408,13 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template class="default-class" title="default-title">
-            </template>
+            <form class="default-class" title="default-title">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
-        );
-    }
-
-    public function testRenderWithDefaultValues(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template>
-            </template>
-            HTML,
-            Template::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
         );
     }
 
@@ -346,10 +422,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template dir="ltr">
-            </template>
+            <form dir="ltr">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->dir('ltr')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
@@ -360,10 +436,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template dir="ltr">
-            </template>
+            <form dir="ltr">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->dir(Direction::LTR)
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
@@ -374,10 +450,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template draggable="true">
-            </template>
+            <form draggable="true">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->draggable(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
@@ -388,53 +464,62 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template draggable="true">
-            </template>
+            <form draggable="true">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
-    public function testRenderWithEvents(): void
+    public function testRenderWithEnctype(): void
     {
         self::assertSame(
             <<<HTML
-            <template onfocus="handleFocus()" onblur="handleBlur()">
-            </template>
+            <form enctype="multipart/form-data">
+            </form>
             HTML,
-            Template::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
+            Form::tag()
+                ->enctype('multipart/form-data')
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            "Failed asserting that element renders correctly with 'enctype' attribute.",
+        );
+    }
+
+    public function testRenderWithEnctypeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form enctype="multipart/form-data">
+            </form>
+            HTML,
+            Form::tag()
+                ->enctype(Enctype::MULTIPART_FORM_DATA)
+                ->render(),
+            "Failed asserting that element renders correctly with 'enctype' attribute.",
         );
     }
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
-            Template::class,
+            Form::class,
             ['class' => 'default-class'],
         );
 
         self::assertSame(
             <<<HTML
-            <template class="default-class">
-            </template>
+            <form class="default-class">
+            </form>
             HTML,
-            Template::tag()->render(),
+            Form::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
         SimpleFactory::setDefaults(
-            Template::class,
+            Form::class,
             [],
         );
     }
@@ -443,10 +528,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template hidden>
-            </template>
+            <form hidden>
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->hidden(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
@@ -457,10 +542,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template id="value">
-            </template>
+            <form id="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
@@ -471,10 +556,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template lang="en">
-            </template>
+            <form lang="en">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -485,13 +570,41 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template lang="en">
-            </template>
+            <form lang="en">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
+        );
+    }
+
+    public function testRenderWithMethod(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form method="post">
+            </form>
+            HTML,
+            Form::tag()
+                ->method('post')
+                ->render(),
+            "Failed asserting that element renders correctly with 'method' attribute.",
+        );
+    }
+
+    public function testRenderWithMethodUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form method="post">
+            </form>
+            HTML,
+            Form::tag()
+                ->method(Method::POST)
+                ->render(),
+            "Failed asserting that element renders correctly with 'method' attribute.",
         );
     }
 
@@ -499,10 +612,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </template>
+            <form itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->itemId('https://example.com/item')
                 ->itemProp('name')
                 ->itemRef('info')
@@ -513,14 +626,70 @@ final class TemplateTest extends TestCase
         );
     }
 
+    public function testRenderWithName(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form name="value">
+            </form>
+            HTML,
+            Form::tag()
+                ->name('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'name' attribute.",
+        );
+    }
+
+    public function testRenderWithNovalidate(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form novalidate>
+            </form>
+            HTML,
+            Form::tag()
+                ->novalidate(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'novalidate' attribute.",
+        );
+    }
+
+    public function testRenderWithRel(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form rel="noopener">
+            </form>
+            HTML,
+            Form::tag()
+                ->rel('noopener')
+                ->render(),
+            "Failed asserting that element renders correctly with 'rel' attribute.",
+        );
+    }
+
+    public function testRenderWithRelUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form rel="noopener">
+            </form>
+            HTML,
+            Form::tag()
+                ->rel(Rel::NOOPENER)
+                ->render(),
+            "Failed asserting that element renders correctly with 'rel' attribute.",
+        );
+    }
+
     public function testRenderWithRemoveAriaAttribute(): void
     {
         self::assertSame(
             <<<HTML
-            <template>
-            </template>
+            <form>
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -532,10 +701,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template>
-            </template>
+            <form>
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->setAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
@@ -547,10 +716,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template>
-            </template>
+            <form>
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -558,30 +727,15 @@ final class TemplateTest extends TestCase
         );
     }
 
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template>
-            </template>
-            HTML,
-            Template::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->removeEvent('click')
-                ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
-        );
-    }
-
     public function testRenderWithRole(): void
     {
         self::assertSame(
             <<<HTML
-            <template role="banner">
-            </template>
+            <form role="form">
+            </form>
             HTML,
-            Template::tag()
-                ->role('banner')
+            Form::tag()
+                ->role('form')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
@@ -591,11 +745,11 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template role="banner">
-            </template>
+            <form role="form">
+            </form>
             HTML,
-            Template::tag()
-                ->role(Role::BANNER)
+            Form::tag()
+                ->role(Role::FORM)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
         );
@@ -605,10 +759,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template class="value">
-            </template>
+            <form class="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -619,97 +773,13 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template title="value">
-            </template>
+            <form title="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithShadowRootClonable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template shadowrootclonable>
-            </template>
-            HTML,
-            Template::tag()
-                ->shadowRootClonable(true)
-                ->render(),
-            "Failed asserting that element renders correctly with 'shadowrootclonable' attribute.",
-        );
-    }
-
-    public function testRenderWithShadowRootDelegatesFocus(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template shadowrootdelegatesfocus>
-            </template>
-            HTML,
-            Template::tag()
-                ->shadowRootDelegatesFocus(true)
-                ->render(),
-            "Failed asserting that element renders correctly with 'shadowrootdelegatesfocus' attribute.",
-        );
-    }
-
-    public function testRenderWithShadowRootMode(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template shadowrootmode="open">
-            </template>
-            HTML,
-            Template::tag()
-                ->shadowRootMode('open')
-                ->render(),
-            "Failed asserting that element renders correctly with 'shadowrootmode' attribute.",
-        );
-    }
-
-    public function testRenderWithShadowRootModeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template shadowrootmode="open">
-            </template>
-            HTML,
-            Template::tag()
-                ->shadowRootMode(ShadowRootMode::OPEN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'shadowrootmode' attribute.",
-        );
-    }
-
-    public function testRenderWithShadowRootReferenceTarget(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template shadowrootreferencetarget="value">
-            </template>
-            HTML,
-            Template::tag()
-                ->shadowRootReferenceTarget('value')
-                ->render(),
-            "Failed asserting that element renders correctly with 'shadowrootreferencetarget' attribute.",
-        );
-    }
-
-    public function testRenderWithShadowRootSerializable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <template shadowrootserializable>
-            </template>
-            HTML,
-            Template::tag()
-                ->shadowRootSerializable(true)
-                ->render(),
-            "Failed asserting that element renders correctly with 'shadowrootserializable' attribute.",
         );
     }
 
@@ -717,10 +787,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template spellcheck="true">
-            </template>
+            <form spellcheck="true">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->spellcheck(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
@@ -731,10 +801,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template style='value'>
-            </template>
+            <form style='value'>
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -745,13 +815,41 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template tabindex="3">
-            </template>
+            <form tabindex="3">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->tabIndex(3)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTarget(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form target="_blank">
+            </form>
+            HTML,
+            Form::tag()
+                ->target('_blank')
+                ->render(),
+            "Failed asserting that element renders correctly with 'target' attribute.",
+        );
+    }
+
+    public function testRenderWithTargetUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form target="_blank">
+            </form>
+            HTML,
+            Form::tag()
+                ->target(Target::BLANK)
+                ->render(),
+            "Failed asserting that element renders correctly with 'target' attribute.",
         );
     }
 
@@ -759,10 +857,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template class="text-muted">
-            </template>
+            <form class="text-muted">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
@@ -773,10 +871,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template title="value">
-            </template>
+            <form title="value">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -787,10 +885,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template>
-            </template>
+            <form>
+            </form>
             HTML,
-            (string) Template::tag(),
+            (string) Form::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -799,10 +897,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template translate="no">
-            </template>
+            <form translate="no">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -813,10 +911,10 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template translate="no">
-            </template>
+            <form translate="no">
+            </form>
             HTML,
-            Template::tag()
+            Form::tag()
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -826,7 +924,7 @@ final class TemplateTest extends TestCase
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(
-            Template::class,
+            Form::class,
             [
                 'class' => 'from-global',
                 'id' => 'id-global',
@@ -835,48 +933,62 @@ final class TemplateTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <template class="from-global" id="value">
-            </template>
+            <form class="from-global" id="value">
+            </form>
             HTML,
-            Template::tag(['id' => 'value'])->render(),
+            Form::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
         SimpleFactory::setDefaults(
-            Template::class,
+            Form::class,
             [],
         );
     }
 
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
-        $template = Template::tag();
+        $form = Form::tag();
 
         self::assertNotSame(
-            $template,
-            $template->shadowRootClonable(true),
+            $form,
+            $form->acceptCharset(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
-            $template,
-            $template->shadowRootDelegatesFocus(true),
+            $form,
+            $form->action(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
-            $template,
-            $template->shadowRootMode(''),
+            $form,
+            $form->enctype(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
-            $template,
-            $template->shadowRootReferenceTarget(''),
+            $form,
+            $form->method(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
-            $template,
-            $template->shadowRootSerializable(true),
+            $form,
+            $form->novalidate(true),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingAutocapitalize(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                'autocapitalize',
+                implode("', '", Enum::normalizeArray(Autocapitalize::cases())),
+            ),
+        );
+
+        Form::tag()->autocapitalize('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
@@ -890,7 +1002,7 @@ final class TemplateTest extends TestCase
             ),
         );
 
-        Template::tag()->contentEditable('invalid-value');
+        Form::tag()->contentEditable('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
@@ -904,7 +1016,7 @@ final class TemplateTest extends TestCase
             ),
         );
 
-        Template::tag()->dir('invalid-value');
+        Form::tag()->dir('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
@@ -918,7 +1030,21 @@ final class TemplateTest extends TestCase
             ),
         );
 
-        Template::tag()->draggable('invalid-value');
+        Form::tag()->draggable('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingEnctype(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                'enctype',
+                implode("', '", Enum::normalizeArray(Enctype::cases())),
+            ),
+        );
+
+        Form::tag()->enctype('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
@@ -932,7 +1058,35 @@ final class TemplateTest extends TestCase
             ),
         );
 
-        Template::tag()->lang('invalid-value');
+        Form::tag()->lang('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingMethod(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                'method',
+                implode("', '", Enum::normalizeArray(Method::cases())),
+            ),
+        );
+
+        Form::tag()->method('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingRel(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                Attribute::REL->value,
+                implode("', '", Enum::normalizeArray(Rel::cases())),
+            ),
+        );
+
+        Form::tag()->rel('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
@@ -946,35 +1100,21 @@ final class TemplateTest extends TestCase
             ),
         );
 
-        Template::tag()->role('invalid-value');
+        Form::tag()->role('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingShadowRootMode(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingTarget(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                'shadowrootmode',
-                implode("', '", Enum::normalizeArray(ShadowRootMode::cases())),
+                Attribute::TARGET->value,
+                implode("', '", Enum::normalizeArray(Target::cases())),
             ),
         );
 
-        Template::tag()->shadowRootMode('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        Template::tag()->tabIndex(-2);
+        Form::tag()->target('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
@@ -988,6 +1128,6 @@ final class TemplateTest extends TestCase
             ),
         );
 
-        Template::tag()->translate('invalid-value');
+        Form::tag()->translate('invalid-value');
     }
 }

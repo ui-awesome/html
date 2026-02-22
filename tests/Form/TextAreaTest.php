@@ -8,9 +8,9 @@ use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
+    Attribute,
     Autocomplete,
     ContentEditable,
     Data,
@@ -26,6 +26,7 @@ use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\TextArea;
 use UIAwesome\Html\Form\Values\Wrap;
 use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -1006,11 +1007,39 @@ final class TextAreaTest extends TestCase
         );
     }
 
+    public function testThrowInvalidArgumentExceptionWhenSettingAutocapitalize(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::AUTOCAPITALIZE->value,
+                implode("', '", Enum::normalizeArray(Autocapitalize::cases())),
+            ),
+        );
+
+        TextArea::tag()->autocapitalize('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingAutocorrect(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::AUTOCORRECT->value,
+                implode("', '", Enum::normalizeArray(Autocorrect::cases())),
+            ),
+        );
+
+        TextArea::tag()->autocorrect('invalid-value');
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingCols(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
                 '0',
                 'cols',
                 'value > 0',
@@ -1020,11 +1049,109 @@ final class TextAreaTest extends TestCase
         TextArea::tag()->cols(0);
     }
 
+    public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::CONTENTEDITABLE->value,
+                implode("', '", Enum::normalizeArray(ContentEditable::cases())),
+            ),
+        );
+
+        TextArea::tag()->contentEditable('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::DIR->value,
+                implode("', '", Enum::normalizeArray(Direction::cases())),
+            ),
+        );
+
+        TextArea::tag()->dir('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::DRAGGABLE->value,
+                implode("', '", Enum::normalizeArray(Draggable::cases())),
+            ),
+        );
+
+        TextArea::tag()->draggable('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::LANG->value,
+                implode("', '", Enum::normalizeArray(Language::cases())),
+            ),
+        );
+
+        TextArea::tag()->lang('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingMaxlength(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                '-1',
+                Attribute::MAXLENGTH->value,
+                'value >= 0',
+            ),
+        );
+
+        TextArea::tag()->maxlength(-1);
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingMinlength(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                '-1',
+                Attribute::MINLENGTH->value,
+                'value >= 0',
+            ),
+        );
+
+        TextArea::tag()->minlength(-1);
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::ROLE->value,
+                implode("', '", Enum::normalizeArray(Role::cases())),
+            ),
+        );
+
+        TextArea::tag()->role('invalid-value');
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingRows(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
                 '0',
                 'rows',
                 'value > 0',
@@ -1034,11 +1161,39 @@ final class TextAreaTest extends TestCase
         TextArea::tag()->rows(0);
     }
 
+    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                '-2',
+                GlobalAttribute::TABINDEX->value,
+                'value >= -1',
+            ),
+        );
+
+        TextArea::tag()->tabIndex(-2);
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::TRANSLATE->value,
+                implode("', '", Enum::normalizeArray(Translate::cases())),
+            ),
+        );
+
+        TextArea::tag()->translate('invalid-value');
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingWrap(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            \UIAwesome\Html\Helper\Exception\Message::VALUE_NOT_IN_LIST->getMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 'wrap',
                 implode("', '", Enum::normalizeArray(Wrap::cases())),

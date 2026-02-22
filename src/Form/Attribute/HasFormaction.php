@@ -23,7 +23,9 @@ trait HasFormaction
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()->formaction('/submit')->render();
+     * echo \UIAwesome\Html\Form\InputSubmit::tag()
+     *     ->formaction('/submit')
+     *     ->render();
      * ```
      *
      * @param string|Stringable|UnitEnum|null $value URL for form submission, or `null` to remove the attribute.

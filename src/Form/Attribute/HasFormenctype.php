@@ -23,7 +23,9 @@ trait HasFormenctype
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()->formenctype('multipart/form-data')->render();
+     * echo \UIAwesome\Html\Form\InputSubmit::tag()
+     *     ->formenctype('multipart/form-data')
+     *     ->render();
      * ```
      *
      * @param string|Stringable|UnitEnum|null $value Encoding type for form submission, or `null` to remove the

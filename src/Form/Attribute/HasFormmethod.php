@@ -23,7 +23,9 @@ trait HasFormmethod
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()->formmethod('post')->render();
+     * echo \UIAwesome\Html\Form\InputSubmit::tag()
+     *     ->formmethod('post')
+     *     ->render();
      * ```
      *
      * @param string|Stringable|UnitEnum|null $value HTTP method for form submission, or `null` to remove the attribute.

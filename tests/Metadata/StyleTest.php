@@ -888,4 +888,102 @@ final class StyleTest extends TestCase
 
         Style::tag()->blocking('invalid-value');
     }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::CONTENTEDITABLE->value,
+                implode("', '", Enum::normalizeArray(ContentEditable::cases())),
+            ),
+        );
+
+        Style::tag()->contentEditable('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::DIR->value,
+                implode("', '", Enum::normalizeArray(Direction::cases())),
+            ),
+        );
+
+        Style::tag()->dir('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::DRAGGABLE->value,
+                implode("', '", Enum::normalizeArray(Draggable::cases())),
+            ),
+        );
+
+        Style::tag()->draggable('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::LANG->value,
+                implode("', '", Enum::normalizeArray(Language::cases())),
+            ),
+        );
+
+        Style::tag()->lang('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::ROLE->value,
+                implode("', '", Enum::normalizeArray(Role::cases())),
+            ),
+        );
+
+        Style::tag()->role('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                '-2',
+                GlobalAttribute::TABINDEX->value,
+                'value >= -1',
+            ),
+        );
+
+        Style::tag()->tabIndex(-2);
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::TRANSLATE->value,
+                implode("', '", Enum::normalizeArray(Translate::cases())),
+            ),
+        );
+
+        Style::tag()->translate('invalid-value');
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Palpable;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -19,7 +20,10 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
     Type,
 };
+use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Core\Factory\SimpleFactory;
+use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Palpable\A;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
@@ -821,5 +825,103 @@ final class ATest extends TestCase
             $a->type(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::DIR->value,
+                implode("', '", Enum::normalizeArray(Direction::cases())),
+            ),
+        );
+
+        A::tag()->dir('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::LANG->value,
+                implode("', '", Enum::normalizeArray(Language::cases())),
+            ),
+        );
+
+        A::tag()->lang('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingReferrerpolicy(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                Attribute::REFERRERPOLICY->value,
+                implode("', '", Enum::normalizeArray(Referrerpolicy::cases())),
+            ),
+        );
+
+        A::tag()->referrerpolicy('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingRel(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                Attribute::REL->value,
+                implode("', '", Enum::normalizeArray(Rel::cases())),
+            ),
+        );
+
+        A::tag()->rel('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::ROLE->value,
+                implode("', '", Enum::normalizeArray(Role::cases())),
+            ),
+        );
+
+        A::tag()->role('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::TRANSLATE->value,
+                implode("', '", Enum::normalizeArray(Translate::cases())),
+            ),
+        );
+
+        A::tag()->translate('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                Attribute::TYPE->value,
+                implode("', '", Enum::normalizeArray(Type::cases())),
+            ),
+        );
+
+        A::tag()->type('invalid-value');
     }
 }

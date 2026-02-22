@@ -23,7 +23,9 @@ trait HasFormtarget
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()->formtarget('_blank')->render();
+     * echo \UIAwesome\Html\Form\InputSubmit::tag()
+     *     ->formtarget('_blank')
+     *     ->render();
      * ```
      *
      * @param string|Stringable|UnitEnum|null $value Browsing context for form submission response, or `null` to remove

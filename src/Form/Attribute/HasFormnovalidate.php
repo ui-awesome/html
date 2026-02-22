@@ -20,7 +20,9 @@ trait HasFormnovalidate
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()->formnovalidate(true)->render();
+     * echo \UIAwesome\Html\Form\InputSubmit::tag()
+     *     ->formnovalidate(true)
+     *     ->render();
      * ```
      *
      * @param bool|null $value Whether to bypass form validation, or `null` to remove the attribute.

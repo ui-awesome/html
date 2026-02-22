@@ -939,6 +939,20 @@ final class ImgTest extends TestCase
         Img::tag()->decoding('invalid-value');
     }
 
+    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::DIR->value,
+                implode("', '", Enum::normalizeArray(Direction::cases())),
+            ),
+        );
+
+        Img::tag()->dir('invalid-value');
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingFetchpriority(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -951,6 +965,20 @@ final class ImgTest extends TestCase
         );
 
         Img::tag()->fetchpriority('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::LANG->value,
+                implode("', '", Enum::normalizeArray(Language::cases())),
+            ),
+        );
+
+        Img::tag()->lang('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingLoading(): void
@@ -979,5 +1007,33 @@ final class ImgTest extends TestCase
         );
 
         Img::tag()->referrerpolicy('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::ROLE->value,
+                implode("', '", Enum::normalizeArray(Role::cases())),
+            ),
+        );
+
+        Img::tag()->role('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::TRANSLATE->value,
+                implode("', '", Enum::normalizeArray(Translate::cases())),
+            ),
+        );
+
+        Img::tag()->translate('invalid-value');
     }
 }
