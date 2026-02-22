@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -20,6 +21,8 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\Button;
 use UIAwesome\Html\Form\Values\{ButtonCommand, ButtonType};
+use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -241,7 +244,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->command(ButtonCommand::SHOW_MODAL)
                 ->render(),
-            "Failed asserting that element renders correctly with 'command' attribute using enum.",
+            "Failed asserting that element renders correctly with 'command' attribute.",
         );
     }
 
@@ -458,7 +461,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formtarget(Target::BLANK)
                 ->render(),
-            "Failed asserting that element renders correctly with 'formtarget' attribute using enum.",
+            "Failed asserting that element renders correctly with 'formtarget' attribute.",
         );
     }
 
@@ -583,7 +586,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->popoverTargetAction(PopoverTargetAction::TOGGLE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'popovertargetaction' attribute using enum.",
+            "Failed asserting that element renders correctly with 'popovertargetaction' attribute.",
         );
     }
 
@@ -792,7 +795,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->type(ButtonType::SUBMIT)
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute using enum.",
+            "Failed asserting that element renders correctly with 'type' attribute.",
         );
     }
 
@@ -831,5 +834,19 @@ final class ButtonTest extends TestCase
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
         );
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                'type',
+                implode("', '", Enum::normalizeArray(ButtonType::cases())),
+            ),
+        );
+
+        Button::tag()->type('invalid-value');
     }
 }
