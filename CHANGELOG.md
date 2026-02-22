@@ -42,6 +42,7 @@
 - Bug #54: Update exception test method names for consistency and clarity (@terabytesoftw)
 - Bug #55: Remove `BaseChoice` class and related mixins; update `InputCheckbox`, `InputFile`, and `InputRadio` to extend `BaseInput` class (@terabytesoftw)
 - Enh #56: Add `Button` class for HTML `<button>` element with attributes and rendering capabilities (@terabytesoftw)
+- Bug #57: Add tests for invalid argument exceptions in HTML attributes (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 

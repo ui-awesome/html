@@ -20,7 +20,9 @@ trait HasAlpha
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Form\InputColor::tag()->alpha(true)->render();
+     * echo \UIAwesome\Html\Form\InputColor::tag()
+     *     ->alpha(true)
+     *     ->render();
      * ```
      *
      * @param bool $value Whether to allow the user to manipulate the color's alpha channel.

@@ -874,6 +874,20 @@ final class LinkTest extends TestCase
         Link::tag()->crossorigin('invalid-value');
     }
 
+    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::DIR->value,
+                implode("', '", Enum::normalizeArray(Direction::cases())),
+            ),
+        );
+
+        Link::tag()->dir('invalid-value');
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingFetchpriority(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -888,6 +902,20 @@ final class LinkTest extends TestCase
         Link::tag()->fetchpriority('invalid-value');
     }
 
+    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::LANG->value,
+                implode("', '", Enum::normalizeArray(Language::cases())),
+            ),
+        );
+
+        Link::tag()->lang('invalid-value');
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingReferrerpolicy(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -900,5 +928,33 @@ final class LinkTest extends TestCase
         );
 
         Link::tag()->referrerpolicy('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::ROLE->value,
+                implode("', '", Enum::normalizeArray(Role::cases())),
+            ),
+        );
+
+        Link::tag()->role('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                GlobalAttribute::TRANSLATE->value,
+                implode("', '", Enum::normalizeArray(Translate::cases())),
+            ),
+        );
+
+        Link::tag()->translate('invalid-value');
     }
 }

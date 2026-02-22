@@ -20,7 +20,9 @@ trait HasIsmap
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Embedded\Img::tag()->ismap(true)->render();
+     * echo \UIAwesome\Html\Embedded\Img::tag()
+     *     ->ismap(true)
+     *     ->render();
      * ```
      *
      * @param bool $value Whether the image is a server-side image map.

@@ -24,8 +24,12 @@ trait HasCapture
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Form\InputFile::tag()->capture('user')->render();
-     * echo \UIAwesome\Html\Form\InputFile::tag()->capture('environment')->render();
+     * echo \UIAwesome\Html\Form\InputFile::tag()
+     *     ->capture('user')
+     *     ->render();
+     * echo \UIAwesome\Html\Form\InputFile::tag()
+     *     ->capture('environment')
+     *     ->render();
      * ```
      *
      * @param string|Stringable|UnitEnum|null $value Capture value, or `null` to remove the attribute.

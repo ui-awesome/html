@@ -11,7 +11,7 @@ use UnitEnum;
  * Provides an immutable API for the HTML `formaction` attribute.
  *
  * @mixin \UIAwesome\Html\Mixin\HasAttributes
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/formaction
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#formaction
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -23,7 +23,9 @@ trait HasFormaction
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()->formaction('/submit')->render();
+     * echo \UIAwesome\Html\Form\InputSubmit::tag()
+     *     ->formaction('/submit')
+     *     ->render();
      * ```
      *
      * @param string|Stringable|UnitEnum|null $value URL for form submission, or `null` to remove the attribute.

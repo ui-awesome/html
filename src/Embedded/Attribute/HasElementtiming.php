@@ -22,9 +22,15 @@ trait HasElementtiming
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\Embedded\Img::tag()->elementtiming('hero-image')->render();
-     * echo \UIAwesome\Html\Embedded\Img::tag()->elementtiming('product-thumbnail')->render();
-     * echo \UIAwesome\Html\Embedded\Img::tag()->elementtiming(null)->render();
+     * echo \UIAwesome\Html\Embedded\Img::tag()
+     *     ->elementtiming('hero-image')
+     *     ->render();
+     * echo \UIAwesome\Html\Embedded\Img::tag()
+     *     ->elementtiming('product-thumbnail')
+     *     ->render();
+     * echo \UIAwesome\Html\Embedded\Img::tag()
+     *     ->elementtiming(null)
+     *     ->render();
      * ```
      *
      * @param string|UnitEnum|null $value Element timing identifier, or `null` to remove the attribute.
