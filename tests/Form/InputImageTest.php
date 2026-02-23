@@ -56,12 +56,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::IMAGE,
                 'class' => 'value',
             ],
             InputImage::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -72,11 +70,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" accesskey="value">
+            <input type="image" accesskey="value">
             HTML,
             InputImage::tag()
                 ->accesskey('value')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -86,11 +83,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" aria-label="value">
+            <input type="image" aria-label="value">
             HTML,
             InputImage::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -100,11 +96,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" aria-label="value">
+            <input type="image" aria-label="value">
             HTML,
             InputImage::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +109,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" aria-describedby="value">
+            <input type="image" aria-describedby="value">
             HTML,
             InputImage::tag()
                 ->addAriaAttribute('describedby', 'value')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -213,11 +207,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" data-value="value">
+            <input type="image" data-value="value">
             HTML,
             InputImage::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -227,11 +220,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" data-value="value">
+            <input type="image" data-value="value">
             HTML,
             InputImage::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -241,11 +233,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="image" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputImage::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -255,11 +246,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" alt="value">
+            <input type="image" alt="value">
             HTML,
             InputImage::tag()
                 ->alt('value')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'alt' attribute.",
         );
@@ -269,7 +259,7 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" aria-controls="value" aria-label="value">
+            <input type="image" aria-controls="value" aria-label="value">
             HTML,
             InputImage::tag()
                 ->ariaAttributes(
@@ -278,7 +268,6 @@ final class InputImageTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -312,15 +301,29 @@ final class InputImageTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputimage" type="image" aria-describedby="inputimage-value">
+            HTML,
+            InputImage::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputimage')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputimage" type="image">
+            <input class="value" type="image">
             HTML,
             InputImage::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -358,11 +361,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" autofocus>
+            <input type="image" autofocus>
             HTML,
             InputImage::tag()
                 ->autofocus(true)
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -372,11 +374,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputimage" type="image">
+            <input class="value" type="image">
             HTML,
             InputImage::tag()
                 ->class('value')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -386,11 +387,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputimage" type="image">
+            <input class="value" type="image">
             HTML,
             InputImage::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -400,11 +400,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" data-value="value">
+            <input type="image" data-value="value">
             HTML,
             InputImage::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -414,11 +413,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputimage" type="image">
+            <input class="default-class" type="image">
             HTML,
-            InputImage::tag(['class' => 'default-class'])
-                ->id('inputimage')
-                ->render(),
+            InputImage::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -427,11 +424,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputimage" type="image" title="default-title">
+            <input class="default-class" type="image" title="default-title">
             HTML,
             InputImage::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputimage')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -441,11 +437,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image">
+            <input type="image">
             HTML,
-            InputImage::tag()
-                ->id('inputimage')
-                ->render(),
+            InputImage::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -454,11 +448,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" dir="ltr">
+            <input type="image" dir="ltr">
             HTML,
             InputImage::tag()
                 ->dir('ltr')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -468,11 +461,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" dir="ltr">
+            <input type="image" dir="ltr">
             HTML,
             InputImage::tag()
                 ->dir(Direction::LTR)
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -482,11 +474,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" disabled>
+            <input type="image" disabled>
             HTML,
             InputImage::tag()
                 ->disabled(true)
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -496,7 +487,7 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="image" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputImage::tag()
                 ->events(
@@ -505,7 +496,6 @@ final class InputImageTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -515,11 +505,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" formaction="/submit">
+            <input type="image" formaction="/submit">
             HTML,
             InputImage::tag()
                 ->formaction('/submit')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'formaction' attribute.",
         );
@@ -529,11 +518,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" formenctype="multipart/form-data">
+            <input type="image" formenctype="multipart/form-data">
             HTML,
             InputImage::tag()
                 ->formenctype('multipart/form-data')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'formenctype' attribute.",
         );
@@ -543,11 +531,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" formmethod="post">
+            <input type="image" formmethod="post">
             HTML,
             InputImage::tag()
                 ->formmethod('post')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'formmethod' attribute.",
         );
@@ -557,11 +544,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" formnovalidate>
+            <input type="image" formnovalidate>
             HTML,
             InputImage::tag()
                 ->formnovalidate(true)
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'formnovalidate' attribute.",
         );
@@ -571,11 +557,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" formtarget="_blank">
+            <input type="image" formtarget="_blank">
             HTML,
             InputImage::tag()
                 ->formtarget('_blank')
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'formtarget' attribute.",
         );
@@ -585,25 +570,12 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" formtarget="_blank">
+            <input type="image" formtarget="_blank">
             HTML,
             InputImage::tag()
                 ->formtarget(Target::BLANK)
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'formtarget' attribute.",
-        );
-    }
-
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputImage::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputimage-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -616,11 +588,9 @@ final class InputImageTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputimage" type="image">
+            <input class="default-class" type="image">
             HTML,
-            InputImage::tag()
-                ->id('inputimage')
-                ->render(),
+            InputImage::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -634,11 +604,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" height="100">
+            <input type="image" height="100">
             HTML,
             InputImage::tag()
                 ->height(100)
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'height' attribute.",
         );
@@ -648,11 +617,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" hidden>
+            <input type="image" hidden>
             HTML,
             InputImage::tag()
                 ->hidden(true)
-                ->id('inputimage')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -662,10 +630,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image">
+            <input id="value" type="image">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -675,10 +643,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" lang="en">
+            <input type="image" lang="en">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -689,10 +656,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" lang="en">
+            <input type="image" lang="en">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -703,10 +669,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" name="value" type="image">
+            <input name="value" type="image">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -717,11 +682,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image">
+            <input type="image">
             HTML,
             InputImage::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputimage')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -732,11 +696,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image">
+            <input type="image">
             HTML,
             InputImage::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputimage')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -747,11 +710,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image">
+            <input type="image">
             HTML,
             InputImage::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputimage')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -762,11 +724,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image">
+            <input type="image">
             HTML,
             InputImage::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputimage')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -777,10 +738,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" role="button">
+            <input type="image" role="button">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->role('button')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -791,10 +751,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" role="button">
+            <input type="image" role="button">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->role(Role::BUTTON)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -805,10 +764,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputimage" type="image">
+            <input class="value" type="image">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -819,10 +777,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" title="value">
+            <input type="image" title="value">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -833,10 +790,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" src="value">
+            <input type="image" src="value">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->src('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'src' attribute.",
@@ -847,10 +803,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" style='value'>
+            <input type="image" style='value'>
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -861,10 +816,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" tabindex="1">
+            <input type="image" tabindex="1">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -876,11 +830,10 @@ final class InputImageTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputimage" type="image">
+            <input type="image">
             </div>
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -891,10 +844,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputimage" type="image">
+            <input class="text-muted" type="image">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
@@ -905,10 +857,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" title="value">
+            <input type="image" title="value">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -921,7 +872,7 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input type="image">
             HTML,
-            (string) InputImage::tag()->id(null),
+            (string) InputImage::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -930,10 +881,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" translate="no">
+            <input type="image" translate="no">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -944,10 +894,9 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" translate="no">
+            <input type="image" translate="no">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -982,11 +931,11 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputimage" type="image" width="100">
+            <input type="image" width="100">
             HTML,
             InputImage::tag()
-                ->id('inputimage')
-                ->width(100)->render(),
+                ->width(100)
+                ->render(),
             "Failed asserting that element renders correctly with 'width' attribute.",
         );
     }

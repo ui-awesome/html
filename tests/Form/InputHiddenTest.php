@@ -55,12 +55,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::HIDDEN,
                 'class' => 'value',
             ],
             InputHidden::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -71,11 +69,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" accesskey="value">
+            <input type="hidden" accesskey="value">
             HTML,
             InputHidden::tag()
                 ->accesskey('value')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -85,11 +82,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" aria-label="value">
+            <input type="hidden" aria-label="value">
             HTML,
             InputHidden::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -99,11 +95,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" aria-label="value">
+            <input type="hidden" aria-label="value">
             HTML,
             InputHidden::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -113,11 +108,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" aria-describedby="custom-help">
+            <input type="hidden" aria-describedby="value">
             HTML,
             InputHidden::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
-                ->id('inputhidden')
+                ->addAriaAttribute('describedby', 'value')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -212,11 +206,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" data-value="value">
+            <input type="hidden" data-value="value">
             HTML,
             InputHidden::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -226,11 +219,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" data-value="value">
+            <input type="hidden" data-value="value">
             HTML,
             InputHidden::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -240,11 +232,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="hidden" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputHidden::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -254,7 +245,7 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" aria-controls="value" aria-label="value">
+            <input type="hidden" aria-controls="value" aria-label="value">
             HTML,
             InputHidden::tag()
                 ->ariaAttributes(
@@ -263,7 +254,6 @@ final class InputHiddenTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -297,15 +287,29 @@ final class InputHiddenTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-value">
+            HTML,
+            InputHidden::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputhidden')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputhidden" type="hidden">
+            <input class="value" type="hidden">
             HTML,
             InputHidden::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -343,11 +347,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" autocomplete="on">
+            <input type="hidden" autocomplete="on">
             HTML,
             InputHidden::tag()
                 ->autocomplete('on')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -357,11 +360,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" autocomplete="on">
+            <input type="hidden" autocomplete="on">
             HTML,
             InputHidden::tag()
                 ->autocomplete(Autocomplete::ON)
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -371,11 +373,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputhidden" type="hidden">
+            <input class="value" type="hidden">
             HTML,
             InputHidden::tag()
                 ->class('value')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -385,11 +386,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputhidden" type="hidden">
+            <input class="value" type="hidden">
             HTML,
             InputHidden::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -399,11 +399,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" data-value="value">
+            <input type="hidden" data-value="value">
             HTML,
             InputHidden::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -413,11 +412,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputhidden" type="hidden">
+            <input class="default-class" type="hidden">
             HTML,
-            InputHidden::tag(['class' => 'default-class'])
-                ->id('inputhidden')
-                ->render(),
+            InputHidden::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -426,11 +423,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputhidden" type="hidden" title="default-title">
+            <input class="default-class" type="hidden" title="default-title">
             HTML,
             InputHidden::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputhidden')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -440,11 +436,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden">
+            <input type="hidden">
             HTML,
-            InputHidden::tag()
-                ->id('inputhidden')
-                ->render(),
+            InputHidden::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -453,11 +447,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" dir="ltr">
+            <input type="hidden" dir="ltr">
             HTML,
             InputHidden::tag()
                 ->dir('ltr')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -467,11 +460,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" dir="ltr">
+            <input type="hidden" dir="ltr">
             HTML,
             InputHidden::tag()
                 ->dir(Direction::LTR)
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -481,11 +473,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" disabled>
+            <input type="hidden" disabled>
             HTML,
             InputHidden::tag()
                 ->disabled(true)
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -495,7 +486,7 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="hidden" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputHidden::tag()
                 ->events(
@@ -504,7 +495,6 @@ final class InputHiddenTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -514,25 +504,12 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" form="value">
+            <input type="hidden" form="value">
             HTML,
             InputHidden::tag()
                 ->form('value')
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
-        );
-    }
-
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputHidden::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputhidden-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -545,11 +522,9 @@ final class InputHiddenTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputhidden" type="hidden">
+            <input class="default-class" type="hidden">
             HTML,
-            InputHidden::tag()
-                ->id('inputhidden')
-                ->render(),
+            InputHidden::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -563,11 +538,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" hidden>
+            <input type="hidden" hidden>
             HTML,
             InputHidden::tag()
                 ->hidden(true)
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -577,10 +551,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden">
+            <input id="value" type="hidden">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -590,10 +564,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" lang="en">
+            <input type="hidden" lang="en">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -604,10 +577,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" lang="en">
+            <input type="hidden" lang="en">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -618,10 +590,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" name="value" type="hidden">
+            <input name="value" type="hidden">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -632,10 +603,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden">
+            <input type="hidden">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -647,10 +617,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden">
+            <input type="hidden">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->setAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
@@ -662,10 +631,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden">
+            <input type="hidden">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -677,11 +645,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden">
+            <input type="hidden">
             HTML,
             InputHidden::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputhidden')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -692,10 +659,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" role="presentation">
+            <input type="hidden" role="presentation">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->role('presentation')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -706,10 +672,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" role="presentation">
+            <input type="hidden" role="presentation">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->role(Role::PRESENTATION)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -720,10 +685,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputhidden" type="hidden">
+            <input class="value" type="hidden">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -734,10 +698,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" title="value">
+            <input type="hidden" title="value">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -748,10 +711,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" style='value'>
+            <input type="hidden" style='value'>
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -762,11 +724,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputhidden" type="hidden">
+            <input class="text-muted" type="hidden">
             HTML,
             InputHidden::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputhidden')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -776,10 +737,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" title="value">
+            <input type="hidden" title="value">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -792,7 +752,7 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input type="hidden">
             HTML,
-            (string) InputHidden::tag()->id(null),
+            (string) InputHidden::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -801,10 +761,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" translate="no">
+            <input type="hidden" translate="no">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -815,10 +774,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" translate="no">
+            <input type="hidden" translate="no">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -853,10 +811,9 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputhidden" type="hidden" value="value">
+            <input type="hidden" value="value">
             HTML,
             InputHidden::tag()
-                ->id('inputhidden')
                 ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

@@ -56,12 +56,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::DATETIME_LOCAL,
                 'class' => 'value',
             ],
             InputDateTimeLocal::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -72,11 +70,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" accesskey="value">
+            <input type="datetime-local" accesskey="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->accesskey('value')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -86,11 +83,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" aria-label="value">
+            <input type="datetime-local" aria-label="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -100,11 +96,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" aria-label="value">
+            <input type="datetime-local" aria-label="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +109,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" aria-describedby="value">
+            <input type="datetime-local" aria-describedby="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->addAriaAttribute('describedby', 'value')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -214,11 +208,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" data-value="value">
+            <input type="datetime-local" data-value="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -228,11 +221,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" data-value="value">
+            <input type="datetime-local" data-value="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -242,11 +234,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="datetime-local" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputDateTimeLocal::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -256,7 +247,7 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" aria-controls="value" aria-label="value">
+            <input type="datetime-local" aria-controls="value" aria-label="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->ariaAttributes(
@@ -265,7 +256,6 @@ final class InputDateTimeLocalTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -299,15 +289,44 @@ final class InputDateTimeLocalTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputdatetimelocal" type="datetime-local" aria-describedby="inputdatetimelocal-value">
+            HTML,
+            InputDateTimeLocal::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputdatetimelocal')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
+    public function testRenderWithAriaDescribedBySuffixAndEmptySuffixUsesDefault(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputdatetimelocal" type="datetime-local" aria-describedby="inputdatetimelocal-help">
+            HTML,
+            InputDateTimeLocal::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('')
+                ->id('inputdatetimelocal')
+                ->render(),
+            "Failed asserting that an empty 'ariaDescribedBySuffix()' falls back to the default '-help' suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputdatetimelocal" type="datetime-local">
+            <input class="value" type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -345,11 +364,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" autocomplete="on">
+            <input type="datetime-local" autocomplete="on">
             HTML,
             InputDateTimeLocal::tag()
                 ->autocomplete('on')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -359,11 +377,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" autocomplete="on">
+            <input type="datetime-local" autocomplete="on">
             HTML,
             InputDateTimeLocal::tag()
                 ->autocomplete(Autocomplete::ON)
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -373,11 +390,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" autofocus>
+            <input type="datetime-local" autofocus>
             HTML,
             InputDateTimeLocal::tag()
                 ->autofocus(true)
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -387,11 +403,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputdatetimelocal" type="datetime-local">
+            <input class="value" type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
                 ->class('value')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -401,11 +416,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputdatetimelocal" type="datetime-local">
+            <input class="value" type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -415,11 +429,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" data-value="value">
+            <input type="datetime-local" data-value="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -429,11 +442,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputdatetimelocal" type="datetime-local">
+            <input class="default-class" type="datetime-local">
             HTML,
-            InputDateTimeLocal::tag(['class' => 'default-class'])
-                ->id('inputdatetimelocal')
-                ->render(),
+            InputDateTimeLocal::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -442,11 +453,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputdatetimelocal" type="datetime-local" title="default-title">
+            <input class="default-class" type="datetime-local" title="default-title">
             HTML,
             InputDateTimeLocal::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputdatetimelocal')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -456,11 +466,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local">
+            <input type="datetime-local">
             HTML,
-            InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
-                ->render(),
+            InputDateTimeLocal::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -469,11 +477,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" dir="ltr">
+            <input type="datetime-local" dir="ltr">
             HTML,
             InputDateTimeLocal::tag()
                 ->dir('ltr')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -483,11 +490,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" dir="ltr">
+            <input type="datetime-local" dir="ltr">
             HTML,
             InputDateTimeLocal::tag()
                 ->dir(Direction::LTR)
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -497,11 +503,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" disabled>
+            <input type="datetime-local" disabled>
             HTML,
             InputDateTimeLocal::tag()
                 ->disabled(true)
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -511,7 +516,7 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="datetime-local" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputDateTimeLocal::tag()
                 ->events(
@@ -520,7 +525,6 @@ final class InputDateTimeLocalTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -530,25 +534,12 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" form="value">
+            <input type="datetime-local" form="value">
             HTML,
             InputDateTimeLocal::tag()
                 ->form('value')
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
-        );
-    }
-
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputDateTimeLocal::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputdatetimelocal-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -561,11 +552,9 @@ final class InputDateTimeLocalTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputdatetimelocal" type="datetime-local">
+            <input class="default-class" type="datetime-local">
             HTML,
-            InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
-                ->render(),
+            InputDateTimeLocal::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -579,11 +568,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" hidden>
+            <input type="datetime-local" hidden>
             HTML,
             InputDateTimeLocal::tag()
                 ->hidden(true)
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -593,10 +581,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local">
+            <input id="value" type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -606,10 +594,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" lang="en">
+            <input type="datetime-local" lang="en">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -620,10 +607,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" lang="en">
+            <input type="datetime-local" lang="en">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -634,10 +620,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" list="value">
+            <input type="datetime-local" list="value">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
@@ -648,10 +633,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" max="2018-06-14T00:00">
+            <input type="datetime-local" max="2018-06-14T00:00">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->max('2018-06-14T00:00')
                 ->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
@@ -662,10 +646,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" min="2018-06-07T00:00">
+            <input type="datetime-local" min="2018-06-07T00:00">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->min('2018-06-07T00:00')
                 ->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
@@ -676,10 +659,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" min="2018-06-07T00:00" max="2018-06-14T00:00">
+            <input type="datetime-local" min="2018-06-07T00:00" max="2018-06-14T00:00">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->min('2018-06-07T00:00')
                 ->max('2018-06-14T00:00')
                 ->render(),
@@ -691,10 +673,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" name="value" type="datetime-local">
+            <input name="value" type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -705,10 +686,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" readonly>
+            <input type="datetime-local" readonly>
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->readonly(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
@@ -719,11 +699,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local">
+            <input type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputdatetimelocal')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -734,11 +713,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local">
+            <input type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputdatetimelocal')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -749,11 +727,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local">
+            <input type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputdatetimelocal')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -764,11 +741,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local">
+            <input type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputdatetimelocal')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -779,10 +755,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" required>
+            <input type="datetime-local" required>
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -793,10 +768,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" role="textbox">
+            <input type="datetime-local" role="textbox">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->role('textbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -807,10 +781,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" role="textbox">
+            <input type="datetime-local" role="textbox">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -821,10 +794,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputdatetimelocal" type="datetime-local">
+            <input class="value" type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -835,10 +807,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" title="value">
+            <input type="datetime-local" title="value">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -849,10 +820,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" step="2">
+            <input type="datetime-local" step="2">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->step(2)
                 ->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
@@ -863,10 +833,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" step="any">
+            <input type="datetime-local" step="any">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->step('any')
                 ->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
@@ -877,10 +846,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" style='value'>
+            <input type="datetime-local" style='value'>
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -891,10 +859,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" tabindex="1">
+            <input type="datetime-local" tabindex="1">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -906,11 +873,10 @@ final class InputDateTimeLocalTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputdatetimelocal" type="datetime-local">
+            <input type="datetime-local">
             </div>
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -921,11 +887,10 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputdatetimelocal" type="datetime-local">
+            <input class="text-muted" type="datetime-local">
             HTML,
             InputDateTimeLocal::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputdatetimelocal')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -935,10 +900,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" title="value">
+            <input type="datetime-local" title="value">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -951,7 +915,7 @@ final class InputDateTimeLocalTest extends TestCase
             <<<HTML
             <input type="datetime-local">
             HTML,
-            (string) InputDateTimeLocal::tag()->id(null),
+            (string) InputDateTimeLocal::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -960,10 +924,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" translate="no">
+            <input type="datetime-local" translate="no">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -974,10 +937,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" translate="no">
+            <input type="datetime-local" translate="no">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -1012,10 +974,9 @@ final class InputDateTimeLocalTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdatetimelocal" type="datetime-local" value="2018-06-07T00:00">
+            <input type="datetime-local" value="2018-06-07T00:00">
             HTML,
             InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
                 ->value('2018-06-07T00:00')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

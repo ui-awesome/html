@@ -58,12 +58,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::DATE,
                 'class' => 'value',
             ],
             InputDate::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -74,11 +72,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" accesskey="value">
+            <input type="date" accesskey="value">
             HTML,
             InputDate::tag()
                 ->accesskey('value')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -88,11 +85,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" aria-label="value">
+            <input type="date" aria-label="value">
             HTML,
             InputDate::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -102,11 +98,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" aria-label="value">
+            <input type="date" aria-label="value">
             HTML,
             InputDate::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -216,11 +211,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" data-value="value">
+            <input type="date" data-value="value">
             HTML,
             InputDate::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -230,11 +224,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" data-value="value">
+            <input type="date" data-value="value">
             HTML,
             InputDate::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -244,11 +237,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="date" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputDate::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -258,7 +250,7 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" aria-controls="value" aria-label="value">
+            <input type="date" aria-controls="value" aria-label="value">
             HTML,
             InputDate::tag()
                 ->ariaAttributes(
@@ -267,7 +259,6 @@ final class InputDateTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -301,15 +292,44 @@ final class InputDateTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputdate" type="date" aria-describedby="inputdate-value">
+            HTML,
+            InputDate::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputdate')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
+    public function testRenderWithAriaDescribedBySuffixAndEmptySuffixUsesDefault(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputdate" type="date" aria-describedby="inputdate-help">
+            HTML,
+            InputDate::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('')
+                ->id('inputdate')
+                ->render(),
+            "Failed asserting that an empty 'ariaDescribedBySuffix()' falls back to the default '-help' suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputdate" type="date">
+            <input class="value" type="date">
             HTML,
             InputDate::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -347,11 +367,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" autocomplete="on">
+            <input type="date" autocomplete="on">
             HTML,
             InputDate::tag()
                 ->autocomplete('on')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -361,11 +380,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" autocomplete="on">
+            <input type="date" autocomplete="on">
             HTML,
             InputDate::tag()
                 ->autocomplete(Autocomplete::ON)
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -375,11 +393,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" autofocus>
+            <input type="date" autofocus>
             HTML,
             InputDate::tag()
                 ->autofocus(true)
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -389,11 +406,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputdate" type="date">
+            <input class="value" type="date">
             HTML,
             InputDate::tag()
                 ->class('value')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -403,11 +419,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputdate" type="date">
+            <input class="value" type="date">
             HTML,
             InputDate::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -417,11 +432,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" data-value="value">
+            <input type="date" data-value="value">
             HTML,
             InputDate::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -431,10 +445,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputdate" type="date">
+            <input class="default-class" type="date">
             HTML,
             InputDate::tag(['class' => 'default-class'])
-                ->id('inputdate')
                 ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
@@ -444,11 +457,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputdate" type="date" title="default-title">
+            <input class="default-class" type="date" title="default-title">
             HTML,
             InputDate::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputdate')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -458,11 +470,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date">
+            <input type="date">
             HTML,
-            InputDate::tag()
-                ->id('inputdate')
-                ->render(),
+            InputDate::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -471,11 +481,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" dir="ltr">
+            <input type="date" dir="ltr">
             HTML,
             InputDate::tag()
                 ->dir('ltr')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -485,11 +494,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" dir="ltr">
+            <input type="date" dir="ltr">
             HTML,
             InputDate::tag()
                 ->dir(Direction::LTR)
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -499,11 +507,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" disabled>
+            <input type="date" disabled>
             HTML,
             InputDate::tag()
                 ->disabled(true)
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -513,7 +520,7 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="date" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputDate::tag()
                 ->events(
@@ -522,7 +529,6 @@ final class InputDateTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -532,25 +538,12 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" form="value">
+            <input type="date" form="value">
             HTML,
             InputDate::tag()
                 ->form('value')
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
-        );
-    }
-
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputDate::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputdate-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -563,11 +556,9 @@ final class InputDateTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputdate" type="date">
+            <input class="default-class" type="date">
             HTML,
-            InputDate::tag()
-                ->id('inputdate')
-                ->render(),
+            InputDate::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -581,11 +572,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" hidden>
+            <input type="date" hidden>
             HTML,
             InputDate::tag()
                 ->hidden(true)
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -595,10 +585,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date">
+            <input id="value" type="date">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -608,10 +598,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" lang="en">
+            <input type="date" lang="en">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -622,10 +611,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" lang="en">
+            <input type="date" lang="en">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -636,10 +624,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" list="value">
+            <input type="date" list="value">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
@@ -650,10 +637,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" max="2017-04-30">
+            <input type="date" max="2017-04-30">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->max('2017-04-30')
                 ->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
@@ -664,10 +650,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" min="2017-04-01">
+            <input type="date" min="2017-04-01">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->min('2017-04-01')
                 ->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
@@ -678,10 +663,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" min="2017-04-01" max="2017-04-30">
+            <input type="date" min="2017-04-01" max="2017-04-30">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->min('2017-04-01')
                 ->max('2017-04-30')
                 ->render(),
@@ -693,10 +677,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" name="value" type="date">
+            <input name="value" type="date">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -707,10 +690,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" readonly>
+            <input type="date" readonly>
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->readonly(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
@@ -721,11 +703,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date">
+            <input type="date">
             HTML,
             InputDate::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputdate')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -736,11 +717,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date">
+            <input type="date">
             HTML,
             InputDate::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputdate')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -751,11 +731,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date">
+            <input type="date">
             HTML,
             InputDate::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputdate')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -766,11 +745,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date">
+            <input type="date">
             HTML,
             InputDate::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputdate')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -781,10 +759,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" required>
+            <input type="date" required>
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -795,10 +772,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" role="textbox">
+            <input type="date" role="textbox">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->role('textbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -809,10 +785,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" role="textbox">
+            <input type="date" role="textbox">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -823,10 +798,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputdate" type="date">
+            <input class="value" type="date">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -837,10 +811,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" title="value">
+            <input type="date" title="value">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -851,10 +824,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" step="2">
+            <input type="date" step="2">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->step(2)
                 ->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
@@ -865,10 +837,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" step="any">
+            <input type="date" step="any">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->step('any')
                 ->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
@@ -879,10 +850,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" style='value'>
+            <input type="date" style='value'>
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -893,10 +863,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" tabindex="1">
+            <input type="date" tabindex="1">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -908,11 +877,10 @@ final class InputDateTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputdate" type="date">
+            <input type="date">
             </div>
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -923,11 +891,10 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputdate" type="date">
+            <input class="text-muted" type="date">
             HTML,
             InputDate::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputdate')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -937,10 +904,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" title="value">
+            <input type="date" title="value">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -953,7 +919,7 @@ final class InputDateTest extends TestCase
             <<<HTML
             <input type="date">
             HTML,
-            (string) InputDate::tag()->id(null),
+            (string) InputDate::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -962,10 +928,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" translate="no">
+            <input type="date" translate="no">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -976,10 +941,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" translate="no">
+            <input type="date" translate="no">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -1014,10 +978,9 @@ final class InputDateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputdate" type="date" value="2017-06-01">
+            <input type="date" value="2017-06-01">
             HTML,
             InputDate::tag()
-                ->id('inputdate')
                 ->value('2017-06-01')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

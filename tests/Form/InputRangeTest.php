@@ -56,12 +56,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::RANGE,
                 'class' => 'value',
             ],
             InputRange::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -72,11 +70,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" accesskey="value">
+            <input type="range" accesskey="value">
             HTML,
             InputRange::tag()
                 ->accesskey('value')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -86,11 +83,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" aria-label="value">
+            <input type="range" aria-label="value">
             HTML,
             InputRange::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -100,11 +96,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" aria-label="value">
+            <input type="range" aria-label="value">
             HTML,
             InputRange::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +109,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" aria-describedby="value">
+            <input type="range" aria-describedby="value">
             HTML,
             InputRange::tag()
                 ->addAriaAttribute('describedby', 'value')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -213,11 +207,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" data-value="value">
+            <input type="range" data-value="value">
             HTML,
             InputRange::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -227,11 +220,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" data-value="value">
+            <input type="range" data-value="value">
             HTML,
             InputRange::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -241,11 +233,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="range" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputRange::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -255,10 +246,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" aria-controls="value" aria-label="value">
+            <input type="range" aria-controls="value" aria-label="value">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->ariaAttributes(
                     [
                         'controls' => 'value',
@@ -298,15 +288,29 @@ final class InputRangeTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputrange" type="range" aria-describedby="inputrange-value">
+            HTML,
+            InputRange::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputrange')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputrange" type="range">
+            <input class="value" type="range">
             HTML,
             InputRange::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -344,11 +348,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" autocomplete="on">
+            <input type="range" autocomplete="on">
             HTML,
             InputRange::tag()
                 ->autocomplete('on')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -358,11 +361,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" autocomplete="on">
+            <input type="range" autocomplete="on">
             HTML,
             InputRange::tag()
                 ->autocomplete(Autocomplete::ON)
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -372,11 +374,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" autofocus>
+            <input type="range" autofocus>
             HTML,
             InputRange::tag()
                 ->autofocus(true)
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -386,11 +387,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputrange" type="range">
+            <input class="value" type="range">
             HTML,
             InputRange::tag()
                 ->class('value')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -400,11 +400,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputrange" type="range">
+            <input class="value" type="range">
             HTML,
             InputRange::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -414,11 +413,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" data-value="value">
+            <input type="range" data-value="value">
             HTML,
             InputRange::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -428,11 +426,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputrange" type="range">
+            <input class="default-class" type="range">
             HTML,
-            InputRange::tag(['class' => 'default-class'])
-                ->id('inputrange')
-                ->render(),
+            InputRange::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -441,11 +437,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputrange" type="range" title="default-title">
+            <input class="default-class" type="range" title="default-title">
             HTML,
             InputRange::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputrange')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -455,11 +450,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range">
+            <input type="range">
             HTML,
-            InputRange::tag()
-                ->id('inputrange')
-                ->render(),
+            InputRange::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -468,11 +461,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" dir="ltr">
+            <input type="range" dir="ltr">
             HTML,
             InputRange::tag()
                 ->dir('ltr')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -482,11 +474,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" dir="ltr">
+            <input type="range" dir="ltr">
             HTML,
             InputRange::tag()
                 ->dir(Direction::LTR)
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -496,11 +487,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" disabled>
+            <input type="range" disabled>
             HTML,
             InputRange::tag()
                 ->disabled(true)
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -510,7 +500,7 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="range" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputRange::tag()
                 ->events(
@@ -519,7 +509,6 @@ final class InputRangeTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -529,25 +518,12 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" form="value">
+            <input type="range" form="value">
             HTML,
             InputRange::tag()
                 ->form('value')
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
-        );
-    }
-
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputRange::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputrange-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -560,11 +536,9 @@ final class InputRangeTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputrange" type="range">
+            <input class="default-class" type="range">
             HTML,
-            InputRange::tag()
-                ->id('inputrange')
-                ->render(),
+            InputRange::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -578,11 +552,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" hidden>
+            <input type="range" hidden>
             HTML,
             InputRange::tag()
                 ->hidden(true)
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -592,10 +565,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range">
+            <input id="value" type="range">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -605,10 +578,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" lang="en">
+            <input type="range" lang="en">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -619,10 +591,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" lang="en">
+            <input type="range" lang="en">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -633,10 +604,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" list="value">
+            <input type="range" list="value">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
@@ -647,10 +617,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" max="100">
+            <input type="range" max="100">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->max(100)
                 ->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
@@ -661,10 +630,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" min="10">
+            <input type="range" min="10">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->min(10)
                 ->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
@@ -675,10 +643,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" min="10" max="100">
+            <input type="range" min="10" max="100">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->min(10)
                 ->max(100)
                 ->render(),
@@ -690,10 +657,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" name="value" type="range">
+            <input name="value" type="range">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -704,11 +670,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range">
+            <input type="range">
             HTML,
             InputRange::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputrange')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -719,11 +684,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range">
+            <input type="range">
             HTML,
             InputRange::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputrange')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -734,11 +698,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range">
+            <input type="range">
             HTML,
             InputRange::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputrange')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -749,11 +712,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range">
+            <input type="range">
             HTML,
             InputRange::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputrange')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -764,10 +726,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" role="slider">
+            <input type="range" role="slider">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->role('slider')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -778,10 +739,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" role="slider">
+            <input type="range" role="slider">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->role(Role::SLIDER)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -792,10 +752,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputrange" type="range">
+            <input class="value" type="range">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -806,10 +765,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" title="value">
+            <input type="range" title="value">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -820,10 +778,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" step="2">
+            <input type="range" step="2">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->step(2)
                 ->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
@@ -834,10 +791,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" step="any">
+            <input type="range" step="any">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->step('any')
                 ->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
@@ -848,10 +804,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" style='value'>
+            <input type="range" style='value'>
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -862,10 +817,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" tabindex="1">
+            <input type="range" tabindex="1">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -877,11 +831,10 @@ final class InputRangeTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputrange" type="range">
+            <input type="range">
             </div>
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -892,11 +845,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputrange" type="range">
+            <input class="text-muted" type="range">
             HTML,
             InputRange::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -906,10 +858,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" title="value">
+            <input type="range" title="value">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -922,7 +873,7 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input type="range">
             HTML,
-            (string) InputRange::tag()->id(null),
+            (string) InputRange::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -931,10 +882,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" translate="no">
+            <input type="range" translate="no">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -945,10 +895,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" translate="no">
+            <input type="range" translate="no">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -983,10 +932,9 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputrange" type="range" value="50">
+            <input type="range" value="50">
             HTML,
             InputRange::tag()
-                ->id('inputrange')
                 ->value(50)
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

@@ -57,12 +57,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::TEL,
                 'class' => 'value',
             ],
             InputTel::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -73,11 +71,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" accesskey="value">
+            <input type="tel" accesskey="value">
             HTML,
             InputTel::tag()
                 ->accesskey('value')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -87,11 +84,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" aria-label="value">
+            <input type="tel" aria-label="value">
             HTML,
             InputTel::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -101,11 +97,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" aria-label="value">
+            <input type="tel" aria-label="value">
             HTML,
             InputTel::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -115,11 +110,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" aria-describedby="value">
+            <input type="tel" aria-describedby="value">
             HTML,
             InputTel::tag()
                 ->addAriaAttribute('describedby', 'value')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -214,11 +208,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" data-value="value">
+            <input type="tel" data-value="value">
             HTML,
             InputTel::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -228,11 +221,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" data-value="value">
+            <input type="tel" data-value="value">
             HTML,
             InputTel::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -242,11 +234,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="tel" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputTel::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -256,7 +247,7 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" aria-controls="value" aria-label="value">
+            <input type="tel" aria-controls="value" aria-label="value">
             HTML,
             InputTel::tag()
                 ->attributes(
@@ -265,7 +256,6 @@ final class InputTelTest extends TestCase
                         'aria-label' => 'value',
                     ],
                 )
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -299,15 +289,29 @@ final class InputTelTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtel" type="tel" aria-describedby="inputtel-value">
+            HTML,
+            InputTel::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputtel')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputtel" type="tel">
+            <input class="value" type="tel">
             HTML,
             InputTel::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -345,11 +349,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" autocomplete="on">
+            <input type="tel" autocomplete="on">
             HTML,
             InputTel::tag()
                 ->autocomplete('on')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -359,11 +362,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" autocomplete="on">
+            <input type="tel" autocomplete="on">
             HTML,
             InputTel::tag()
                 ->autocomplete(Autocomplete::ON)
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -373,11 +375,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" autofocus>
+            <input type="tel" autofocus>
             HTML,
             InputTel::tag()
                 ->autofocus(true)
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -387,11 +388,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputtel" type="tel">
+            <input class="value" type="tel">
             HTML,
             InputTel::tag()
                 ->class('value')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -401,11 +401,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputtel" type="tel">
+            <input class="value" type="tel">
             HTML,
             InputTel::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -415,11 +414,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" data-value="value">
+            <input type="tel" data-value="value">
             HTML,
             InputTel::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -429,11 +427,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtel" type="tel">
+            <input class="default-class" type="tel">
             HTML,
-            InputTel::tag(['class' => 'default-class'])
-                ->id('inputtel')
-                ->render(),
+            InputTel::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -442,11 +438,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtel" type="tel" title="default-title">
+            <input class="default-class" type="tel" title="default-title">
             HTML,
             InputTel::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputtel')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -456,11 +451,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel">
+            <input type="tel">
             HTML,
-            InputTel::tag()
-                ->id('inputtel')
-                ->render(),
+            InputTel::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -469,11 +462,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" dir="ltr">
+            <input type="tel" dir="ltr">
             HTML,
             InputTel::tag()
                 ->dir('ltr')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -483,11 +475,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" dir="ltr">
+            <input type="tel" dir="ltr">
             HTML,
             InputTel::tag()
                 ->dir(Direction::LTR)
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -497,11 +488,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" disabled>
+            <input type="tel" disabled>
             HTML,
             InputTel::tag()
                 ->disabled(true)
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -511,7 +501,7 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="tel" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputTel::tag()
                 ->events(
@@ -520,7 +510,6 @@ final class InputTelTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -530,25 +519,12 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" form="value">
+            <input type="tel" form="value">
             HTML,
             InputTel::tag()
                 ->form('value')
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
-        );
-    }
-
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputTel::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputtel-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
         );
     }
 
@@ -561,10 +537,9 @@ final class InputTelTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtel" type="tel">
+            <input class="default-class" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
@@ -579,11 +554,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" hidden>
+            <input type="tel" hidden>
             HTML,
             InputTel::tag()
                 ->hidden(true)
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -593,10 +567,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel">
+            <input id="value" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -606,10 +580,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" lang="en">
+            <input type="tel" lang="en">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -620,10 +593,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" lang="en">
+            <input type="tel" lang="en">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -634,10 +606,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" list="value">
+            <input type="tel" list="value">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
@@ -648,10 +619,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" maxlength="10">
+            <input type="tel" maxlength="10">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->maxlength(10)
                 ->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
@@ -662,10 +632,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" minlength="5">
+            <input type="tel" minlength="5">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->minlength(5)
                 ->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
@@ -676,10 +645,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" name="value" type="tel">
+            <input name="value" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -690,10 +658,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'>
+            <input type="tel" pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'>
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')
                 ->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
@@ -704,10 +671,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" placeholder="value">
+            <input type="tel" placeholder="value">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->placeholder('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
@@ -718,10 +684,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" readonly>
+            <input type="tel" readonly>
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->readonly(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
@@ -732,11 +697,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel">
+            <input type="tel">
             HTML,
             InputTel::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputtel')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -747,11 +711,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel">
+            <input type="tel">
             HTML,
             InputTel::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputtel')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -762,11 +725,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel">
+            <input type="tel">
             HTML,
             InputTel::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputtel')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -777,11 +739,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel">
+            <input type="tel">
             HTML,
             InputTel::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputtel')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -792,10 +753,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" required>
+            <input type="tel" required>
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -806,10 +766,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" role="textbox">
+            <input type="tel" role="textbox">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->role('textbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -820,10 +779,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" role="textbox">
+            <input type="tel" role="textbox">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -834,10 +792,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputtel" type="tel">
+            <input class="value" type="tel">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -848,10 +805,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" title="value">
+            <input type="tel" title="value">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -862,10 +818,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" size="30">
+            <input type="tel" size="30">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->size(30)
                 ->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
@@ -876,10 +831,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" spellcheck="true">
+            <input type="tel" spellcheck="true">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->spellcheck(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
@@ -890,10 +844,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" style='value'>
+            <input type="tel" style='value'>
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -904,10 +857,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" tabindex="1">
+            <input type="tel" tabindex="1">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -919,11 +871,10 @@ final class InputTelTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputtel" type="tel">
+            <input type="tel">
             </div>
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -934,11 +885,10 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputtel" type="tel">
+            <input class="text-muted" type="tel">
             HTML,
             InputTel::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputtel')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -948,10 +898,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" title="value">
+            <input type="tel" title="value">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -964,7 +913,7 @@ final class InputTelTest extends TestCase
             <<<HTML
             <input type="tel">
             HTML,
-            (string) InputTel::tag()->id(null),
+            (string) InputTel::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -973,10 +922,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" translate="no">
+            <input type="tel" translate="no">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -987,10 +935,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" translate="no">
+            <input type="tel" translate="no">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -1025,10 +972,9 @@ final class InputTelTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtel" type="tel" value="value">
+            <input type="tel" value="value">
             HTML,
             InputTel::tag()
-                ->id('inputtel')
                 ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

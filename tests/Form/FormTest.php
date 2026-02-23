@@ -163,6 +163,67 @@ final class FormTest extends TestCase
         );
     }
 
+    public function testRenderWithAddAriaDescribedByString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form aria-describedby="value">
+            </form>
+            HTML,
+            Form::tag()
+                ->addAriaAttribute('describedby', 'value')
+                ->render(),
+            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form id="form" aria-describedby="form-help">
+            </form>
+            HTML,
+            Form::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('form')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form>
+            </form>
+            HTML,
+            Form::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id(null)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form id="form" aria-describedby="form-help">
+            </form>
+            HTML,
+            Form::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('form')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
+        );
+    }
+
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -210,6 +271,52 @@ final class FormTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form id="form" aria-describedby="form-help">
+            </form>
+            HTML,
+            Form::tag()
+                ->ariaAttributes(['describedby' => true])
+                ->id('form')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
+        );
+    }
+
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form id="form" aria-describedby="form-help">
+            </form>
+            HTML,
+            Form::tag()
+                ->ariaAttributes(['describedby' => 'true'])
+                ->id('form')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
+        );
+    }
+
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form id="form" aria-describedby="form-value">
+            </form>
+            HTML,
+            Form::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('form')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
@@ -221,6 +328,36 @@ final class FormTest extends TestCase
                 ->attributes(['class' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form id="form" aria-describedby="form-help">
+            </form>
+            HTML,
+            Form::tag()
+                ->attributes(['aria-describedby' => true])
+                ->id('form')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <form id="form" aria-describedby="form-help">
+            </form>
+            HTML,
+            Form::tag()
+                ->attributes(['aria-describedby' => 'true'])
+                ->id('form')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
