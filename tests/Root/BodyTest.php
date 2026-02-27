@@ -316,7 +316,7 @@ final class BodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <body class="default-class" title="default-title">
+            <body class="default-class">
             </body>
             HTML,
             Body::tag()

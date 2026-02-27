@@ -306,7 +306,7 @@ final class UlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ul class="default-class" title="default-title">
+            <ul class="default-class">
             </ul>
             HTML,
             Ul::tag()

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Phrasing;
 
 use UIAwesome\Html\Core\Element\BaseInline;
-use UIAwesome\Html\Interop\{Inline, InlineInterface};
+use UIAwesome\Html\Interop\Inline;
 
 /**
  * Renders the HTML `<label>` element.
@@ -47,11 +47,11 @@ final class Label extends BaseInline
     /**
      * Returns the tag enumeration for the `<label>` element.
      *
-     * @return InlineInterface Tag enumeration instance for `<label>`.
+     * @return Inline Tag enumeration instance for `<label>`.
      *
      * {@see Inline} for valid inline-level tags.
      */
-    protected function getTag(): InlineInterface
+    protected function getTag(): Inline
     {
         return Inline::LABEL;
     }

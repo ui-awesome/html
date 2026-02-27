@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Support\Stub;
 
+use UIAwesome\Html\Contracts\Element\BlockInterface;
 use UIAwesome\Html\Core\Base\BaseTag;
 use UIAwesome\Html\Core\Provider\DefaultsProviderInterface;
-use UIAwesome\Html\Interop\BlockInterface;
 
 /**
  * Stub defaults provider for tests.

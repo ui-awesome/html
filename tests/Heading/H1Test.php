@@ -316,7 +316,7 @@ final class H1Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h1 class="default-class" title="default-title">
+            <h1 class="default-class">
             </h1>
             HTML,
             H1::tag()

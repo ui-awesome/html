@@ -316,7 +316,7 @@ final class FooterTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <footer class="default-class" title="default-title">
+            <footer class="default-class">
             </footer>
             HTML,
             Footer::tag()

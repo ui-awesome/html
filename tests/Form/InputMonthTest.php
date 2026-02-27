@@ -56,12 +56,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::MONTH,
                 'class' => 'value',
             ],
             InputMonth::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -539,18 +537,6 @@ final class InputMonthTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputMonth::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputmonth-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -950,7 +936,7 @@ final class InputMonthTest extends TestCase
             <<<HTML
             <input type="month">
             HTML,
-            (string) InputMonth::tag()->id(null),
+            (string) InputMonth::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

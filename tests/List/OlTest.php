@@ -319,7 +319,7 @@ final class OlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <ol class="default-class" title="default-title">
+            <ol class="default-class">
             </ol>
             HTML,
             Ol::tag()

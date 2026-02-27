@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Root;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, Root};
+use UIAwesome\Html\Interop\Root;
 
 /**
  * Renders the HTML `<head>` element for document metadata.
@@ -28,11 +28,11 @@ final class Head extends BaseBlock
     /**
      * Returns the tag enumeration for the `<head>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<head>`.
+     * @return Root Tag enumeration instance for `<head>`.
      *
      * {@see Root} for valid root-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Root
     {
         return Root::HEAD;
     }

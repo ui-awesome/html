@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Heading;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{Block, BlockInterface};
+use UIAwesome\Html\Interop\Block;
 
 /**
  * Renders the HTML `<hgroup>` element for grouped heading content.
@@ -31,11 +31,11 @@ final class HGroup extends BaseBlock
     /**
      * Returns the tag enumeration for the `<hgroup>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<hgroup>`.
+     * @return Block Tag enumeration instance for `<hgroup>`.
      *
      * {@see Block} for valid block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Block
     {
         return Block::HGROUP;
     }

@@ -316,7 +316,7 @@ final class H2Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h2 class="default-class" title="default-title">
+            <h2 class="default-class">
             </h2>
             HTML,
             H2::tag()

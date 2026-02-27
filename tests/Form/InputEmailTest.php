@@ -57,12 +57,10 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::EMAIL,
                 'class' => 'value',
             ],
             InputEmail::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -540,18 +538,6 @@ final class InputEmailTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputEmail::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputemail-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -978,7 +964,7 @@ final class InputEmailTest extends TestCase
             <<<HTML
             <input type="email">
             HTML,
-            (string) InputEmail::tag()->id(null),
+            (string) InputEmail::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Root;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{Block, BlockInterface};
+use UIAwesome\Html\Interop\Block;
 
 /**
  * Renders the HTML `<header>` element for section or page header content.
@@ -29,11 +29,11 @@ final class Header extends BaseBlock
     /**
      * Returns the tag enumeration for the `<header>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<header>`.
+     * @return Block Tag enumeration instance for `<header>`.
      *
      * {@see Block} for valid block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Block
     {
         return Block::HEADER;
     }

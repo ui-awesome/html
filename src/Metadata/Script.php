@@ -14,7 +14,7 @@ use UIAwesome\Html\Attribute\{
     HasType,
 };
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
+use UIAwesome\Html\Interop\MetadataBlock;
 use UIAwesome\Html\Metadata\Attribute\{HasAsync, HasDefer, HasNomodule};
 
 /**
@@ -50,11 +50,11 @@ final class Script extends BaseBlock
     /**
      * Returns the tag enumeration for the `<script>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<script>`.
+     * @return MetadataBlock Tag enumeration instance for `<script>`.
      *
      * {@see MetadataBlock} for valid metadata block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): MetadataBlock
     {
         return MetadataBlock::SCRIPT;
     }

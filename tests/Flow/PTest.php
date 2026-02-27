@@ -331,7 +331,7 @@ final class PTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <p class="default-class" title="default-title">
+            <p class="default-class">
             </p>
             HTML,
             P::tag()

@@ -22,7 +22,7 @@ use UIAwesome\Html\Attribute\{
 };
 use UIAwesome\Html\Attribute\Element\HasHref;
 use UIAwesome\Html\Core\Element\BaseVoid;
-use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
+use UIAwesome\Html\Interop\MetadataVoid;
 
 /**
  * Renders the HTML `<link>` element for relationships to external resources.
@@ -62,11 +62,11 @@ final class Link extends BaseVoid
     /**
      * Returns the tag enumeration for the `<link>` element.
      *
-     * @return VoidInterface Tag enumeration instance for `<link>`.
+     * @return MetadataVoid Tag enumeration instance for `<link>`.
      *
      * {@see MetadataVoid} for valid metadata void tags.
      */
-    protected function getTag(): VoidInterface
+    protected function getTag(): MetadataVoid
     {
         return MetadataVoid::LINK;
     }

@@ -6,7 +6,7 @@ namespace UIAwesome\Html\List;
 
 use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, Lists};
+use UIAwesome\Html\Interop\Lists;
 
 /**
  * Renders the HTML `<dl>` element for description lists.
@@ -73,11 +73,11 @@ final class Dl extends BaseBlock
     /**
      * Returns the tag enumeration for the `<dl>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<dl>`.
+     * @return Lists Tag enumeration instance for `<dl>`.
      *
      * {@see Lists} for valid list-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Lists
     {
         return Lists::DL;
     }

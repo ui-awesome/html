@@ -316,7 +316,7 @@ final class HGroupTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <hgroup class="default-class" title="default-title">
+            <hgroup class="default-class">
             </hgroup>
             HTML,
             HGroup::tag()

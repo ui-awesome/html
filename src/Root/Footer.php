@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Root;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{Block, BlockInterface};
+use UIAwesome\Html\Interop\Block;
 
 /**
  * Renders the HTML `<footer>` element for section or page footer content.
@@ -29,11 +29,11 @@ final class Footer extends BaseBlock
     /**
      * Returns the tag enumeration for the `<footer>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<footer>`.
+     * @return Block Tag enumeration instance for `<footer>`.
      *
      * {@see Block} for valid block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Block
     {
         return Block::FOOTER;
     }

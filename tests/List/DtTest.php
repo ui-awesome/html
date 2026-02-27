@@ -316,7 +316,7 @@ final class DtTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <dt class="default-class" title="default-title">
+            <dt class="default-class">
             </dt>
             HTML,
             Dt::tag()

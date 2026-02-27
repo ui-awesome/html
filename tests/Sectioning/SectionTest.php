@@ -316,7 +316,7 @@ final class SectionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <section class="default-class" title="default-title">
+            <section class="default-class">
             </section>
             HTML,
             Section::tag()

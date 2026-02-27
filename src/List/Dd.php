@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\List;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, Lists};
+use UIAwesome\Html\Interop\Lists;
 
 /**
  * Renders the HTML `<dd>` element for description details.
@@ -28,11 +28,11 @@ final class Dd extends BaseBlock
     /**
      * Returns the tag enumeration for the `<dd>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<dd>`.
+     * @return Lists Tag enumeration instance for `<dd>`.
      *
      * {@see Lists} for valid list-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Lists
     {
         return Lists::DD;
     }

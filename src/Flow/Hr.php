@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Flow;
 
 use UIAwesome\Html\Core\Element\BaseVoid;
-use UIAwesome\Html\Interop\{VoidInterface, Voids};
+use UIAwesome\Html\Interop\Voids;
 
 /**
  * Renders the HTML `<hr>` element for thematic breaks.
@@ -28,11 +28,11 @@ final class Hr extends BaseVoid
     /**
      * Returns the tag enumeration for the `<hr>` element.
      *
-     * @return VoidInterface Tag enumeration instance for `<hr>`.
+     * @return Voids Tag enumeration instance for `<hr>`.
      *
      * {@see Voids} for valid void-level tags.
      */
-    protected function getTag(): VoidInterface
+    protected function getTag(): Voids
     {
         return Voids::HR;
     }

@@ -6,7 +6,7 @@ namespace UIAwesome\Html\List;
 
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, Lists};
+use UIAwesome\Html\Interop\Lists;
 
 /**
  * Renders the HTML `<li>` element for list items.
@@ -32,11 +32,11 @@ final class Li extends BaseBlock
     /**
      * Returns the tag enumeration for the `<li>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<li>`.
+     * @return Lists Tag enumeration instance for `<li>`.
      *
      * {@see Lists} for valid list-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Lists
     {
         return Lists::LI;
     }

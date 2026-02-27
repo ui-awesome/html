@@ -18,7 +18,7 @@ use UIAwesome\Html\Attribute\Form\{
 use UIAwesome\Html\Attribute\Global\{HasAutocapitalize, HasAutocorrect};
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Form\Attribute\{HasCols, HasRows, HasWrap};
-use UIAwesome\Html\Interop\{Block, BlockInterface};
+use UIAwesome\Html\Interop\Block;
 
 /**
  * Renders the HTML `<textarea>` element for multiline plain-text input.
@@ -60,11 +60,11 @@ final class TextArea extends BaseBlock
     /**
      * Returns the tag enumeration for the `<textarea>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<textarea>`.
+     * @return Block Tag enumeration instance for `<textarea>`.
      *
      * {@see Block} for valid block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Block
     {
         return Block::TEXT_AREA;
     }

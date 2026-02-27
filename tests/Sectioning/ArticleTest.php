@@ -316,7 +316,7 @@ final class ArticleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <article class="default-class" title="default-title">
+            <article class="default-class">
             </article>
             HTML,
             Article::tag()

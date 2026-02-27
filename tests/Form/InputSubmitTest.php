@@ -56,12 +56,10 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::SUBMIT,
                 'class' => 'value',
             ],
             InputSubmit::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -623,18 +621,6 @@ final class InputSubmitTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputSubmit::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputsubmit-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -921,7 +907,7 @@ final class InputSubmitTest extends TestCase
             <<<HTML
             <input type="submit">
             HTML,
-            (string) InputSubmit::tag()->id(null),
+            (string) InputSubmit::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

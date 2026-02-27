@@ -7,7 +7,7 @@ namespace UIAwesome\Html\Metadata;
 use UIAwesome\Html\Attribute\Global\HasNonce;
 use UIAwesome\Html\Attribute\{HasBlocking, HasMedia, HasType};
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
+use UIAwesome\Html\Interop\MetadataBlock;
 
 /**
  * Renders the HTML `<style>` element for embedded CSS rules.
@@ -35,11 +35,11 @@ final class Style extends BaseBlock
     /**
      * Returns the tag enumeration for the `<style>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<style>`.
+     * @return MetadataBlock Tag enumeration instance for `<style>`.
      *
      * {@see MetadataBlock} for valid metadata block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): MetadataBlock
     {
         return MetadataBlock::STYLE;
     }

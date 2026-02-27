@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Heading;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{Block, BlockInterface};
+use UIAwesome\Html\Interop\Block;
 
 /**
  * Renders the HTML `<h2>` element for second-level section headings.
@@ -29,11 +29,11 @@ final class H2 extends BaseBlock
     /**
      * Returns the tag enumeration for the `<h2>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<h2>`.
+     * @return Block Tag enumeration instance for `<h2>`.
      *
      * {@see Block} for valid block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Block
     {
         return Block::H2;
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
+use UIAwesome\Html\Interop\MetadataBlock;
 use UIAwesome\Html\Metadata\Attribute\{
     HasShadowRootClonable,
     HasShadowRootDelegatesFocus,
@@ -41,11 +41,11 @@ final class Template extends BaseBlock
     /**
      * Returns the tag enumeration for the `<template>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<template>`.
+     * @return MetadataBlock Tag enumeration instance for `<template>`.
      *
      * {@see MetadataBlock} for valid metadata block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): MetadataBlock
     {
         return MetadataBlock::TEMPLATE;
     }

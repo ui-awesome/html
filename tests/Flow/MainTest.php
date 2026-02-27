@@ -331,7 +331,7 @@ final class MainTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <main class="default-class" title="default-title">
+            <main class="default-class">
             </main>
             HTML,
             Main::tag()

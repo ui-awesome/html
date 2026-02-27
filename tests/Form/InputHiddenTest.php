@@ -55,12 +55,10 @@ final class InputHiddenTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::HIDDEN,
                 'class' => 'value',
             ],
             InputHidden::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -524,18 +522,6 @@ final class InputHiddenTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputHidden::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputhidden-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -792,7 +778,7 @@ final class InputHiddenTest extends TestCase
             <<<HTML
             <input type="hidden">
             HTML,
-            (string) InputHidden::tag()->id(null),
+            (string) InputHidden::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

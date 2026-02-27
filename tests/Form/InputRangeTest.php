@@ -56,12 +56,10 @@ final class InputRangeTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::RANGE,
                 'class' => 'value',
             ],
             InputRange::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -539,18 +537,6 @@ final class InputRangeTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputRange::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputrange-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -922,7 +908,7 @@ final class InputRangeTest extends TestCase
             <<<HTML
             <input type="range">
             HTML,
-            (string) InputRange::tag()->id(null),
+            (string) InputRange::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
