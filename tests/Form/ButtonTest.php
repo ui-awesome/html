@@ -25,6 +25,7 @@ use UIAwesome\Html\Form\Button;
 use UIAwesome\Html\Form\Values\{ButtonCommand, ButtonType};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -128,6 +129,105 @@ final class ButtonTest extends TestCase
         );
     }
 
+    public function testRenderWithAddAriaDescribedByString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button aria-describedby="value"></button>
+            HTML,
+            Button::tag()
+                ->addAriaAttribute('describedby', 'value')
+                ->render(),
+            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button id="button" aria-describedby="button-help"></button>
+            HTML,
+            Button::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('button')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
+            . "'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button></button>
+            HTML,
+            Button::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id(null)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
+            . " is 'null'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <button id="button" aria-describedby="button-help"></button>
+            <span>Suffix</span>
+            HTML,
+            Button::tag()
+                ->addAriaAttribute('describedby', true)
+                ->id('button')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button id="button" aria-describedby="button-help"></button>
+            HTML,
+            Button::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('button')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
+        );
+    }
+
+    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <span>Prefix</span>
+            <button id="button" aria-describedby="button-help"></button>
+            <span>Suffix</span>
+            HTML,
+            Button::tag()
+                ->addAriaAttribute('describedby', 'true')
+                ->id('button')
+                ->prefix('Prefix')
+                ->prefixTag(Inline::SPAN)
+                ->suffix('Suffix')
+                ->suffixTag(Inline::SPAN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
+            . 'prefix/suffix.',
+        );
+    }
+
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -172,6 +272,49 @@ final class ButtonTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button id="button" aria-describedby="button-help"></button>
+            HTML,
+            Button::tag()
+                ->ariaAttributes(['describedby' => true])
+                ->id('button')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
+        );
+    }
+
+    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button id="button" aria-describedby="button-help"></button>
+            HTML,
+            Button::tag()
+                ->ariaAttributes(['describedby' => 'true'])
+                ->id('button')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
+        );
+    }
+
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button id="button" aria-describedby="button-value"></button>
+            HTML,
+            Button::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('button')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
@@ -182,6 +325,34 @@ final class ButtonTest extends TestCase
                 ->attributes(['class' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button id="button" aria-describedby="button-help"></button>
+            HTML,
+            Button::tag()
+                ->attributes(['aria-describedby' => true])
+                ->id('button')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
+        );
+    }
+
+    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button id="button" aria-describedby="button-help"></button>
+            HTML,
+            Button::tag()
+                ->attributes(['aria-describedby' => 'true'])
+                ->id('button')
+                ->render(),
+            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
@@ -835,6 +1006,17 @@ final class ButtonTest extends TestCase
                 ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
+        );
+    }
+
+    public function testReturnNewInstanceWhenSettingAttribute(): void
+    {
+        $button = Button::tag();
+
+        self::assertNotSame(
+            $button,
+            $button->ariaDescribedBySuffix(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }
 

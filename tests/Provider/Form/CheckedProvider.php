@@ -36,7 +36,7 @@ final class CheckedProvider
                 [1, 2],
                 1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             // array (unchecked)
@@ -44,7 +44,7 @@ final class CheckedProvider
                 [1, 2],
                 3,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="3">
+                <input type="checkbox" value="3">
                 HTML,
             ],
             // array type juggling (checked)
@@ -52,14 +52,14 @@ final class CheckedProvider
                 ['1', '2'],
                 1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             'checked: [1, 2], value: "1"' => [
                 [1, 2],
                 '1',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             // backed enum (checked)
@@ -67,7 +67,7 @@ final class CheckedProvider
                 BackedString::VALUE,
                 'value',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="value" checked>
+                <input type="checkbox" value="value" checked>
                 HTML,
             ],
             // backed enum (unchecked)
@@ -75,7 +75,7 @@ final class CheckedProvider
                 BackedString::VALUE,
                 'other',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="other">
+                <input type="checkbox" value="other">
                 HTML,
             ],
             // boolean `false` (never checked)
@@ -83,35 +83,35 @@ final class CheckedProvider
                 false,
                 'active',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="active">
+                <input type="checkbox" value="active">
                 HTML,
             ],
             'checked: false, value: ""' => [
                 false,
                 '',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox">
+                <input type="checkbox">
                 HTML,
             ],
             'checked: false, value: 1' => [
                 false,
                 1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1">
+                <input type="checkbox" value="1">
                 HTML,
             ],
             'checked: false, value: false' => [
                 false,
                 false,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="0">
+                <input type="checkbox" value="0">
                 HTML,
             ],
             'checked: false, value: null' => [
                 false,
                 null,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox">
+                <input type="checkbox">
                 HTML,
             ],
             // boolean `true` (always checked)
@@ -119,21 +119,21 @@ final class CheckedProvider
                 true,
                 'active',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="active" checked>
+                <input type="checkbox" value="active" checked>
                 HTML,
             ],
             'checked: true, value: 1' => [
                 true,
                 1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             'checked: true, value: null' => [
                 true,
                 null,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" checked>
+                <input type="checkbox" checked>
                 HTML,
             ],
             // float matching (checked)
@@ -141,21 +141,21 @@ final class CheckedProvider
                 1.1,
                 1.1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1.1" checked>
+                <input type="checkbox" value="1.1" checked>
                 HTML,
             ],
             'checked: 1.1, value: "1.1"' => [
                 1.1,
                 '1.1',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1.1" checked>
+                <input type="checkbox" value="1.1" checked>
                 HTML,
             ],
             'checked: "1.1", value: 1.1' => [
                 '1.1',
                 1.1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1.1" checked>
+                <input type="checkbox" value="1.1" checked>
                 HTML,
             ],
             // float mismatch (unchecked)
@@ -163,7 +163,7 @@ final class CheckedProvider
                 1.1,
                 1.2,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1.2">
+                <input type="checkbox" value="1.2">
                 HTML,
             ],
             // null (never checked)
@@ -171,14 +171,14 @@ final class CheckedProvider
                 null,
                 1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1">
+                <input type="checkbox" value="1">
                 HTML,
             ],
             'checked: null, value: null' => [
                 null,
                 null,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox">
+                <input type="checkbox">
                 HTML,
             ],
             // scalar matching (checked)
@@ -186,35 +186,35 @@ final class CheckedProvider
                 'active',
                 'active',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="active" checked>
+                <input type="checkbox" value="active" checked>
                 HTML,
             ],
             'checked: 0, value: 0' => [
                 0,
                 0,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="0" checked>
+                <input type="checkbox" value="0" checked>
                 HTML,
             ],
             'checked: 1, value: 1' => [
                 1,
                 1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             'checked: "1", value: true' => [
                 '1',
                 true,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             'checked: "1", value: "1"' => [
                 '1',
                 '1',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             // scalar mismatch (unchecked)
@@ -222,14 +222,14 @@ final class CheckedProvider
                 'active',
                 'inactive',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="inactive">
+                <input type="checkbox" value="inactive">
                 HTML,
             ],
             'checked: 1, value: 0' => [
                 1,
                 0,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="0">
+                <input type="checkbox" value="0">
                 HTML,
             ],
             // type juggling (checked)
@@ -237,14 +237,14 @@ final class CheckedProvider
                 1,
                 '1',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             'checked: "1", value: 1' => [
                 '1',
                 1,
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="1" checked>
+                <input type="checkbox" value="1" checked>
                 HTML,
             ],
             // type juggling (unchecked)
@@ -252,7 +252,7 @@ final class CheckedProvider
                 1,
                 '0',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="0">
+                <input type="checkbox" value="0">
                 HTML,
             ],
             // stringable (checked)
@@ -265,7 +265,7 @@ final class CheckedProvider
                 },
                 'active',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="active" checked>
+                <input type="checkbox" value="active" checked>
                 HTML,
             ],
             // stringable (unchecked)
@@ -278,7 +278,7 @@ final class CheckedProvider
                 },
                 'active',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="active">
+                <input type="checkbox" value="active">
                 HTML,
             ],
             // unit enum (checked)
@@ -286,7 +286,7 @@ final class CheckedProvider
                 Unit::value,
                 'value',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="value" checked>
+                <input type="checkbox" value="value" checked>
                 HTML,
             ],
             // unit enum (unchecked)
@@ -294,7 +294,7 @@ final class CheckedProvider
                 Unit::value,
                 'other',
                 <<<HTML
-                <input id="inputcheckbox" type="checkbox" value="other">
+                <input type="checkbox" value="other">
                 HTML,
             ],
         ];

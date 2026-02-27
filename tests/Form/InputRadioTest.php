@@ -75,11 +75,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" accesskey="value">
+            <input type="radio" accesskey="value">
             HTML,
             InputRadio::tag()
                 ->accesskey('value')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -89,11 +88,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" aria-label="value">
+            <input type="radio" aria-label="value">
             HTML,
             InputRadio::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -103,11 +101,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" aria-label="value">
+            <input type="radio" aria-label="value">
             HTML,
             InputRadio::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -117,11 +114,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="value">
+            <input type="radio" aria-describedby="value">
             HTML,
             InputRadio::tag()
                 ->addAriaAttribute('describedby', 'value')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -216,11 +212,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" data-value="value">
+            <input type="radio" data-value="value">
             HTML,
             InputRadio::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -230,11 +225,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" data-value="value">
+            <input type="radio" data-value="value">
             HTML,
             InputRadio::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -244,11 +238,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="radio" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputRadio::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -258,7 +251,7 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" aria-controls="value" aria-label="value">
+            <input type="radio" aria-controls="value" aria-label="value">
             HTML,
             InputRadio::tag()
                 ->ariaAttributes(
@@ -267,7 +260,6 @@ final class InputRadioTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -301,15 +293,29 @@ final class InputRadioTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputradio" type="radio" aria-describedby="inputradio-value">
+            HTML,
+            InputRadio::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputradio')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputradio" type="radio">
+            <input class="value" type="radio">
             HTML,
             InputRadio::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -347,11 +353,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" autofocus>
+            <input type="radio" autofocus>
             HTML,
             InputRadio::tag()
                 ->autofocus(true)
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -361,11 +366,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" checked>
+            <input type="radio" checked>
             HTML,
             InputRadio::tag()
                 ->checked(true)
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'checked' attribute.",
         );
@@ -391,7 +395,6 @@ final class InputRadioTest extends TestCase
             $expected,
             InputRadio::tag()
                 ->checked($checked)
-                ->id('inputradio')
                 ->value($value)
                 ->render(),
             "Failed asserting that element renders correctly with 'checked' and 'value' attributes.",
@@ -402,11 +405,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputradio" type="radio">
+            <input class="value" type="radio">
             HTML,
             InputRadio::tag()
                 ->class('value')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -416,11 +418,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputradio" type="radio">
+            <input class="value" type="radio">
             HTML,
             InputRadio::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -430,11 +431,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" data-value="value">
+            <input type="radio" data-value="value">
             HTML,
             InputRadio::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -444,11 +444,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputradio" type="radio">
+            <input class="default-class" type="radio">
             HTML,
-            InputRadio::tag(['class' => 'default-class'])
-                ->id('inputradio')
-                ->render(),
+            InputRadio::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -457,11 +455,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputradio" type="radio" title="default-title">
+            <input class="default-class" type="radio" title="default-title">
             HTML,
             InputRadio::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputradio')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -471,11 +468,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio">
+            <input type="radio">
             HTML,
-            InputRadio::tag()
-                ->id('inputradio')
-                ->render(),
+            InputRadio::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -484,11 +479,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" dir="ltr">
+            <input type="radio" dir="ltr">
             HTML,
             InputRadio::tag()
                 ->dir('ltr')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -498,11 +492,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" dir="ltr">
+            <input type="radio" dir="ltr">
             HTML,
             InputRadio::tag()
                 ->dir(Direction::LTR)
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -512,11 +505,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" disabled>
+            <input type="radio" disabled>
             HTML,
             InputRadio::tag()
                 ->disabled(true)
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -526,7 +518,7 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="radio" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputRadio::tag()
                 ->events(
@@ -535,7 +527,6 @@ final class InputRadioTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -545,11 +536,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" form="value">
+            <input type="radio" form="value">
             HTML,
             InputRadio::tag()
                 ->form('value')
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
@@ -564,11 +554,9 @@ final class InputRadioTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputradio" type="radio">
+            <input class="default-class" type="radio">
             HTML,
-            InputRadio::tag()
-                ->id('inputradio')
-                ->render(),
+            InputRadio::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -582,11 +570,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" hidden>
+            <input type="radio" hidden>
             HTML,
             InputRadio::tag()
                 ->hidden(true)
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -596,10 +583,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio">
+            <input id="value" type="radio">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -609,10 +596,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" lang="en">
+            <input type="radio" lang="en">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -623,10 +609,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" lang="en">
+            <input type="radio" lang="en">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -637,10 +622,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" name="value" type="radio">
+            <input name="value" type="radio">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -651,11 +635,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio">
+            <input type="radio">
             HTML,
             InputRadio::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputradio')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -666,11 +649,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio">
+            <input type="radio">
             HTML,
             InputRadio::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputradio')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -681,11 +663,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio">
+            <input type="radio">
             HTML,
             InputRadio::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputradio')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -696,11 +677,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio">
+            <input type="radio">
             HTML,
             InputRadio::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputradio')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -711,10 +691,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" required>
+            <input type="radio" required>
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -725,10 +704,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" role="radio">
+            <input type="radio" role="radio">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->role('radio')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -739,10 +717,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" role="radio">
+            <input type="radio" role="radio">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->role(Role::RADIO)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -753,10 +730,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputradio" type="radio">
+            <input class="value" type="radio">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -767,10 +743,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" title="value">
+            <input type="radio" title="value">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -781,10 +756,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" style='value'>
+            <input type="radio" style='value'>
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -795,10 +769,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" tabindex="1">
+            <input type="radio" tabindex="1">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -809,11 +782,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputradio" type="radio">
+            <input class="text-muted" type="radio">
             HTML,
             InputRadio::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputradio')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -823,10 +795,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" title="value">
+            <input type="radio" title="value">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -848,10 +819,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" translate="no">
+            <input type="radio" translate="no">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -862,10 +832,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" translate="no">
+            <input type="radio" translate="no">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -897,10 +866,9 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputradio" type="radio" value="value">
+            <input type="radio" value="value">
             HTML,
             InputRadio::tag()
-                ->id('inputradio')
                 ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

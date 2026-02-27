@@ -73,11 +73,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" accesskey="value">
+            <input type="color" accesskey="value">
             HTML,
             InputColor::tag()
                 ->accesskey('value')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -87,11 +86,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" aria-label="value">
+            <input type="color" aria-label="value">
             HTML,
             InputColor::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -101,11 +99,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" aria-label="value">
+            <input type="color" aria-label="value">
             HTML,
             InputColor::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -115,11 +112,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" aria-describedby="value">
+            <input type="color" aria-describedby="value">
             HTML,
             InputColor::tag()
                 ->addAriaAttribute('describedby', 'value')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -215,11 +211,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" data-value="value">
+            <input type="color" data-value="value">
             HTML,
             InputColor::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -229,11 +224,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" data-value="value">
+            <input type="color" data-value="value">
             HTML,
             InputColor::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -243,11 +237,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="color" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputColor::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -257,11 +250,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" alpha>
+            <input type="color" alpha>
             HTML,
             InputColor::tag()
                 ->alpha(true)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'alpha' attribute.",
         );
@@ -271,7 +263,7 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" aria-controls="value" aria-label="value">
+            <input type="color" aria-controls="value" aria-label="value">
             HTML,
             InputColor::tag()
                 ->ariaAttributes(
@@ -280,7 +272,6 @@ final class InputColorTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -314,15 +305,44 @@ final class InputColorTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcolor" type="color" aria-describedby="inputcolor-value">
+            HTML,
+            InputColor::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputcolor')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
+    public function testRenderWithAriaDescribedBySuffixAndEmptySuffixUsesDefault(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputcolor" type="color" aria-describedby="inputcolor-help">
+            HTML,
+            InputColor::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('')
+                ->id('inputcolor')
+                ->render(),
+            "Failed asserting that an empty 'ariaDescribedBySuffix()' falls back to the default '-help' suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputcolor" type="color">
+            <input class="value" type="color">
             HTML,
             InputColor::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -360,11 +380,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" autocomplete="on">
+            <input type="color" autocomplete="on">
             HTML,
             InputColor::tag()
                 ->autocomplete('on')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -374,11 +393,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" autocomplete="on">
+            <input type="color" autocomplete="on">
             HTML,
             InputColor::tag()
                 ->autocomplete(Autocomplete::ON)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -388,11 +406,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" autofocus>
+            <input type="color" autofocus>
             HTML,
             InputColor::tag()
                 ->autofocus(true)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -402,11 +419,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputcolor" type="color">
+            <input class="value" type="color">
             HTML,
             InputColor::tag()
                 ->class('value')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -416,11 +432,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputcolor" type="color">
+            <input class="value" type="color">
             HTML,
             InputColor::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -430,11 +445,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" colorspace="display-p3">
+            <input type="color" colorspace="display-p3">
             HTML,
             InputColor::tag()
                 ->colorspace('display-p3')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'colorspace' attribute.",
         );
@@ -444,11 +458,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" colorspace="display-p3">
+            <input type="color" colorspace="display-p3">
             HTML,
             InputColor::tag()
                 ->colorspace(Colorspace::DISPLAY_P3)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'colorspace' attribute.",
         );
@@ -458,11 +471,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" data-value="value">
+            <input type="color" data-value="value">
             HTML,
             InputColor::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -472,11 +484,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputcolor" type="color">
+            <input class="default-class" type="color">
             HTML,
-            InputColor::tag(['class' => 'default-class'])
-                ->id('inputcolor')
-                ->render(),
+            InputColor::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -485,11 +495,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputcolor" type="color" title="default-title">
+            <input class="default-class" type="color" title="default-title">
             HTML,
             InputColor::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputcolor')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -499,11 +508,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color">
+            <input type="color">
             HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->render(),
+            InputColor::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -512,11 +519,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" dir="ltr">
+            <input type="color" dir="ltr">
             HTML,
             InputColor::tag()
                 ->dir('ltr')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -526,11 +532,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" dir="ltr">
+            <input type="color" dir="ltr">
             HTML,
             InputColor::tag()
                 ->dir(Direction::LTR)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -540,11 +545,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" disabled>
+            <input type="color" disabled>
             HTML,
             InputColor::tag()
                 ->disabled(true)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -554,7 +558,7 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="color" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputColor::tag()
                 ->events(
@@ -563,7 +567,6 @@ final class InputColorTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -573,11 +576,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" form="value">
+            <input type="color" form="value">
             HTML,
             InputColor::tag()
                 ->form('value')
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
@@ -592,11 +594,9 @@ final class InputColorTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputcolor" type="color">
+            <input class="default-class" type="color">
             HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->render(),
+            InputColor::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -610,11 +610,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" hidden>
+            <input type="color" hidden>
             HTML,
             InputColor::tag()
                 ->hidden(true)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -624,10 +623,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color">
+            <input id="value" type="color">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -637,10 +636,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" lang="en">
+            <input type="color" lang="en">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -651,10 +649,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" lang="en">
+            <input type="color" lang="en">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -665,10 +662,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" list="value">
+            <input type="color" list="value">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
@@ -679,10 +675,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" name="value" type="color">
+            <input name="value" type="color">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -693,11 +688,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color">
+            <input type="color">
             HTML,
             InputColor::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputcolor')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -708,11 +702,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color">
+            <input type="color">
             HTML,
             InputColor::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputcolor')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -723,11 +716,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color">
+            <input type="color">
             HTML,
             InputColor::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputcolor')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -738,11 +730,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color">
+            <input type="color">
             HTML,
             InputColor::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputcolor')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -753,10 +744,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" role="textbox">
+            <input type="color" role="textbox">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->role('textbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -767,10 +757,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" role="textbox">
+            <input type="color" role="textbox">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -781,10 +770,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputcolor" type="color">
+            <input class="value" type="color">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -795,10 +783,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" title="value">
+            <input type="color" title="value">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -809,10 +796,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" style='value'>
+            <input type="color" style='value'>
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -823,10 +809,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" tabindex="1">
+            <input type="color" tabindex="1">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -838,11 +823,10 @@ final class InputColorTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputcolor" type="color">
+            <input type="color">
             </div>
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -853,11 +837,10 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputcolor" type="color">
+            <input class="text-muted" type="color">
             HTML,
             InputColor::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputcolor')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -867,10 +850,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" title="value">
+            <input type="color" title="value">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -892,10 +874,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" translate="no">
+            <input type="color" translate="no">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -906,10 +887,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" translate="no">
+            <input type="color" translate="no">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -944,10 +924,9 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputcolor" type="color" value="#ff0000">
+            <input type="color" value="#ff0000">
             HTML,
             InputColor::tag()
-                ->id('inputcolor')
                 ->value('#ff0000')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

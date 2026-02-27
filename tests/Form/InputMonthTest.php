@@ -70,11 +70,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" accesskey="value">
+            <input type="month" accesskey="value">
             HTML,
             InputMonth::tag()
                 ->accesskey('value')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -84,11 +83,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" aria-label="value">
+            <input type="month" aria-label="value">
             HTML,
             InputMonth::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -98,11 +96,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" aria-label="value">
+            <input type="month" aria-label="value">
             HTML,
             InputMonth::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -112,11 +109,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" aria-describedby="value">
+            <input type="month" aria-describedby="value">
             HTML,
             InputMonth::tag()
                 ->addAriaAttribute('describedby', 'value')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -211,11 +207,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" data-value="value">
+            <input type="month" data-value="value">
             HTML,
             InputMonth::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -225,11 +220,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" data-value="value">
+            <input type="month" data-value="value">
             HTML,
             InputMonth::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -239,11 +233,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="month" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputMonth::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -253,7 +246,7 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" aria-controls="value" aria-label="value">
+            <input type="month" aria-controls="value" aria-label="value">
             HTML,
             InputMonth::tag()
                 ->ariaAttributes(
@@ -262,7 +255,6 @@ final class InputMonthTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -296,15 +288,29 @@ final class InputMonthTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputmonth" type="month" aria-describedby="inputmonth-value">
+            HTML,
+            InputMonth::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputmonth')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputmonth" type="month">
+            <input class="value" type="month">
             HTML,
             InputMonth::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -342,11 +348,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" autocomplete="on">
+            <input type="month" autocomplete="on">
             HTML,
             InputMonth::tag()
                 ->autocomplete('on')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -356,11 +361,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" autocomplete="on">
+            <input type="month" autocomplete="on">
             HTML,
             InputMonth::tag()
                 ->autocomplete(Autocomplete::ON)
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -370,11 +374,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" autofocus>
+            <input type="month" autofocus>
             HTML,
             InputMonth::tag()
                 ->autofocus(true)
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -384,11 +387,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputmonth" type="month">
+            <input class="value" type="month">
             HTML,
             InputMonth::tag()
                 ->class('value')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -398,11 +400,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputmonth" type="month">
+            <input class="value" type="month">
             HTML,
             InputMonth::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -412,11 +413,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" data-value="value">
+            <input type="month" data-value="value">
             HTML,
             InputMonth::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -426,10 +426,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputmonth" type="month">
+            <input class="default-class" type="month">
             HTML,
             InputMonth::tag(['class' => 'default-class'])
-                ->id('inputmonth')
                 ->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
@@ -439,11 +438,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputmonth" type="month" title="default-title">
+            <input class="default-class" type="month" title="default-title">
             HTML,
             InputMonth::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputmonth')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -453,11 +451,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month">
+            <input type="month">
             HTML,
-            InputMonth::tag()
-                ->id('inputmonth')
-                ->render(),
+            InputMonth::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -466,11 +462,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" dir="ltr">
+            <input type="month" dir="ltr">
             HTML,
             InputMonth::tag()
                 ->dir('ltr')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -480,11 +475,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" dir="ltr">
+            <input type="month" dir="ltr">
             HTML,
             InputMonth::tag()
                 ->dir(Direction::LTR)
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -494,11 +488,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" disabled>
+            <input type="month" disabled>
             HTML,
             InputMonth::tag()
                 ->disabled(true)
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -508,7 +501,7 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="month" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputMonth::tag()
                 ->events(
@@ -517,7 +510,6 @@ final class InputMonthTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -527,11 +519,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" form="value">
+            <input type="month" form="value">
             HTML,
             InputMonth::tag()
                 ->form('value')
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
@@ -546,11 +537,9 @@ final class InputMonthTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputmonth" type="month">
+            <input class="default-class" type="month">
             HTML,
-            InputMonth::tag()
-                ->id('inputmonth')
-                ->render(),
+            InputMonth::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -564,11 +553,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" hidden>
+            <input type="month" hidden>
             HTML,
             InputMonth::tag()
                 ->hidden(true)
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -578,10 +566,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month">
+            <input id="value" type="month">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -591,10 +579,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" lang="en">
+            <input type="month" lang="en">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -605,10 +592,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" lang="en">
+            <input type="month" lang="en">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -619,10 +605,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" list="value">
+            <input type="month" list="value">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
@@ -633,10 +618,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" max="2022-09">
+            <input type="month" max="2022-09">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->max('2022-09')
                 ->render(),
             "Failed asserting that element renders correctly with 'max' attribute.",
@@ -647,10 +631,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" min="2022-06">
+            <input type="month" min="2022-06">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->min('2022-06')
                 ->render(),
             "Failed asserting that element renders correctly with 'min' attribute.",
@@ -661,10 +644,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" min="2022-06" max="2022-09">
+            <input type="month" min="2022-06" max="2022-09">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->min('2022-06')
                 ->max('2022-09')
                 ->render(),
@@ -676,10 +658,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" name="value" type="month">
+            <input name="value" type="month">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -690,10 +671,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" readonly>
+            <input type="month" readonly>
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->readonly(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
@@ -704,11 +684,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month">
+            <input type="month">
             HTML,
             InputMonth::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputmonth')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -719,11 +698,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month">
+            <input type="month">
             HTML,
             InputMonth::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputmonth')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -734,11 +712,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month">
+            <input type="month">
             HTML,
             InputMonth::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputmonth')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -749,11 +726,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month">
+            <input type="month">
             HTML,
             InputMonth::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputmonth')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -764,10 +740,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" required>
+            <input type="month" required>
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -778,10 +753,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" role="textbox">
+            <input type="month" role="textbox">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->role('textbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -792,10 +766,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" role="textbox">
+            <input type="month" role="textbox">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -806,10 +779,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputmonth" type="month">
+            <input class="value" type="month">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -820,10 +792,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" title="value">
+            <input type="month" title="value">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -834,10 +805,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" step="2">
+            <input type="month" step="2">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->step(2)
                 ->render(),
             "Failed asserting that element renders correctly with 'step' attribute.",
@@ -848,10 +818,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" step="any">
+            <input type="month" step="any">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->step('any')
                 ->render(),
             "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
@@ -862,10 +831,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" style='value'>
+            <input type="month" style='value'>
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -876,10 +844,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" tabindex="1">
+            <input type="month" tabindex="1">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -891,11 +858,10 @@ final class InputMonthTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputmonth" type="month">
+            <input type="month">
             </div>
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -906,11 +872,10 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputmonth" type="month">
+            <input class="text-muted" type="month">
             HTML,
             InputMonth::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputmonth')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -920,10 +885,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" title="value">
+            <input type="month" title="value">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -945,10 +909,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" translate="no">
+            <input type="month" translate="no">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -959,10 +922,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" translate="no">
+            <input type="month" translate="no">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -997,10 +959,9 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputmonth" type="month" value="2022-06">
+            <input type="month" value="2022-06">
             HTML,
             InputMonth::tag()
-                ->id('inputmonth')
                 ->value('2022-06')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

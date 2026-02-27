@@ -72,11 +72,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" accesskey="value">
+            <input type="password" accesskey="value">
             HTML,
             InputPassword::tag()
                 ->accesskey('value')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -86,11 +85,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" aria-label="value">
+            <input type="password" aria-label="value">
             HTML,
             InputPassword::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -100,11 +98,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" aria-label="value">
+            <input type="password" aria-label="value">
             HTML,
             InputPassword::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -114,11 +111,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" aria-describedby="value">
+            <input type="password" aria-describedby="value">
             HTML,
             InputPassword::tag()
                 ->addAriaAttribute('describedby', 'value')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
         );
@@ -213,11 +209,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" data-value="value">
+            <input type="password" data-value="value">
             HTML,
             InputPassword::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -227,11 +222,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" data-value="value">
+            <input type="password" data-value="value">
             HTML,
             InputPassword::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -241,11 +235,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="password" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputPassword::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -255,7 +248,7 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" aria-controls="value" aria-label="value">
+            <input type="password" aria-controls="value" aria-label="value">
             HTML,
             InputPassword::tag()
                 ->ariaAttributes(
@@ -264,7 +257,6 @@ final class InputPasswordTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -298,15 +290,29 @@ final class InputPasswordTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputpassword" type="password" aria-describedby="inputpassword-value">
+            HTML,
+            InputPassword::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputpassword')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputpassword" type="password">
+            <input class="value" type="password">
             HTML,
             InputPassword::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -344,11 +350,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" autocomplete="off">
+            <input type="password" autocomplete="off">
             HTML,
             InputPassword::tag()
                 ->autocomplete('off')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -358,11 +363,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" autocomplete="off">
+            <input type="password" autocomplete="off">
             HTML,
             InputPassword::tag()
                 ->autocomplete(Autocomplete::OFF)
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -372,11 +376,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" autofocus>
+            <input type="password" autofocus>
             HTML,
             InputPassword::tag()
                 ->autofocus(true)
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -386,11 +389,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputpassword" type="password">
+            <input class="value" type="password">
             HTML,
             InputPassword::tag()
                 ->class('value')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -400,11 +402,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputpassword" type="password">
+            <input class="value" type="password">
             HTML,
             InputPassword::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -414,11 +415,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" data-value="value">
+            <input type="password" data-value="value">
             HTML,
             InputPassword::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -428,11 +428,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputpassword" type="password">
+            <input class="default-class" type="password">
             HTML,
-            InputPassword::tag(['class' => 'default-class'])
-                ->id('inputpassword')
-                ->render(),
+            InputPassword::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -441,11 +439,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputpassword" type="password" title="default-title">
+            <input class="default-class" type="password" title="default-title">
             HTML,
             InputPassword::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputpassword')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -455,11 +452,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password">
+            <input type="password">
             HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->render(),
+            InputPassword::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -468,11 +463,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" dir="ltr">
+            <input type="password" dir="ltr">
             HTML,
             InputPassword::tag()
                 ->dir('ltr')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -482,11 +476,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" dir="ltr">
+            <input type="password" dir="ltr">
             HTML,
             InputPassword::tag()
                 ->dir(Direction::LTR)
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -496,11 +489,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" disabled>
+            <input type="password" disabled>
             HTML,
             InputPassword::tag()
                 ->disabled(true)
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -510,7 +502,7 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="password" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputPassword::tag()
                 ->events(
@@ -519,7 +511,6 @@ final class InputPasswordTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -529,11 +520,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" form="value">
+            <input type="password" form="value">
             HTML,
             InputPassword::tag()
                 ->form('value')
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
@@ -548,11 +538,9 @@ final class InputPasswordTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputpassword" type="password">
+            <input class="default-class" type="password">
             HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->render(),
+            InputPassword::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -566,11 +554,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" hidden>
+            <input type="password" hidden>
             HTML,
             InputPassword::tag()
                 ->hidden(true)
-                ->id('inputpassword')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -580,10 +567,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password">
+            <input id="value" type="password">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -593,10 +580,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" inputmode="numeric">
+            <input type="password" inputmode="numeric">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->inputMode('numeric')
                 ->render(),
             "Failed asserting that element renders correctly with 'inputmode' attribute.",
@@ -607,10 +593,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" inputmode="numeric">
+            <input type="password" inputmode="numeric">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->inputMode(InputMode::NUMERIC)
                 ->render(),
             "Failed asserting that element renders correctly with 'inputmode' attribute.",
@@ -621,10 +606,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" lang="en">
+            <input type="password" lang="en">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -635,10 +619,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" lang="en">
+            <input type="password" lang="en">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -649,10 +632,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" maxlength="12">
+            <input type="password" maxlength="12">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->maxlength(12)
                 ->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
@@ -663,10 +645,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" minlength="8">
+            <input type="password" minlength="8">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->minlength(8)
                 ->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
@@ -677,10 +658,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" name="value" type="password">
+            <input name="value" type="password">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -691,10 +671,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" pattern=".{8,}">
+            <input type="password" pattern=".{8,}">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->pattern('.{8,}')
                 ->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
@@ -705,10 +684,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" placeholder="value">
+            <input type="password" placeholder="value">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->placeholder('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
@@ -719,10 +697,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" readonly>
+            <input type="password" readonly>
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->readonly(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
@@ -733,10 +710,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password">
+            <input type="password">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -748,10 +724,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password">
+            <input type="password">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->setAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
@@ -763,10 +738,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password">
+            <input type="password">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -778,11 +752,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password">
+            <input type="password">
             HTML,
             InputPassword::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputpassword')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -793,10 +766,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" required>
+            <input type="password" required>
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -807,10 +779,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" role="textbox">
+            <input type="password" role="textbox">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->role('textbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -821,10 +792,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" role="textbox">
+            <input type="password" role="textbox">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -835,10 +805,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" data-value="value">
+            <input type="password" data-value="value">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->setAttribute('data-value', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -849,10 +818,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" title="value">
+            <input type="password" title="value">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -863,10 +831,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" size="20">
+            <input type="password" size="20">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->size(20)
                 ->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
@@ -877,10 +844,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" style='value'>
+            <input type="password" style='value'>
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -891,10 +857,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" tabindex="1">
+            <input type="password" tabindex="1">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -906,11 +871,10 @@ final class InputPasswordTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputpassword" type="password">
+            <input type="password">
             </div>
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -921,10 +885,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputpassword" type="password">
+            <input class="text-muted" type="password">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
@@ -935,10 +898,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" title="value">
+            <input type="password" title="value">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -960,10 +922,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" translate="no">
+            <input type="password" translate="no">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -974,10 +935,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" translate="no">
+            <input type="password" translate="no">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -1012,10 +972,9 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" value="value">
+            <input type="password" value="value">
             HTML,
             InputPassword::tag()
-                ->id('inputpassword')
                 ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",

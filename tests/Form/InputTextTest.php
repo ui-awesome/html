@@ -73,11 +73,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" accesskey="value">
+            <input type="text" accesskey="value">
             HTML,
             InputText::tag()
                 ->accesskey('value')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
         );
@@ -87,11 +86,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" aria-label="value">
+            <input type="text" aria-label="value">
             HTML,
             InputText::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -101,11 +99,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" aria-label="value">
+            <input type="text" aria-label="value">
             HTML,
             InputText::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
@@ -214,11 +211,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" data-value="value">
+            <input type="text" data-value="value">
             HTML,
             InputText::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -228,11 +224,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" data-value="value">
+            <input type="text" data-value="value">
             HTML,
             InputText::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
@@ -242,11 +237,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" onclick="alert(&apos;Clicked!&apos;)">
+            <input type="text" onclick="alert(&apos;Clicked!&apos;)">
             HTML,
             InputText::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
@@ -256,7 +250,7 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" aria-controls="value" aria-label="value">
+            <input type="text" aria-controls="value" aria-label="value">
             HTML,
             InputText::tag()
                 ->ariaAttributes(
@@ -265,7 +259,6 @@ final class InputTextTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
@@ -299,15 +292,29 @@ final class InputTextTest extends TestCase
         );
     }
 
+    public function testRenderWithAriaDescribedByCustomSuffix(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputtext" type="text" aria-describedby="inputtext-value">
+            HTML,
+            InputText::tag()
+                ->addAriaAttribute('describedby', true)
+                ->ariaDescribedBySuffix('value')
+                ->id('inputtext')
+                ->render(),
+            "Failed asserting that 'ariaDescribedBySuffix()' correctly applies the custom suffix.",
+        );
+    }
+
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputtext" type="text">
+            <input class="value" type="text">
             HTML,
             InputText::tag()
                 ->attributes(['class' => 'value'])
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
@@ -345,11 +352,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" autocomplete="on">
+            <input type="text" autocomplete="on">
             HTML,
             InputText::tag()
                 ->autocomplete('on')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -359,11 +365,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" autocomplete="on">
+            <input type="text" autocomplete="on">
             HTML,
             InputText::tag()
                 ->autocomplete(Autocomplete::ON)
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'autocomplete' attribute.",
         );
@@ -373,11 +378,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" autofocus>
+            <input type="text" autofocus>
             HTML,
             InputText::tag()
                 ->autofocus(true)
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
         );
@@ -387,11 +391,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputtext" type="text">
+            <input class="value" type="text">
             HTML,
             InputText::tag()
                 ->class('value')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -401,11 +404,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputtext" type="text">
+            <input class="value" type="text">
             HTML,
             InputText::tag()
                 ->class(BackedString::VALUE)
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
         );
@@ -415,11 +417,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" data-value="value">
+            <input type="text" data-value="value">
             HTML,
             InputText::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
@@ -429,11 +430,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtext" type="text">
+            <input class="default-class" type="text">
             HTML,
-            InputText::tag(['class' => 'default-class'])
-                ->id('inputtext')
-                ->render(),
+            InputText::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -442,11 +441,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtext" type="text" title="default-title">
+            <input class="default-class" type="text" title="default-title">
             HTML,
             InputText::tag()
                 ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputtext')
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
         );
@@ -456,11 +454,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text">
+            <input type="text">
             HTML,
-            InputText::tag()
-                ->id('inputtext')
-                ->render(),
+            InputText::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -469,11 +465,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" dir="ltr">
+            <input type="text" dir="ltr">
             HTML,
             InputText::tag()
                 ->dir('ltr')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -483,11 +478,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" dirname="comment.dir">
+            <input type="text" dirname="comment.dir">
             HTML,
             InputText::tag()
                 ->dirname('comment.dir')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'dirname' attribute.",
         );
@@ -497,11 +491,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" dir="ltr">
+            <input type="text" dir="ltr">
             HTML,
             InputText::tag()
                 ->dir(Direction::LTR)
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
         );
@@ -511,11 +504,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" disabled>
+            <input type="text" disabled>
             HTML,
             InputText::tag()
                 ->disabled(true)
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
@@ -525,7 +517,7 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" onfocus="handleFocus()" onblur="handleBlur()">
+            <input type="text" onfocus="handleFocus()" onblur="handleBlur()">
             HTML,
             InputText::tag()
                 ->events(
@@ -534,7 +526,6 @@ final class InputTextTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'events()' method.",
         );
@@ -544,11 +535,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" form="value">
+            <input type="text" form="value">
             HTML,
             InputText::tag()
                 ->form('value')
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'form' attribute.",
         );
@@ -563,11 +553,9 @@ final class InputTextTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <input class="default-class" id="inputtext" type="text">
+            <input class="default-class" type="text">
             HTML,
-            InputText::tag()
-                ->id('inputtext')
-                ->render(),
+            InputText::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
@@ -581,11 +569,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" hidden>
+            <input type="text" hidden>
             HTML,
             InputText::tag()
                 ->hidden(true)
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
         );
@@ -595,10 +582,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text">
+            <input id="value" type="text">
             HTML,
             InputText::tag()
-                ->id('inputtext')
+                ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
         );
@@ -608,10 +595,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" lang="en">
+            <input type="text" lang="en">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -622,10 +608,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" lang="en">
+            <input type="text" lang="en">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -636,10 +621,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" list="value">
+            <input type="text" list="value">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->list('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'list' attribute.",
@@ -650,10 +634,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" maxlength="10">
+            <input type="text" maxlength="10">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->maxlength(10)
                 ->render(),
             "Failed asserting that element renders correctly with 'maxlength' attribute.",
@@ -664,10 +647,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" minlength="5">
+            <input type="text" minlength="5">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->minlength(5)
                 ->render(),
             "Failed asserting that element renders correctly with 'minlength' attribute.",
@@ -678,10 +660,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" name="value" type="text">
+            <input name="value" type="text">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->name('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'name' attribute.",
@@ -692,10 +673,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" pattern='[A-Za-z]{3}'>
+            <input type="text" pattern='[A-Za-z]{3}'>
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->pattern('[A-Za-z]{3}')
                 ->render(),
             "Failed asserting that element renders correctly with 'pattern' attribute.",
@@ -706,10 +686,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" placeholder="value">
+            <input type="text" placeholder="value">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->placeholder('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'placeholder' attribute.",
@@ -720,10 +699,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" readonly>
+            <input type="text" readonly>
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->readonly(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'readonly' attribute.",
@@ -734,11 +712,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text">
+            <input type="text">
             HTML,
             InputText::tag()
                 ->addAriaAttribute('label', 'value')
-                ->id('inputtext')
                 ->removeAriaAttribute('label')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
@@ -749,11 +726,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text">
+            <input type="text">
             HTML,
             InputText::tag()
                 ->setAttribute('class', 'value')
-                ->id('inputtext')
                 ->removeAttribute('class')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeAttribute()' method.",
@@ -764,11 +740,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text">
+            <input type="text">
             HTML,
             InputText::tag()
                 ->addDataAttribute('value', 'value')
-                ->id('inputtext')
                 ->removeDataAttribute('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
@@ -779,11 +754,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text">
+            <input type="text">
             HTML,
             InputText::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->id('inputtext')
                 ->removeEvent('click')
                 ->render(),
             "Failed asserting that element renders correctly with 'removeEvent()' method.",
@@ -794,10 +768,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" required>
+            <input type="text" required>
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->required(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'required' attribute.",
@@ -808,10 +781,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" role="textbox">
+            <input type="text" role="textbox">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->role('textbox')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -822,10 +794,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" role="textbox">
+            <input type="text" role="textbox">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->role(Role::TEXTBOX)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -836,10 +807,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="value" id="inputtext" type="text">
+            <input class="value" type="text">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -850,10 +820,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" title="value">
+            <input type="text" title="value">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -864,10 +833,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" size="20">
+            <input type="text" size="20">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->size(20)
                 ->render(),
             "Failed asserting that element renders correctly with 'size' attribute.",
@@ -878,10 +846,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" spellcheck="true">
+            <input type="text" spellcheck="true">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->spellcheck(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
@@ -892,10 +859,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" style='value'>
+            <input type="text" style='value'>
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -906,10 +872,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" tabindex="1">
+            <input type="text" tabindex="1">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->tabIndex(1)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -921,11 +886,10 @@ final class InputTextTest extends TestCase
         self::assertSame(
             <<<HTML
             <div class="value">
-            <input id="inputtext" type="text">
+            <input type="text">
             </div>
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Failed asserting that element renders correctly with a custom template wrapper.',
@@ -936,11 +900,10 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input class="text-muted" id="inputtext" type="text">
+            <input class="text-muted" type="text">
             HTML,
             InputText::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputtext')
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
@@ -950,10 +913,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" title="value">
+            <input type="text" title="value">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -975,10 +937,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" translate="no">
+            <input type="text" translate="no">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -989,10 +950,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" translate="no">
+            <input type="text" translate="no">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -1027,10 +987,9 @@ final class InputTextTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <input id="inputtext" type="text" value="value">
+            <input type="text" value="value">
             HTML,
             InputText::tag()
-                ->id('inputtext')
                 ->value('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'value' attribute.",
