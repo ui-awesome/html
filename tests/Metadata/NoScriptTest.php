@@ -316,7 +316,7 @@ final class NoScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <noscript class="default-class" title="default-title">
+            <noscript class="default-class">
             </noscript>
             HTML,
             NoScript::tag()

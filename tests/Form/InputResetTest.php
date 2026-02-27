@@ -55,12 +55,10 @@ final class InputResetTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::RESET,
                 'class' => 'value',
             ],
             InputReset::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -496,18 +494,6 @@ final class InputResetTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputReset::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputreset-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -794,7 +780,7 @@ final class InputResetTest extends TestCase
             <<<HTML
             <input type="reset">
             HTML,
-            (string) InputReset::tag()->id(null),
+            (string) InputReset::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

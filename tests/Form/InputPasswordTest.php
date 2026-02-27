@@ -58,12 +58,10 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::PASSWORD,
                 'class' => 'value',
             ],
             InputPassword::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -541,18 +539,6 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputPassword::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputpassword-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -965,7 +951,7 @@ final class InputPasswordTest extends TestCase
             <<<HTML
             <input type="password">
             HTML,
-            (string) InputPassword::tag()->id(null),
+            (string) InputPassword::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

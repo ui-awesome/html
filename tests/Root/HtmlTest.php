@@ -316,7 +316,7 @@ final class HtmlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <html class="default-class" title="default-title">
+            <html class="default-class">
             </html>
             HTML,
             Html::tag()

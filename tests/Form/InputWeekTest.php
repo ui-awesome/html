@@ -58,12 +58,10 @@ final class InputWeekTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::WEEK,
                 'class' => 'value',
             ],
             InputWeek::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -542,18 +540,6 @@ final class InputWeekTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputWeek::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputweek-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -953,7 +939,7 @@ final class InputWeekTest extends TestCase
             <<<HTML
             <input type="week">
             HTML,
-            (string) InputWeek::tag()->id(null),
+            (string) InputWeek::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

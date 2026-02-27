@@ -57,12 +57,10 @@ final class InputNumberTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::NUMBER,
                 'class' => 'value',
             ],
             InputNumber::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -540,18 +538,6 @@ final class InputNumberTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputNumber::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputnumber-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -965,7 +951,7 @@ final class InputNumberTest extends TestCase
             <<<HTML
             <input type="number">
             HTML,
-            (string) InputNumber::tag()->id(null),
+            (string) InputNumber::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

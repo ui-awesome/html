@@ -55,13 +55,11 @@ final class InputFileTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::FILE,
                 'class' => 'value',
                 'name' => '',
             ],
             InputFile::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -554,18 +552,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputFile::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputfile-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -864,7 +850,7 @@ final class InputFileTest extends TestCase
             <<<HTML
             <input type="file">
             HTML,
-            (string) InputFile::tag()->id(null),
+            (string) InputFile::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

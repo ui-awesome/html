@@ -59,12 +59,10 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::URL,
                 'class' => 'value',
             ],
             InputUrl::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -542,18 +540,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputUrl::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputurl-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -966,7 +952,7 @@ final class InputUrlTest extends TestCase
             <<<HTML
             <input type="url">
             HTML,
-            (string) InputUrl::tag()->id(null),
+            (string) InputUrl::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

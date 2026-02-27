@@ -21,7 +21,7 @@ use UIAwesome\Html\Form\Attribute\{
 };
 use UIAwesome\Html\Form\Values\ButtonType;
 use UIAwesome\Html\Helper\Validator;
-use UIAwesome\Html\Interop\{Inline, InlineInterface};
+use UIAwesome\Html\Interop\Inline;
 use UnitEnum;
 
 /**
@@ -91,11 +91,11 @@ final class Button extends BaseInline
     /**
      * Returns the tag enumeration for the `<button>` element.
      *
-     * @return InlineInterface Tag enumeration instance for `<button>`.
+     * @return Inline Tag enumeration instance for `<button>`.
      *
      * {@see Inline} for valid inline-level tags.
      */
-    protected function getTag(): InlineInterface
+    protected function getTag(): Inline
     {
         return Inline::BUTTON;
     }

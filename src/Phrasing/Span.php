@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Phrasing;
 
 use UIAwesome\Html\Core\Element\BaseInline;
-use UIAwesome\Html\Interop\{Inline, InlineInterface};
+use UIAwesome\Html\Interop\Inline;
 
 /**
  * Renders the HTML `<span>` element for generic inline content.
@@ -29,11 +29,11 @@ final class Span extends BaseInline
     /**
      * Returns the tag enumeration for the `<span>` element.
      *
-     * @return InlineInterface Tag enumeration instance for `<span>`.
+     * @return Inline Tag enumeration instance for `<span>`.
      *
      * {@see Inline} for valid inline-level tags.
      */
-    protected function getTag(): InlineInterface
+    protected function getTag(): Inline
     {
         return Inline::SPAN;
     }

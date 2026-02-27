@@ -18,7 +18,7 @@ use UIAwesome\Html\Attribute\Element\{
 use UIAwesome\Html\Attribute\{HasCrossorigin, HasFetchpriority, HasSizes};
 use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Embedded\Attribute\{HasElementtiming, HasIsmap};
-use UIAwesome\Html\Interop\{VoidInterface, Voids};
+use UIAwesome\Html\Interop\Voids;
 
 /**
  * Renders the HTML `<img>` element for embedding images.
@@ -60,11 +60,11 @@ final class Img extends BaseVoid
     /**
      * Returns the tag enumeration for the `<img>` element.
      *
-     * @return VoidInterface Tag enumeration instance for `<img>`.
+     * @return Voids Tag enumeration instance for `<img>`.
      *
      * {@see Voids} for valid void-level tags.
      */
-    protected function getTag(): VoidInterface
+    protected function getTag(): Voids
     {
         return Voids::IMG;
     }

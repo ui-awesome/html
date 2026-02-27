@@ -57,12 +57,10 @@ final class InputSearchTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::SEARCH,
                 'class' => 'value',
             ],
             InputSearch::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -552,18 +550,6 @@ final class InputSearchTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputSearch::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputsearch-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -976,7 +962,7 @@ final class InputSearchTest extends TestCase
             <<<HTML
             <input type="search">
             HTML,
-            (string) InputSearch::tag()->id(null),
+            (string) InputSearch::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

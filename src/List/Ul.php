@@ -6,7 +6,7 @@ namespace UIAwesome\Html\List;
 
 use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, Lists};
+use UIAwesome\Html\Interop\Lists;
 
 /**
  * Renders the HTML `<ul>` element for unordered lists.
@@ -83,11 +83,11 @@ final class Ul extends BaseBlock
     /**
      * Returns the tag enumeration for the `<ul>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<ul>`.
+     * @return Lists Tag enumeration instance for `<ul>`.
      *
      * {@see Lists} for valid list-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Lists
     {
         return Lists::UL;
     }

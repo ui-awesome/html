@@ -331,7 +331,7 @@ final class DivTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <div class="default-class" title="default-title">
+            <div class="default-class">
             </div>
             HTML,
             Div::tag()

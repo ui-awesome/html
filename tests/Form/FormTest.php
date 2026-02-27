@@ -408,7 +408,7 @@ final class FormTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <form class="default-class" title="default-title">
+            <form class="default-class">
             </form>
             HTML,
             Form::tag()

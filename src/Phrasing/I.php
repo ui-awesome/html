@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Phrasing;
 
 use UIAwesome\Html\Core\Element\BaseInline;
-use UIAwesome\Html\Interop\{Inline, InlineInterface};
+use UIAwesome\Html\Interop\Inline;
 
 /**
  * Renders the HTML `<i>` element for alternate voice or idiomatic text.
@@ -29,11 +29,11 @@ final class I extends BaseInline
     /**
      * Returns the tag enumeration for the `<i>` element.
      *
-     * @return InlineInterface Tag enumeration instance for `<i>`.
+     * @return Inline Tag enumeration instance for `<i>`.
      *
      * {@see Inline} for valid inline-level tags.
      */
-    protected function getTag(): InlineInterface
+    protected function getTag(): Inline
     {
         return Inline::I;
     }

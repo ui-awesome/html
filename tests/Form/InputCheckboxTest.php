@@ -59,12 +59,10 @@ final class InputCheckboxTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::CHECKBOX,
                 'class' => 'value',
             ],
             InputCheckbox::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -548,18 +546,6 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputCheckbox::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputcheckbox-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -844,7 +830,7 @@ final class InputCheckboxTest extends TestCase
             <<<HTML
             <input type="checkbox">
             HTML,
-            (string) InputCheckbox::tag()->id(null),
+            (string) InputCheckbox::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

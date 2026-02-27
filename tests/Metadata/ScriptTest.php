@@ -395,7 +395,7 @@ final class ScriptTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <script class="default-class" title="default-title">
+            <script class="default-class">
             </script>
             HTML,
             Script::tag()

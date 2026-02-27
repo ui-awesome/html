@@ -420,7 +420,7 @@ final class TextAreaTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <textarea class="default-class" title="default-title">
+            <textarea class="default-class">
             </textarea>
             HTML,
             TextArea::tag()

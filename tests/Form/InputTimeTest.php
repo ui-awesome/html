@@ -58,12 +58,10 @@ final class InputTimeTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::TIME,
                 'class' => 'value',
             ],
             InputTime::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -541,18 +539,6 @@ final class InputTimeTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputTime::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputtime-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -952,7 +938,7 @@ final class InputTimeTest extends TestCase
             <<<HTML
             <input type="time">
             HTML,
-            (string) InputTime::tag()->id(null),
+            (string) InputTime::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

@@ -316,7 +316,7 @@ final class HeaderTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <header class="default-class" title="default-title">
+            <header class="default-class">
             </header>
             HTML,
             Header::tag()

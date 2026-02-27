@@ -56,12 +56,10 @@ final class InputImageTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::IMAGE,
                 'class' => 'value',
             ],
             InputImage::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -595,18 +593,6 @@ final class InputImageTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputImage::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputimage-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -921,7 +907,7 @@ final class InputImageTest extends TestCase
             <<<HTML
             <input type="image">
             HTML,
-            (string) InputImage::tag()->id(null),
+            (string) InputImage::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }

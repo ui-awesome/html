@@ -61,12 +61,10 @@ final class InputRadioTest extends TestCase
     {
         self::assertSame(
             [
-                'id' => null,
                 'type' => Type::RADIO,
                 'class' => 'value',
             ],
             InputRadio::tag()
-                ->id(null)
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -557,18 +555,6 @@ final class InputRadioTest extends TestCase
         );
     }
 
-    public function testRenderWithGenerateId(): void
-    {
-        /** @phpstan-var string $id */
-        $id = InputRadio::tag()->getAttribute('id', '');
-
-        self::assertMatchesRegularExpression(
-            '/^inputradio-\w+$/',
-            $id,
-            'Failed asserting that element generates an ID when not provided.',
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
@@ -853,7 +839,7 @@ final class InputRadioTest extends TestCase
             <<<HTML
             <input type="radio">
             HTML,
-            (string) InputRadio::tag()->id(null),
+            (string) InputRadio::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
