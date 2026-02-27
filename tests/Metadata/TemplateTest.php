@@ -320,7 +320,7 @@ final class TemplateTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <template class="default-class" title="default-title">
+            <template class="default-class">
             </template>
             HTML,
             Template::tag()

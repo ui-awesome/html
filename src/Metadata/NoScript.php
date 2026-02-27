@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
+use UIAwesome\Html\Interop\MetadataBlock;
 
 /**
  * Renders the HTML `<noscript>` element for fallback content when scripting is unavailable.
@@ -28,11 +28,11 @@ final class NoScript extends BaseBlock
     /**
      * Returns the tag enumeration for the `<noscript>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<noscript>`.
+     * @return MetadataBlock Tag enumeration instance for `<noscript>`.
      *
      * {@see MetadataBlock} for valid metadata block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): MetadataBlock
     {
         return MetadataBlock::NOSCRIPT;
     }

@@ -15,7 +15,7 @@ use UIAwesome\Html\Attribute\{
 };
 use UIAwesome\Html\Attribute\Element\HasHref;
 use UIAwesome\Html\Core\Element\BaseInline;
-use UIAwesome\Html\Interop\{Inline, InlineInterface};
+use UIAwesome\Html\Interop\Inline;
 
 /**
  * Renders the HTML `<a>` element for hyperlinks.
@@ -48,11 +48,11 @@ final class A extends BaseInline
     /**
      * Returns the tag enumeration for the `<a>` element.
      *
-     * @return InlineInterface Tag enumeration instance for `<a>`.
+     * @return Inline Tag enumeration instance for `<a>`.
      *
      * {@see Inline} for valid inline-level tags.
      */
-    protected function getTag(): InlineInterface
+    protected function getTag(): Inline
     {
         return Inline::A;
     }

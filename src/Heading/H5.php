@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Heading;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{Block, BlockInterface};
+use UIAwesome\Html\Interop\Block;
 
 /**
  * Renders the HTML `<h5>` element for fifth-level section headings.
@@ -29,11 +29,11 @@ final class H5 extends BaseBlock
     /**
      * Returns the tag enumeration for the `<h5>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<h5>`.
+     * @return Block Tag enumeration instance for `<h5>`.
      *
      * {@see Block} for valid block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Block
     {
         return Block::H5;
     }

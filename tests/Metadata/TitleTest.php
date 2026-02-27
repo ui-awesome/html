@@ -316,7 +316,7 @@ final class TitleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <title class="default-class" title="default-title">
+            <title class="default-class">
             </title>
             HTML,
             Title::tag()

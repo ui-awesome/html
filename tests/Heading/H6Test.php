@@ -316,7 +316,7 @@ final class H6Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h6 class="default-class" title="default-title">
+            <h6 class="default-class">
             </h6>
             HTML,
             H6::tag()

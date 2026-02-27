@@ -6,7 +6,7 @@ namespace UIAwesome\Html\Metadata;
 
 use UIAwesome\Html\Attribute\{HasCharset, HasContent, HasHttpEquiv, HasMedia, HasName};
 use UIAwesome\Html\Core\Element\BaseVoid;
-use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
+use UIAwesome\Html\Interop\MetadataVoid;
 
 /**
  * Renders the HTML `<meta>` element for document metadata.
@@ -36,11 +36,11 @@ final class Meta extends BaseVoid
     /**
      * Returns the tag enumeration for the `<meta>` element.
      *
-     * @return VoidInterface Tag enumeration instance for `<meta>`.
+     * @return MetadataVoid Tag enumeration instance for `<meta>`.
      *
      * {@see MetadataVoid} for valid metadata void tags.
      */
-    protected function getTag(): VoidInterface
+    protected function getTag(): MetadataVoid
     {
         return MetadataVoid::META;
     }

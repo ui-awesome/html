@@ -10,7 +10,7 @@ use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\Type;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Form\Attribute\{HasAlpha, HasColorspace};
-use UIAwesome\Html\Interop\{VoidInterface, Voids};
+use UIAwesome\Html\Interop\Voids;
 
 /**
  * Renders the HTML `<input type="color">` element.
@@ -53,9 +53,9 @@ final class InputColor extends BaseInput
     /**
      * Returns the tag enumeration for the `<input>` element.
      *
-     * @return VoidInterface Tag enumeration instance for `<input>`.
+     * @return Voids Tag enumeration instance for `<input>`.
      */
-    protected function getTag(): VoidInterface
+    protected function getTag(): Voids
     {
         return Voids::INPUT;
     }

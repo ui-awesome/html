@@ -7,7 +7,7 @@ namespace UIAwesome\Html\Metadata;
 use UIAwesome\Html\Attribute\Element\HasHref;
 use UIAwesome\Html\Attribute\HasTarget;
 use UIAwesome\Html\Core\Element\BaseVoid;
-use UIAwesome\Html\Interop\{MetadataVoid, VoidInterface};
+use UIAwesome\Html\Interop\MetadataVoid;
 
 /**
  * Renders the HTML `<base>` element for the document base URL and default navigation target.
@@ -34,11 +34,11 @@ final class Base extends BaseVoid
     /**
      * Returns the tag enumeration for the `<base>` element.
      *
-     * @return VoidInterface Tag enumeration instance for `<base>`.
+     * @return MetadataVoid Tag enumeration instance for `<base>`.
      *
      * {@see MetadataVoid} for valid metadata void tags.
      */
-    protected function getTag(): VoidInterface
+    protected function getTag(): MetadataVoid
     {
         return MetadataVoid::BASE;
     }

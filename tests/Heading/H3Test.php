@@ -316,7 +316,7 @@ final class H3Test extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <h3 class="default-class" title="default-title">
+            <h3 class="default-class">
             </h3>
             HTML,
             H3::tag()

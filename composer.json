@@ -15,8 +15,8 @@
         "ui-awesome/html-attribute": "^0.6@dev",
         "ui-awesome/html-core": "^0.6@dev",
         "ui-awesome/html-helper": "^0.7",
-        "ui-awesome/html-interop": "^0.3",
-        "ui-awesome/html-mixin": "^0.4"
+        "ui-awesome/html-interop": "^0.4@dev",
+        "ui-awesome/html-mixin": "dev-main as 0.4"
     },
     "require-dev": {
         "infection/infection": "^0.27|^0.32",
@@ -26,7 +26,8 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0.3",
-        "phpunit/phpunit": "^10.5"
+        "phpunit/phpunit": "^10.5",
+        "ui-awesome/html-contracts": "^0.1@dev"
     },
     "autoload": {
         "psr-4": {

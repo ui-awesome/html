@@ -316,7 +316,7 @@ final class NavTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <nav class="default-class" title="default-title">
+            <nav class="default-class">
             </nav>
             HTML,
             Nav::tag()

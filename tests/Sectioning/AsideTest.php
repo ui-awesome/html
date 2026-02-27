@@ -316,7 +316,7 @@ final class AsideTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <aside class="default-class" title="default-title">
+            <aside class="default-class">
             </aside>
             HTML,
             Aside::tag()

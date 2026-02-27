@@ -9,7 +9,7 @@ use UIAwesome\Html\Attribute\Global\HasAutocapitalize;
 use UIAwesome\Html\Attribute\{HasName, HasRel, HasTarget};
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Form\Attribute\{CanBeNovalidate, HasAcceptCharset, HasAction, HasEnctype, HasMethod};
-use UIAwesome\Html\Interop\{Block, BlockInterface};
+use UIAwesome\Html\Interop\Block;
 
 /**
  * Renders the HTML `<form>` element for submitting user data.
@@ -91,11 +91,11 @@ final class Form extends BaseBlock
     /**
      * Returns the tag enumeration for the `<form>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<form>`.
+     * @return Block Tag enumeration instance for `<form>`.
      *
      * {@see Block} for valid block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Block
     {
         return Block::FORM;
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Flow;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{Block, BlockInterface};
+use UIAwesome\Html\Interop\Block;
 
 /**
  * Renders the HTML `<div>` element for grouping flow content.
@@ -29,11 +29,11 @@ final class Div extends BaseBlock
     /**
      * Returns the tag enumeration for the `<div>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<div>`.
+     * @return Block Tag enumeration instance for `<div>`.
      *
      * {@see Block} for valid block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Block
     {
         return Block::DIV;
     }

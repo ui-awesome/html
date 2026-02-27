@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Metadata;
 
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, MetadataBlock};
+use UIAwesome\Html\Interop\MetadataBlock;
 
 /**
  * Renders the HTML `<title>` element for the document title.
@@ -28,11 +28,11 @@ final class Title extends BaseBlock
     /**
      * Returns the tag enumeration for the `<title>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<title>`.
+     * @return MetadataBlock Tag enumeration instance for `<title>`.
      *
      * {@see MetadataBlock} for valid metadata block-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): MetadataBlock
     {
         return MetadataBlock::TITLE;
     }

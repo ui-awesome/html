@@ -317,7 +317,7 @@ final class LiTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <li class="default-class" title="default-title">
+            <li class="default-class">
             </li>
             HTML,
             Li::tag()

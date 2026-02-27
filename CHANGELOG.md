@@ -46,6 +46,7 @@
 - Bug #58: Add tests for invalid argument exceptions in HTML attributes (@terabytesoftw)
 - Enh #59: Add `Form` class for HTML `<form>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #60: Add `ariaDescribedBySuffix` property and update `getAttributes` method for improved accessibility support (@terabytesoftw)
+- Bug #61: Align tag enums and defaults provider with latest `ui-awesome/html-core` and `ui-awesome/html-interop` changes (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 

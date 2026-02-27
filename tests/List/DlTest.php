@@ -337,7 +337,7 @@ final class DlTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <dl class="default-class" title="default-title">
+            <dl class="default-class">
             </dl>
             HTML,
             Dl::tag()

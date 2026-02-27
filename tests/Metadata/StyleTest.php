@@ -349,7 +349,7 @@ final class StyleTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <style class="default-class" title="default-title">
+            <style class="default-class">
             </style>
             HTML,
             Style::tag()

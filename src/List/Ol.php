@@ -6,7 +6,7 @@ namespace UIAwesome\Html\List;
 
 use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interop\{BlockInterface, Lists};
+use UIAwesome\Html\Interop\Lists;
 use UIAwesome\Html\List\Attribute\{HasReversed, HasStart};
 
 /**
@@ -89,11 +89,11 @@ final class Ol extends BaseBlock
     /**
      * Returns the tag enumeration for the `<ol>` element.
      *
-     * @return BlockInterface Tag enumeration instance for `<ol>`.
+     * @return Lists Tag enumeration instance for `<ol>`.
      *
      * {@see Lists} for valid list-level tags.
      */
-    protected function getTag(): BlockInterface
+    protected function getTag(): Lists
     {
         return Lists::OL;
     }
