@@ -1099,6 +1099,11 @@ final class FormTest extends TestCase
         );
         self::assertNotSame(
             $form,
+            $form->ariaDescribedBySuffix(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $form,
             $form->enctype(''),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );

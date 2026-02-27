@@ -1009,6 +1009,17 @@ final class ButtonTest extends TestCase
         );
     }
 
+    public function testReturnNewInstanceWhenSettingAttribute(): void
+    {
+        $button = Button::tag();
+
+        self::assertNotSame(
+            $button,
+            $button->ariaDescribedBySuffix(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
     {
         $this->expectException(InvalidArgumentException::class);

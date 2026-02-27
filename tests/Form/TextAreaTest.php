@@ -1129,6 +1129,11 @@ final class TextAreaTest extends TestCase
 
         self::assertNotSame(
             $textArea,
+            $textArea->ariaDescribedBySuffix(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $textArea,
             $textArea->cols(1),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
