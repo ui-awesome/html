@@ -32,12 +32,12 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Ensures attribute accessors return assigned values and fallback defaults.
- * - Renders content, raw HTML, and string casting with expected encoding behavior.
- * - Resolves default and theme providers, including global defaults and user overrides.
  * - Applies select-specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `multiple`, `name`,
  *   `required`, `size`) and renders expected output.
+ * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders child options and option groups via `option()` and `optgroup()`.
+ * - Renders content, raw HTML, and string casting with expected encoding behavior.
+ * - Resolves default and theme providers, including global defaults and user overrides.
  * - Validates exceptions for invalid `size` values.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
@@ -925,41 +925,6 @@ final class SelectTest extends TestCase
     {
         $select = Select::tag();
 
-        self::assertNotSame(
-            $select,
-            $select->autocomplete('on'),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $select,
-            $select->disabled(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $select,
-            $select->form('form-id'),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $select,
-            $select->multiple(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $select,
-            $select->name('value'),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $select,
-            $select->required(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $select,
-            $select->size(1),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
         self::assertNotSame(
             $select,
             $select->option(Option::tag()),

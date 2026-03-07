@@ -20,19 +20,19 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
-use UIAwesome\Html\Form\Option;
+use UIAwesome\Html\Form\{Datalist, Option};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Option} rendering and attribute behavior.
+ * Unit tests for {@see Datalist} rendering and attribute behavior.
  *
  * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies option-specific attributes (`disabled`, `label`, `selected`, `value`) and renders expected output.
+ * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Ensures fluent methods are immutable.
+ * - Renders child options via `option()`.
  * - Renders content, raw HTML, and string casting with expected encoding behavior.
  * - Resolves default and theme providers, including global defaults and user overrides.
  *
@@ -40,13 +40,13 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('form')]
-final class OptionTest extends TestCase
+final class DatalistTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
         self::assertSame(
             '&lt;value&gt;',
-            Option::tag()
+            Datalist::tag()
                 ->content('<value>')
                 ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
@@ -57,7 +57,7 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             'value',
-            Option::tag()->getAttribute('class', 'value'),
+            Datalist::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -66,7 +66,7 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             ['class' => 'value'],
-            Option::tag()
+            Datalist::tag()
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -77,11 +77,11 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option>
+            <datalist>
             <value>
-            </option>
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->html('<value>')
                 ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
@@ -92,10 +92,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option accesskey="value">
-            </option>
+            <datalist accesskey="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -106,10 +106,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option aria-label="value">
-            </option>
+            <datalist aria-label="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -120,10 +120,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option aria-label="value">
-            </option>
+            <datalist aria-label="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -134,10 +134,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option data-value="value">
-            </option>
+            <datalist data-value="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -148,27 +148,13 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option data-value="value">
-            </option>
+            <datalist data-value="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <option onclick="alert(&apos;Clicked!&apos;)">
-            </option>
-            HTML,
-            Option::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
@@ -176,10 +162,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option aria-controls="value" aria-label="value">
-            </option>
+            <datalist aria-controls="value" aria-label="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->ariaAttributes(
                     [
                         'controls' => 'value',
@@ -195,10 +181,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option class="value">
-            </option>
+            <datalist class="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -209,10 +195,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option autofocus>
-            </option>
+            <datalist autofocus>
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->autofocus(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
@@ -223,11 +209,11 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option>
+            <datalist>
             Content
-            </option>
+            </datalist>
             HTML,
-            Option::tag()->begin() . 'Content' . Option::end(),
+            Datalist::tag()->begin() . 'Content' . Datalist::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
         );
     }
@@ -236,10 +222,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option class="value">
-            </option>
+            <datalist class="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->class('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -250,10 +236,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option class="value">
-            </option>
+            <datalist class="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->class(BackedString::VALUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -264,11 +250,13 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option>
-            Santiago
-            </option>
+            <datalist>
+            <option value="dog">Dog</option>
+            </datalist>
             HTML,
-            Option::tag()->content('Santiago')->render(),
+            Datalist::tag()
+                ->html('<option value="dog">Dog</option>')
+                ->render(),
             'Failed asserting that element renders correctly with content.',
         );
     }
@@ -277,10 +265,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option contenteditable="true">
-            </option>
+            <datalist contenteditable="true">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->contentEditable(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
@@ -291,10 +279,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option contenteditable="true">
-            </option>
+            <datalist contenteditable="true">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
@@ -305,10 +293,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option data-value="value">
-            </option>
+            <datalist data-value="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -319,10 +307,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option class="default-class">
-            </option>
+            <datalist class="default-class">
+            </datalist>
             HTML,
-            Option::tag(['class' => 'default-class'])->render(),
+            Datalist::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -331,10 +319,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option class="default-class">
-            </option>
+            <datalist class="default-class">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
@@ -345,10 +333,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option dir="ltr">
-            </option>
+            <datalist dir="ltr">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->dir('ltr')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
@@ -359,25 +347,13 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option dir="ltr">
-            </option>
+            <datalist dir="ltr">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->dir(Direction::LTR)
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
-        );
-    }
-
-    public function testRenderWithDisabled(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <option disabled>
-            </option>
-            HTML,
-            Option::tag()->disabled(true)->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
         );
     }
 
@@ -385,10 +361,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option draggable="true">
-            </option>
+            <datalist draggable="true">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->draggable(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
@@ -399,53 +375,34 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option draggable="true">
-            </option>
+            <datalist draggable="true">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
-    public function testRenderWithEvents(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <option onfocus="handleFocus()" onblur="handleBlur()">
-            </option>
-            HTML,
-            Option::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
-        );
-    }
-
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
-            Option::class,
+            Datalist::class,
             ['class' => 'default-class'],
         );
 
         self::assertSame(
             <<<HTML
-            <option class="default-class">
-            </option>
+            <datalist class="default-class">
+            </datalist>
             HTML,
-            Option::tag()->render(),
+            Datalist::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
         SimpleFactory::setDefaults(
-            Option::class,
+            Datalist::class,
             [],
         );
     }
@@ -454,10 +411,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option hidden>
-            </option>
+            <datalist hidden>
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->hidden(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
@@ -468,25 +425,13 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option id="value">
-            </option>
+            <datalist id="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
-        );
-    }
-
-    public function testRenderWithLabel(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <option label="Santiago">
-            </option>
-            HTML,
-            Option::tag()->label('Santiago')->render(),
-            "Failed asserting that element renders correctly with 'label' attribute.",
         );
     }
 
@@ -494,10 +439,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option lang="en">
-            </option>
+            <datalist lang="en">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -508,10 +453,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option lang="en">
-            </option>
+            <datalist lang="en">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -522,10 +467,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </option>
+            <datalist itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->itemId('https://example.com/item')
                 ->itemProp('name')
                 ->itemRef('info')
@@ -536,14 +481,29 @@ final class OptionTest extends TestCase
         );
     }
 
+    public function testRenderWithOption(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <datalist>
+            <option value="1">
+            Santiago
+            </option>
+            </datalist>
+            HTML,
+            Datalist::tag()->option(Option::tag()->value('1')->content('Santiago'))->render(),
+            "Failed asserting that element renders correctly with 'option()' method.",
+        );
+    }
+
     public function testRenderWithRemoveAriaAttribute(): void
     {
         self::assertSame(
             <<<HTML
-            <option>
-            </option>
+            <datalist>
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -555,10 +515,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option>
-            </option>
+            <datalist>
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->setAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
@@ -570,10 +530,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option>
-            </option>
+            <datalist>
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -581,29 +541,14 @@ final class OptionTest extends TestCase
         );
     }
 
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <option>
-            </option>
-            HTML,
-            Option::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->removeEvent('click')
-                ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
-        );
-    }
-
     public function testRenderWithRole(): void
     {
         self::assertSame(
             <<<HTML
-            <option role="banner">
-            </option>
+            <datalist role="banner">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->role('banner')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -614,25 +559,13 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option role="banner">
-            </option>
+            <datalist role="banner">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->role(Role::BANNER)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
-        );
-    }
-
-    public function testRenderWithSelected(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <option selected>
-            </option>
-            HTML,
-            Option::tag()->selected(true)->render(),
-            "Failed asserting that element renders correctly with 'selected' attribute.",
         );
     }
 
@@ -640,10 +573,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option class="value">
-            </option>
+            <datalist class="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -654,10 +587,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option title="value">
-            </option>
+            <datalist title="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -668,10 +601,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option spellcheck="true">
-            </option>
+            <datalist spellcheck="true">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->spellcheck(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
@@ -682,10 +615,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option style='value'>
-            </option>
+            <datalist style='value'>
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -696,10 +629,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option tabindex="3">
-            </option>
+            <datalist tabindex="3">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->tabIndex(3)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
@@ -710,10 +643,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option class="text-muted">
-            </option>
+            <datalist class="text-muted">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
@@ -724,10 +657,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option title="value">
-            </option>
+            <datalist title="value">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -738,10 +671,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option>
-            </option>
+            <datalist>
+            </datalist>
             HTML,
-            (string) Option::tag(),
+            (string) Datalist::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -750,10 +683,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option translate="no">
-            </option>
+            <datalist translate="no">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -764,10 +697,10 @@ final class OptionTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <option translate="no">
-            </option>
+            <datalist translate="no">
+            </datalist>
             HTML,
-            Option::tag()
+            Datalist::tag()
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -777,7 +710,7 @@ final class OptionTest extends TestCase
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(
-            Option::class,
+            Datalist::class,
             [
                 'class' => 'from-global',
                 'id' => 'id-global',
@@ -786,28 +719,27 @@ final class OptionTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <option class="from-global" id="value">
-            </option>
+            <datalist class="from-global" id="value">
+            </datalist>
             HTML,
-            Option::tag(['id' => 'value'])->render(),
+            Datalist::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
         SimpleFactory::setDefaults(
-            Option::class,
+            Datalist::class,
             [],
         );
     }
 
-    public function testRenderWithValue(): void
+    public function testReturnNewInstanceWhenSettingAttribute(): void
     {
-        self::assertSame(
-            <<<HTML
-            <option value="1">
-            </option>
-            HTML,
-            Option::tag()->value(1)->render(),
-            "Failed asserting that element renders correctly with 'value' attribute.",
+        $datalist = Datalist::tag();
+
+        self::assertNotSame(
+            $datalist,
+            $datalist->option(Option::tag()),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }
 
@@ -822,7 +754,7 @@ final class OptionTest extends TestCase
             ),
         );
 
-        Option::tag()->contentEditable('invalid-value');
+        Datalist::tag()->contentEditable('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
@@ -836,7 +768,7 @@ final class OptionTest extends TestCase
             ),
         );
 
-        Option::tag()->dir('invalid-value');
+        Datalist::tag()->dir('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
@@ -850,7 +782,7 @@ final class OptionTest extends TestCase
             ),
         );
 
-        Option::tag()->draggable('invalid-value');
+        Datalist::tag()->draggable('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
@@ -864,7 +796,7 @@ final class OptionTest extends TestCase
             ),
         );
 
-        Option::tag()->lang('invalid-value');
+        Datalist::tag()->lang('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
@@ -878,7 +810,7 @@ final class OptionTest extends TestCase
             ),
         );
 
-        Option::tag()->role('invalid-value');
+        Datalist::tag()->role('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
@@ -892,7 +824,7 @@ final class OptionTest extends TestCase
             ),
         );
 
-        Option::tag()->tabIndex(-2);
+        Datalist::tag()->tabIndex(-2);
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
@@ -906,6 +838,6 @@ final class OptionTest extends TestCase
             ),
         );
 
-        Option::tag()->translate('invalid-value');
+        Datalist::tag()->translate('invalid-value');
     }
 }

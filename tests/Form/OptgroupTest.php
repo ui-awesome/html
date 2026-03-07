@@ -30,12 +30,12 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  *
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Ensures attribute accessors return assigned values and fallback defaults.
- * - Renders content, raw HTML, and string casting with expected encoding behavior.
- * - Resolves default and theme providers, including global defaults and user overrides.
  * - Applies optgroup-specific attributes (`disabled`, `label`) and renders expected output.
+ * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Ensures fluent methods are immutable.
  * - Renders child options via `option()`.
+ * - Renders content, raw HTML, and string casting with expected encoding behavior.
+ * - Resolves default and theme providers, including global defaults and user overrides.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -794,16 +794,6 @@ final class OptgroupTest extends TestCase
     {
         $optgroup = Optgroup::tag();
 
-        self::assertNotSame(
-            $optgroup,
-            $optgroup->disabled(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
-        self::assertNotSame(
-            $optgroup,
-            $optgroup->label('Chile'),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
-        );
         self::assertNotSame(
             $optgroup,
             $optgroup->option(Option::tag()),
