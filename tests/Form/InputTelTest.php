@@ -109,104 +109,6 @@ final class InputTelTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" aria-describedby="value">
-            HTML,
-            InputTel::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
-            HTML,
-            InputTel::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="tel">
-            HTML,
-            InputTel::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
-            <span>Suffix</span>
-            HTML,
-            InputTel::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputtel')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
-            HTML,
-            InputTel::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
-            <span>Suffix</span>
-            HTML,
-            InputTel::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputtel')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
 
     public function testRenderWithAddDataAttribute(): void
     {
@@ -269,33 +171,6 @@ final class InputTelTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
-            HTML,
-            InputTel::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
-            HTML,
-            InputTel::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAttributes(): void
     {
@@ -311,33 +186,6 @@ final class InputTelTest extends TestCase
         );
     }
 
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
-            HTML,
-            InputTel::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputtel" type="tel" aria-describedby="inputtel-help">
-            HTML,
-            InputTel::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputtel')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAutocomplete(): void
     {

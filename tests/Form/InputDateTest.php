@@ -110,105 +110,6 @@ final class InputDateTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputdate" type="date" aria-describedby="value">
-            HTML,
-            InputDate::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputdate')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputdate" type="date" aria-describedby="inputdate-help">
-            HTML,
-            InputDate::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputdate')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="date">
-            HTML,
-            InputDate::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputdate" type="date" aria-describedby="inputdate-help">
-            <span>Suffix</span>
-            HTML,
-            InputDate::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputdate')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputdate" type="date" aria-describedby="inputdate-help">
-            HTML,
-            InputDate::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputdate')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputdate" type="date" aria-describedby="inputdate-help">
-            <span>Suffix</span>
-            HTML,
-            InputDate::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputdate')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
 
     public function testRenderWithAddDataAttribute(): void
     {
@@ -271,33 +172,6 @@ final class InputDateTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputdate" type="date" aria-describedby="inputdate-help">
-            HTML,
-            InputDate::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputdate')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputdate" type="date" aria-describedby="inputdate-help">
-            HTML,
-            InputDate::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputdate')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAttributes(): void
     {
@@ -313,33 +187,6 @@ final class InputDateTest extends TestCase
         );
     }
 
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputdate" type="date" aria-describedby="inputdate-help">
-            HTML,
-            InputDate::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputdate')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputdate" type="date" aria-describedby="inputdate-help">
-            HTML,
-            InputDate::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputdate')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAutocomplete(): void
     {

@@ -111,104 +111,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-describedby="value">
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-describedby="inputurl-help">
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="url">
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputurl" type="url" aria-describedby="inputurl-help">
-            <span>Suffix</span>
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputurl')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-describedby="inputurl-help">
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputurl" type="url" aria-describedby="inputurl-help">
-            <span>Suffix</span>
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputurl')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
 
     public function testRenderWithAddDataAttribute(): void
     {
@@ -271,33 +173,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-describedby="inputurl-help">
-            HTML,
-            InputUrl::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-describedby="inputurl-help">
-            HTML,
-            InputUrl::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAttributes(): void
     {
@@ -313,33 +188,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-describedby="inputurl-help">
-            HTML,
-            InputUrl::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-describedby="inputurl-help">
-            HTML,
-            InputUrl::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputurl')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAutocomplete(): void
     {

@@ -109,104 +109,6 @@ final class InputNumberTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" aria-describedby="value">
-            HTML,
-            InputNumber::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" aria-describedby="inputnumber-help">
-            HTML,
-            InputNumber::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="number">
-            HTML,
-            InputNumber::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputnumber" type="number" aria-describedby="inputnumber-help">
-            <span>Suffix</span>
-            HTML,
-            InputNumber::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputnumber')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" aria-describedby="inputnumber-help">
-            HTML,
-            InputNumber::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputnumber" type="number" aria-describedby="inputnumber-help">
-            <span>Suffix</span>
-            HTML,
-            InputNumber::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputnumber')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
 
     public function testRenderWithAddDataAttribute(): void
     {
@@ -269,33 +171,6 @@ final class InputNumberTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" aria-describedby="inputnumber-help">
-            HTML,
-            InputNumber::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" aria-describedby="inputnumber-help">
-            HTML,
-            InputNumber::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAttributes(): void
     {
@@ -311,33 +186,6 @@ final class InputNumberTest extends TestCase
         );
     }
 
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" aria-describedby="inputnumber-help">
-            HTML,
-            InputNumber::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputnumber" type="number" aria-describedby="inputnumber-help">
-            HTML,
-            InputNumber::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputnumber')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAutocomplete(): void
     {

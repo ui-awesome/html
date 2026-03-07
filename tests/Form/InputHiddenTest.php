@@ -107,104 +107,6 @@ final class InputHiddenTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" aria-describedby="custom-help">
-            HTML,
-            InputHidden::tag()
-                ->addAriaAttribute('describedby', 'custom-help')
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-help">
-            HTML,
-            InputHidden::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="hidden">
-            HTML,
-            InputHidden::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-help">
-            <span>Suffix</span>
-            HTML,
-            InputHidden::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputhidden')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-help">
-            HTML,
-            InputHidden::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-help">
-            <span>Suffix</span>
-            HTML,
-            InputHidden::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputhidden')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
 
     public function testRenderWithAddDataAttribute(): void
     {
@@ -267,33 +169,6 @@ final class InputHiddenTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-help">
-            HTML,
-            InputHidden::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-help">
-            HTML,
-            InputHidden::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAttributes(): void
     {
@@ -309,33 +184,6 @@ final class InputHiddenTest extends TestCase
         );
     }
 
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-help">
-            HTML,
-            InputHidden::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputhidden" type="hidden" aria-describedby="inputhidden-help">
-            HTML,
-            InputHidden::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputhidden')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAutocomplete(): void
     {

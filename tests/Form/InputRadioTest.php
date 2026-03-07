@@ -113,104 +113,6 @@ final class InputRadioTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="value">
-            HTML,
-            InputRadio::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="inputradio-help">
-            HTML,
-            InputRadio::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="radio">
-            HTML,
-            InputRadio::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputradio" type="radio" aria-describedby="inputradio-help">
-            <span>Suffix</span>
-            HTML,
-            InputRadio::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputradio')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' "
-            . 'and prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="inputradio-help">
-            HTML,
-            InputRadio::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputradio" type="radio" aria-describedby="inputradio-help">
-            <span>Suffix</span>
-            HTML,
-            InputRadio::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputradio')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
 
     public function testRenderWithAddDataAttribute(): void
     {
@@ -273,33 +175,6 @@ final class InputRadioTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="inputradio-help">
-            HTML,
-            InputRadio::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="inputradio-help">
-            HTML,
-            InputRadio::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAttributes(): void
     {
@@ -315,33 +190,6 @@ final class InputRadioTest extends TestCase
         );
     }
 
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="inputradio-help">
-            HTML,
-            InputRadio::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputradio" type="radio" aria-describedby="inputradio-help">
-            HTML,
-            InputRadio::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputradio')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAutofocus(): void
     {

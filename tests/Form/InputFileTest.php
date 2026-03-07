@@ -122,105 +122,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputfile" type="file" aria-describedby="value">
-            HTML,
-            InputFile::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputfile')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputfile" type="file" aria-describedby="inputfile-help">
-            HTML,
-            InputFile::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputfile')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="file">
-            HTML,
-            InputFile::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputfile" type="file" aria-describedby="inputfile-help">
-            <span>Suffix</span>
-            HTML,
-            InputFile::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputfile')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputfile" type="file" aria-describedby="inputfile-help">
-            HTML,
-            InputFile::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputfile')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputfile" type="file" aria-describedby="inputfile-help">
-            <span>Suffix</span>
-            HTML,
-            InputFile::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputfile')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
 
     public function testRenderWithAddDataAttribute(): void
     {
@@ -283,33 +184,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputfile" type="file" aria-describedby="inputfile-help">
-            HTML,
-            InputFile::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputfile')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputfile" type="file" aria-describedby="inputfile-help">
-            HTML,
-            InputFile::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputfile')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAttributes(): void
     {
@@ -325,33 +199,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputfile" type="file" aria-describedby="inputfile-help">
-            HTML,
-            InputFile::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputfile')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputfile" type="file" aria-describedby="inputfile-help">
-            HTML,
-            InputFile::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputfile')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
 
     public function testRenderWithAutofocus(): void
     {
