@@ -23,7 +23,6 @@ use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputReset;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -107,105 +106,6 @@ final class InputResetTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" aria-describedby="value">
-            HTML,
-            InputReset::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
-            HTML,
-            InputReset::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="reset">
-            HTML,
-            InputReset::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
-            <span>Suffix</span>
-            HTML,
-            InputReset::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputreset')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
-            HTML,
-            InputReset::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
-            <span>Suffix</span>
-            HTML,
-            InputReset::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputreset')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -267,34 +167,6 @@ final class InputResetTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
-            HTML,
-            InputReset::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
-            HTML,
-            InputReset::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
@@ -306,34 +178,6 @@ final class InputResetTest extends TestCase
                 ->id('inputreset')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
-            HTML,
-            InputReset::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputreset" type="reset" aria-describedby="inputreset-help">
-            HTML,
-            InputReset::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputreset')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 

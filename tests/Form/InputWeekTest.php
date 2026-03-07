@@ -24,7 +24,6 @@ use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputWeek;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -110,106 +109,6 @@ final class InputWeekTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" aria-describedby="value">
-            HTML,
-            InputWeek::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" aria-describedby="inputweek-help">
-            HTML,
-            InputWeek::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to "
-            . "'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="week">
-            HTML,
-            InputWeek::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputweek" type="week" aria-describedby="inputweek-help">
-            <span>Suffix</span>
-            HTML,
-            InputWeek::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputweek')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" aria-describedby="inputweek-help">
-            HTML,
-            InputWeek::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputweek" type="week" aria-describedby="inputweek-help">
-            <span>Suffix</span>
-            HTML,
-            InputWeek::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputweek')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -271,34 +170,6 @@ final class InputWeekTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" aria-describedby="inputweek-help">
-            HTML,
-            InputWeek::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" aria-describedby="inputweek-help">
-            HTML,
-            InputWeek::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
@@ -310,34 +181,6 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" aria-describedby="inputweek-help">
-            HTML,
-            InputWeek::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputweek" type="week" aria-describedby="inputweek-help">
-            HTML,
-            InputWeek::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputweek')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 

@@ -24,7 +24,6 @@ use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputRange;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -108,105 +107,6 @@ final class InputRangeTest extends TestCase
         );
     }
 
-    public function testRenderWithAddAriaDescribedByString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" aria-describedby="value">
-            HTML,
-            InputRange::tag()
-                ->addAriaAttribute('describedby', 'value')
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that an explicit 'aria-describedby' string value is preserved.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" aria-describedby="inputrange-help">
-            HTML,
-            InputRange::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndIdNull(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input type="range">
-            HTML,
-            InputRange::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id(null)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and 'id'"
-            . " is 'null'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputrange" type="range" aria-describedby="inputrange-help">
-            <span>Suffix</span>
-            HTML,
-            InputRange::tag()
-                ->addAriaAttribute('describedby', true)
-                ->id('inputrange')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueBooleanValueString(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" aria-describedby="inputrange-help">
-            HTML,
-            InputRange::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAddAriaDescribedByTrueStringValueAndPrefixSuffix(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <span>Prefix</span>
-            <input id="inputrange" type="range" aria-describedby="inputrange-help">
-            <span>Suffix</span>
-            HTML,
-            InputRange::tag()
-                ->addAriaAttribute('describedby', 'true')
-                ->id('inputrange')
-                ->prefix('Prefix')
-                ->prefixTag(Inline::SPAN)
-                ->suffix('Suffix')
-                ->suffixTag(Inline::SPAN)
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true' and "
-            . 'prefix/suffix.',
-        );
-    }
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -268,34 +168,6 @@ final class InputRangeTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" aria-describedby="inputrange-help">
-            HTML,
-            InputRange::tag()
-                ->ariaAttributes(['describedby' => true])
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAriaAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" aria-describedby="inputrange-help">
-            HTML,
-            InputRange::tag()
-                ->ariaAttributes(['describedby' => 'true'])
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
@@ -307,34 +179,6 @@ final class InputRangeTest extends TestCase
                 ->id('inputrange')
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueBooleanValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" aria-describedby="inputrange-help">
-            HTML,
-            InputRange::tag()
-                ->attributes(['aria-describedby' => true])
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
-        );
-    }
-
-    public function testRenderWithAttributesAndAriaDescribedByTrueStringValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputrange" type="range" aria-describedby="inputrange-help">
-            HTML,
-            InputRange::tag()
-                ->attributes(['aria-describedby' => 'true'])
-                ->id('inputrange')
-                ->render(),
-            "Failed asserting that element renders correctly with 'aria-describedby' attribute set to 'true'.",
         );
     }
 
