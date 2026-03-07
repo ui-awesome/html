@@ -24,7 +24,6 @@ use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputSearch;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -109,7 +108,6 @@ final class InputSearchTest extends TestCase
         );
     }
 
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -169,7 +167,6 @@ final class InputSearchTest extends TestCase
         );
     }
 
-
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
@@ -183,7 +180,6 @@ final class InputSearchTest extends TestCase
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
-
 
     public function testRenderWithAutocomplete(): void
     {

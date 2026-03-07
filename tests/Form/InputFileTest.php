@@ -24,7 +24,6 @@ use UIAwesome\Html\Form\InputFile;
 use UIAwesome\Html\Form\Values\Capture;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Interop\Inline;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -122,7 +121,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
@@ -184,7 +182,6 @@ final class InputFileTest extends TestCase
         );
     }
 
-
     public function testRenderWithAttributes(): void
     {
         self::assertSame(
@@ -198,7 +195,6 @@ final class InputFileTest extends TestCase
             "Failed asserting that element renders correctly with 'attributes()' method.",
         );
     }
-
 
     public function testRenderWithAutofocus(): void
     {
