@@ -47,6 +47,7 @@
 - Bug #61: Align tag enums and defaults provider with latest `ui-awesome/html-core` and `ui-awesome/html-interop` changes (@terabytesoftw)
 - Bug #62: Remove `aria-describedby` specific form input tests to keep this package agnostic (@terabytesoftw)
 - Enh #63: Add `Select`, `Option`, and `Optgroup` classes for HTML `<select>`, `<option>`, and `<optgroup>` elements with attributes and rendering capabilities (@terabytesoftw)
+- Enh #64: Add `Datalist` class for HTML `<datalist>` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
