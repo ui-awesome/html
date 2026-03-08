@@ -50,6 +50,7 @@
 - Enh #64: Add `Datalist` class for HTML `<datalist>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #65: Add `Legend` class for HTML `<legend>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #66: Add `Fieldset` class for HTML `<fieldset>` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #67: Add `Output` class for HTML `<output>` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 

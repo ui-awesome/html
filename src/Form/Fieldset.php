@@ -15,9 +15,9 @@ use UIAwesome\Html\Interop\Block;
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Form\Fieldset::tag()
- *     ->name('contact')
- *     ->form('profile-form')
  *     ->disabled(true)
+ *     ->form('profile-form')
+ *     ->name('contact')
  *     ->render();
  * ```
  *
