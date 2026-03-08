@@ -14,7 +14,7 @@ use UIAwesome\Html\Interop\Table;
  * ```php
  * echo \UIAwesome\Html\Table\Tfoot::tag()
  *     ->tr(
- *         \UIAwesome\Html\Table\Tr::tag()>td(\UIAwesome\Html\Table\Td::tag()->content('Totals'))
+ *         \UIAwesome\Html\Table\Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('Totals'))
  *     )
  *     ->render();
  * ```
