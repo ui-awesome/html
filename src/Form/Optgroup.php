@@ -39,7 +39,7 @@ final class Optgroup extends BaseBlock
      */
     public function option(Option $option): static
     {
-        return $this->html($option->render(), "\n");
+        return $this->html($option, "\n");
     }
 
     /**

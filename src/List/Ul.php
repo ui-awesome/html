@@ -77,7 +77,7 @@ final class Ul extends BaseBlock
             $li = $li->value($value);
         }
 
-        return $this->html($li->render(), "\n");
+        return $this->html($li, "\n");
     }
 
     /**

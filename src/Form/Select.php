@@ -46,7 +46,7 @@ final class Select extends BaseBlock
      */
     public function optgroup(Optgroup $optgroup): static
     {
-        return $this->html($optgroup->render(), "\n");
+        return $this->html($optgroup, "\n");
     }
 
     /**
@@ -58,7 +58,7 @@ final class Select extends BaseBlock
      */
     public function option(Option $option): static
     {
-        return $this->html($option->render(), "\n");
+        return $this->html($option, "\n");
     }
 
     /**
