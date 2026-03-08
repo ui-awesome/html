@@ -52,6 +52,7 @@
 - Enh #66: Add `Fieldset` class for HTML `<fieldset>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #67: Add `Output` class for HTML `<output>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #68: Add `Progress` class for HTML `<progress>` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #69: Add `Meter` class for HTML `<meter>` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
