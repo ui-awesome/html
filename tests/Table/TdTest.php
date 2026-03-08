@@ -452,11 +452,25 @@ final class TdTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <td headers="h1 h2">
+            <td headers="value1 value2">
             </td>
             HTML,
             Td::tag()
-                ->headers('h1 h2')
+                ->headers('value1 value2')
+                ->render(),
+            "Failed asserting that element renders correctly with 'headers' attribute.",
+        );
+    }
+
+    public function testRenderWithHeadersUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <td headers="value">
+            </td>
+            HTML,
+            Td::tag()
+                ->headers(BackedString::VALUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'headers' attribute.",
         );
