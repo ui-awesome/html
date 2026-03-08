@@ -54,6 +54,7 @@
 - Enh #68: Add `Progress` class for HTML `<progress>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #69: Add `Meter` class for HTML `<meter>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #70: Add `Caption` class for HTML `<caption>` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #71: Add `Td` class for HTML `<td>` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
