@@ -6,7 +6,7 @@ namespace UIAwesome\Html\Tests\Table;
 
 use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
@@ -23,6 +23,7 @@ use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Table\Td;
+use UIAwesome\Html\Tests\Provider\Table\TdProvider;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -31,7 +32,8 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Test coverage.
  * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
  * - Applies table cell specific attributes (`colspan`, `headers`, `rowspan`) and renders expected output.
- * - Covers `colspan` and `rowspan` boundary values for minimum and maximum valid limits.
+ * - Covers `colspan` and `rowspan` boundary values for minimum and maximum valid limits with integer and
+ *   numeric-string inputs.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, begin/end usage, and string casting with expected encoding behavior.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -247,29 +249,13 @@ final class TdTest extends TestCase
         );
     }
 
-    public function testRenderWithColspanMaxValue(): void
+    #[DataProviderExternal(TdProvider::class, 'colspanValues')]
+    public function testRenderWithColspanValues(int|string $value, string $expected): void
     {
         self::assertSame(
-            <<<HTML
-            <td colspan="1000">
-            </td>
-            HTML,
+            $expected,
             Td::tag()
-                ->colspan(1000)
-                ->render(),
-            "Failed asserting that element renders correctly with 'colspan' attribute.",
-        );
-    }
-
-    public function testRenderWithColspanMinValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <td colspan="1">
-            </td>
-            HTML,
-            Td::tag()
-                ->colspan(1)
+                ->colspan($value)
                 ->render(),
             "Failed asserting that element renders correctly with 'colspan' attribute.",
         );
@@ -623,29 +609,13 @@ final class TdTest extends TestCase
         );
     }
 
-    public function testRenderWithRowspanMaxValue(): void
+    #[DataProviderExternal(TdProvider::class, 'rowspanValues')]
+    public function testRenderWithRowspanValues(int|string $value, string $expected): void
     {
         self::assertSame(
-            <<<HTML
-            <td rowspan="65534">
-            </td>
-            HTML,
+            $expected,
             Td::tag()
-                ->rowspan(65534)
-                ->render(),
-            "Failed asserting that element renders correctly with 'rowspan' attribute.",
-        );
-    }
-
-    public function testRenderWithRowspanMinValue(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <td rowspan="0">
-            </td>
-            HTML,
-            Td::tag()
-                ->rowspan(0)
+                ->rowspan($value)
                 ->render(),
             "Failed asserting that element renders correctly with 'rowspan' attribute.",
         );
