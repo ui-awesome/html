@@ -57,6 +57,7 @@
 - Enh #71: Add `Td` class for HTML `<td>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #72: Add `Th` class for HTML `<th>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #73: Add `Tr` class for HTML `<tr>` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #74: Add `Tfoot` class for HTML `<tfoot>` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
