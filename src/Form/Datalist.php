@@ -35,7 +35,7 @@ final class Datalist extends BaseBlock
      */
     public function option(Option $option): static
     {
-        return $this->html($option->render(), "\n");
+        return $this->html($option, "\n");
     }
 
     /**

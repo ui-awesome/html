@@ -20,8 +20,12 @@ trait HasStart
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\List\Ol::tag()->start(4)->render();
-     * echo \UIAwesome\Html\List\Ol::tag()->start(null)->render();
+     * echo \UIAwesome\Html\List\Ol::tag()
+     *     ->start(4)
+     *     ->render();
+     * echo \UIAwesome\Html\List\Ol::tag()
+     *     ->start(null)
+     *     ->render();
      * ```
      *
      * @param int|null $value Ordinal start value, or `null` to remove the attribute.

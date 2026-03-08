@@ -20,7 +20,9 @@ trait HasReversed
      *
      * Usage example:
      * ```php
-     * echo \UIAwesome\Html\List\Ol::tag()->reversed(true)->render();
+     * echo \UIAwesome\Html\List\Ol::tag()
+     *     ->reversed(true)
+     *     ->render();
      * ```
      *
      * @param bool $value Whether the list items are numbered in reverse order.
