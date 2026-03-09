@@ -64,7 +64,7 @@ final class Tbody extends BaseBlock
         $tbody = $this;
 
         foreach ($rows as $row) {
-            $tbody = $tbody->row(...$row);
+            $tbody = $tbody->row(...array_values($row));
         }
 
         return $tbody;

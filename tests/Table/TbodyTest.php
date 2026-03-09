@@ -566,6 +566,58 @@ final class TbodyTest extends TestCase
         );
     }
 
+    public function testRenderWithRow(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            </tbody>
+            HTML,
+            Tbody::tag()
+                ->row('Jane', '30')
+                ->render(),
+            "Failed asserting that element renders correctly with 'row()' method.",
+        );
+    }
+
+    public function testRenderWithRows(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            <tr>
+            <td>
+            John
+            </td>
+            <td>
+            25
+            </td>
+            </tr>
+            </tbody>
+            HTML,
+            Tbody::tag()
+                ->rows(['Jane', '30'], ['John', '25'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method.",
+        );
+    }
+
     public function testRenderWithSetAttribute(): void
     {
         self::assertSame(
@@ -743,58 +795,6 @@ final class TbodyTest extends TestCase
         SimpleFactory::setDefaults(
             Tbody::class,
             [],
-        );
-    }
-
-    public function testRenderWithRow(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            <tr>
-            <td>
-            Jane
-            </td>
-            <td>
-            30
-            </td>
-            </tr>
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->row('Jane', '30')
-                ->render(),
-            "Failed asserting that element renders correctly with 'row()' method.",
-        );
-    }
-
-    public function testRenderWithRows(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            <tr>
-            <td>
-            Jane
-            </td>
-            <td>
-            30
-            </td>
-            </tr>
-            <tr>
-            <td>
-            John
-            </td>
-            <td>
-            25
-            </td>
-            </tr>
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->rows(['Jane', '30'], ['John', '25'])
-                ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method.",
         );
     }
 

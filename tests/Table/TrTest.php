@@ -218,6 +218,26 @@ final class TrTest extends TestCase
         );
     }
 
+    public function testRenderWithCells(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            HTML,
+            Tr::tag()
+                ->cells('Jane', '30')
+                ->render(),
+            "Failed asserting that element renders correctly with 'cells()' method.",
+        );
+    }
+
     public function testRenderWithClass(): void
     {
         self::assertSame(
@@ -416,6 +436,26 @@ final class TrTest extends TestCase
         SimpleFactory::setDefaults(
             Tr::class,
             [],
+        );
+    }
+
+    public function testRenderWithHeaderCells(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tr>
+            <th>
+            Name
+            </th>
+            <th>
+            Age
+            </th>
+            </tr>
+            HTML,
+            Tr::tag()
+                ->headerCells('Name', 'Age')
+                ->render(),
+            "Failed asserting that element renders correctly with 'headerCells()' method.",
         );
     }
 
@@ -760,46 +800,6 @@ final class TrTest extends TestCase
         SimpleFactory::setDefaults(
             Tr::class,
             [],
-        );
-    }
-
-    public function testRenderWithCells(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tr>
-            <td>
-            Jane
-            </td>
-            <td>
-            30
-            </td>
-            </tr>
-            HTML,
-            Tr::tag()
-                ->cells('Jane', '30')
-                ->render(),
-            "Failed asserting that element renders correctly with 'cells()' method.",
-        );
-    }
-
-    public function testRenderWithHeaderCells(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tr>
-            <th>
-            Name
-            </th>
-            <th>
-            Age
-            </th>
-            </tr>
-            HTML,
-            Tr::tag()
-                ->headerCells('Name', 'Age')
-                ->render(),
-            "Failed asserting that element renders correctly with 'headerCells()' method.",
         );
     }
 

@@ -267,6 +267,23 @@ final class TableTest extends TestCase
         );
     }
 
+    public function testRenderWithCaptionStringEscapesHtml(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <caption>
+            &lt;em&gt;Members&lt;/em&gt;
+            </caption>
+            </table>
+            HTML,
+            Table::tag()
+                ->caption('<em>Members</em>')
+                ->render(),
+            "Failed asserting that 'caption()' method escapes HTML when using string.",
+        );
+    }
+
     public function testRenderWithClass(): void
     {
         self::assertSame(
@@ -463,6 +480,51 @@ final class TableTest extends TestCase
         );
     }
 
+    public function testRenderWithFullTableStructure(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <caption>
+            Members
+            </caption>
+            <colgroup>
+            <col span="2">
+            </colgroup>
+            <thead>
+            <tr>
+            <th>
+            Name
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+            <td>
+            Total
+            </td>
+            </tr>
+            </tfoot>
+            </table>
+            HTML,
+            Table::tag()
+                ->caption(Caption::tag()->content('Members'))
+                ->colgroup(Colgroup::tag()->col(Col::tag()->span(2)))
+                ->thead(Thead::tag()->tr(Tr::tag()->th(\UIAwesome\Html\Table\Th::tag()->content('Name'))))
+                ->tbody(Tbody::tag()->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('Jane'))))
+                ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('Total'))))
+                ->render(),
+            'Failed asserting that complete table widgets compose correctly into the final HTML.',
+        );
+    }
+
     public function testRenderWithFullTableStructureUsingConvenienceMethods(): void
     {
         self::assertSame(
@@ -510,51 +572,6 @@ final class TableTest extends TestCase
                 ->tfoot(Tfoot::tag()->row('Total', '1'))
                 ->render(),
             'Failed asserting that complete table composes correctly using convenience methods.',
-        );
-    }
-
-    public function testRenderWithFullTableStructure(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <table>
-            <caption>
-            Members
-            </caption>
-            <colgroup>
-            <col span="2">
-            </colgroup>
-            <thead>
-            <tr>
-            <th>
-            Name
-            </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td>
-            Jane
-            </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-            <td>
-            Total
-            </td>
-            </tr>
-            </tfoot>
-            </table>
-            HTML,
-            Table::tag()
-                ->caption(Caption::tag()->content('Members'))
-                ->colgroup(Colgroup::tag()->col(Col::tag()->span(2)))
-                ->thead(Thead::tag()->tr(Tr::tag()->th(\UIAwesome\Html\Table\Th::tag()->content('Name'))))
-                ->tbody(Tbody::tag()->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('Jane'))))
-                ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('Total'))))
-                ->render(),
-            'Failed asserting that complete table widgets compose correctly into the final HTML.',
         );
     }
 

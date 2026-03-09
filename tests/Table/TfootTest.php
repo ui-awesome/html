@@ -566,6 +566,58 @@ final class TfootTest extends TestCase
         );
     }
 
+    public function testRenderWithRow(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tfoot>
+            <tr>
+            <td>
+            Totals
+            </td>
+            <td>
+            100
+            </td>
+            </tr>
+            </tfoot>
+            HTML,
+            Tfoot::tag()
+                ->row('Totals', '100')
+                ->render(),
+            "Failed asserting that element renders correctly with 'row()' method.",
+        );
+    }
+
+    public function testRenderWithRows(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tfoot>
+            <tr>
+            <td>
+            Subtotal
+            </td>
+            <td>
+            80
+            </td>
+            </tr>
+            <tr>
+            <td>
+            Total
+            </td>
+            <td>
+            100
+            </td>
+            </tr>
+            </tfoot>
+            HTML,
+            Tfoot::tag()
+                ->rows(['Subtotal', '80'], ['Total', '100'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method.",
+        );
+    }
+
     public function testRenderWithSetAttribute(): void
     {
         self::assertSame(
@@ -743,58 +795,6 @@ final class TfootTest extends TestCase
         SimpleFactory::setDefaults(
             Tfoot::class,
             [],
-        );
-    }
-
-    public function testRenderWithRow(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tfoot>
-            <tr>
-            <td>
-            Totals
-            </td>
-            <td>
-            100
-            </td>
-            </tr>
-            </tfoot>
-            HTML,
-            Tfoot::tag()
-                ->row('Totals', '100')
-                ->render(),
-            "Failed asserting that element renders correctly with 'row()' method.",
-        );
-    }
-
-    public function testRenderWithRows(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tfoot>
-            <tr>
-            <td>
-            Subtotal
-            </td>
-            <td>
-            80
-            </td>
-            </tr>
-            <tr>
-            <td>
-            Total
-            </td>
-            <td>
-            100
-            </td>
-            </tr>
-            </tfoot>
-            HTML,
-            Tfoot::tag()
-                ->rows(['Subtotal', '80'], ['Total', '100'])
-                ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method.",
         );
     }
 

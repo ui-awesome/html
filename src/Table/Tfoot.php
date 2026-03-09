@@ -62,7 +62,7 @@ final class Tfoot extends BaseBlock
         $tfoot = $this;
 
         foreach ($rows as $row) {
-            $tfoot = $tfoot->row(...$row);
+            $tfoot = $tfoot->row(...array_values($row));
         }
 
         return $tfoot;

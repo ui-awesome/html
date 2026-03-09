@@ -566,6 +566,58 @@ final class TheadTest extends TestCase
         );
     }
 
+    public function testRenderWithRow(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <thead>
+            <tr>
+            <th>
+            Name
+            </th>
+            <th>
+            Age
+            </th>
+            </tr>
+            </thead>
+            HTML,
+            Thead::tag()
+                ->row('Name', 'Age')
+                ->render(),
+            "Failed asserting that element renders correctly with 'row()' method.",
+        );
+    }
+
+    public function testRenderWithRows(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <thead>
+            <tr>
+            <th>
+            Name
+            </th>
+            <th>
+            Age
+            </th>
+            </tr>
+            <tr>
+            <th>
+            ID
+            </th>
+            <th>
+            Email
+            </th>
+            </tr>
+            </thead>
+            HTML,
+            Thead::tag()
+                ->rows(['Name', 'Age'], ['ID', 'Email'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method.",
+        );
+    }
+
     public function testRenderWithSetAttribute(): void
     {
         self::assertSame(
@@ -745,58 +797,6 @@ final class TheadTest extends TestCase
         SimpleFactory::setDefaults(
             Thead::class,
             [],
-        );
-    }
-
-    public function testRenderWithRow(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <thead>
-            <tr>
-            <th>
-            Name
-            </th>
-            <th>
-            Age
-            </th>
-            </tr>
-            </thead>
-            HTML,
-            Thead::tag()
-                ->row('Name', 'Age')
-                ->render(),
-            "Failed asserting that element renders correctly with 'row()' method.",
-        );
-    }
-
-    public function testRenderWithRows(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <thead>
-            <tr>
-            <th>
-            Name
-            </th>
-            <th>
-            Age
-            </th>
-            </tr>
-            <tr>
-            <th>
-            ID
-            </th>
-            <th>
-            Email
-            </th>
-            </tr>
-            </thead>
-            HTML,
-            Thead::tag()
-                ->rows(['Name', 'Age'], ['ID', 'Email'])
-                ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method.",
         );
     }
 
