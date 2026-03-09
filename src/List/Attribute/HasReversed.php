@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\List\Attribute;
 
+use UIAwesome\Html\Mixin\HasAttributes;
+
 /**
  * Provides an immutable API for the HTML `reversed` attribute.
  *
- * @mixin \UIAwesome\Html\Mixin\HasAttributes
+ * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol#reversed
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

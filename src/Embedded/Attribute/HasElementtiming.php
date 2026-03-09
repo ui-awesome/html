@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Embedded\Attribute;
 
+use UIAwesome\Html\Mixin\HasAttributes;
 use UnitEnum;
 
 /**
  * Provides an immutable API for the HTML `elementtiming` attribute.
  *
- * @mixin \UIAwesome\Html\Mixin\HasAttributes
+ * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/elementtiming
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

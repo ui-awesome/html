@@ -33,41 +33,71 @@ final class Dl extends BaseBlock
     /**
      * Appends a `<dd>` element to the description list.
      *
-     * @param string|Stringable $content Content for the `<dd>` element.
-     *
-     * @return static New instance with the appended description details element.
-     *
      * Usage example:
      * ```php
      * $list = \UIAwesome\Html\List\Dl::tag()
      *     ->dd('Description text');
      * ```
+     *
+     * @param Dd|string|Stringable $content A `Dd` instance or content for the `<dd>` element.
+     *
+     * @return static New instance with the appended description details element.
      */
-    public function dd(string|Stringable $content): static
+    public function dd(Dd|string|Stringable $content): static
     {
-        $dd = Dd::tag()->content($content);
+        if (!$content instanceof Dd) {
+            $content = Dd::tag()->content($content);
+        }
 
-        return $this->html($dd, "\n");
+        return $this->html($content, "\n");
     }
 
     /**
      * Appends a `<dt>` element to the description list.
-     *
-     * @param string|Stringable $content Content for the `<dt>` element.
-     *
-     * @return static New instance with the appended description term element.
      *
      * Usage example:
      * ```php
      * $list = \UIAwesome\Html\List\Dl::tag()
      *     ->dt('Term text');
      * ```
+     *
+     * @param Dt|string|Stringable $content A `Dt` instance or content for the `<dt>` element.
+     *
+     * @return static New instance with the appended description term element.
      */
-    public function dt(string|Stringable $content): static
+    public function dt(Dt|string|Stringable $content): static
     {
-        $dt = Dt::tag()->content($content);
+        if (!$content instanceof Dt) {
+            $content = Dt::tag()->content($content);
+        }
 
-        return $this->html($dt, "\n");
+        return $this->html($content, "\n");
+    }
+
+    /**
+     * Appends multiple term-description pairs to the description list.
+     *
+     * Usage example:
+     * ```php
+     * $list = \UIAwesome\Html\List\Dl::tag()->terms(
+     *     ['Term 1', 'Description 1'],
+     *     ['Term 2', 'Description 2'],
+     * );
+     * ```
+     *
+     * @param array{0: Dt|string|Stringable, 1: Dd|string|Stringable} ...$pairs Arrays of `[term, description]` pairs.
+     *
+     * @return static New instance with the appended term-description pairs.
+     */
+    public function terms(array ...$pairs): static
+    {
+        $dl = $this;
+
+        foreach ($pairs as $pair) {
+            $dl = $dl->dt($pair[0])->dd($pair[1]);
+        }
+
+        return $dl;
     }
 
     /**
