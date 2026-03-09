@@ -41,7 +41,6 @@ final class Table extends BaseBlock
      * $table = Table::tag()->caption(null);
      * ```
      *
-     *
      * @param Caption|string|null $caption Caption instance, string content, or `null` to skip.
      *
      * @return static New instance with the appended table caption.
