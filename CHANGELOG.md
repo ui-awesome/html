@@ -61,6 +61,7 @@
 - Enh #75: Add `Tbody` class for HTML `<tbody>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #76: Add `Thead` class for HTML `<thead>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #77: Add `Col` class for HTML `<col>` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh #78: Add `Colgroup` class for HTML `<colgroup>` element with attributes and rendering capabilities (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
