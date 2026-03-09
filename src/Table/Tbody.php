@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Table;
 
+use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\Table;
 
@@ -12,11 +13,13 @@ use UIAwesome\Html\Interop\Table;
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Table\Tbody::tag()
+ * use UIAwesome\Html\Table\{Tbody, Td, Tr};
+ *
+ * echo Tbody::tag()
  *     ->tr(
- *         \UIAwesome\Html\Table\Tr::tag()
- *             ->td(\UIAwesome\Html\Table\Td::tag()->content('Jane'))
- *             ->td(\UIAwesome\Html\Table\Td::tag()->content('Engineering'))
+ *         Tr::tag()
+ *             ->td(Td::tag()->content('Jane'))
+ *             ->td(Td::tag()->content('Engineering'))
  *     )
  *     ->render();
  * ```
@@ -30,7 +33,53 @@ use UIAwesome\Html\Interop\Table;
 final class Tbody extends BaseBlock
 {
     /**
+     * Appends a `<tr>` element with `<td>` cells for each value.
+     *
+     * Usage example:
+     * ```php
+     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->row('Jane', '30', 'NYC');
+     * ```
+     *
+     * @param string|Stringable ...$cells Content for each `<td>` cell.
+     *
+     * @return static New instance with the appended data row.
+     */
+    public function row(string|Stringable ...$cells): static
+    {
+        return $this->tr(Tr::tag()->cells(...$cells));
+    }
+
+    /**
+     * Appends multiple `<tr>` elements with `<td>` cells.
+     *
+     * Usage example:
+     * ```php
+     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->rows(['Jane', '30'], ['John', '25']);
+     * ```
+     *
+     * @param array<array-key, string|Stringable> ...$rows Arrays of cell content for each row.
+     *
+     * @return static New instance with the appended data rows.
+     */
+    public function rows(array ...$rows): static
+    {
+        $tbody = $this;
+
+        foreach ($rows as $row) {
+            $tbody = $tbody->row(...$row);
+        }
+
+        return $tbody;
+    }
+
+    /**
      * Appends a `<tr>` element to the table body.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->td(Td::tag()->content('Jane'));
+     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->tr($tr);
+     * ```
      *
      * @param Tr $tr Table row element instance.
      *

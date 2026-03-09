@@ -29,7 +29,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Tbody} rendering and body row composition behavior.
  *
  * Test coverage.
- * - Appends table body rows using `tr()` and renders expected output.
+ * - Appends table body rows using `tr()`, `row()`, and `rows()` and renders expected output.
  * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, begin/end usage, and string casting with expected encoding behavior.
@@ -566,6 +566,80 @@ final class TbodyTest extends TestCase
         );
     }
 
+    public function testRenderWithRow(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            </tbody>
+            HTML,
+            Tbody::tag()
+                ->row('Jane', '30')
+                ->render(),
+            "Failed asserting that element renders correctly with 'row()' method.",
+        );
+    }
+
+    public function testRenderWithRows(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            <tr>
+            <td>
+            John
+            </td>
+            <td>
+            25
+            </td>
+            </tr>
+            </tbody>
+            HTML,
+            Tbody::tag()
+                ->rows(['Jane', '30'], ['John', '25'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method.",
+        );
+    }
+
+    public function testRenderWithRowsUsingAssociativeArrays(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            </tbody>
+            HTML,
+            Tbody::tag()
+                ->rows(['name' => 'Jane', 'age' => '30'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method using associative arrays.",
+        );
+    }
+
     public function testRenderWithSetAttribute(): void
     {
         self::assertSame(
@@ -750,6 +824,16 @@ final class TbodyTest extends TestCase
     {
         $tbody = Tbody::tag();
 
+        self::assertNotSame(
+            $tbody,
+            $tbody->row('value'),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $tbody,
+            $tbody->rows(['value']),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
         self::assertNotSame(
             $tbody,
             $tbody->tr(Tr::tag()),

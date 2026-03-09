@@ -22,15 +22,16 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Table\{Tfoot, Tr};
+use UIAwesome\Html\Table\{Caption, Col, Colgroup, Table, Tbody, Td, Tfoot, Th, Thead, Tr};
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Tfoot} rendering and footer row composition behavior.
+ * Unit tests for {@see Table} rendering and table structure composition behavior.
  *
  * Test coverage.
- * - Appends table footer rows using `tr()`, `row()`, and `rows()` and renders expected output.
+ * - Appends table child elements using `caption()`, `colgroup()`, `thead()`, `tbody()`, `tr()`, and `tfoot()`.
  * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
+ * - Composes a full table structure using convenience methods (`caption()` with string, `row()`, `rows()`).
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, begin/end usage, and string casting with expected encoding behavior.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -40,13 +41,13 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('table')]
-final class TfootTest extends TestCase
+final class TableTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
         self::assertSame(
             '&lt;value&gt;',
-            Tfoot::tag()
+            Table::tag()
                 ->content('<value>')
                 ->getContent(),
             "Failed asserting that 'content()' method encodes values correctly.",
@@ -57,7 +58,7 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             'value',
-            Tfoot::tag()->getAttribute('class', 'value'),
+            Table::tag()->getAttribute('class', 'value'),
             "Failed asserting that 'getAttribute()' returns the default value when missing.",
         );
     }
@@ -66,7 +67,7 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             ['class' => 'value'],
-            Tfoot::tag()
+            Table::tag()
                 ->setAttribute('class', 'value')
                 ->getAttributes(),
             "Failed asserting that 'getAttributes()' returns the assigned attributes.",
@@ -77,11 +78,11 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
+            <table>
             <value>
-            </tfoot>
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->html('<value>')
                 ->render(),
             "Failed asserting that element renders correctly with 'html()' method.",
@@ -92,10 +93,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot accesskey="value">
-            </tfoot>
+            <table accesskey="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->accesskey('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'accesskey' attribute.",
@@ -106,10 +107,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot aria-label="value">
-            </tfoot>
+            <table aria-label="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -120,10 +121,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot aria-label="value">
-            </tfoot>
+            <table aria-label="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
@@ -134,10 +135,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot data-value="value">
-            </tfoot>
+            <table data-value="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -148,10 +149,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot data-value="value">
-            </tfoot>
+            <table data-value="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
@@ -162,10 +163,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot aria-controls="value" aria-label="value">
-            </tfoot>
+            <table aria-controls="value" aria-label="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->ariaAttributes(
                     [
                         'controls' => 'value',
@@ -181,10 +182,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot class="value">
-            </tfoot>
+            <table class="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'attributes()' method.",
@@ -195,10 +196,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot autofocus>
-            </tfoot>
+            <table autofocus>
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->autofocus(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'autofocus' attribute.",
@@ -209,12 +210,77 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
+            <table>
             Content
-            </tfoot>
+            </table>
             HTML,
-            Tfoot::tag()->begin() . 'Content' . Tfoot::end(),
+            Table::tag()->begin() . 'Content' . Table::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+        );
+    }
+
+    public function testRenderWithCaption(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <caption>
+            value
+            </caption>
+            </table>
+            HTML,
+            Table::tag()
+                ->caption(Caption::tag()->content('value'))
+                ->render(),
+            "Failed asserting that element renders correctly with 'caption()' method using Caption instance.",
+        );
+    }
+
+    public function testRenderWithCaptionNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            </table>
+            HTML,
+            Table::tag()
+                ->caption(null)
+                ->render(),
+            "Failed asserting that element renders correctly with 'caption()' method using `null`.",
+        );
+    }
+
+    public function testRenderWithCaptionString(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <caption>
+            Monthly report
+            </caption>
+            </table>
+            HTML,
+            Table::tag()
+                ->caption('Monthly report')
+                ->render(),
+            "Failed asserting that element renders correctly with 'caption()' method using string.",
+        );
+    }
+
+    public function testRenderWithCaptionStringEscapesHtml(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <caption>
+            &lt;em&gt;Members&lt;/em&gt;
+            </caption>
+            </table>
+            HTML,
+            Table::tag()
+                ->caption('<em>Members</em>')
+                ->render(),
+            "Failed asserting that 'caption()' method escapes HTML when using string.",
         );
     }
 
@@ -222,10 +288,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot class="value">
-            </tfoot>
+            <table class="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->class('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
@@ -236,13 +302,30 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot class="value">
-            </tfoot>
+            <table class="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->class(BackedString::VALUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'class' attribute.",
+        );
+    }
+
+    public function testRenderWithColgroup(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <colgroup>
+            <col span="2">
+            </colgroup>
+            </table>
+            HTML,
+            Table::tag()
+                ->colgroup(Colgroup::tag()->col(Col::tag()->span(2)))
+                ->render(),
+            "Failed asserting that element renders correctly with 'colgroup()' method.",
         );
     }
 
@@ -250,11 +333,11 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
+            <table>
             value
-            </tfoot>
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->content('value')
                 ->render(),
             'Failed asserting that element renders correctly with default values.',
@@ -265,10 +348,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot contenteditable="true">
-            </tfoot>
+            <table contenteditable="true">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->contentEditable(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
@@ -279,10 +362,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot contenteditable="true">
-            </tfoot>
+            <table contenteditable="true">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'contentEditable' attribute.",
@@ -293,10 +376,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot data-value="value">
-            </tfoot>
+            <table data-value="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
             "Failed asserting that element renders correctly with 'dataAttributes()' method.",
@@ -307,10 +390,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot class="default-class">
-            </tfoot>
+            <table class="default-class">
+            </table>
             HTML,
-            Tfoot::tag(['class' => 'default-class'])->render(),
+            Table::tag(['class' => 'default-class'])->render(),
             'Failed asserting that default configuration values are applied correctly.',
         );
     }
@@ -319,10 +402,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot class="default-class">
-            </tfoot>
+            <table class="default-class">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
             'Failed asserting that default provider is applied correctly.',
@@ -333,10 +416,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
-            </tfoot>
+            <table>
+            </table>
             HTML,
-            Tfoot::tag()->render(),
+            Table::tag()->render(),
             'Failed asserting that element renders correctly with default values.',
         );
     }
@@ -345,10 +428,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot dir="ltr">
-            </tfoot>
+            <table dir="ltr">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->dir('ltr')
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
@@ -359,10 +442,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot dir="ltr">
-            </tfoot>
+            <table dir="ltr">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->dir(Direction::LTR)
                 ->render(),
             "Failed asserting that element renders correctly with 'dir' attribute.",
@@ -373,10 +456,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot draggable="true">
-            </tfoot>
+            <table draggable="true">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->draggable(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
@@ -387,34 +470,129 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot draggable="true">
-            </tfoot>
+            <table draggable="true">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
             "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
+    public function testRenderWithFullTableStructure(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <caption>
+            Members
+            </caption>
+            <colgroup>
+            <col span="2">
+            </colgroup>
+            <thead>
+            <tr>
+            <th>
+            Name
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+            <td>
+            Total
+            </td>
+            </tr>
+            </tfoot>
+            </table>
+            HTML,
+            Table::tag()
+                ->caption(Caption::tag()->content('Members'))
+                ->colgroup(Colgroup::tag()->col(Col::tag()->span(2)))
+                ->thead(Thead::tag()->tr(Tr::tag()->th(Th::tag()->content('Name'))))
+                ->tbody(Tbody::tag()->tr(Tr::tag()->td(Td::tag()->content('Jane'))))
+                ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(Td::tag()->content('Total'))))
+                ->render(),
+            'Failed asserting that complete table widgets compose correctly into the final HTML.',
+        );
+    }
+
+    public function testRenderWithFullTableStructureUsingConvenienceMethods(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <caption>
+            Members
+            </caption>
+            <thead>
+            <tr>
+            <th>
+            Name
+            </th>
+            <th>
+            Age
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+            <td>
+            Total
+            </td>
+            <td>
+            1
+            </td>
+            </tr>
+            </tfoot>
+            </table>
+            HTML,
+            Table::tag()
+                ->caption('Members')
+                ->thead(Thead::tag()->row('Name', 'Age'))
+                ->tbody(Tbody::tag()->row('Jane', '30'))
+                ->tfoot(Tfoot::tag()->row('Total', '1'))
+                ->render(),
+            'Failed asserting that complete table composes correctly using convenience methods.',
+        );
+    }
+
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
-            Tfoot::class,
+            Table::class,
             ['class' => 'default-class'],
         );
 
         self::assertSame(
             <<<HTML
-            <tfoot class="default-class">
-            </tfoot>
+            <table class="default-class">
+            </table>
             HTML,
-            Tfoot::tag()->render(),
+            Table::tag()->render(),
             'Failed asserting that global defaults are applied correctly.',
         );
 
         SimpleFactory::setDefaults(
-            Tfoot::class,
+            Table::class,
             [],
         );
     }
@@ -423,10 +601,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot hidden>
-            </tfoot>
+            <table hidden>
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->hidden(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'hidden' attribute.",
@@ -437,10 +615,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot id="value">
-            </tfoot>
+            <table id="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->id('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'id' attribute.",
@@ -451,10 +629,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot lang="en">
-            </tfoot>
+            <table lang="en">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->lang('en')
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -465,10 +643,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot lang="en">
-            </tfoot>
+            <table lang="en">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
             "Failed asserting that element renders correctly with 'lang' attribute.",
@@ -479,10 +657,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </tfoot>
+            <table itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->itemId('https://example.com/item')
                 ->itemProp('name')
                 ->itemRef('info')
@@ -497,10 +675,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
-            </tfoot>
+            <table>
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -512,10 +690,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
-            </tfoot>
+            <table>
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->setAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
@@ -527,10 +705,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
-            </tfoot>
+            <table>
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -542,10 +720,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot role="banner">
-            </tfoot>
+            <table role="banner">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->role('banner')
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
@@ -556,87 +734,13 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot role="banner">
-            </tfoot>
+            <table role="banner">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->role(Role::BANNER)
                 ->render(),
             "Failed asserting that element renders correctly with 'role' attribute.",
-        );
-    }
-
-    public function testRenderWithRow(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tfoot>
-            <tr>
-            <td>
-            Totals
-            </td>
-            <td>
-            100
-            </td>
-            </tr>
-            </tfoot>
-            HTML,
-            Tfoot::tag()
-                ->row('Totals', '100')
-                ->render(),
-            "Failed asserting that element renders correctly with 'row()' method.",
-        );
-    }
-
-    public function testRenderWithRows(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tfoot>
-            <tr>
-            <td>
-            Subtotal
-            </td>
-            <td>
-            80
-            </td>
-            </tr>
-            <tr>
-            <td>
-            Total
-            </td>
-            <td>
-            100
-            </td>
-            </tr>
-            </tfoot>
-            HTML,
-            Tfoot::tag()
-                ->rows(['Subtotal', '80'], ['Total', '100'])
-                ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method.",
-        );
-    }
-
-    public function testRenderWithRowsUsingAssociativeArrays(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tfoot>
-            <tr>
-            <td>
-            Totals
-            </td>
-            <td>
-            100
-            </td>
-            </tr>
-            </tfoot>
-            HTML,
-            Tfoot::tag()
-                ->rows(['label' => 'Totals', 'value' => '100'])
-                ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method using associative arrays.",
         );
     }
 
@@ -644,10 +748,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot class="value">
-            </tfoot>
+            <table class="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->setAttribute('class', 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -658,10 +762,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot title="value">
-            </tfoot>
+            <table title="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->setAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
             "Failed asserting that element renders correctly with 'setAttribute()' method.",
@@ -672,10 +776,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot spellcheck="true">
-            </tfoot>
+            <table spellcheck="true">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->spellcheck(true)
                 ->render(),
             "Failed asserting that element renders correctly with 'spellcheck' attribute.",
@@ -686,10 +790,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot style='value'>
-            </tfoot>
+            <table style='value'>
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->style('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'style' attribute.",
@@ -700,13 +804,76 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot tabindex="3">
-            </tfoot>
+            <table tabindex="3">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->tabIndex(3)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTbody(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <tbody>
+            <tr>
+            <td>
+            value
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            HTML,
+            Table::tag()
+                ->tbody(Tbody::tag()->tr(Tr::tag()->td(Td::tag()->content('value'))))
+                ->render(),
+            "Failed asserting that element renders correctly with 'tbody()' method.",
+        );
+    }
+
+    public function testRenderWithTfoot(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <tfoot>
+            <tr>
+            <td>
+            value
+            </td>
+            </tr>
+            </tfoot>
+            </table>
+            HTML,
+            Table::tag()
+                ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(Td::tag()->content('value'))))
+                ->render(),
+            "Failed asserting that element renders correctly with 'tfoot()' method.",
+        );
+    }
+
+    public function testRenderWithThead(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table>
+            <thead>
+            <tr>
+            <th>
+            value
+            </th>
+            </tr>
+            </thead>
+            </table>
+            HTML,
+            Table::tag()
+                ->thead(Thead::tag()->tr(Tr::tag()->th(Th::tag()->content('value'))))
+                ->render(),
+            "Failed asserting that element renders correctly with 'thead()' method.",
         );
     }
 
@@ -714,10 +881,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot class="text-muted">
-            </tfoot>
+            <table class="text-muted">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
             "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
@@ -728,10 +895,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot title="value">
-            </tfoot>
+            <table title="value">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->title('value')
                 ->render(),
             "Failed asserting that element renders correctly with 'title' attribute.",
@@ -742,10 +909,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
-            </tfoot>
+            <table>
+            </table>
             HTML,
-            (string) Tfoot::tag(),
+            (string) Table::tag(),
             "Failed asserting that '__toString()' method renders correctly.",
         );
     }
@@ -754,14 +921,16 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot>
+            <table>
             <tr>
+            <td>
             value
+            </td>
             </tr>
-            </tfoot>
+            </table>
             HTML,
-            Tfoot::tag()
-                ->tr(Tr::tag()->content('value'))
+            Table::tag()
+                ->tr(Tr::tag()->td(Td::tag()->content('value')))
                 ->render(),
             "Failed asserting that element renders correctly with 'tr()' method.",
         );
@@ -771,10 +940,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot translate="no">
-            </tfoot>
+            <table translate="no">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->translate(false)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -785,10 +954,10 @@ final class TfootTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tfoot translate="no">
-            </tfoot>
+            <table translate="no">
+            </table>
             HTML,
-            Tfoot::tag()
+            Table::tag()
                 ->translate(Translate::NO)
                 ->render(),
             "Failed asserting that element renders correctly with 'translate' attribute.",
@@ -798,7 +967,7 @@ final class TfootTest extends TestCase
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(
-            Tfoot::class,
+            Table::class,
             [
                 'class' => 'from-global',
                 'id' => 'id-global',
@@ -807,36 +976,51 @@ final class TfootTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <tfoot class="from-global" id="value">
-            </tfoot>
+            <table class="from-global" id="value">
+            </table>
             HTML,
-            Tfoot::tag(['id' => 'value'])->render(),
+            Table::tag(['id' => 'value'])->render(),
             'Failed asserting that user-defined attributes override global defaults correctly.',
         );
 
         SimpleFactory::setDefaults(
-            Tfoot::class,
+            Table::class,
             [],
         );
     }
 
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
-        $tfoot = Tfoot::tag();
+        $table = Table::tag();
 
         self::assertNotSame(
-            $tfoot,
-            $tfoot->row('value'),
+            $table,
+            $table->caption('value'),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
-            $tfoot,
-            $tfoot->rows(['value']),
+            $table,
+            $table->colgroup(Colgroup::tag()),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(
-            $tfoot,
-            $tfoot->tr(Tr::tag()),
+            $table,
+            $table->thead(Thead::tag()),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $table,
+            $table->tbody(Tbody::tag()),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $table,
+            $table->tr(Tr::tag()),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $table,
+            $table->tfoot(Tfoot::tag()),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }
@@ -852,7 +1036,7 @@ final class TfootTest extends TestCase
             ),
         );
 
-        Tfoot::tag()->contentEditable('invalid-value');
+        Table::tag()->contentEditable('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
@@ -866,7 +1050,7 @@ final class TfootTest extends TestCase
             ),
         );
 
-        Tfoot::tag()->dir('invalid-value');
+        Table::tag()->dir('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
@@ -880,7 +1064,7 @@ final class TfootTest extends TestCase
             ),
         );
 
-        Tfoot::tag()->draggable('invalid-value');
+        Table::tag()->draggable('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
@@ -894,7 +1078,7 @@ final class TfootTest extends TestCase
             ),
         );
 
-        Tfoot::tag()->lang('invalid-value');
+        Table::tag()->lang('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
@@ -908,7 +1092,7 @@ final class TfootTest extends TestCase
             ),
         );
 
-        Tfoot::tag()->role('invalid-value');
+        Table::tag()->role('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
@@ -922,7 +1106,7 @@ final class TfootTest extends TestCase
             ),
         );
 
-        Tfoot::tag()->tabIndex(-2);
+        Table::tag()->tabIndex(-2);
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
@@ -936,6 +1120,6 @@ final class TfootTest extends TestCase
             ),
         );
 
-        Tfoot::tag()->translate('invalid-value');
+        Table::tag()->translate('invalid-value');
     }
 }

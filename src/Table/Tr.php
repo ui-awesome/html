@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Table;
 
+use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\Table;
 
@@ -12,9 +13,11 @@ use UIAwesome\Html\Interop\Table;
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Table\Tr::tag()
- *     ->th(\UIAwesome\Html\Table\Th::tag()->content('Name'))
- *     ->td(\UIAwesome\Html\Table\Td::tag()->content('Jane'))
+ * use UIAwesome\Html\Table\{Td, Th, Tr};
+ *
+ * echo Tr::tag()
+ *     ->th(Th::tag()->content('Name'))
+ *     ->td(Td::tag()->content('Jane'))
  *     ->render();
  * ```
  *
@@ -27,7 +30,58 @@ use UIAwesome\Html\Interop\Table;
 final class Tr extends BaseBlock
 {
     /**
+     * Appends `<td>` elements for each value.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->cells('Jane', '30', 'NYC');
+     * ```
+     *
+     * @param string|Stringable ...$values Content for each `<td>` cell.
+     *
+     * @return static New instance with the appended data cells.
+     */
+    public function cells(string|Stringable ...$values): static
+    {
+        $tr = $this;
+
+        foreach ($values as $value) {
+            $tr = $tr->td(Td::tag()->content($value));
+        }
+
+        return $tr;
+    }
+
+    /**
+     * Appends `<th>` elements for each value.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->headerCells('Name', 'Age', 'City');
+     * ```
+     *
+     * @param string|Stringable ...$values Content for each `<th>` cell.
+     *
+     * @return static New instance with the appended header cells.
+     */
+    public function headerCells(string|Stringable ...$values): static
+    {
+        $tr = $this;
+
+        foreach ($values as $value) {
+            $tr = $tr->th(Th::tag()->content($value));
+        }
+
+        return $tr;
+    }
+
+    /**
      * Appends a `<td>` element to the row.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->td(Td::tag()->content('Jane'));
+     * ```
      *
      * @param Td $td Table data cell element instance.
      *
@@ -40,6 +94,11 @@ final class Tr extends BaseBlock
 
     /**
      * Appends a `<th>` element to the row.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->th(Th::tag()->content('Name'));
+     * ```
      *
      * @param Th $th Table header cell element instance.
      *

@@ -29,8 +29,8 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Tr} rendering and row composition behavior.
  *
  * Test coverage.
+ * - Appends table row cells using `td()`, `th()`, `cells()`, and `headerCells()` and renders expected output.
  * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
- * - Appends table row cells using `td()` and `th()` and renders expected output.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, begin/end usage, and string casting with expected encoding behavior.
  * - Resolves default and theme providers, including global defaults and user overrides.
@@ -215,6 +215,50 @@ final class TrTest extends TestCase
             HTML,
             Tr::tag()->begin() . 'Content' . Tr::end(),
             "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+        );
+    }
+
+    public function testRenderWithCells(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            HTML,
+            Tr::tag()
+                ->cells('Jane', '30')
+                ->render(),
+            "Failed asserting that element renders correctly with 'cells()' method.",
+        );
+    }
+
+    public function testRenderWithCellsUsingStringable(): void
+    {
+        $name = new class implements \Stringable {
+            public function __toString(): string
+            {
+                return 'Jane';
+            }
+        };
+
+        self::assertSame(
+            <<<HTML
+            <tr>
+            <td>
+            Jane
+            </td>
+            </tr>
+            HTML,
+            Tr::tag()
+                ->cells($name)
+                ->render(),
+            "Failed asserting that element renders correctly with 'cells()' method using Stringable.",
         );
     }
 
@@ -416,6 +460,50 @@ final class TrTest extends TestCase
         SimpleFactory::setDefaults(
             Tr::class,
             [],
+        );
+    }
+
+    public function testRenderWithHeaderCells(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tr>
+            <th>
+            Name
+            </th>
+            <th>
+            Age
+            </th>
+            </tr>
+            HTML,
+            Tr::tag()
+                ->headerCells('Name', 'Age')
+                ->render(),
+            "Failed asserting that element renders correctly with 'headerCells()' method.",
+        );
+    }
+
+    public function testRenderWithHeaderCellsUsingStringable(): void
+    {
+        $header = new class implements \Stringable {
+            public function __toString(): string
+            {
+                return 'Name';
+            }
+        };
+
+        self::assertSame(
+            <<<HTML
+            <tr>
+            <th>
+            Name
+            </th>
+            </tr>
+            HTML,
+            Tr::tag()
+                ->headerCells($header)
+                ->render(),
+            "Failed asserting that element renders correctly with 'headerCells()' method using Stringable.",
         );
     }
 
@@ -767,6 +855,16 @@ final class TrTest extends TestCase
     {
         $tr = Tr::tag();
 
+        self::assertNotSame(
+            $tr,
+            $tr->cells('value'),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $tr,
+            $tr->headerCells('value'),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
         self::assertNotSame(
             $tr,
             $tr->td(Td::tag()),

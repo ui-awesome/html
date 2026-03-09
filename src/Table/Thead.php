@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Table;
 
+use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\Table;
 
@@ -12,12 +13,10 @@ use UIAwesome\Html\Interop\Table;
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Table\Thead::tag()
- *     ->tr(
- *         \UIAwesome\Html\Table\Tr::tag()->th(
- *             \UIAwesome\Html\Table\Th::tag()->content('Name')
- *         )
- *     )
+ * use UIAwesome\Html\Table\{Th, Thead, Tr};
+ *
+ * echo Thead::tag()
+ *     ->tr(Tr::tag()->th(Th::tag()->content('Name')))
  *     ->render();
  * ```
  *
@@ -30,7 +29,53 @@ use UIAwesome\Html\Interop\Table;
 final class Thead extends BaseBlock
 {
     /**
+     * Appends a `<tr>` element with `<th>` cells for each value.
+     *
+     * Usage example:
+     * ```php
+     * $thead = \UIAwesome\Html\Table\Thead::tag()->row('Name', 'Age', 'City');
+     * ```
+     *
+     * @param string|Stringable ...$cells Content for each `<th>` cell.
+     *
+     * @return static New instance with the appended header row.
+     */
+    public function row(string|Stringable ...$cells): static
+    {
+        return $this->tr(Tr::tag()->headerCells(...$cells));
+    }
+
+    /**
+     * Appends multiple `<tr>` elements with `<th>` cells.
+     *
+     * Usage example:
+     * ```php
+     * $thead = \UIAwesome\Html\Table\Thead::tag()->rows(['Name', 'Age'], ['ID', 'Email']);
+     * ```
+     *
+     * @param array<array-key, string|Stringable> ...$rows Arrays of cell content for each row.
+     *
+     * @return static New instance with the appended header rows.
+     */
+    public function rows(array ...$rows): static
+    {
+        $thead = $this;
+
+        foreach ($rows as $row) {
+            $thead = $thead->row(...$row);
+        }
+
+        return $thead;
+    }
+
+    /**
      * Appends a `<tr>` element to the table header.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->th(Th::tag()->content('Name'));
+     * $thead = \UIAwesome\Html\Table\Thead::tag()->tr($tr);
+     * ```
      *
      * @param Tr $tr Table row element instance.
      *

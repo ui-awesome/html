@@ -13,12 +13,11 @@ use UIAwesome\Html\Table\Attribute\HasSpan;
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Table\Colgroup::tag()
- *     ->col(
- *         \UIAwesome\Html\Table\Col::tag()
- *             ->class('weekdays')
- *             ->span(2)
- *      )
+ * use UIAwesome\Html\Table\{Col, Colgroup};
+ *
+ * echo Colgroup::tag()
+ *     ->col(Col::tag()->class('weekdays')->span(2))
+ *     ->col(Col::tag()->class('weekend')->span(2))
  *     ->render();
  * ```
  *
@@ -34,6 +33,13 @@ final class Colgroup extends BaseBlock
 
     /**
      * Appends a `<col>` element to the column group.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Table\Colgroup::tag()
+     *     ->col(\UIAwesome\Html\Table\Col::tag()->class('weekdays')->span(2))
+     *     ->render();
+     * ```
      *
      * @param Col $col Table column element instance.
      *
