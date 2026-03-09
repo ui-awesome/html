@@ -62,7 +62,7 @@ final class Thead extends BaseBlock
         $thead = $this;
 
         foreach ($rows as $row) {
-            $thead = $thead->row(...array_values($row));
+            $thead = $thead->row(...$row);
         }
 
         return $thead;

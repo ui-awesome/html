@@ -7,6 +7,8 @@ namespace UIAwesome\Html\Table;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\Table as TableTag;
 
+use function is_string;
+
 /**
  * Renders the HTML `<table>` element for tabular data.
  *
