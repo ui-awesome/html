@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Table;
 
+use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\Table;
 
@@ -27,6 +28,46 @@ use UIAwesome\Html\Interop\Table;
  */
 final class Tfoot extends BaseBlock
 {
+    /**
+     * Appends a `<tr>` element with `<td>` cells for each value.
+     *
+     * Usage example:
+     * ```php
+     * $tfoot = \UIAwesome\Html\Table\Tfoot::tag()->row('Totals', '100');
+     * ```
+     *
+     * @param string|Stringable ...$cells Content for each `<td>` cell.
+     *
+     * @return static New instance with the appended footer row.
+     */
+    public function row(string|Stringable ...$cells): static
+    {
+        return $this->tr(Tr::tag()->cells(...$cells));
+    }
+
+    /**
+     * Appends multiple `<tr>` elements with `<td>` cells.
+     *
+     * Usage example:
+     * ```php
+     * $tfoot = \UIAwesome\Html\Table\Tfoot::tag()->rows(['Subtotal', '80'], ['Total', '100']);
+     * ```
+     *
+     * @param array<int, string|Stringable> ...$rows Arrays of cell content for each row.
+     *
+     * @return static New instance with the appended footer rows.
+     */
+    public function rows(array ...$rows): static
+    {
+        $tfoot = $this;
+
+        foreach ($rows as $row) {
+            $tfoot = $tfoot->row(...$row);
+        }
+
+        return $tfoot;
+    }
+
     /**
      * Appends a `<tr>` element to the table footer.
      *

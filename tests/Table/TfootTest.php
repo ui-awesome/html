@@ -29,7 +29,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Tfoot} rendering and footer row composition behavior.
  *
  * Test coverage.
- * - Appends table footer rows using `tr()` and renders expected output.
+ * - Appends table footer rows using `tr()`, `row()`, and `rows()` and renders expected output.
  * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, begin/end usage, and string casting with expected encoding behavior.
@@ -746,10 +746,72 @@ final class TfootTest extends TestCase
         );
     }
 
+    public function testRenderWithRow(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tfoot>
+            <tr>
+            <td>
+            Totals
+            </td>
+            <td>
+            100
+            </td>
+            </tr>
+            </tfoot>
+            HTML,
+            Tfoot::tag()
+                ->row('Totals', '100')
+                ->render(),
+            "Failed asserting that element renders correctly with 'row()' method.",
+        );
+    }
+
+    public function testRenderWithRows(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tfoot>
+            <tr>
+            <td>
+            Subtotal
+            </td>
+            <td>
+            80
+            </td>
+            </tr>
+            <tr>
+            <td>
+            Total
+            </td>
+            <td>
+            100
+            </td>
+            </tr>
+            </tfoot>
+            HTML,
+            Tfoot::tag()
+                ->rows(['Subtotal', '80'], ['Total', '100'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method.",
+        );
+    }
+
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
         $tfoot = Tfoot::tag();
 
+        self::assertNotSame(
+            $tfoot,
+            $tfoot->row('value'),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $tfoot,
+            $tfoot->rows(['value']),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
         self::assertNotSame(
             $tfoot,
             $tfoot->tr(Tr::tag()),

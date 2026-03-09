@@ -29,7 +29,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Thead} rendering and header row composition behavior.
  *
  * Test coverage.
- * - Appends table header rows using `tr()` and renders expected output.
+ * - Appends table header rows using `tr()`, `row()`, and `rows()` and renders expected output.
  * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
  * - Renders content, raw HTML, begin/end usage, and string casting with expected encoding behavior.
@@ -748,10 +748,72 @@ final class TheadTest extends TestCase
         );
     }
 
+    public function testRenderWithRow(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <thead>
+            <tr>
+            <th>
+            Name
+            </th>
+            <th>
+            Age
+            </th>
+            </tr>
+            </thead>
+            HTML,
+            Thead::tag()
+                ->row('Name', 'Age')
+                ->render(),
+            "Failed asserting that element renders correctly with 'row()' method.",
+        );
+    }
+
+    public function testRenderWithRows(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <thead>
+            <tr>
+            <th>
+            Name
+            </th>
+            <th>
+            Age
+            </th>
+            </tr>
+            <tr>
+            <th>
+            ID
+            </th>
+            <th>
+            Email
+            </th>
+            </tr>
+            </thead>
+            HTML,
+            Thead::tag()
+                ->rows(['Name', 'Age'], ['ID', 'Email'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method.",
+        );
+    }
+
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
         $thead = Thead::tag();
 
+        self::assertNotSame(
+            $thead,
+            $thead->row('value'),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $thead,
+            $thead->rows(['value']),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
         self::assertNotSame(
             $thead,
             $thead->tr(Tr::tag()),

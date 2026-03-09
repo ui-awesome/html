@@ -62,6 +62,7 @@
 - Enh #76: Add `Thead` class for HTML `<thead>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #77: Add `Col` class for HTML `<col>` element with attributes and rendering capabilities (@terabytesoftw)
 - Enh #78: Add `Colgroup` class for HTML `<colgroup>` element with attributes and rendering capabilities (@terabytesoftw)
+- Enh: Add convenience methods `row()`, `rows()` to `Thead`, `Tbody`, `Tfoot`; `cells()`, `headerCells()` to `Tr`; and extend `caption()` in `Table` to accept `Caption|string|null` for simplified table construction (@terabytesoftw)
 
 ## 0.3.0 March 31, 2024
 
