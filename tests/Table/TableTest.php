@@ -22,7 +22,7 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Table\{Caption, Col, Colgroup, Table, Tbody, Tfoot, Thead, Tr};
+use UIAwesome\Html\Table\{Caption, Col, Colgroup, Table, Tbody, Td, Tfoot, Th, Thead, Tr};
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -517,9 +517,9 @@ final class TableTest extends TestCase
             Table::tag()
                 ->caption(Caption::tag()->content('Members'))
                 ->colgroup(Colgroup::tag()->col(Col::tag()->span(2)))
-                ->thead(Thead::tag()->tr(Tr::tag()->th(\UIAwesome\Html\Table\Th::tag()->content('Name'))))
-                ->tbody(Tbody::tag()->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('Jane'))))
-                ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('Total'))))
+                ->thead(Thead::tag()->tr(Tr::tag()->th(Th::tag()->content('Name'))))
+                ->tbody(Tbody::tag()->tr(Tr::tag()->td(Td::tag()->content('Jane'))))
+                ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(Td::tag()->content('Total'))))
                 ->render(),
             'Failed asserting that complete table widgets compose correctly into the final HTML.',
         );
@@ -829,7 +829,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()
-                ->tbody(Tbody::tag()->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('value'))))
+                ->tbody(Tbody::tag()->tr(Tr::tag()->td(Td::tag()->content('value'))))
                 ->render(),
             "Failed asserting that element renders correctly with 'tbody()' method.",
         );
@@ -850,7 +850,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()
-                ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('value'))))
+                ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(Td::tag()->content('value'))))
                 ->render(),
             "Failed asserting that element renders correctly with 'tfoot()' method.",
         );
@@ -871,7 +871,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()
-                ->thead(Thead::tag()->tr(Tr::tag()->th(\UIAwesome\Html\Table\Th::tag()->content('value'))))
+                ->thead(Thead::tag()->tr(Tr::tag()->th(Th::tag()->content('value'))))
                 ->render(),
             "Failed asserting that element renders correctly with 'thead()' method.",
         );
@@ -930,7 +930,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()
-                ->tr(Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('value')))
+                ->tr(Tr::tag()->td(Td::tag()->content('value')))
                 ->render(),
             "Failed asserting that element renders correctly with 'tr()' method.",
         );

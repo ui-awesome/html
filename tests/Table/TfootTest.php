@@ -618,6 +618,28 @@ final class TfootTest extends TestCase
         );
     }
 
+    public function testRenderWithRowsUsingAssociativeArrays(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tfoot>
+            <tr>
+            <td>
+            Totals
+            </td>
+            <td>
+            100
+            </td>
+            </tr>
+            </tfoot>
+            HTML,
+            Tfoot::tag()
+                ->rows(['label' => 'Totals', 'value' => '100'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method using associative arrays.",
+        );
+    }
+
     public function testRenderWithSetAttribute(): void
     {
         self::assertSame(

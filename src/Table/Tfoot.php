@@ -13,10 +13,11 @@ use UIAwesome\Html\Interop\Table;
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Table\Tfoot::tag()
- *     ->tr(
- *         \UIAwesome\Html\Table\Tr::tag()->td(\UIAwesome\Html\Table\Td::tag()->content('Totals'))
- *     )
+ * use UIAwesome\Html\Table\{Td, Tfoot, Tr};
+ *
+ * echo Tfoot::tag()
+ *     ->tr(Tr::tag()->td(Td::tag()->content('Totals')))
+ *     ->tr(Tr::tag()->td(Td::tag()->content('100')))
  *     ->render();
  * ```
  *
@@ -53,7 +54,7 @@ final class Tfoot extends BaseBlock
      * $tfoot = \UIAwesome\Html\Table\Tfoot::tag()->rows(['Subtotal', '80'], ['Total', '100']);
      * ```
      *
-     * @param array<int, string|Stringable> ...$rows Arrays of cell content for each row.
+     * @param array<array-key, string|Stringable> ...$rows Arrays of cell content for each row.
      *
      * @return static New instance with the appended footer rows.
      */
@@ -70,6 +71,13 @@ final class Tfoot extends BaseBlock
 
     /**
      * Appends a `<tr>` element to the table footer.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Table\Tfoot::tag()
+     *     ->tr(Tr::tag()->td(Td::tag()->content('Totals')))
+     *     ->render();
+     * ```
      *
      * @param Tr $tr Table row element instance.
      *

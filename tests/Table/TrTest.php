@@ -238,6 +238,30 @@ final class TrTest extends TestCase
         );
     }
 
+    public function testRenderWithCellsUsingStringable(): void
+    {
+        $name = new class implements \Stringable {
+            public function __toString(): string
+            {
+                return 'Jane';
+            }
+        };
+
+        self::assertSame(
+            <<<HTML
+            <tr>
+            <td>
+            Jane
+            </td>
+            </tr>
+            HTML,
+            Tr::tag()
+                ->cells($name)
+                ->render(),
+            "Failed asserting that element renders correctly with 'cells()' method using Stringable.",
+        );
+    }
+
     public function testRenderWithClass(): void
     {
         self::assertSame(
@@ -456,6 +480,30 @@ final class TrTest extends TestCase
                 ->headerCells('Name', 'Age')
                 ->render(),
             "Failed asserting that element renders correctly with 'headerCells()' method.",
+        );
+    }
+
+    public function testRenderWithHeaderCellsUsingStringable(): void
+    {
+        $header = new class implements \Stringable {
+            public function __toString(): string
+            {
+                return 'Name';
+            }
+        };
+
+        self::assertSame(
+            <<<HTML
+            <tr>
+            <th>
+            Name
+            </th>
+            </tr>
+            HTML,
+            Tr::tag()
+                ->headerCells($header)
+                ->render(),
+            "Failed asserting that element renders correctly with 'headerCells()' method using Stringable.",
         );
     }
 

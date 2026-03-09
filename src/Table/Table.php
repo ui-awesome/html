@@ -34,6 +34,14 @@ final class Table extends BaseBlock
      *
      * Accepts a `Caption` instance for full control, or a string that is automatically wrapped in a `Caption` element.
      *
+     * Usage examples:
+     * ```php
+     * $table = Table::tag()->caption('Monthly report');
+     * $table = Table::tag()->caption(Caption::tag()->content('Monthly report'));
+     * $table = Table::tag()->caption(null);
+     * ```
+     *
+     *
      * @param Caption|string|null $caption Caption instance, string content, or `null` to skip.
      *
      * @return static New instance with the appended table caption.
@@ -54,6 +62,11 @@ final class Table extends BaseBlock
     /**
      * Appends a `<colgroup>` element to the table.
      *
+     * Usage example:
+     * ```php
+     * $table = Table::tag()->colgroup(Colgroup::tag()->col()->col());
+     * ```
+     *
      * @param Colgroup $colgroup Table column group element instance.
      *
      * @return static New instance with the appended table column group.
@@ -65,6 +78,11 @@ final class Table extends BaseBlock
 
     /**
      * Appends a `<tbody>` element to the table.
+     *
+     * Usage example:
+     * ```php
+     * $table = Table::tag()->tbody(Tbody::tag()->row('Jane', '30'));
+     * ```
      *
      * @param Tbody $tbody Table body element instance.
      *
@@ -78,6 +96,11 @@ final class Table extends BaseBlock
     /**
      * Appends a `<tfoot>` element to the table.
      *
+     * Usage example:
+     * ```php
+     * $table = Table::tag()->tfoot(Tfoot::tag()->row('Totals', '100'));
+     * ```
+     *
      * @param Tfoot $tfoot Table footer element instance.
      *
      * @return static New instance with the appended table footer.
@@ -90,6 +113,11 @@ final class Table extends BaseBlock
     /**
      * Appends a `<thead>` element to the table.
      *
+     * Usage example:
+     * ```php
+     * $table = Table::tag()->thead(Thead::tag()->row('Name', 'Age'));
+     * ```
+     *
      * @param Thead $thead Table head element instance.
      *
      * @return static New instance with the appended table head.
@@ -101,6 +129,11 @@ final class Table extends BaseBlock
 
     /**
      * Appends a `<tr>` element directly to the table.
+     *
+     * Usage example:
+     * ```php
+     * $table = Table::tag()->tr(Tr::tag()->cells('Jane', '30'));
+     * ```
      *
      * @param Tr $tr Table row element instance.
      *

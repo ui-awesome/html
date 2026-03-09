@@ -13,12 +13,10 @@ use UIAwesome\Html\Interop\Table;
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Table\Thead::tag()
- *     ->tr(
- *         \UIAwesome\Html\Table\Tr::tag()->th(
- *             \UIAwesome\Html\Table\Th::tag()->content('Name')
- *         )
- *     )
+ * use UIAwesome\Html\Table\{Th, Thead, Tr};
+ *
+ * echo Thead::tag()
+ *     ->tr(Tr::tag()->th(Th::tag()->content('Name')))
  *     ->render();
  * ```
  *
@@ -55,7 +53,7 @@ final class Thead extends BaseBlock
      * $thead = \UIAwesome\Html\Table\Thead::tag()->rows(['Name', 'Age'], ['ID', 'Email']);
      * ```
      *
-     * @param array<int, string|Stringable> ...$rows Arrays of cell content for each row.
+     * @param array<array-key, string|Stringable> ...$rows Arrays of cell content for each row.
      *
      * @return static New instance with the appended header rows.
      */
@@ -72,6 +70,12 @@ final class Thead extends BaseBlock
 
     /**
      * Appends a `<tr>` element to the table header.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->th(Th::tag()->content('Name'));
+     * $thead = \UIAwesome\Html\Table\Thead::tag()->tr($tr);
+     * ```
      *
      * @param Tr $tr Table row element instance.
      *

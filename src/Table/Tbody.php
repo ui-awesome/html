@@ -13,11 +13,13 @@ use UIAwesome\Html\Interop\Table;
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Table\Tbody::tag()
+ * use UIAwesome\Html\Table\{Tbody, Td, Tr};
+ *
+ * echo Tbody::tag()
  *     ->tr(
- *         \UIAwesome\Html\Table\Tr::tag()
- *             ->td(\UIAwesome\Html\Table\Td::tag()->content('Jane'))
- *             ->td(\UIAwesome\Html\Table\Td::tag()->content('Engineering'))
+ *         Tr::tag()
+ *             ->td(Td::tag()->content('Jane'))
+ *             ->td(Td::tag()->content('Engineering'))
  *     )
  *     ->render();
  * ```
@@ -55,7 +57,7 @@ final class Tbody extends BaseBlock
      * $tbody = \UIAwesome\Html\Table\Tbody::tag()->rows(['Jane', '30'], ['John', '25']);
      * ```
      *
-     * @param array<int, string|Stringable> ...$rows Arrays of cell content for each row.
+     * @param array<array-key, string|Stringable> ...$rows Arrays of cell content for each row.
      *
      * @return static New instance with the appended data rows.
      */
@@ -72,6 +74,12 @@ final class Tbody extends BaseBlock
 
     /**
      * Appends a `<tr>` element to the table body.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->td('Jane')->td('30');
+     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->tr($tr);
+     * ```
      *
      * @param Tr $tr Table row element instance.
      *

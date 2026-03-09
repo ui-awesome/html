@@ -13,9 +13,11 @@ use UIAwesome\Html\Interop\Table;
  *
  * Usage example:
  * ```php
- * echo \UIAwesome\Html\Table\Tr::tag()
- *     ->th(\UIAwesome\Html\Table\Th::tag()->content('Name'))
- *     ->td(\UIAwesome\Html\Table\Td::tag()->content('Jane'))
+ * use UIAwesome\Html\Table\{Td, Th, Tr};
+ *
+ * echo Tr::tag()
+ *     ->th(Th::tag()->content('Name'))
+ *     ->td(Td::tag()->content('Jane'))
  *     ->render();
  * ```
  *
@@ -76,6 +78,11 @@ final class Tr extends BaseBlock
     /**
      * Appends a `<td>` element to the row.
      *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->td(Td::tag()->content('Jane'));
+     * ```
+     *
      * @param Td $td Table data cell element instance.
      *
      * @return static New instance with the appended table data cell.
@@ -87,6 +94,11 @@ final class Tr extends BaseBlock
 
     /**
      * Appends a `<th>` element to the row.
+     *
+     * Usage example:
+     * ```php
+     * $tr = \UIAwesome\Html\Table\Tr::tag()->th(Th::tag()->content('Name'));
+     * ```
      *
      * @param Th $th Table header cell element instance.
      *

@@ -618,6 +618,28 @@ final class TbodyTest extends TestCase
         );
     }
 
+    public function testRenderWithRowsUsingAssociativeArrays(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tbody>
+            <tr>
+            <td>
+            Jane
+            </td>
+            <td>
+            30
+            </td>
+            </tr>
+            </tbody>
+            HTML,
+            Tbody::tag()
+                ->rows(['name' => 'Jane', 'age' => '30'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method using associative arrays.",
+        );
+    }
+
     public function testRenderWithSetAttribute(): void
     {
         self::assertSame(

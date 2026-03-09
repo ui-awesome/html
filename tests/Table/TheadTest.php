@@ -618,6 +618,28 @@ final class TheadTest extends TestCase
         );
     }
 
+    public function testRenderWithRowsUsingAssociativeArrays(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <thead>
+            <tr>
+            <th>
+            Name
+            </th>
+            <th>
+            Age
+            </th>
+            </tr>
+            </thead>
+            HTML,
+            Thead::tag()
+                ->rows(['col1' => 'Name', 'col2' => 'Age'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'rows()' method using associative arrays.",
+        );
+    }
+
     public function testRenderWithSetAttribute(): void
     {
         self::assertSame(
