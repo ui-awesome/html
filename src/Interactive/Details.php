@@ -46,7 +46,7 @@ final class Details extends BaseBlock
      * $details = Details::tag()->summary(null);
      * ```
      *
-     * @param Summary|string|Stringable|null $summary Summary instance, content text, or `null` to skip.
+     * @param string|Stringable|Summary|null $summary Summary instance, content text, or `null` to skip.
      *
      * @return static New instance with the appended summary element.
      */
