@@ -301,7 +301,7 @@ final class DetailsTest extends TestCase
             </details>
             HTML,
             Details::tag()
-                ->html(Summary::tag()->content('Label')->render() . PHP_EOL . 'Body')
+                ->html(Summary::tag()->content('Label')->render() . "\n" . 'Body')
                 ->render(),
             'Failed asserting that element renders correctly using the Summary widget as content.',
         );
