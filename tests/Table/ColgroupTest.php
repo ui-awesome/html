@@ -264,6 +264,25 @@ final class ColgroupTest extends TestCase
         );
     }
 
+    public function testRenderWithCols(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <colgroup>
+            <col class="weekdays" span="2">
+            <col class="weekend" span="2">
+            </colgroup>
+            HTML,
+            Colgroup::tag()
+                ->cols(
+                    Col::tag()->class('weekdays')->span(2),
+                    Col::tag()->class('weekend')->span(2),
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'cols()' method.",
+        );
+    }
+
     public function testRenderWithContent(): void
     {
         self::assertSame(
@@ -766,6 +785,11 @@ final class ColgroupTest extends TestCase
         self::assertNotSame(
             $colgroup,
             $colgroup->col(Col::tag()),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $colgroup,
+            $colgroup->cols(Col::tag()),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
         self::assertNotSame(

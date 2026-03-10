@@ -51,6 +51,32 @@ final class Colgroup extends BaseBlock
     }
 
     /**
+     * Appends multiple `<col>` elements to the column group.
+     *
+     * Usage example:
+     * ```php
+     * $colgroup = \UIAwesome\Html\Table\Colgroup::tag()->cols(
+     *     \UIAwesome\Html\Table\Col::tag()->class('weekdays')->span(2),
+     *     \UIAwesome\Html\Table\Col::tag()->class('weekend')->span(2),
+     * );
+     * ```
+     *
+     * @param Col ...$cols Table column element instances.
+     *
+     * @return static New instance with the appended table columns.
+     */
+    public function cols(Col ...$cols): static
+    {
+        $colgroup = $this;
+
+        foreach ($cols as $col) {
+            $colgroup = $colgroup->col($col);
+        }
+
+        return $colgroup;
+    }
+
+    /**
      * Returns the tag enumeration for the `<colgroup>` element.
      *
      * @return Table Tag enumeration instance for `<colgroup>`.

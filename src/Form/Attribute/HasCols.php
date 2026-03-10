@@ -7,11 +7,12 @@ namespace UIAwesome\Html\Form\Attribute;
 use InvalidArgumentException;
 use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Helper\Validator;
+use UIAwesome\Html\Mixin\HasAttributes;
 
 /**
  * Provides an immutable API for the HTML `cols` attribute.
  *
- * @mixin \UIAwesome\Html\Mixin\HasAttributes
+ * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#cols
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

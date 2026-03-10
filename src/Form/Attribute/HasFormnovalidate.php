@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form\Attribute;
 
+use UIAwesome\Html\Mixin\HasAttributes;
+
 /**
  * Provides an immutable API for the HTML `formnovalidate` attribute.
  *
- * @mixin \UIAwesome\Html\Mixin\HasAttributes
+ * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/formnovalidate
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

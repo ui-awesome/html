@@ -1,97 +1,107 @@
-# ChangeLog
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 0.4.0 Under development
 
-- Enh #17: Refactor codebase to improve performance (@terabytesoftw)
-- Enh #18: Add `Dl`, `Dt`, and `Dd` class tag for list support (@terabytesoftw)
-- Enh #19: Add `InputWeek` class for HTML `<input type="week">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #20: Standardize PHPDoc headers and usage examples across core HTML elements in `src` directory (@terabytesoftw)
-- Bug #21: Standardize PHPDoc headers in `tests` directory (@terabytesoftw)
-- Enh #22: Add `InputUrl` class for HTML `<input type="url">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #23: Add `InputTime` class for HTML `<input type="time">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #24: Add `InputText` class for HTML `<input type="text">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #25: Add `InputTel` class for HTML `<input type="tel">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #26: Add `InputSubmit` class for HTML `<input type="submit">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #27: Add `InputSearch` class for HTML `<input type="search">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #28: Add `InputReset` class for HTML `<input type="reset">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #29: Add `InputRange` class for HTML `<input type="range">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #30: Add `InputPassword` class for HTML `<input type="password">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #31: Add `InputCheckbox` class for HTML `<input type="checkbox">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #32: Update parameter descriptions to clarify usage for form attributes and input elements (@terabytesoftw)
-- Enh #33: Add `Label` class for HTML `<label>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #34: Add `InputHidden` class for HTML `<input type="hidden">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #35: Add `InputRadio` class for HTML `<input type="radio">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #36: Add `InputNumber` class for HTML `<input type="number">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #37: Apply last changes from `ui-awesome/html-core` package to `ui-awesome/html` package (@terabytesoftw)
-- Bug #38: Remove redundant `afterRun()` method from `Dl`, `Ol`, and `Ul` classes (@terabytesoftw)
-- Enh #39: Add `InputMonth` class for HTML `<input type="month">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #40: Refactor tests to use `assertSame()` for rendering with `testRenderWithGlobalDefaultsAreApplied()` and `testRenderWithUserOverridesGlobalDefaults()` (@terabytesoftw)
-- Enh #41: Add `InputImage` class for HTML `<input type="image">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #42: Fix messages in `assert()` methods and code style (@terabytesoftw)
-- Bug #43: Update `ui-awesome/html-helper` to version `^0.7` and `ui-awesome/html-mixin` to version `^0.4` in `composer.json` and apply necessary changes to `src` and `tests` directories (@terabytesoftw)
-- Bug #44: Update last modified from `ui-awesome/html-attribute` in related classes (@terabytesoftw)
-- Bug #45: Better naming for `CanBeUnchecked` to `HasUnchecked` and update PHPDoc `BaseChoice` classes (@terabytesoftw)
-- Enh #46: Add `InputFile` class for HTML `<input type="file">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #47: Update PHPDoc in `tests` and add new tests for `on*` attribute (@terabytesoftw)
-- Enh #48: Add `InputEmail` class for HTML `<input type="email">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #49: Add `InputDateTimeLocal` class for HTML `<input type="datetime-local">` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #50: Standardize `tests` for clarity and consistency across all test cases (@terabytesoftw)
-- Enh #51: Add `InputDate` class for HTML `<input type="date">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #52: Add `InputColor` class for HTML `<input type="color">` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #53: Add `TextArea` class for HTML `<textarea>` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #54: Update exception test method names for consistency and clarity (@terabytesoftw)
-- Bug #55: Remove `BaseChoice` class and related mixins; update `InputCheckbox`, `InputFile`, and `InputRadio` to extend `BaseInput` class (@terabytesoftw)
-- Enh #56: Add `Button` class for HTML `<button>` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #57: Add tests for invalid argument exceptions in HTML attributes (@terabytesoftw)
-- Enh #59: Add `Form` class for HTML `<form>` element with attributes and rendering capabilities (@terabytesoftw)
-- Bug #61: Align tag enums and defaults provider with latest `ui-awesome/html-core` and `ui-awesome/html-interop` changes (@terabytesoftw)
-- Bug #62: Remove `aria-describedby` specific form input tests to keep this package agnostic (@terabytesoftw)
-- Enh #63: Add `Select`, `Option`, and `Optgroup` classes for HTML `<select>`, `<option>`, and `<optgroup>` elements with attributes and rendering capabilities (@terabytesoftw)
-- Enh #64: Add `Datalist` class for HTML `<datalist>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #65: Add `Legend` class for HTML `<legend>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #66: Add `Fieldset` class for HTML `<fieldset>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #67: Add `Output` class for HTML `<output>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #68: Add `Progress` class for HTML `<progress>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #69: Add `Meter` class for HTML `<meter>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #70: Add `Caption` class for HTML `<caption>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #71: Add `Td` class for HTML `<td>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #72: Add `Th` class for HTML `<th>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #73: Add `Tr` class for HTML `<tr>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #74: Add `Tfoot` class for HTML `<tfoot>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #75: Add `Tbody` class for HTML `<tbody>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #76: Add `Thead` class for HTML `<thead>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #77: Add `Col` class for HTML `<col>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #78: Add `Colgroup` class for HTML `<colgroup>` element with attributes and rendering capabilities (@terabytesoftw)
-- Enh #79: Add convenience methods `row()`, `rows()` to `Thead`, `Tbody`, `Tfoot`; `cells()`, `headerCells()` to `Tr`; and extend `caption()` in `Table` to accept `Caption|string|null` for simplified table construction (@terabytesoftw)
+- perf: Refactor codebase to improve performance.
+- feat(list): Add `Dl`, `Dt`, and `Dd` classes for description list elements.
+- feat(form): Add `InputWeek` class for `<input type="week">` element.
+- docs: Standardize PHPDoc headers and usage examples in `src/`.
+- docs: Standardize PHPDoc headers in `tests/`.
+- feat(form): Add `InputUrl` class for `<input type="url">` element.
+- feat(form): Add `InputTime` class for `<input type="time">` element.
+- feat(form): Add `InputText` class for `<input type="text">` element.
+- feat(form): Add `InputTel` class for `<input type="tel">` element.
+- feat(form): Add `InputSubmit` class for `<input type="submit">` element.
+- feat(form): Add `InputSearch` class for `<input type="search">` element.
+- feat(form): Add `InputReset` class for `<input type="reset">` element.
+- feat(form): Add `InputRange` class for `<input type="range">` element.
+- feat(form): Add `InputPassword` class for `<input type="password">` element.
+- feat(form): Add `InputCheckbox` class for `<input type="checkbox">` element.
+- docs(form): Clarify parameter descriptions for form attributes and input elements.
+- feat(form): Add `Label` class for `<label>` element.
+- feat(form): Add `InputHidden` class for `<input type="hidden">` element.
+- feat(form): Add `InputRadio` class for `<input type="radio">` element.
+- feat(form): Add `InputNumber` class for `<input type="number">` element.
+- fix: Apply latest changes from `ui-awesome/html-core` package.
+- refactor(list): Remove redundant `afterRun()` method from `Dl`, `Ol`, and `Ul` classes.
+- feat(form): Add `InputMonth` class for `<input type="month">` element.
+- test: Use `assertSame()` in rendering tests for global defaults and user overrides.
+- feat(form): Add `InputImage` class for `<input type="image">` element.
+- fix: Fix messages in `assert()` methods and code style.
+- build: Update `ui-awesome/html-helper` to `^0.7` and `ui-awesome/html-mixin` to `^0.4`.
+- fix: Sync changes from `ui-awesome/html-attribute` in related classes.
+- refactor: Rename `CanBeUnchecked` to `HasUnchecked` and update PHPDoc in `BaseChoice` classes.
+- feat(form): Add `InputFile` class for `<input type="file">` element.
+- docs(test): Update PHPDoc in tests and add tests for `on*` attributes.
+- feat(form): Add `InputEmail` class for `<input type="email">` element.
+- feat(form): Add `InputDateTimeLocal` class for `<input type="datetime-local">` element.
+- test: Standardize test cases for clarity and consistency.
+- feat(form): Add `InputDate` class for `<input type="date">` element.
+- feat(form): Add `InputColor` class for `<input type="color">` element.
+- feat(form): Add `TextArea` class for `<textarea>` element.
+- refactor(test): Standardize exception test method names.
+- refactor(form): Remove `BaseChoice` class and related mixins; update `InputCheckbox`, `InputFile`, and `InputRadio` to extend `BaseInput`.
+- feat(form): Add `Button` class for `<button>` element.
+- test: Add tests for invalid argument exceptions in HTML attributes.
+- feat(form): Add `Form` class for `<form>` element.
+- fix: Align tag enums and defaults provider with latest `ui-awesome/html-core` and `ui-awesome/html-interop` changes.
+- refactor(test): Remove `aria-describedby` specific form input tests to keep the package agnostic.
+- feat(form): Add `Select`, `Option`, and `Optgroup` classes for `<select>`, `<option>`, and `<optgroup>` elements.
+- feat(form): Add `Datalist` class for `<datalist>` element.
+- feat(form): Add `Legend` class for `<legend>` element.
+- feat(form): Add `Fieldset` class for `<fieldset>` element.
+- feat(form): Add `Output` class for `<output>` element.
+- feat(form): Add `Progress` class for `<progress>` element.
+- feat(form): Add `Meter` class for `<meter>` element.
+- feat(table): Add `Caption` class for `<caption>` element.
+- feat(table): Add `Td` class for `<td>` element.
+- feat(table): Add `Th` class for `<th>` element.
+- feat(table): Add `Tr` class for `<tr>` element.
+- feat(table): Add `Tfoot` class for `<tfoot>` element.
+- feat(table): Add `Tbody` class for `<tbody>` element.
+- feat(table): Add `Thead` class for `<thead>` element.
+- feat(table): Add `Col` class for `<col>` element.
+- feat(table): Add `Colgroup` class for `<colgroup>` element.
+- feat(table): Add convenience methods `row()`, `rows()` on `Thead`, `Tbody`, `Tfoot`; `cells()`, `headerCells()` on `Tr`; extend `caption()` in `Table` to accept `Caption|string|null`.
+- fix(list): Fix PHPDoc `Usage example` placement in `Dl::dd()` and `Dl::dt()` to appear before tags.
+- feat(list): Extend `Dl::dd()` to accept `Dd|string|Stringable` and `Dl::dt()` to accept `Dt|string|Stringable` for API consistency.
+- feat(list): Add `Dl::terms()` batch method for appending multiple term-description pairs.
+- feat(form): Add `Select::options()` convenience method for appending multiple options from value-label pairs.
+- feat(table): Add `Colgroup::cols()` batch method for appending multiple `Col` elements.
 
 ## 0.3.0 March 31, 2024
 
-- Enh #15: Move `Tag` class widget, `AbstractElement` class, and `AbstractBlockElement` class to `ui-awesome/html-core` package (@terabytesoftw)
+- refactor: Move `Tag` class widget, `AbstractElement` class, and `AbstractBlockElement` class to `ui-awesome/html-core` package.
 
 ## 0.2.0 March 22, 2024
 
-- Enh #14: Move `Svg` class widget to `ui-awesome/html-svg` package (@terabytesoftw)
+- refactor: Move `Svg` class widget to `ui-awesome/html-svg` package.
 
 ## 0.1.3 March 19, 2024
 
-- Bug #11: Fix broken links in `docs` (@terabytesoftw)
-- Enh #12: Add `CheckboxList` and `RadioList` class widgets (@terabytesoftw)
-- Bug #13: Add tests for `CheckboxList` and `RadioList` class for validate attributes (@terabytesoftw)
+- fix(docs): Fix broken links in docs.
+- feat: Add `CheckboxList` and `RadioList` class widgets.
+- test: Add tests for `CheckboxList` and `RadioList` to validate attributes.
 
 ## 0.1.2 March 15, 2024
 
-- Bug #9: Fix broken links in `Div`, `Li`, `Ol`, `P`, and `Ul` documentation (@terabytesoftw)
-- Enh #10: Add `Hr` class widget (@terabytesoftw)
+- fix(docs): Fix broken links in `Div`, `Li`, `Ol`, `P`, and `Ul` documentation.
+- feat: Add `Hr` class widget.
 
 ## 0.1.1 March 8, 2024
 
-- Bug #6: Remove generate ID in `UIAwesome\Html\FormControl\Button` class (@terabytesoftw)
-- Bug #7: Add `Html\Interop\RenderInterface::class` all classes (@terabytesoftw)
-- Bug #8: Change branch alias to `1.0-dev` in `composer.json` (@terabytesoftw)
+- fix(form): Remove auto-generated ID in `UIAwesome\Html\FormControl\Button` class.
+- fix: Add `Html\Interop\RenderInterface` to all classes.
+- fix(build): Change branch alias to `1.0-dev` in `composer.json`.
 
 ## 0.1.0 March 6, 2024
 
 - Initial release.
-- Bug #2: Refactor `README.md` to improve organization and headings for better readability (@terabytesoftw)
-- Bug #3: Update badges in `README.md` (@terabytesoftw)
-- Enh #4: Move `Builder::class` to `ui-awesome/html-helper` (@terabytesoftw)
+- fix(docs): Improve `README.md` organization and headings for better readability.
+- fix(docs): Update badges in `README.md`.
+- refactor: Move `Builder::class` to `ui-awesome/html-helper`.

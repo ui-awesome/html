@@ -21,7 +21,7 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\List\Dl;
+use UIAwesome\Html\List\{Dd, Dl, Dt};
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
@@ -321,6 +321,23 @@ final class DlTest extends TestCase
         );
     }
 
+    public function testRenderWithDdInstance(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <dl>
+            <dd class="highlight">
+            Description
+            </dd>
+            </dl>
+            HTML,
+            Dl::tag()
+                ->dd(Dd::tag()->class('highlight')->content('Description'))
+                ->render(),
+            "Failed asserting that element renders correctly with 'dd()' method using Dd instance.",
+        );
+    }
+
     public function testRenderWithDefaultConfigurationValues(): void
     {
         self::assertSame(
@@ -442,6 +459,23 @@ final class DlTest extends TestCase
                 ->dd('Description')
                 ->render(),
             "Failed asserting that element renders correctly with 'dt()' and 'dd()' methods.",
+        );
+    }
+
+    public function testRenderWithDtInstance(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <dl>
+            <dt class="bold">
+            Term
+            </dt>
+            </dl>
+            HTML,
+            Dl::tag()
+                ->dt(Dt::tag()->class('bold')->content('Term'))
+                ->render(),
+            "Failed asserting that element renders correctly with 'dt()' method using Dt instance.",
         );
     }
 
@@ -718,6 +752,52 @@ final class DlTest extends TestCase
         );
     }
 
+    public function testRenderWithTerms(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <dl>
+            <dt>
+            Term 1
+            </dt>
+            <dd>
+            Description 1
+            </dd>
+            <dt>
+            Term 2
+            </dt>
+            <dd>
+            Description 2
+            </dd>
+            </dl>
+            HTML,
+            Dl::tag()
+                ->terms(['Term 1', 'Description 1'], ['Term 2', 'Description 2'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'terms()' method.",
+        );
+    }
+
+    public function testRenderWithTermsUsingInstances(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <dl>
+            <dt class="bold">
+            Term
+            </dt>
+            <dd class="highlight">
+            Description
+            </dd>
+            </dl>
+            HTML,
+            Dl::tag()
+                ->terms([Dt::tag()->class('bold')->content('Term'), Dd::tag()->class('highlight')->content('Description')])
+                ->render(),
+            "Failed asserting that element renders correctly with 'terms()' method using instances.",
+        );
+    }
+
     public function testRenderWithThemeProvider(): void
     {
         self::assertSame(
@@ -823,6 +903,11 @@ final class DlTest extends TestCase
         self::assertNotSame(
             $dl,
             $dl->dd(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $dl,
+            $dl->terms(['Term', 'Description']),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }

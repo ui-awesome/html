@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form\Attribute;
 
+use UIAwesome\Html\Mixin\HasAttributes;
+
 /**
  * Provides an immutable API for the HTML `high` attribute.
  *
- * @mixin \UIAwesome\Html\Mixin\HasAttributes
+ * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter#high
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

@@ -7,11 +7,12 @@ namespace UIAwesome\Html\Table\Attribute;
 use InvalidArgumentException;
 use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Helper\Validator;
+use UIAwesome\Html\Mixin\HasAttributes;
 
 /**
  * Provides an immutable API for the HTML `rowspan` attribute.
  *
- * @mixin \UIAwesome\Html\Mixin\HasAttributes
+ * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td#rowspan
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

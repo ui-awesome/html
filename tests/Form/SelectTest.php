@@ -642,6 +642,29 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testRenderWithOptions(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option value="dog">
+            Dog
+            </option>
+            <option value="cat">
+            Cat
+            </option>
+            <option value="hamster">
+            Hamster
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->options(['dog', 'Dog'], ['cat', 'Cat'], ['hamster', 'Hamster'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'options()' method.",
+        );
+    }
+
     public function testRenderWithRemoveAriaAttribute(): void
     {
         self::assertSame(
@@ -933,6 +956,11 @@ final class SelectTest extends TestCase
         self::assertNotSame(
             $select,
             $select->optgroup(Optgroup::tag()->label('group')),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $select,
+            $select->options(['dog', 'Dog']),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );
     }

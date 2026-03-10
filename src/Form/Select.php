@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
+use Stringable;
 use UIAwesome\Html\Attribute\{CanBeDisabled, HasName};
 use UIAwesome\Html\Attribute\Form\{CanBeMultiple, CanBeRequired, HasAutocomplete, HasForm, HasSize};
 use UIAwesome\Html\Core\Element\BaseBlock;
@@ -59,6 +60,33 @@ final class Select extends BaseBlock
     public function option(Option $option): static
     {
         return $this->html($option, "\n");
+    }
+
+    /**
+     * Appends multiple `<option>` elements to the select from value-label pairs.
+     *
+     * Usage example:
+     * ```php
+     * $select = \UIAwesome\Html\Form\Select::tag()->options(
+     *     ['dog', 'Dog'],
+     *     ['cat', 'Cat'],
+     *     ['hamster', 'Hamster'],
+     * );
+     * ```
+     *
+     * @param array{0: string, 1: string|Stringable} ...$items Arrays of `[value, label]` pairs.
+     *
+     * @return static New instance with the appended options.
+     */
+    public function options(array ...$items): static
+    {
+        $select = $this;
+
+        foreach ($items as $item) {
+            $select = $select->option(Option::tag()->value($item[0])->content($item[1]));
+        }
+
+        return $select;
     }
 
     /**

@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
     ContentEditable,
@@ -240,7 +241,7 @@ final class TrTest extends TestCase
 
     public function testRenderWithCellsUsingStringable(): void
     {
-        $name = new class implements \Stringable {
+        $name = new class implements Stringable {
             public function __toString(): string
             {
                 return 'Jane';
@@ -485,7 +486,7 @@ final class TrTest extends TestCase
 
     public function testRenderWithHeaderCellsUsingStringable(): void
     {
-        $header = new class implements \Stringable {
+        $header = new class implements Stringable {
             public function __toString(): string
             {
                 return 'Name';

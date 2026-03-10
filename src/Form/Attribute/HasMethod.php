@@ -7,12 +7,13 @@ namespace UIAwesome\Html\Form\Attribute;
 use InvalidArgumentException;
 use UIAwesome\Html\Form\Values\Method;
 use UIAwesome\Html\Helper\Validator;
+use UIAwesome\Html\Mixin\HasAttributes;
 use UnitEnum;
 
 /**
  * Provides an immutable API for the HTML `method` attribute.
  *
- * @mixin \UIAwesome\Html\Mixin\HasAttributes
+ * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form#method
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

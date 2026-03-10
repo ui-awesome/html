@@ -6,13 +6,14 @@ namespace UIAwesome\Html\Table\Attribute;
 
 use InvalidArgumentException;
 use UIAwesome\Html\Helper\Validator;
+use UIAwesome\Html\Mixin\HasAttributes;
 use UIAwesome\Html\Table\Values\Scope;
 use UnitEnum;
 
 /**
  * Provides an immutable API for the HTML `scope` attribute.
  *
- * @mixin \UIAwesome\Html\Mixin\HasAttributes
+ * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/th#scope
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
