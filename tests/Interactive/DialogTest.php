@@ -817,6 +817,11 @@ final class DialogTest extends TestCase
 
         self::assertNotSame(
             $dialog,
+            $dialog->closeButton('Close'),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $dialog,
             $dialog->closedby(null),
             'Should return a new instance when setting the attribute, ensuring immutability.',
         );

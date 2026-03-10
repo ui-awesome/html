@@ -57,7 +57,7 @@ final class Dialog extends BaseBlock
      *
      * @return static New instance with the prepended close button.
      */
-    public function closeButton(string|Stringable|Button|null $button): static
+    public function closeButton(Button|string|Stringable|null $button): static
     {
         if ($button === null) {
             return $this;
