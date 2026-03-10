@@ -50,7 +50,7 @@ final class Details extends BaseBlock
      *
      * @return static New instance with the appended summary element.
      */
-    public function summary(Summary|string|Stringable|null $summary): static
+    public function summary(string|Stringable|Summary|null $summary): static
     {
         if ($summary === null) {
             return $this;
