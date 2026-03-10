@@ -74,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(form): Add `Select::options()` convenience method for appending multiple options from value-label pairs.
 - feat(table): Add `Colgroup::cols()` batch method for appending multiple `Col` elements.
 - feat(interactive): Add `Summary` class for `<summary>` element.
+- feat(interactive): Add `Details` class for `<details>` element.
 
 ## 0.3.0 March 31, 2024
 
