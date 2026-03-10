@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form\Attribute;
 
-use UIAwesome\Html\Mixin\HasAttributes;
 use Stringable;
 use UIAwesome\Html\Attribute\Values\Attribute;
+use UIAwesome\Html\Mixin\HasAttributes;
 use UnitEnum;
 
 /**

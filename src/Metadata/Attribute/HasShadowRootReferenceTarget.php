@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Metadata\Attribute;
 
-use UIAwesome\Html\Mixin\HasAttributes;
 use Stringable;
+use UIAwesome\Html\Mixin\HasAttributes;
 use UnitEnum;
 
 /**

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form\Attribute;
 
-use UIAwesome\Html\Mixin\HasAttributes;
 use InvalidArgumentException;
 use UIAwesome\Html\Form\Values\Enctype;
 use UIAwesome\Html\Helper\Validator;
+use UIAwesome\Html\Mixin\HasAttributes;
 use UnitEnum;
 
 /**

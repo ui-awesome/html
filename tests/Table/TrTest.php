@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Table;
 
-use Stringable;
 use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
     ContentEditable,

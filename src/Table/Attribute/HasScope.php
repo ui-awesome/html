@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Table\Attribute;
 
-use UIAwesome\Html\Mixin\HasAttributes;
 use InvalidArgumentException;
 use UIAwesome\Html\Helper\Validator;
+use UIAwesome\Html\Mixin\HasAttributes;
 use UIAwesome\Html\Table\Values\Scope;
 use UnitEnum;
 

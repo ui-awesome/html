@@ -441,23 +441,6 @@ final class DlTest extends TestCase
         );
     }
 
-    public function testRenderWithDtInstance(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <dl>
-            <dt class="bold">
-            Term
-            </dt>
-            </dl>
-            HTML,
-            Dl::tag()
-                ->dt(Dt::tag()->class('bold')->content('Term'))
-                ->render(),
-            "Failed asserting that element renders correctly with 'dt()' method using Dt instance.",
-        );
-    }
-
     public function testRenderWithDtAndDd(): void
     {
         self::assertSame(
@@ -479,33 +462,7 @@ final class DlTest extends TestCase
         );
     }
 
-    public function testRenderWithTerms(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <dl>
-            <dt>
-            Term 1
-            </dt>
-            <dd>
-            Description 1
-            </dd>
-            <dt>
-            Term 2
-            </dt>
-            <dd>
-            Description 2
-            </dd>
-            </dl>
-            HTML,
-            Dl::tag()
-                ->terms(['Term 1', 'Description 1'], ['Term 2', 'Description 2'])
-                ->render(),
-            "Failed asserting that element renders correctly with 'terms()' method.",
-        );
-    }
-
-    public function testRenderWithTermsUsingInstances(): void
+    public function testRenderWithDtInstance(): void
     {
         self::assertSame(
             <<<HTML
@@ -513,15 +470,12 @@ final class DlTest extends TestCase
             <dt class="bold">
             Term
             </dt>
-            <dd class="highlight">
-            Description
-            </dd>
             </dl>
             HTML,
             Dl::tag()
-                ->terms([Dt::tag()->class('bold')->content('Term'), Dd::tag()->class('highlight')->content('Description')])
+                ->dt(Dt::tag()->class('bold')->content('Term'))
                 ->render(),
-            "Failed asserting that element renders correctly with 'terms()' method using instances.",
+            "Failed asserting that element renders correctly with 'dt()' method using Dt instance.",
         );
     }
 
@@ -795,6 +749,52 @@ final class DlTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
+    }
+
+    public function testRenderWithTerms(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <dl>
+            <dt>
+            Term 1
+            </dt>
+            <dd>
+            Description 1
+            </dd>
+            <dt>
+            Term 2
+            </dt>
+            <dd>
+            Description 2
+            </dd>
+            </dl>
+            HTML,
+            Dl::tag()
+                ->terms(['Term 1', 'Description 1'], ['Term 2', 'Description 2'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'terms()' method.",
+        );
+    }
+
+    public function testRenderWithTermsUsingInstances(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <dl>
+            <dt class="bold">
+            Term
+            </dt>
+            <dd class="highlight">
+            Description
+            </dd>
+            </dl>
+            HTML,
+            Dl::tag()
+                ->terms([Dt::tag()->class('bold')->content('Term'), Dd::tag()->class('highlight')->content('Description')])
+                ->render(),
+            "Failed asserting that element renders correctly with 'terms()' method using instances.",
         );
     }
 

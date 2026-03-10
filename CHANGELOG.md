@@ -45,8 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(form): Add `InputColor` class for `<input type="color">` element.
 - feat(form): Add `TextArea` class for `<textarea>` element.
 - refactor(test): Standardize exception test method names.
-- refactor(form): Remove `BaseChoice` class and related mixins; `InputCheckbox`, `InputFile`, and `InputRadio` now
-  extend `BaseInput`.
+- refactor(form): Remove `BaseChoice` class and related mixins; update `InputCheckbox`, `InputFile`, and `InputRadio` to extend `BaseInput`.
 - feat(form): Add `Button` class for `<button>` element.
 - test: Add tests for invalid argument exceptions in HTML attributes.
 - feat(form): Add `Form` class for `<form>` element.
@@ -68,19 +67,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(table): Add `Thead` class for `<thead>` element.
 - feat(table): Add `Col` class for `<col>` element.
 - feat(table): Add `Colgroup` class for `<colgroup>` element.
-- feat(table): Add convenience methods `row()`, `rows()` on `Thead`, `Tbody`, `Tfoot`; `cells()`, `headerCells()`
-  on `Tr`; extend `caption()` in `Table` to accept `Caption|string|null`.
+- feat(table): Add convenience methods `row()`, `rows()` on `Thead`, `Tbody`, `Tfoot`; `cells()`, `headerCells()` on `Tr`; extend `caption()` in `Table` to accept `Caption|string|null`.
 - fix(list): Fix PHPDoc `Usage example` placement in `Dl::dd()` and `Dl::dt()` to appear before tags.
-- feat(list): Extend `Dl::dd()` to accept `Dd|string|Stringable` and `Dl::dt()` to accept `Dt|string|Stringable`
-  for API consistency.
+- feat(list): Extend `Dl::dd()` to accept `Dd|string|Stringable` and `Dl::dt()` to accept `Dt|string|Stringable` for API consistency.
 - feat(list): Add `Dl::terms()` batch method for appending multiple term-description pairs.
 - feat(form): Add `Select::options()` convenience method for appending multiple options from value-label pairs.
 - feat(table): Add `Colgroup::cols()` batch method for appending multiple `Col` elements.
 
 ## 0.3.0 March 31, 2024
 
-- refactor: Move `Tag` class widget, `AbstractElement` class, and `AbstractBlockElement` class to
-  `ui-awesome/html-core` package.
+- refactor: Move `Tag` class widget, `AbstractElement` class, and `AbstractBlockElement` class to `ui-awesome/html-core` package.
 
 ## 0.2.0 March 22, 2024
 

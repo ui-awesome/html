@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form\Attribute;
 
-use UIAwesome\Html\Mixin\HasAttributes;
 use InvalidArgumentException;
 use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Helper\Validator;
+use UIAwesome\Html\Mixin\HasAttributes;
 
 /**
  * Provides an immutable API for the HTML `rows` attribute.
