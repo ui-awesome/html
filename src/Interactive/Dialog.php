@@ -49,7 +49,7 @@ final class Dialog extends BaseBlock
      * $dialog = Dialog::tag()->closeButton(null);
      * ```
      *
-     * @param string|Stringable|Button|null $button Button instance, button label text, or `null` to skip.
+     * @param Button|string|Stringable|null $button Button instance, button label text, or `null` to skip.
      *
      * If the dialog has an `id` attribute, the button is wired with `command="close"` and
      * `commandfor="{id}"` (MDN invoker command pattern). Otherwise, the button is wrapped in
