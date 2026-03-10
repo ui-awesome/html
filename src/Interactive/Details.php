@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Interactive;
 
+use Stringable;
 use UIAwesome\Html\Attribute\HasName;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interactive\Attribute\CanBeOpen;
@@ -17,7 +18,7 @@ use UIAwesome\Html\Interop\Block;
  * echo \UIAwesome\Html\Interactive\Details::tag()
  *     ->name('requirements')
  *     ->open(true)
- *     ->content(\UIAwesome\Html\Interactive\Summary::tag()->content('System requirements')->render())
+ *     ->summary('System requirements')
  *     ->render();
  * ```
  *
@@ -31,6 +32,36 @@ final class Details extends BaseBlock
 {
     use CanBeOpen;
     use HasName;
+
+    /**
+     * Appends a `<summary>` element to the details widget.
+     *
+     * Accepts a `Summary` instance for full control, or text content that is automatically wrapped in a `Summary`
+     * element.
+     *
+     * Usage examples:
+     * ```php
+     * $details = Details::tag()->summary('System requirements');
+     * $details = Details::tag()->summary(Summary::tag()->content('System requirements'));
+     * $details = Details::tag()->summary(null);
+     * ```
+     *
+     * @param Summary|string|Stringable|null $summary Summary instance, content text, or `null` to skip.
+     *
+     * @return static New instance with the appended summary element.
+     */
+    public function summary(Summary|string|Stringable|null $summary): static
+    {
+        if ($summary === null) {
+            return $this;
+        }
+
+        if (!$summary instanceof Summary) {
+            $summary = Summary::tag()->content($summary);
+        }
+
+        return $this->html($summary, "\n");
+    }
 
     /**
      * Returns the tag enumeration for the `<details>` element.

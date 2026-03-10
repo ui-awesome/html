@@ -670,6 +670,54 @@ final class DetailsTest extends TestCase
         );
     }
 
+    public function testRenderWithSummary(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <details>
+            <summary>
+            System requirements
+            </summary>
+            </details>
+            HTML,
+            Details::tag()
+                ->summary('System requirements')
+                ->render(),
+            "Failed asserting that element renders correctly with 'summary()' method using string content.",
+        );
+    }
+
+    public function testRenderWithSummaryUsingElement(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <details>
+            <summary>
+            System requirements
+            </summary>
+            </details>
+            HTML,
+            Details::tag()
+                ->summary(Summary::tag()->content('System requirements'))
+                ->render(),
+            "Failed asserting that element renders correctly with 'summary()' method using Summary element.",
+        );
+    }
+
+    public function testRenderWithSummaryUsingNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <details>
+            </details>
+            HTML,
+            Details::tag()
+                ->summary(null)
+                ->render(),
+            "Failed asserting that element renders correctly with 'summary()' method using null value.",
+        );
+    }
+
     public function testRenderWithTabindex(): void
     {
         self::assertSame(
