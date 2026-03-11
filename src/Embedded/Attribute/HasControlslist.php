@@ -25,11 +25,11 @@ trait HasControlslist
      * Usage example:
      * ```php
      * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->controlslist(Controlslist::nodownload)
+     *     ->controlslist(Controlslist::NODOWNLOAD)
      *     ->render();
      * ```
      *
-     * @param string|UnitEnum|null $value Controls list token, or `null` to remove the attribute.
+     * @param string|UnitEnum|null $value Controls list token(s), or `null` to remove the attribute.
      *
      * @return static New instance with the updated `controlslist` attribute.
      *

@@ -27,7 +27,7 @@ trait HasPreload
      * Usage example:
      * ```php
      * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->preload(Preload::Auto)
+     *     ->preload(Preload::AUTO)
      *     ->render();
      * ```
      *
