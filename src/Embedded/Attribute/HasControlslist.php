@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Embedded\Attribute;
 
-use InvalidArgumentException;
 use UIAwesome\Html\Embedded\Values\Controlslist;
-use UIAwesome\Html\Helper\Validator;
 use UIAwesome\Html\Mixin\HasAttributes;
 use UnitEnum;
-
-use function is_string;
 
 /**
  * Provides an immutable API for the HTML `controlslist` attribute.
