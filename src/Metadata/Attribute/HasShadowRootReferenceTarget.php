@@ -11,6 +11,8 @@ use UnitEnum;
 /**
  * Provides an immutable API for the HTML `shadowrootreferencetarget` attribute.
  *
+ * Experimental HTML attribute. Availability and behavior may vary across browsers.
+ *
  * @mixin HasAttributes
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#shadowrootreferencetarget
  *

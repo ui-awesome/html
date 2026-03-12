@@ -17,6 +17,8 @@ use UIAwesome\Html\Metadata\Attribute\{
 /**
  * Renders the HTML `<template>` element for inert HTML fragments.
  *
+ * Supports experimental declarative shadow DOM attributes. Availability and behavior may vary across browsers.
+ *
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Metadata\Template::tag()

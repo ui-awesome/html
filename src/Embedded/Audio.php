@@ -21,6 +21,8 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<audio>` element for embedding audio content.
  *
+ * Supports the experimental `disableremoteplayback` attribute. Availability and behavior may vary across browsers.
+ *
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Embedded\Audio::tag()
