@@ -79,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(embedded): add `Audio` class for `<audio>` element.
 - feat(embedded): add `Video` class for `<video>` element.
 - docs: complete missing MDN links and mark experimental HTML attributes in PHPDoc.
+- feat(embedded): add `Source` class for `<source>` element.
 
 ## 0.3.0 March 31, 2024
 
