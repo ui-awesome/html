@@ -24,6 +24,9 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<video>` element for embedding video content.
  *
+ * Supports the experimental `disablepictureinpicture` and `disableremoteplayback` attributes. Availability and
+ * behavior may vary across browsers.
+ *
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Embedded\Video::tag()

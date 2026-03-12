@@ -7,6 +7,8 @@ namespace UIAwesome\Html\Form\Values;
 /**
  * Represents values for the HTML `command` attribute of the `<button>` element.
  *
+ * Experimental HTML attribute. Availability and behavior may vary across browsers.
+ *
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#command
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

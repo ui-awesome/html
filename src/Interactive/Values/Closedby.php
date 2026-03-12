@@ -7,6 +7,8 @@ namespace UIAwesome\Html\Interactive\Values;
 /**
  * Represents values for the HTML `closedby` attribute on `<dialog>` elements.
  *
+ * Experimental HTML attribute. Availability and behavior may vary across browsers.
+ *
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog#closedby
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.

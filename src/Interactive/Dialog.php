@@ -14,6 +14,8 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<dialog>` element for modal and non-modal dialogs.
  *
+ * Supports the experimental `closedby` attribute. Availability and behavior may vary across browsers.
+ *
  * Usage example:
  * ```php
  * use UIAwesome\Html\Interactive\Dialog;

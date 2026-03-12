@@ -23,6 +23,8 @@ use UIAwesome\Html\Interop\Voids;
 /**
  * Renders the HTML `<img>` element for embedding images.
  *
+ * Supports the experimental `elementtiming` attribute. Availability and behavior may vary across browsers.
+ *
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Embedded\Img::tag()

@@ -78,6 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(interactive): add `Dialog` class for `<dialog>` element.
 - feat(embedded): add `Audio` class for `<audio>` element.
 - feat(embedded): add `Video` class for `<video>` element.
+- docs: complete missing MDN links and mark experimental HTML attributes in PHPDoc.
 
 ## 0.3.0 March 31, 2024
 

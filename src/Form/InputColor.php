@@ -15,6 +15,9 @@ use UIAwesome\Html\Interop\Voids;
 /**
  * Renders the HTML `<input type="color">` element.
  *
+ * Supports the experimental `alpha` and `colorspace` attributes. Availability and behavior may vary across
+ * browsers.
+ *
  * The value must be a valid CSS `<color>` value; defaults to `#000000` if omitted or invalid.
  *
  * Usage example:

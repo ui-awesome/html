@@ -27,6 +27,9 @@ use UnitEnum;
 /**
  * Renders the HTML `<button>` element.
  *
+ * Supports the experimental `command` and `commandfor` attributes. Availability and behavior may vary across
+ * browsers.
+ *
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Form\Button::tag()
