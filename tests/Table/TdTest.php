@@ -958,4 +958,18 @@ final class TdTest extends TestCase
 
         Td::tag()->translate('invalid-value');
     }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <td onclick="alert(&apos;Clicked!&apos;)">
+            </td>
+            HTML,
+            Td::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
 }

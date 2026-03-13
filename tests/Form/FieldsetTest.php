@@ -157,6 +157,20 @@ final class FieldsetTest extends TestCase
         );
     }
 
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <fieldset onclick="alert(&apos;Clicked!&apos;)">
+            </fieldset>
+            HTML,
+            Fieldset::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
+
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(

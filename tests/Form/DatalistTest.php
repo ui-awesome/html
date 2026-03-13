@@ -158,6 +158,20 @@ final class DatalistTest extends TestCase
         );
     }
 
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <datalist onclick="alert(&apos;Clicked!&apos;)">
+            </datalist>
+            HTML,
+            Datalist::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
+
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(

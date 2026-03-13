@@ -924,4 +924,18 @@ final class ColgroupTest extends TestCase
 
         Colgroup::tag()->translate('invalid-value');
     }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <colgroup onclick="alert(&apos;Clicked!&apos;)">
+            </colgroup>
+            HTML,
+            Colgroup::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
 }

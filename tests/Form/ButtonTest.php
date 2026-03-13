@@ -154,6 +154,19 @@ final class ButtonTest extends TestCase
         );
     }
 
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <button onclick="alert(&apos;Clicked!&apos;)"></button>
+            HTML,
+            Button::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
+
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(

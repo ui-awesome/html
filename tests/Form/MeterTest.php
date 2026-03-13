@@ -138,6 +138,19 @@ final class MeterTest extends TestCase
         );
     }
 
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <meter onclick="alert(&apos;Clicked!&apos;)"></meter>
+            HTML,
+            Meter::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
+
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(

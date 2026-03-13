@@ -161,6 +161,20 @@ final class TextAreaTest extends TestCase
         );
     }
 
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <textarea onclick="alert(&apos;Clicked!&apos;)">
+            </textarea>
+            HTML,
+            TextArea::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
+
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(

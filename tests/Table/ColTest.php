@@ -563,4 +563,17 @@ final class ColTest extends TestCase
 
         Col::tag()->translate('invalid-value');
     }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <col onclick="alert(&apos;Clicked!&apos;)">
+            HTML,
+            Col::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
 }

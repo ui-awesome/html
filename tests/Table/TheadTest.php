@@ -940,4 +940,18 @@ final class TheadTest extends TestCase
 
         Thead::tag()->translate('invalid-value');
     }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <thead onclick="alert(&apos;Clicked!&apos;)">
+            </thead>
+            HTML,
+            Thead::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
 }
