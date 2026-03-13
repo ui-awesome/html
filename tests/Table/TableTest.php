@@ -159,6 +159,20 @@ final class TableTest extends TestCase
         );
     }
 
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <table onclick="alert(&apos;Clicked!&apos;)">
+            </table>
+            HTML,
+            Table::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
+
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(
@@ -1121,19 +1135,5 @@ final class TableTest extends TestCase
         );
 
         Table::tag()->translate('invalid-value');
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <table onclick="alert(&apos;Clicked!&apos;)">
-            </table>
-            HTML,
-            Table::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
-        );
     }
 }

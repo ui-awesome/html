@@ -158,6 +158,20 @@ final class TbodyTest extends TestCase
         );
     }
 
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <tbody onclick="alert(&apos;Clicked!&apos;)">
+            </tbody>
+            HTML,
+            Tbody::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
+
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(
@@ -937,19 +951,5 @@ final class TbodyTest extends TestCase
         );
 
         Tbody::tag()->translate('invalid-value');
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody onclick="alert(&apos;Clicked!&apos;)">
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
-        );
     }
 }
