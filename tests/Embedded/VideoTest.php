@@ -30,6 +30,17 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Video} rendering and video attribute behavior.
  *
+ * Test coverage.
+ * - Applies video specific attributes (`autoplay`, `controls`, `controlslist`, `crossorigin`,
+ *   `disablepictureinpicture`, `disableremoteplayback`, `height`, `loop`, `muted`, `playsinline`, `poster`,
+ *   `preload`, `src`, `width`) and renders expected output.
+ * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
+ * - Ensures attribute accessors return assigned values and fallback defaults.
+ * - Ensures fluent attribute setters return new instances (immutability).
+ * - Renders content, raw HTML, and string casting with expected encoding behavior.
+ * - Resolves default and theme providers, including global defaults and user overrides.
+ * - Verifies invalid enumerated values throw {@see InvalidArgumentException}.
+ *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
@@ -38,274 +49,612 @@ final class VideoTest extends TestCase
 {
     public function testContentEncodesValues(): void
     {
-        self::assertSame('&lt;value&gt;', Video::tag()->content('<value>')->getContent());
+        self::assertSame(
+            '&lt;value&gt;',
+            Video::tag()
+                ->content('<value>')
+                ->getContent(),
+            "Failed asserting that 'content()' method encodes values correctly.",
+        );
     }
 
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
-        self::assertSame('value', Video::tag()->getAttribute('class', 'value'));
+        self::assertSame(
+            'value',
+            Video::tag()->getAttribute('class', 'value'),
+            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+        );
     }
 
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
-        self::assertSame(['class' => 'value'], Video::tag()->setAttribute('class', 'value')->getAttributes());
+        self::assertSame(
+            ['class' => 'value'],
+            Video::tag()
+                ->setAttribute('class', 'value')
+                ->getAttributes(),
+            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+        );
     }
 
     public function testHtmlDoesNotEncodeValues(): void
     {
-        self::assertSame("<video>\n<value>\n</video>", Video::tag()->html('<value>')->render());
+        self::assertSame(
+            <<<HTML
+            <video>
+            <value>
+            </video>
+            HTML,
+            Video::tag()
+                ->html('<value>')
+                ->render(),
+            "Failed asserting that element renders correctly with 'html()' method.",
+        );
     }
 
     public function testRenderWithAccesskey(): void
     {
-        self::assertSame("<video accesskey=\"value\">\n</video>", Video::tag()->accesskey('value')->render());
+        self::assertSame(
+            <<<HTML
+            <video accesskey="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->accesskey('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+        );
     }
 
     public function testRenderWithAddAriaAttribute(): void
     {
         self::assertSame(
-            "<video aria-label=\"value\">\n</video>",
-            Video::tag()->addAriaAttribute('label', 'value')->render(),
+            <<<HTML
+            <video aria-label="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->addAriaAttribute('label', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
     public function testRenderWithAddAriaAttributeUsingEnum(): void
     {
         self::assertSame(
-            "<video aria-label=\"value\">\n</video>",
-            Video::tag()->addAriaAttribute(Aria::LABEL, 'value')->render(),
+            <<<HTML
+            <video aria-label="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->addAriaAttribute(Aria::LABEL, 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
         );
     }
 
     public function testRenderWithAddDataAttribute(): void
     {
         self::assertSame(
-            "<video data-value=\"value\">\n</video>",
-            Video::tag()->addDataAttribute('value', 'value')->render(),
+            <<<HTML
+            <video data-value="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->addDataAttribute('value', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
         );
     }
 
     public function testRenderWithAddDataAttributeUsingEnum(): void
     {
         self::assertSame(
-            "<video data-value=\"value\">\n</video>",
-            Video::tag()->addDataAttribute(Data::VALUE, 'value')->render(),
+            <<<HTML
+            <video data-value="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->addDataAttribute(Data::VALUE, 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+        );
+    }
+
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <video onclick="alert(&apos;Clicked!&apos;)">
+            </video>
+            HTML,
+            Video::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
         );
     }
 
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(
-            "<video aria-controls=\"value\" aria-label=\"value\">\n</video>",
-            Video::tag()->ariaAttributes(['controls' => 'value', 'label' => 'value'])->render(),
+            <<<HTML
+            <video aria-controls="value" aria-label="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->ariaAttributes(
+                    [
+                        'controls' => 'value',
+                        'label' => 'value',
+                    ],
+                )
+                ->render(),
+            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
         );
     }
 
     public function testRenderWithAttributes(): void
     {
-        self::assertSame("<video class=\"value\">\n</video>", Video::tag()->attributes(['class' => 'value'])->render());
+        self::assertSame(
+            <<<HTML
+            <video class="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->attributes(['class' => 'value'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'attributes()' method.",
+        );
     }
 
     public function testRenderWithAutofocus(): void
     {
-        self::assertSame("<video autofocus>\n</video>", Video::tag()->autofocus(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video autofocus>
+            </video>
+            HTML,
+            Video::tag()
+                ->autofocus(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+        );
     }
 
     public function testRenderWithAutoplay(): void
     {
-        self::assertSame("<video autoplay>\n</video>", Video::tag()->autoplay(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video autoplay>
+            </video>
+            HTML,
+            Video::tag()
+                ->autoplay(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'autoplay' attribute.",
+        );
     }
 
     public function testRenderWithBeginEnd(): void
     {
-        self::assertSame("<video>\nContent\n</video>", Video::tag()->begin() . 'Content' . Video::end());
+        self::assertSame(
+            <<<HTML
+            <video>
+            Content
+            </video>
+            HTML,
+            Video::tag()->begin() . 'Content' . Video::end(),
+            "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+        );
     }
 
     public function testRenderWithClass(): void
     {
-        self::assertSame("<video class=\"value\">\n</video>", Video::tag()->class('value')->render());
+        self::assertSame(
+            <<<HTML
+            <video class="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->class('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
     }
 
     public function testRenderWithClassUsingEnum(): void
     {
-        self::assertSame("<video class=\"value\">\n</video>", Video::tag()->class(BackedString::VALUE)->render());
+        self::assertSame(
+            <<<HTML
+            <video class="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->class(BackedString::VALUE)
+                ->render(),
+            "Failed asserting that element renders correctly with 'class' attribute.",
+        );
     }
 
     public function testRenderWithContent(): void
     {
-        self::assertSame("<video>\nvalue\n</video>", Video::tag()->content('value')->render());
+        self::assertSame(
+            <<<HTML
+            <video>
+            value
+            </video>
+            HTML,
+            Video::tag()
+                ->content('value')
+                ->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithContentEditable(): void
     {
         self::assertSame(
-            "<video contenteditable=\"true\">\n</video>",
-            Video::tag()->contentEditable(true)->render(),
+            <<<HTML
+            <video contenteditable="true">
+            </video>
+            HTML,
+            Video::tag()
+                ->contentEditable(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
     public function testRenderWithContentEditableUsingEnum(): void
     {
         self::assertSame(
-            "<video contenteditable=\"true\">\n</video>",
-            Video::tag()->contentEditable(ContentEditable::TRUE)->render(),
+            <<<HTML
+            <video contenteditable="true">
+            </video>
+            HTML,
+            Video::tag()
+                ->contentEditable(ContentEditable::TRUE)
+                ->render(),
+            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
         );
     }
 
     public function testRenderWithControls(): void
     {
-        self::assertSame("<video controls>\n</video>", Video::tag()->controls(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video controls>
+            </video>
+            HTML,
+            Video::tag()
+                ->controls(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'controls' attribute.",
+        );
     }
 
     public function testRenderWithControlslist(): void
     {
         self::assertSame(
-            "<video controlslist=\"nodownload\">\n</video>",
-            Video::tag()->controlslist('nodownload')->render(),
+            <<<HTML
+            <video controlslist="nodownload">
+            </video>
+            HTML,
+            Video::tag()
+                ->controlslist('nodownload')
+                ->render(),
+            "Failed asserting that element renders correctly with 'controlslist' attribute.",
         );
     }
 
     public function testRenderWithControlslistUsingEnum(): void
     {
         self::assertSame(
-            "<video controlslist=\"nofullscreen\">\n</video>",
-            Video::tag()->controlslist(Controlslist::NOFULLSCREEN)->render(),
+            <<<HTML
+            <video controlslist="nofullscreen">
+            </video>
+            HTML,
+            Video::tag()
+                ->controlslist(Controlslist::NOFULLSCREEN)
+                ->render(),
+            "Failed asserting that element renders correctly with 'controlslist' attribute.",
         );
     }
 
     public function testRenderWithControlslistUsingMultipleTokens(): void
     {
         self::assertSame(
-            "<video controlslist=\"nodownload noremoteplayback\">\n</video>",
-            Video::tag()->controlslist('nodownload noremoteplayback')->render(),
+            <<<HTML
+            <video controlslist="nodownload noremoteplayback">
+            </video>
+            HTML,
+            Video::tag()
+                ->controlslist('nodownload noremoteplayback')
+                ->render(),
+            "Failed asserting that element renders correctly with space-separated tokens in 'controlslist' attribute.",
         );
     }
 
     public function testRenderWithCrossorigin(): void
     {
         self::assertSame(
-            "<video crossorigin=\"anonymous\">\n</video>",
-            Video::tag()->crossorigin('anonymous')->render(),
+            <<<HTML
+            <video crossorigin="anonymous">
+            </video>
+            HTML,
+            Video::tag()
+                ->crossorigin('anonymous')
+                ->render(),
+            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
         );
     }
 
     public function testRenderWithCrossoriginUsingEnum(): void
     {
         self::assertSame(
-            "<video crossorigin=\"use-credentials\">\n</video>",
-            Video::tag()->crossorigin(Crossorigin::USE_CREDENTIALS)->render(),
+            <<<HTML
+            <video crossorigin="use-credentials">
+            </video>
+            HTML,
+            Video::tag()
+                ->crossorigin(Crossorigin::USE_CREDENTIALS)
+                ->render(),
+            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
         );
     }
 
     public function testRenderWithDataAttributes(): void
     {
         self::assertSame(
-            "<video data-value=\"value\">\n</video>",
-            Video::tag()->dataAttributes(['value' => 'value'])->render(),
+            <<<HTML
+            <video data-value="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->dataAttributes(['value' => 'value'])
+                ->render(),
+            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
         );
     }
 
     public function testRenderWithDefaultConfigurationValues(): void
     {
-        self::assertSame("<video class=\"default-class\">\n</video>", Video::tag(['class' => 'default-class'])->render());
+        self::assertSame(
+            <<<HTML
+            <video class="default-class">
+            </video>
+            HTML,
+            Video::tag(['class' => 'default-class'])->render(),
+            'Failed asserting that default configuration values are applied correctly.',
+        );
     }
 
     public function testRenderWithDefaultProvider(): void
     {
         self::assertSame(
-            "<video class=\"default-class\">\n</video>",
-            Video::tag()->addDefaultProvider(DefaultProvider::class)->render(),
+            <<<HTML
+            <video class="default-class">
+            </video>
+            HTML,
+            Video::tag()
+                ->addDefaultProvider(DefaultProvider::class)
+                ->render(),
+            'Failed asserting that default provider is applied correctly.',
         );
     }
 
     public function testRenderWithDefaultValues(): void
     {
-        self::assertSame("<video>\n</video>", Video::tag()->render());
+        self::assertSame(
+            <<<HTML
+            <video>
+            </video>
+            HTML,
+            Video::tag()->render(),
+            'Failed asserting that element renders correctly with default values.',
+        );
     }
 
     public function testRenderWithDir(): void
     {
-        self::assertSame("<video dir=\"ltr\">\n</video>", Video::tag()->dir('ltr')->render());
+        self::assertSame(
+            <<<HTML
+            <video dir="ltr">
+            </video>
+            HTML,
+            Video::tag()
+                ->dir('ltr')
+                ->render(),
+            "Failed asserting that element renders correctly with 'dir' attribute.",
+        );
     }
 
     public function testRenderWithDirUsingEnum(): void
     {
-        self::assertSame("<video dir=\"ltr\">\n</video>", Video::tag()->dir(Direction::LTR)->render());
+        self::assertSame(
+            <<<HTML
+            <video dir="ltr">
+            </video>
+            HTML,
+            Video::tag()
+                ->dir(Direction::LTR)
+                ->render(),
+            "Failed asserting that element renders correctly with 'dir' attribute.",
+        );
     }
 
     public function testRenderWithDisablepictureinpicture(): void
     {
         self::assertSame(
-            "<video disablepictureinpicture>\n</video>",
-            Video::tag()->disablepictureinpicture(true)->render(),
+            <<<HTML
+            <video disablepictureinpicture>
+            </video>
+            HTML,
+            Video::tag()
+                ->disablepictureinpicture(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'disablepictureinpicture' attribute.",
         );
     }
 
     public function testRenderWithDisableremoteplayback(): void
     {
         self::assertSame(
-            "<video disableremoteplayback>\n</video>",
-            Video::tag()->disableremoteplayback(true)->render(),
+            <<<HTML
+            <video disableremoteplayback>
+            </video>
+            HTML,
+            Video::tag()
+                ->disableremoteplayback(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'disableremoteplayback' attribute.",
         );
     }
 
     public function testRenderWithDraggable(): void
     {
-        self::assertSame("<video draggable=\"true\">\n</video>", Video::tag()->draggable(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video draggable="true">
+            </video>
+            HTML,
+            Video::tag()
+                ->draggable(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
+        );
     }
 
     public function testRenderWithDraggableUsingEnum(): void
     {
         self::assertSame(
-            "<video draggable=\"true\">\n</video>",
-            Video::tag()->draggable(Draggable::TRUE)->render(),
+            <<<HTML
+            <video draggable="true">
+            </video>
+            HTML,
+            Video::tag()
+                ->draggable(Draggable::TRUE)
+                ->render(),
+            "Failed asserting that element renders correctly with 'draggable' attribute.",
         );
     }
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
-        SimpleFactory::setDefaults(Video::class, ['class' => 'default-class']);
+        SimpleFactory::setDefaults(
+            Video::class,
+            ['class' => 'default-class'],
+        );
 
-        self::assertSame("<video class=\"default-class\">\n</video>", Video::tag()->render());
+        self::assertSame(
+            <<<HTML
+            <video class="default-class">
+            </video>
+            HTML,
+            Video::tag()->render(),
+            'Failed asserting that global defaults are applied correctly.',
+        );
 
-        SimpleFactory::setDefaults(Video::class, []);
+        SimpleFactory::setDefaults(
+            Video::class,
+            [],
+        );
     }
 
     public function testRenderWithHeight(): void
     {
-        self::assertSame("<video height=\"600\">\n</video>", Video::tag()->height(600)->render());
+        self::assertSame(
+            <<<HTML
+            <video height="600">
+            </video>
+            HTML,
+            Video::tag()
+                ->height(600)
+                ->render(),
+            "Failed asserting that element renders correctly with 'height' attribute.",
+        );
     }
 
     public function testRenderWithHidden(): void
     {
-        self::assertSame("<video hidden>\n</video>", Video::tag()->hidden(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video hidden>
+            </video>
+            HTML,
+            Video::tag()
+                ->hidden(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'hidden' attribute.",
+        );
     }
 
     public function testRenderWithId(): void
     {
-        self::assertSame("<video id=\"value\">\n</video>", Video::tag()->id('value')->render());
+        self::assertSame(
+            <<<HTML
+            <video id="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->id('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'id' attribute.",
+        );
     }
 
     public function testRenderWithLang(): void
     {
-        self::assertSame("<video lang=\"en\">\n</video>", Video::tag()->lang('en')->render());
+        self::assertSame(
+            <<<HTML
+            <video lang="en">
+            </video>
+            HTML,
+            Video::tag()
+                ->lang('en')
+                ->render(),
+            "Failed asserting that element renders correctly with 'lang' attribute.",
+        );
     }
 
     public function testRenderWithLangUsingEnum(): void
     {
-        self::assertSame("<video lang=\"en\">\n</video>", Video::tag()->lang(Language::ENGLISH)->render());
+        self::assertSame(
+            <<<HTML
+            <video lang="en">
+            </video>
+            HTML,
+            Video::tag()
+                ->lang(Language::ENGLISH)
+                ->render(),
+            "Failed asserting that element renders correctly with 'lang' attribute.",
+        );
     }
 
     public function testRenderWithLoop(): void
     {
-        self::assertSame("<video loop>\n</video>", Video::tag()->loop(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video loop>
+            </video>
+            HTML,
+            Video::tag()
+                ->loop(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'loop' attribute.",
+        );
     }
 
     public function testRenderWithMicroData(): void
     {
         self::assertSame(
-            '<video itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">'
-            . "\n</video>",
+            <<<HTML
+            <video itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
+            </video>
+            HTML,
             Video::tag()
                 ->itemId('https://example.com/item')
                 ->itemProp('name')
@@ -313,155 +662,418 @@ final class VideoTest extends TestCase
                 ->itemScope(true)
                 ->itemType('https://schema.org/Thing')
                 ->render(),
+            'Failed asserting that element renders correctly with microdata attributes.',
         );
     }
 
     public function testRenderWithMuted(): void
     {
-        self::assertSame("<video muted>\n</video>", Video::tag()->muted(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video muted>
+            </video>
+            HTML,
+            Video::tag()
+                ->muted(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'muted' attribute.",
+        );
     }
 
     public function testRenderWithPlaysinline(): void
     {
-        self::assertSame("<video playsinline>\n</video>", Video::tag()->playsinline(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video playsinline>
+            </video>
+            HTML,
+            Video::tag()
+                ->playsinline(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'playsinline' attribute.",
+        );
     }
 
     public function testRenderWithPoster(): void
     {
         self::assertSame(
-            "<video poster=\"https://example.com/poster.jpg\">\n</video>",
-            Video::tag()->poster('https://example.com/poster.jpg')->render(),
+            <<<HTML
+            <video poster="https://example.com/poster.jpg">
+            </video>
+            HTML,
+            Video::tag()
+                ->poster('https://example.com/poster.jpg')
+                ->render(),
+            "Failed asserting that element renders correctly with 'poster' attribute.",
         );
     }
 
     public function testRenderWithPreload(): void
     {
-        self::assertSame("<video preload=\"metadata\">\n</video>", Video::tag()->preload('metadata')->render());
+        self::assertSame(
+            <<<HTML
+            <video preload="metadata">
+            </video>
+            HTML,
+            Video::tag()
+                ->preload('metadata')
+                ->render(),
+            "Failed asserting that element renders correctly with 'preload' attribute.",
+        );
     }
 
     public function testRenderWithPreloadUsingEnum(): void
     {
-        self::assertSame("<video preload=\"auto\">\n</video>", Video::tag()->preload(Preload::AUTO)->render());
+        self::assertSame(
+            <<<HTML
+            <video preload="auto">
+            </video>
+            HTML,
+            Video::tag()
+                ->preload(Preload::AUTO)
+                ->render(),
+            "Failed asserting that element renders correctly with 'preload' attribute.",
+        );
     }
 
     public function testRenderWithRemoveAriaAttribute(): void
     {
-        self::assertSame("<video>\n</video>", Video::tag()->addAriaAttribute('label', 'value')->removeAriaAttribute('label')->render());
+        self::assertSame(
+            <<<HTML
+            <video>
+            </video>
+            HTML,
+            Video::tag()
+                ->addAriaAttribute('label', 'value')
+                ->removeAriaAttribute('label')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+        );
     }
 
     public function testRenderWithRemoveAttribute(): void
     {
-        self::assertSame("<video>\n</video>", Video::tag()->setAttribute('class', 'value')->removeAttribute('class')->render());
+        self::assertSame(
+            <<<HTML
+            <video>
+            </video>
+            HTML,
+            Video::tag()
+                ->setAttribute('class', 'value')
+                ->removeAttribute('class')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+        );
     }
 
     public function testRenderWithRemoveDataAttribute(): void
     {
-        self::assertSame("<video>\n</video>", Video::tag()->addDataAttribute('value', 'value')->removeDataAttribute('value')->render());
+        self::assertSame(
+            <<<HTML
+            <video>
+            </video>
+            HTML,
+            Video::tag()
+                ->addDataAttribute('value', 'value')
+                ->removeDataAttribute('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+        );
     }
 
     public function testRenderWithRole(): void
     {
-        self::assertSame("<video role=\"banner\">\n</video>", Video::tag()->role('banner')->render());
+        self::assertSame(
+            <<<HTML
+            <video role="banner">
+            </video>
+            HTML,
+            Video::tag()
+                ->role('banner')
+                ->render(),
+            "Failed asserting that element renders correctly with 'role' attribute.",
+        );
     }
 
     public function testRenderWithRoleUsingEnum(): void
     {
-        self::assertSame("<video role=\"banner\">\n</video>", Video::tag()->role(Role::BANNER)->render());
+        self::assertSame(
+            <<<HTML
+            <video role="banner">
+            </video>
+            HTML,
+            Video::tag()
+                ->role(Role::BANNER)
+                ->render(),
+            "Failed asserting that element renders correctly with 'role' attribute.",
+        );
     }
 
     public function testRenderWithSetAttribute(): void
     {
-        self::assertSame("<video class=\"value\">\n</video>", Video::tag()->setAttribute('class', 'value')->render());
+        self::assertSame(
+            <<<HTML
+            <video class="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->setAttribute('class', 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+        );
     }
 
     public function testRenderWithSetAttributeUsingEnum(): void
     {
         self::assertSame(
-            "<video title=\"value\">\n</video>",
-            Video::tag()->setAttribute(GlobalAttribute::TITLE, 'value')->render(),
+            <<<HTML
+            <video title="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'setAttribute()' method.",
         );
     }
 
     public function testRenderWithSpellcheck(): void
     {
-        self::assertSame("<video spellcheck=\"true\">\n</video>", Video::tag()->spellcheck(true)->render());
+        self::assertSame(
+            <<<HTML
+            <video spellcheck="true">
+            </video>
+            HTML,
+            Video::tag()
+                ->spellcheck(true)
+                ->render(),
+            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
+        );
     }
 
     public function testRenderWithSrc(): void
     {
-        self::assertSame("<video src=\"value\">\n</video>", Video::tag()->src('value')->render());
+        self::assertSame(
+            <<<HTML
+            <video src="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->src('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'src' attribute.",
+        );
     }
 
     public function testRenderWithStyle(): void
     {
-        self::assertSame("<video style='value'>\n</video>", Video::tag()->style('value')->render());
+        self::assertSame(
+            <<<HTML
+            <video style='value'>
+            </video>
+            HTML,
+            Video::tag()
+                ->style('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'style' attribute.",
+        );
     }
 
     public function testRenderWithTabindex(): void
     {
-        self::assertSame("<video tabindex=\"3\">\n</video>", Video::tag()->tabIndex(3)->render());
+        self::assertSame(
+            <<<HTML
+            <video tabindex="3">
+            </video>
+            HTML,
+            Video::tag()
+                ->tabIndex(3)
+                ->render(),
+            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+        );
     }
 
     public function testRenderWithThemeProvider(): void
     {
         self::assertSame(
-            "<video class=\"text-muted\">\n</video>",
-            Video::tag()->addThemeProvider('muted', DefaultThemeProvider::class)->render(),
+            <<<HTML
+            <video class="text-muted">
+            </video>
+            HTML,
+            Video::tag()
+                ->addThemeProvider('muted', DefaultThemeProvider::class)
+                ->render(),
+            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
         );
     }
 
     public function testRenderWithTitle(): void
     {
-        self::assertSame("<video title=\"value\">\n</video>", Video::tag()->title('value')->render());
+        self::assertSame(
+            <<<HTML
+            <video title="value">
+            </video>
+            HTML,
+            Video::tag()
+                ->title('value')
+                ->render(),
+            "Failed asserting that element renders correctly with 'title' attribute.",
+        );
     }
 
     public function testRenderWithToString(): void
     {
-        self::assertSame("<video>\n</video>", (string) Video::tag());
+        self::assertSame(
+            <<<HTML
+            <video>
+            </video>
+            HTML,
+            (string) Video::tag(),
+            "Failed asserting that '__toString()' method renders correctly.",
+        );
     }
 
     public function testRenderWithTranslate(): void
     {
-        self::assertSame("<video translate=\"no\">\n</video>", Video::tag()->translate(false)->render());
+        self::assertSame(
+            <<<HTML
+            <video translate="no">
+            </video>
+            HTML,
+            Video::tag()
+                ->translate(false)
+                ->render(),
+            "Failed asserting that element renders correctly with 'translate' attribute.",
+        );
     }
 
     public function testRenderWithTranslateUsingEnum(): void
     {
-        self::assertSame("<video translate=\"no\">\n</video>", Video::tag()->translate(Translate::NO)->render());
+        self::assertSame(
+            <<<HTML
+            <video translate="no">
+            </video>
+            HTML,
+            Video::tag()
+                ->translate(Translate::NO)
+                ->render(),
+            "Failed asserting that element renders correctly with 'translate' attribute.",
+        );
     }
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
-        SimpleFactory::setDefaults(Video::class, ['class' => 'from-global', 'id' => 'id-global']);
+        SimpleFactory::setDefaults(
+            Video::class,
+            [
+                'class' => 'from-global',
+                'id' => 'id-global',
+            ],
+        );
 
-        self::assertSame("<video class=\"from-global\" id=\"value\">\n</video>", Video::tag(['id' => 'value'])->render());
+        self::assertSame(
+            <<<HTML
+            <video class="from-global" id="value">
+            </video>
+            HTML,
+            Video::tag(['id' => 'value'])->render(),
+            'Failed asserting that user-defined attributes override global defaults correctly.',
+        );
 
-        SimpleFactory::setDefaults(Video::class, []);
+        SimpleFactory::setDefaults(
+            Video::class,
+            [],
+        );
     }
 
     public function testRenderWithWidth(): void
     {
-        self::assertSame("<video width=\"800\">\n</video>", Video::tag()->width(800)->render());
+        self::assertSame(
+            <<<HTML
+            <video width="800">
+            </video>
+            HTML,
+            Video::tag()
+                ->width(800)
+                ->render(),
+            "Failed asserting that element renders correctly with 'width' attribute.",
+        );
     }
 
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
         $video = Video::tag();
 
-        self::assertNotSame($video, $video->autoplay(true));
-        self::assertNotSame($video, $video->controls(true));
-        self::assertNotSame($video, $video->controlslist(''));
-        self::assertNotSame($video, $video->crossorigin(''));
-        self::assertNotSame($video, $video->disablepictureinpicture(true));
-        self::assertNotSame($video, $video->disableremoteplayback(true));
-        self::assertNotSame($video, $video->height(null));
-        self::assertNotSame($video, $video->loop(true));
-        self::assertNotSame($video, $video->muted(true));
-        self::assertNotSame($video, $video->playsinline(true));
-        self::assertNotSame($video, $video->poster(''));
-        self::assertNotSame($video, $video->preload(''));
-        self::assertNotSame($video, $video->src(''));
-        self::assertNotSame($video, $video->width(null));
+        self::assertNotSame(
+            $video,
+            $video->autoplay(true),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->controls(true),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->controlslist(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->crossorigin(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->disablepictureinpicture(true),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->disableremoteplayback(true),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->height(null),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->loop(true),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->muted(true),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->playsinline(true),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->poster(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->preload(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->src(''),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
+        self::assertNotSame(
+            $video,
+            $video->width(null),
+            'Should return a new instance when setting the attribute, ensuring immutability.',
+        );
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void

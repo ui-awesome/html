@@ -161,6 +161,20 @@ final class ColgroupTest extends TestCase
         );
     }
 
+    public function testRenderWithAddEvent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <colgroup onclick="alert(&apos;Clicked!&apos;)">
+            </colgroup>
+            HTML,
+            Colgroup::tag()
+                ->addEvent('click', "alert('Clicked!')")
+                ->render(),
+            "Failed asserting that element renders correctly with 'addEvent()' method.",
+        );
+    }
+
     public function testRenderWithAriaAttributes(): void
     {
         self::assertSame(
