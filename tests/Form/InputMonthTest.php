@@ -47,7 +47,7 @@ final class InputMonthTest extends TestCase
         self::assertSame(
             'value',
             InputMonth::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -59,9 +59,9 @@ final class InputMonthTest extends TestCase
                 'class' => 'value',
             ],
             InputMonth::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -75,7 +75,7 @@ final class InputMonthTest extends TestCase
                 ->accesskey('value')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -89,7 +89,7 @@ final class InputMonthTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -103,7 +103,7 @@ final class InputMonthTest extends TestCase
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -117,7 +117,7 @@ final class InputMonthTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -131,7 +131,7 @@ final class InputMonthTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -145,7 +145,7 @@ final class InputMonthTest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -164,7 +164,7 @@ final class InputMonthTest extends TestCase
                 )
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -178,7 +178,7 @@ final class InputMonthTest extends TestCase
                 ->attributes(['class' => 'value'])
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -192,7 +192,7 @@ final class InputMonthTest extends TestCase
                 ->autocomplete('on')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+            "'autocomplete' must be serialized.",
         );
     }
 
@@ -206,7 +206,7 @@ final class InputMonthTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+            "'autocomplete' must be serialized.",
         );
     }
 
@@ -220,7 +220,7 @@ final class InputMonthTest extends TestCase
                 ->autofocus(true)
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -234,7 +234,7 @@ final class InputMonthTest extends TestCase
                 ->class('value')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -248,7 +248,7 @@ final class InputMonthTest extends TestCase
                 ->class(BackedString::VALUE)
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -262,7 +262,7 @@ final class InputMonthTest extends TestCase
                 ->dataAttributes(['value' => 'value'])
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -275,7 +275,7 @@ final class InputMonthTest extends TestCase
             InputMonth::tag(['class' => 'default-class'])
                 ->id('inputmonth')
                 ->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -289,7 +289,7 @@ final class InputMonthTest extends TestCase
                 ->addDefaultProvider(DefaultProvider::class)
                 ->id('inputmonth')
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -302,7 +302,7 @@ final class InputMonthTest extends TestCase
             InputMonth::tag()
                 ->id('inputmonth')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -316,7 +316,7 @@ final class InputMonthTest extends TestCase
                 ->dir('ltr')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -330,7 +330,7 @@ final class InputMonthTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -344,7 +344,7 @@ final class InputMonthTest extends TestCase
                 ->disabled(true)
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
+            "'disabled' must be serialized.",
         );
     }
 
@@ -363,7 +363,7 @@ final class InputMonthTest extends TestCase
                 )
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -377,7 +377,7 @@ final class InputMonthTest extends TestCase
                 ->form('value')
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'form' attribute.",
+            "'form' must be serialized.",
         );
     }
 
@@ -395,7 +395,7 @@ final class InputMonthTest extends TestCase
             InputMonth::tag()
                 ->id('inputmonth')
                 ->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -414,7 +414,7 @@ final class InputMonthTest extends TestCase
                 ->hidden(true)
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -427,7 +427,7 @@ final class InputMonthTest extends TestCase
             InputMonth::tag()
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -441,7 +441,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -455,7 +455,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -469,7 +469,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->list('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'list' attribute.",
+            "'list' must be serialized.",
         );
     }
 
@@ -483,7 +483,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->max('2022-09')
                 ->render(),
-            "Failed asserting that element renders correctly with 'max' attribute.",
+            "'max' must be serialized.",
         );
     }
 
@@ -497,7 +497,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->min('2022-06')
                 ->render(),
-            "Failed asserting that element renders correctly with 'min' attribute.",
+            "'min' must be serialized.",
         );
     }
 
@@ -512,7 +512,7 @@ final class InputMonthTest extends TestCase
                 ->min('2022-06')
                 ->max('2022-09')
                 ->render(),
-            "Failed asserting that element renders correctly with both 'min' and 'max' attributes.",
+            'min and max must be serialized together.',
         );
     }
 
@@ -526,7 +526,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->name('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'name' attribute.",
+            "'name' must be serialized.",
         );
     }
 
@@ -540,7 +540,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->readonly(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'readonly' attribute.",
+            "'readonly' must be serialized.",
         );
     }
 
@@ -555,7 +555,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -566,11 +566,11 @@ final class InputMonthTest extends TestCase
             <input id="inputmonth" type="month">
             HTML,
             InputMonth::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->id('inputmonth')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -585,7 +585,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -600,7 +600,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -614,7 +614,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->required(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'required' attribute.",
+            "'required' must be serialized.",
         );
     }
 
@@ -628,7 +628,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->role('textbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -642,7 +642,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -654,9 +654,9 @@ final class InputMonthTest extends TestCase
             HTML,
             InputMonth::tag()
                 ->id('inputmonth')
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -668,9 +668,9 @@ final class InputMonthTest extends TestCase
             HTML,
             InputMonth::tag()
                 ->id('inputmonth')
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -684,7 +684,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->step(2)
                 ->render(),
-            "Failed asserting that element renders correctly with 'step' attribute.",
+            "'step' must be serialized.",
         );
     }
 
@@ -698,7 +698,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->step('any')
                 ->render(),
-            "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
+            'step must accept the literal `any`.',
         );
     }
 
@@ -712,7 +712,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -726,7 +726,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->tabIndex(1)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -742,7 +742,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
-            'Failed asserting that element renders correctly with a custom template wrapper.',
+            'Custom template wrapper must be applied.',
         );
     }
 
@@ -756,7 +756,7 @@ final class InputMonthTest extends TestCase
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->id('inputmonth')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -770,7 +770,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -781,7 +781,7 @@ final class InputMonthTest extends TestCase
             <input type="month">
             HTML,
             (string) InputMonth::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -795,7 +795,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -809,7 +809,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -828,7 +828,7 @@ final class InputMonthTest extends TestCase
             <input class="from-global" id="value" type="month">
             HTML,
             InputMonth::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -847,7 +847,7 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->value('2022-06')
                 ->render(),
-            "Failed asserting that element renders correctly with 'value' attribute.",
+            "'value' must be serialized.",
         );
     }
 
@@ -858,7 +858,7 @@ final class InputMonthTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -872,7 +872,7 @@ final class InputMonthTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -886,7 +886,7 @@ final class InputMonthTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -914,7 +914,7 @@ final class InputMonthTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
@@ -928,7 +928,7 @@ final class InputMonthTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", Enum::normalizeArray(Type::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
             ),
         );
 

@@ -52,7 +52,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->content('<value>')
                 ->getContent(),
-            "Failed asserting that 'content()' method encodes values correctly.",
+            'Content must be HTML-encoded.',
         );
     }
 
@@ -61,7 +61,7 @@ final class ButtonTest extends TestCase
         self::assertSame(
             'value',
             Button::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -70,9 +70,9 @@ final class ButtonTest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             Button::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -85,7 +85,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->html('<value>')
                 ->render(),
-            "Failed asserting that element renders correctly with 'html()' method.",
+            'Raw HTML content must be applied.',
         );
     }
 
@@ -98,7 +98,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -111,7 +111,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -124,7 +124,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -137,7 +137,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -150,7 +150,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -163,7 +163,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -181,7 +181,7 @@ final class ButtonTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -194,7 +194,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -207,7 +207,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->autofocus(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -220,7 +220,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -233,7 +233,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->command('show-modal')
                 ->render(),
-            "Failed asserting that element renders correctly with 'command' attribute.",
+            "'command' must be serialized.",
         );
     }
 
@@ -246,7 +246,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->commandfor('my-dialog')
                 ->render(),
-            "Failed asserting that element renders correctly with 'commandfor' attribute.",
+            "'commandfor' must be serialized.",
         );
     }
 
@@ -259,7 +259,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->command(ButtonCommand::SHOW_MODAL)
                 ->render(),
-            "Failed asserting that element renders correctly with 'command' attribute.",
+            "'command' must be serialized.",
         );
     }
 
@@ -272,7 +272,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->content('<value>')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -285,7 +285,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -296,7 +296,7 @@ final class ButtonTest extends TestCase
             <button class="default-class"></button>
             HTML,
             Button::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -309,7 +309,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -320,7 +320,7 @@ final class ButtonTest extends TestCase
             <button></button>
             HTML,
             Button::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -333,7 +333,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -346,7 +346,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -359,7 +359,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->disabled(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
+            "'disabled' must be serialized.",
         );
     }
 
@@ -372,7 +372,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->form('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'form' attribute.",
+            "'form' must be serialized.",
         );
     }
 
@@ -385,7 +385,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formaction('/submit-handler')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formaction' attribute.",
+            "'formaction' must be serialized.",
         );
     }
 
@@ -398,7 +398,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formenctype('multipart/form-data')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formenctype' attribute.",
+            "'formenctype' must be serialized.",
         );
     }
 
@@ -411,7 +411,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formmethod('post')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formmethod' attribute.",
+            "'formmethod' must be serialized.",
         );
     }
 
@@ -424,7 +424,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formnovalidate(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'formnovalidate' attribute.",
+            "'formnovalidate' must be serialized.",
         );
     }
 
@@ -437,7 +437,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formnovalidate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'formnovalidate' set to 'false'.",
+            'formnovalidate must be omitted when `false`.',
         );
     }
 
@@ -450,7 +450,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formnovalidate(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'formnovalidate' set to 'null'.",
+            'formnovalidate must be omitted when `null`.',
         );
     }
 
@@ -463,7 +463,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formtarget('_blank')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formtarget' attribute.",
+            "'formtarget' must be serialized.",
         );
     }
 
@@ -476,7 +476,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->formtarget(Target::BLANK)
                 ->render(),
-            "Failed asserting that element renders correctly with 'formtarget' attribute.",
+            "'formtarget' must be serialized.",
         );
     }
 
@@ -492,7 +492,7 @@ final class ButtonTest extends TestCase
             <button class="default-class"></button>
             HTML,
             Button::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -510,7 +510,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -523,7 +523,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -536,7 +536,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -549,7 +549,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -562,7 +562,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->name('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'name' attribute.",
+            "'name' must be serialized.",
         );
     }
 
@@ -575,7 +575,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->popoverTarget('my-popover')
                 ->render(),
-            "Failed asserting that element renders correctly with 'popovertarget' attribute.",
+            "'popovertarget' must be serialized.",
         );
     }
 
@@ -588,7 +588,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->popoverTargetAction('toggle')
                 ->render(),
-            "Failed asserting that element renders correctly with 'popovertargetaction' attribute.",
+            "'popovertargetaction' must be serialized.",
         );
     }
 
@@ -601,7 +601,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->popoverTargetAction(PopoverTargetAction::TOGGLE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'popovertargetaction' attribute.",
+            "'popovertargetaction' must be serialized.",
         );
     }
 
@@ -615,7 +615,7 @@ final class ButtonTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -626,10 +626,10 @@ final class ButtonTest extends TestCase
             <button></button>
             HTML,
             Button::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -643,7 +643,7 @@ final class ButtonTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -656,7 +656,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->role('button')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -669,7 +669,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->role(Role::BUTTON)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -680,9 +680,9 @@ final class ButtonTest extends TestCase
             <button class="value"></button>
             HTML,
             Button::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -693,9 +693,9 @@ final class ButtonTest extends TestCase
             <button title="value"></button>
             HTML,
             Button::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -708,7 +708,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -721,7 +721,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->tabIndex(1)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -734,7 +734,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -747,7 +747,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -758,7 +758,7 @@ final class ButtonTest extends TestCase
             <button></button>
             HTML,
             (string) Button::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -771,7 +771,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -784,7 +784,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -797,7 +797,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->type('submit')
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute.",
+            "'type' must be serialized.",
         );
     }
 
@@ -810,7 +810,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->type(ButtonType::SUBMIT)
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute.",
+            "'type' must be serialized.",
         );
     }
 
@@ -829,7 +829,7 @@ final class ButtonTest extends TestCase
             <button class="from-global" id="value"></button>
             HTML,
             Button::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -847,7 +847,7 @@ final class ButtonTest extends TestCase
             Button::tag()
                 ->value('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'value' attribute.",
+            "'value' must be serialized.",
         );
     }
 
@@ -858,7 +858,7 @@ final class ButtonTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -872,7 +872,7 @@ final class ButtonTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -886,7 +886,7 @@ final class ButtonTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 ElementAttribute::POPOVERTARGETACTION->value,
-                implode("', '", Enum::normalizeArray(PopoverTargetAction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, PopoverTargetAction::cases())),
             ),
         );
 
@@ -900,7 +900,7 @@ final class ButtonTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -928,7 +928,7 @@ final class ButtonTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
@@ -942,7 +942,7 @@ final class ButtonTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", Enum::normalizeArray(ButtonType::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ButtonType::cases())),
             ),
         );
 

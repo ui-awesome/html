@@ -49,7 +49,7 @@ final class InputWeekTest extends TestCase
         self::assertSame(
             'value',
             InputWeek::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -61,9 +61,9 @@ final class InputWeekTest extends TestCase
                 'class' => 'value',
             ],
             InputWeek::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -77,7 +77,7 @@ final class InputWeekTest extends TestCase
                 ->accesskey('value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -91,7 +91,7 @@ final class InputWeekTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -105,7 +105,7 @@ final class InputWeekTest extends TestCase
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -119,7 +119,7 @@ final class InputWeekTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -133,7 +133,7 @@ final class InputWeekTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -147,7 +147,7 @@ final class InputWeekTest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -166,7 +166,7 @@ final class InputWeekTest extends TestCase
                 )
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -180,7 +180,7 @@ final class InputWeekTest extends TestCase
                 ->attributes(['class' => 'value'])
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -194,7 +194,7 @@ final class InputWeekTest extends TestCase
                 ->autocomplete('on')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+            "'autocomplete' must be serialized.",
         );
     }
 
@@ -208,7 +208,7 @@ final class InputWeekTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+            "'autocomplete' must be serialized.",
         );
     }
 
@@ -222,7 +222,7 @@ final class InputWeekTest extends TestCase
                 ->autofocus(true)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -236,7 +236,7 @@ final class InputWeekTest extends TestCase
                 ->class('value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -250,7 +250,7 @@ final class InputWeekTest extends TestCase
                 ->class(BackedString::VALUE)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -264,7 +264,7 @@ final class InputWeekTest extends TestCase
                 ->dataAttributes(['value' => 'value'])
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -277,7 +277,7 @@ final class InputWeekTest extends TestCase
             InputWeek::tag(['class' => 'default-class'])
                 ->id('inputweek')
                 ->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -291,7 +291,7 @@ final class InputWeekTest extends TestCase
                 ->addDefaultProvider(DefaultProvider::class)
                 ->id('inputweek')
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -304,7 +304,7 @@ final class InputWeekTest extends TestCase
             InputWeek::tag()
                 ->id('inputweek')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -318,7 +318,7 @@ final class InputWeekTest extends TestCase
                 ->dir('ltr')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -332,7 +332,7 @@ final class InputWeekTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -346,7 +346,7 @@ final class InputWeekTest extends TestCase
                 ->disabled(true)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
+            "'disabled' must be serialized.",
         );
     }
 
@@ -365,7 +365,7 @@ final class InputWeekTest extends TestCase
                 )
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -379,7 +379,7 @@ final class InputWeekTest extends TestCase
                 ->form('value')
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'form' attribute.",
+            "'form' must be serialized.",
         );
     }
 
@@ -397,7 +397,7 @@ final class InputWeekTest extends TestCase
             InputWeek::tag()
                 ->id('inputweek')
                 ->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -416,7 +416,7 @@ final class InputWeekTest extends TestCase
                 ->hidden(true)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -429,7 +429,7 @@ final class InputWeekTest extends TestCase
             InputWeek::tag()
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -443,7 +443,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -457,7 +457,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -471,7 +471,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->list('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'list' attribute.",
+            "'list' must be serialized.",
         );
     }
 
@@ -485,7 +485,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->max('2018-W26')
                 ->render(),
-            "Failed asserting that element renders correctly with 'max' attribute.",
+            "'max' must be serialized.",
         );
     }
 
@@ -499,7 +499,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->min('2018-W18')
                 ->render(),
-            "Failed asserting that element renders correctly with 'min' attribute.",
+            "'min' must be serialized.",
         );
     }
 
@@ -514,7 +514,7 @@ final class InputWeekTest extends TestCase
                 ->min('2018-W18')
                 ->max('2018-W26')
                 ->render(),
-            "Failed asserting that element renders correctly with both 'min' and 'max' attributes.",
+            'min and max must be serialized together.',
         );
     }
 
@@ -528,7 +528,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->name('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'name' attribute.",
+            "'name' must be serialized.",
         );
     }
 
@@ -542,7 +542,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->readonly(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'readonly' attribute.",
+            "'readonly' must be serialized.",
         );
     }
 
@@ -557,7 +557,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -568,11 +568,11 @@ final class InputWeekTest extends TestCase
             <input id="inputweek" type="week">
             HTML,
             InputWeek::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->id('inputweek')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -587,7 +587,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -602,7 +602,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -616,7 +616,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->required(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'required' attribute.",
+            "'required' must be serialized.",
         );
     }
 
@@ -630,7 +630,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->role('textbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -644,7 +644,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -656,9 +656,9 @@ final class InputWeekTest extends TestCase
             HTML,
             InputWeek::tag()
                 ->id('inputweek')
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -670,9 +670,9 @@ final class InputWeekTest extends TestCase
             HTML,
             InputWeek::tag()
                 ->id('inputweek')
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -686,7 +686,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->step(2)
                 ->render(),
-            "Failed asserting that element renders correctly with 'step' attribute.",
+            "'step' must be serialized.",
         );
     }
 
@@ -700,7 +700,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->step('any')
                 ->render(),
-            "Failed asserting that element renders correctly with 'step' attribute set to 'any'.",
+            'step must accept the literal `any`.',
         );
     }
 
@@ -714,7 +714,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -728,7 +728,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->tabIndex(1)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -744,7 +744,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
-            'Failed asserting that element renders correctly with a custom template wrapper.',
+            'Custom template wrapper must be applied.',
         );
     }
 
@@ -758,7 +758,7 @@ final class InputWeekTest extends TestCase
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->id('inputweek')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -772,7 +772,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -783,7 +783,7 @@ final class InputWeekTest extends TestCase
             <input type="week">
             HTML,
             (string) InputWeek::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -797,7 +797,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -811,7 +811,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -830,7 +830,7 @@ final class InputWeekTest extends TestCase
             <input class="from-global" id="value" type="week">
             HTML,
             InputWeek::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -849,7 +849,7 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->value('2018-W18')
                 ->render(),
-            "Failed asserting that element renders correctly with 'value' attribute.",
+            "'value' must be serialized.",
         );
     }
 
@@ -860,7 +860,7 @@ final class InputWeekTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -874,7 +874,7 @@ final class InputWeekTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -888,7 +888,7 @@ final class InputWeekTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -916,7 +916,7 @@ final class InputWeekTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
@@ -930,7 +930,7 @@ final class InputWeekTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", Enum::normalizeArray(Type::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
             ),
         );
 

@@ -52,7 +52,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->content('<value>')
                 ->getContent(),
-            "Failed asserting that 'content()' method encodes values correctly.",
+            'Content must be HTML-encoded.',
         );
     }
 
@@ -61,7 +61,7 @@ final class ColgroupTest extends TestCase
         self::assertSame(
             'value',
             Colgroup::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -70,9 +70,9 @@ final class ColgroupTest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             Colgroup::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -87,7 +87,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->html('<value>')
                 ->render(),
-            "Failed asserting that element renders correctly with 'html()' method.",
+            'Raw HTML content must be applied.',
         );
     }
 
@@ -101,7 +101,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -115,7 +115,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -129,7 +129,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -143,7 +143,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -157,7 +157,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -171,7 +171,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -190,7 +190,7 @@ final class ColgroupTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -204,7 +204,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -218,7 +218,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->autofocus(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -231,7 +231,7 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             Colgroup::tag()->begin() . 'Content' . Colgroup::end(),
-            "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+            'begin/end must produce a complete element.',
         );
     }
 
@@ -245,7 +245,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -259,7 +259,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->class(BackedString::VALUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -274,7 +274,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->col(Col::tag()->span(2))
                 ->render(),
-            "Failed asserting that element renders correctly with 'col()' method.",
+            'Col entries must be appended.',
         );
     }
 
@@ -293,7 +293,7 @@ final class ColgroupTest extends TestCase
                     Col::tag()->class('weekend')->span(2),
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'cols()' method.",
+            'Cols collection must be applied.',
         );
     }
 
@@ -308,7 +308,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->content('value')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -322,7 +322,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->contentEditable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -336,7 +336,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -350,7 +350,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -362,7 +362,7 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             Colgroup::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -376,7 +376,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -388,7 +388,7 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             Colgroup::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -402,7 +402,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -416,7 +416,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -430,7 +430,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->draggable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -444,7 +444,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -461,7 +461,7 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             Colgroup::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -480,7 +480,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -494,7 +494,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -508,7 +508,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -522,7 +522,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -540,7 +540,7 @@ final class ColgroupTest extends TestCase
                 ->itemScope(true)
                 ->itemType('https://schema.org/Thing')
                 ->render(),
-            'Failed asserting that element renders correctly with microdata attributes.',
+            'Microdata attributes must be serialized.',
         );
     }
 
@@ -555,7 +555,7 @@ final class ColgroupTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -567,10 +567,10 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             Colgroup::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -585,7 +585,7 @@ final class ColgroupTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -599,7 +599,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->role('banner')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -613,7 +613,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -625,9 +625,9 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             Colgroup::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -639,9 +639,9 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             Colgroup::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -653,7 +653,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->span($value)
                 ->render(),
-            "Failed asserting that element renders correctly with 'span' attribute.",
+            "'span' must be serialized.",
         );
     }
 
@@ -667,7 +667,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->spellcheck(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
+            "'spellcheck' must be serialized.",
         );
     }
 
@@ -681,7 +681,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -695,7 +695,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->tabIndex(3)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -709,7 +709,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -723,7 +723,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -735,7 +735,7 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             (string) Colgroup::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -749,7 +749,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -763,7 +763,7 @@ final class ColgroupTest extends TestCase
             Colgroup::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -783,7 +783,7 @@ final class ColgroupTest extends TestCase
             </colgroup>
             HTML,
             Colgroup::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -799,17 +799,17 @@ final class ColgroupTest extends TestCase
         self::assertNotSame(
             $colgroup,
             $colgroup->col(Col::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $colgroup,
             $colgroup->cols(Col::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $colgroup,
             $colgroup->span(null),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
     }
 
@@ -820,7 +820,7 @@ final class ColgroupTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeArray(ContentEditable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
             ),
         );
 
@@ -834,7 +834,7 @@ final class ColgroupTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -848,7 +848,7 @@ final class ColgroupTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeArray(Draggable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
             ),
         );
 
@@ -862,7 +862,7 @@ final class ColgroupTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -876,7 +876,7 @@ final class ColgroupTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -932,7 +932,7 @@ final class ColgroupTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 

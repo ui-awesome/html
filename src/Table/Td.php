@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Table;
 
+use InvalidArgumentException;
+use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Core\Element\BaseBlock;
+use UIAwesome\Html\Helper\Validator;
 use UIAwesome\Html\Interop\Table;
-use UIAwesome\Html\Table\Attribute\{HasColspan, HasHeaders, HasRowspan};
+use UnitEnum;
 
 /**
  * Renders the HTML `<td>` element for table data cells.
@@ -27,9 +30,87 @@ use UIAwesome\Html\Table\Attribute\{HasColspan, HasHeaders, HasRowspan};
  */
 final class Td extends BaseBlock
 {
-    use HasColspan;
-    use HasHeaders;
-    use HasRowspan;
+    /**
+     * Sets the `colspan` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Table\Td::tag()
+     *     ->colspan(2)
+     *     ->render();
+     * ```
+     *
+     * @param int|string|null $value Number of columns a cell spans ('1' to '1000'), or `null` to remove the
+     * attribute.
+     *
+     * @throws InvalidArgumentException if the provided value is not an integer-like value between '1' and '1000'.
+     *
+     * @return static New instance with the updated `colspan` attribute.
+     */
+    public function colspan(int|string|null $value): static
+    {
+        if ($value !== null && Validator::intLike($value, 1, 1000) === false) {
+            throw new InvalidArgumentException(
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                    (string) $value,
+                    'colspan',
+                    '1 <= value <= 1000',
+                ),
+            );
+        }
+
+        return $this->addAttribute('colspan', $value);
+    }
+
+    /**
+     * Sets the `headers` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Table\Td::tag()
+     *     ->headers('name age')
+     *     ->render();
+     * ```
+     *
+     * @param string|UnitEnum|null $value Space-separated list of header cell IDs, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `headers` attribute.
+     */
+    public function headers(string|UnitEnum|null $value): static
+    {
+        return $this->addAttribute('headers', $value);
+    }
+
+    /**
+     * Sets the `rowspan` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Table\Td::tag()
+     *     ->rowspan(2)
+     *     ->render();
+     * ```
+     *
+     * @param int|string|null $value Number of rows a cell spans ('0' to '65534'), or `null` to remove the attribute.
+     *
+     * @throws InvalidArgumentException if the provided value is not an integer-like value between '0' and '65534'.
+     *
+     * @return static New instance with the updated `rowspan` attribute.
+     */
+    public function rowspan(int|string|null $value): static
+    {
+        if ($value !== null && Validator::intLike($value, 0, 65534) === false) {
+            throw new InvalidArgumentException(
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                    (string) $value,
+                    'rowspan',
+                    '0 <= value <= 65534',
+                ),
+            );
+        }
+
+        return $this->addAttribute('rowspan', $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<td>` element.

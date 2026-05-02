@@ -49,7 +49,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->content('<value>')
                 ->getContent(),
-            "Failed asserting that 'content()' method encodes values correctly.",
+            'Content must be HTML-encoded.',
         );
     }
 
@@ -58,7 +58,7 @@ final class TfootTest extends TestCase
         self::assertSame(
             'value',
             Tfoot::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -67,9 +67,9 @@ final class TfootTest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             Tfoot::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -84,7 +84,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->html('<value>')
                 ->render(),
-            "Failed asserting that element renders correctly with 'html()' method.",
+            'Raw HTML content must be applied.',
         );
     }
 
@@ -98,7 +98,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -112,7 +112,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -126,7 +126,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -140,7 +140,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -154,7 +154,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -168,7 +168,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -187,7 +187,7 @@ final class TfootTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -201,7 +201,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -215,7 +215,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->autofocus(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -228,7 +228,7 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             Tfoot::tag()->begin() . 'Content' . Tfoot::end(),
-            "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+            'begin/end must produce a complete element.',
         );
     }
 
@@ -242,7 +242,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -256,7 +256,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->class(BackedString::VALUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -271,7 +271,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->content('value')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -285,7 +285,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->contentEditable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -299,7 +299,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -313,7 +313,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -325,7 +325,7 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             Tfoot::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -339,7 +339,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -351,7 +351,7 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             Tfoot::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -365,7 +365,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -379,7 +379,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -393,7 +393,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->draggable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -407,7 +407,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -424,7 +424,7 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             Tfoot::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -443,7 +443,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -457,7 +457,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -471,7 +471,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -485,7 +485,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -503,7 +503,7 @@ final class TfootTest extends TestCase
                 ->itemScope(true)
                 ->itemType('https://schema.org/Thing')
                 ->render(),
-            'Failed asserting that element renders correctly with microdata attributes.',
+            'Microdata attributes must be serialized.',
         );
     }
 
@@ -518,7 +518,7 @@ final class TfootTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -530,10 +530,10 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             Tfoot::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -548,7 +548,7 @@ final class TfootTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -562,7 +562,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->role('banner')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -576,7 +576,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -598,7 +598,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->row('Totals', '100')
                 ->render(),
-            "Failed asserting that element renders correctly with 'row()' method.",
+            'Row must be appended.',
         );
     }
 
@@ -628,7 +628,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->rows(['Subtotal', '80'], ['Total', '100'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method.",
+            'Rows collection must be applied.',
         );
     }
 
@@ -650,7 +650,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->rows(['label' => 'Totals', 'value' => '100'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method using associative arrays.",
+            'Rows must accept associative arrays.',
         );
     }
 
@@ -662,9 +662,9 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             Tfoot::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -676,9 +676,9 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             Tfoot::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -692,7 +692,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->spellcheck(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
+            "'spellcheck' must be serialized.",
         );
     }
 
@@ -706,7 +706,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -720,7 +720,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->tabIndex(3)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -734,7 +734,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -748,7 +748,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -760,7 +760,7 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             (string) Tfoot::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -777,7 +777,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->tr(Tr::tag()->content('value'))
                 ->render(),
-            "Failed asserting that element renders correctly with 'tr()' method.",
+            'Tr entries must be appended.',
         );
     }
 
@@ -791,7 +791,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -805,7 +805,7 @@ final class TfootTest extends TestCase
             Tfoot::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -825,7 +825,7 @@ final class TfootTest extends TestCase
             </tfoot>
             HTML,
             Tfoot::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -841,17 +841,17 @@ final class TfootTest extends TestCase
         self::assertNotSame(
             $tfoot,
             $tfoot->row('value'),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $tfoot,
             $tfoot->rows(['value']),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $tfoot,
             $tfoot->tr(Tr::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
     }
 
@@ -862,7 +862,7 @@ final class TfootTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeArray(ContentEditable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
             ),
         );
 
@@ -876,7 +876,7 @@ final class TfootTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -890,7 +890,7 @@ final class TfootTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeArray(Draggable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
             ),
         );
 
@@ -904,7 +904,7 @@ final class TfootTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -918,7 +918,7 @@ final class TfootTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -946,7 +946,7 @@ final class TfootTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 

@@ -46,7 +46,7 @@ final class InputHiddenTest extends TestCase
         self::assertSame(
             'value',
             InputHidden::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -58,9 +58,9 @@ final class InputHiddenTest extends TestCase
                 'class' => 'value',
             ],
             InputHidden::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -74,7 +74,7 @@ final class InputHiddenTest extends TestCase
                 ->accesskey('value')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -88,7 +88,7 @@ final class InputHiddenTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -102,7 +102,7 @@ final class InputHiddenTest extends TestCase
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -116,7 +116,7 @@ final class InputHiddenTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -130,7 +130,7 @@ final class InputHiddenTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -144,7 +144,7 @@ final class InputHiddenTest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -163,7 +163,7 @@ final class InputHiddenTest extends TestCase
                 )
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -177,7 +177,7 @@ final class InputHiddenTest extends TestCase
                 ->attributes(['class' => 'value'])
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -191,7 +191,7 @@ final class InputHiddenTest extends TestCase
                 ->autocomplete('on')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+            "'autocomplete' must be serialized.",
         );
     }
 
@@ -205,7 +205,7 @@ final class InputHiddenTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+            "'autocomplete' must be serialized.",
         );
     }
 
@@ -219,7 +219,7 @@ final class InputHiddenTest extends TestCase
                 ->class('value')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -233,7 +233,7 @@ final class InputHiddenTest extends TestCase
                 ->class(BackedString::VALUE)
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -247,7 +247,7 @@ final class InputHiddenTest extends TestCase
                 ->dataAttributes(['value' => 'value'])
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -260,7 +260,7 @@ final class InputHiddenTest extends TestCase
             InputHidden::tag(['class' => 'default-class'])
                 ->id('inputhidden')
                 ->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -274,7 +274,7 @@ final class InputHiddenTest extends TestCase
                 ->addDefaultProvider(DefaultProvider::class)
                 ->id('inputhidden')
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -287,7 +287,7 @@ final class InputHiddenTest extends TestCase
             InputHidden::tag()
                 ->id('inputhidden')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -301,7 +301,7 @@ final class InputHiddenTest extends TestCase
                 ->dir('ltr')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -315,7 +315,7 @@ final class InputHiddenTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -329,7 +329,7 @@ final class InputHiddenTest extends TestCase
                 ->disabled(true)
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
+            "'disabled' must be serialized.",
         );
     }
 
@@ -348,7 +348,7 @@ final class InputHiddenTest extends TestCase
                 )
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -362,7 +362,7 @@ final class InputHiddenTest extends TestCase
                 ->form('value')
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'form' attribute.",
+            "'form' must be serialized.",
         );
     }
 
@@ -380,7 +380,7 @@ final class InputHiddenTest extends TestCase
             InputHidden::tag()
                 ->id('inputhidden')
                 ->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -399,7 +399,7 @@ final class InputHiddenTest extends TestCase
                 ->hidden(true)
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -412,7 +412,7 @@ final class InputHiddenTest extends TestCase
             InputHidden::tag()
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -426,7 +426,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -440,7 +440,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -454,7 +454,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->name('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'name' attribute.",
+            "'name' must be serialized.",
         );
     }
 
@@ -469,7 +469,7 @@ final class InputHiddenTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -481,10 +481,10 @@ final class InputHiddenTest extends TestCase
             HTML,
             InputHidden::tag()
                 ->id('inputhidden')
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -499,7 +499,7 @@ final class InputHiddenTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -514,7 +514,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -528,7 +528,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->role('presentation')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -542,7 +542,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->role(Role::PRESENTATION)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -554,9 +554,9 @@ final class InputHiddenTest extends TestCase
             HTML,
             InputHidden::tag()
                 ->id('inputhidden')
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -568,9 +568,9 @@ final class InputHiddenTest extends TestCase
             HTML,
             InputHidden::tag()
                 ->id('inputhidden')
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -584,7 +584,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -598,7 +598,7 @@ final class InputHiddenTest extends TestCase
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->id('inputhidden')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -612,7 +612,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -623,7 +623,7 @@ final class InputHiddenTest extends TestCase
             <input type="hidden">
             HTML,
             (string) InputHidden::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -637,7 +637,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -651,7 +651,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -670,7 +670,7 @@ final class InputHiddenTest extends TestCase
             <input class="from-global" id="id-user" type="hidden">
             HTML,
             InputHidden::tag(['id' => 'id-user'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -689,7 +689,7 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->value('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'value' attribute.",
+            "'value' must be serialized.",
         );
     }
 
@@ -700,7 +700,7 @@ final class InputHiddenTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -714,7 +714,7 @@ final class InputHiddenTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -728,7 +728,7 @@ final class InputHiddenTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -742,7 +742,7 @@ final class InputHiddenTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
@@ -756,7 +756,7 @@ final class InputHiddenTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", Enum::normalizeArray(Type::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
             ),
         );
 

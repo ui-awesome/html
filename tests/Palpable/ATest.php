@@ -54,7 +54,7 @@ final class ATest extends TestCase
             A::tag()
                 ->content('<value>')
                 ->getContent(),
-            "Failed asserting that 'content()' method encodes values correctly.",
+            'Content must be HTML-encoded.',
         );
     }
 
@@ -63,7 +63,7 @@ final class ATest extends TestCase
         self::assertSame(
             'value',
             A::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -72,9 +72,9 @@ final class ATest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             A::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -87,7 +87,7 @@ final class ATest extends TestCase
             A::tag()
                 ->html('<value>')
                 ->render(),
-            "Failed asserting that element renders correctly with 'html()' method.",
+            'Raw HTML content must be applied.',
         );
     }
 
@@ -100,7 +100,7 @@ final class ATest extends TestCase
             A::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -113,7 +113,7 @@ final class ATest extends TestCase
             A::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -126,7 +126,7 @@ final class ATest extends TestCase
             A::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -139,7 +139,7 @@ final class ATest extends TestCase
             A::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -152,7 +152,7 @@ final class ATest extends TestCase
             A::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -165,7 +165,7 @@ final class ATest extends TestCase
             A::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -183,7 +183,7 @@ final class ATest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -196,7 +196,7 @@ final class ATest extends TestCase
             A::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -209,7 +209,7 @@ final class ATest extends TestCase
             A::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -222,7 +222,7 @@ final class ATest extends TestCase
             A::tag()
                 ->content('<value>')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -235,7 +235,7 @@ final class ATest extends TestCase
             A::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -246,7 +246,7 @@ final class ATest extends TestCase
             <a class="default-class"></a>
             HTML,
             A::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -259,7 +259,7 @@ final class ATest extends TestCase
             A::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -270,7 +270,7 @@ final class ATest extends TestCase
             <a></a>
             HTML,
             A::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -283,7 +283,7 @@ final class ATest extends TestCase
             A::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -296,7 +296,7 @@ final class ATest extends TestCase
             A::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -309,7 +309,7 @@ final class ATest extends TestCase
             A::tag()
                 ->download(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'download' attribute.",
+            "'download' must be serialized.",
         );
     }
 
@@ -322,7 +322,7 @@ final class ATest extends TestCase
             A::tag()
                 ->download('file.pdf')
                 ->render(),
-            "Failed asserting that element renders correctly with 'download' attribute and filename.",
+            'download must accept a filename value.',
         );
     }
 
@@ -340,7 +340,7 @@ final class ATest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -356,7 +356,7 @@ final class ATest extends TestCase
             <a class="default-class"></a>
             HTML,
             A::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -374,7 +374,7 @@ final class ATest extends TestCase
             A::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -387,7 +387,7 @@ final class ATest extends TestCase
             A::tag()
                 ->href('https://example.com')
                 ->render(),
-            "Failed asserting that element renders correctly with 'href' attribute.",
+            "'href' must be serialized.",
         );
     }
 
@@ -400,7 +400,7 @@ final class ATest extends TestCase
             A::tag()
                 ->hreflang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'hreflang' attribute.",
+            "'hreflang' must be serialized.",
         );
     }
 
@@ -413,7 +413,7 @@ final class ATest extends TestCase
             A::tag()
                 ->hreflang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hreflang' attribute.",
+            "'hreflang' must be serialized.",
         );
     }
 
@@ -426,7 +426,7 @@ final class ATest extends TestCase
             A::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -439,7 +439,7 @@ final class ATest extends TestCase
             A::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -452,7 +452,7 @@ final class ATest extends TestCase
             A::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -465,7 +465,7 @@ final class ATest extends TestCase
             A::tag()
                 ->ping('https://example.com/track')
                 ->render(),
-            "Failed asserting that element renders correctly with 'ping' attribute.",
+            "'ping' must be serialized.",
         );
     }
 
@@ -478,7 +478,7 @@ final class ATest extends TestCase
             A::tag()
                 ->referrerpolicy('no-referrer')
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
+            "'referrerpolicy' must be serialized.",
         );
     }
 
@@ -491,7 +491,7 @@ final class ATest extends TestCase
             A::tag()
                 ->referrerpolicy(Referrerpolicy::NO_REFERRER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
+            "'referrerpolicy' must be serialized.",
         );
     }
 
@@ -504,7 +504,7 @@ final class ATest extends TestCase
             A::tag()
                 ->rel('noopener')
                 ->render(),
-            "Failed asserting that element renders correctly with 'rel' attribute.",
+            "'rel' must be serialized.",
         );
     }
 
@@ -517,7 +517,7 @@ final class ATest extends TestCase
             A::tag()
                 ->rel(Rel::NOOPENER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'rel' attribute.",
+            "'rel' must be serialized.",
         );
     }
 
@@ -531,7 +531,7 @@ final class ATest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -542,10 +542,10 @@ final class ATest extends TestCase
             <a></a>
             HTML,
             A::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -559,7 +559,7 @@ final class ATest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -573,7 +573,7 @@ final class ATest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -586,7 +586,7 @@ final class ATest extends TestCase
             A::tag()
                 ->role('button')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -599,7 +599,7 @@ final class ATest extends TestCase
             A::tag()
                 ->role(Role::BUTTON)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -610,9 +610,9 @@ final class ATest extends TestCase
             <a class="value"></a>
             HTML,
             A::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -623,9 +623,9 @@ final class ATest extends TestCase
             <a title="value"></a>
             HTML,
             A::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -638,7 +638,7 @@ final class ATest extends TestCase
             A::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -651,7 +651,7 @@ final class ATest extends TestCase
             A::tag()
                 ->target('_blank')
                 ->render(),
-            "Failed asserting that element renders correctly with 'target' attribute.",
+            "'target' must be serialized.",
         );
     }
 
@@ -664,7 +664,7 @@ final class ATest extends TestCase
             A::tag()
                 ->target(Target::BLANK)
                 ->render(),
-            "Failed asserting that element renders correctly with 'target' attribute.",
+            "'target' must be serialized.",
         );
     }
 
@@ -677,7 +677,7 @@ final class ATest extends TestCase
             A::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -690,7 +690,7 @@ final class ATest extends TestCase
             A::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -701,7 +701,7 @@ final class ATest extends TestCase
             <a></a>
             HTML,
             (string) A::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -714,7 +714,7 @@ final class ATest extends TestCase
             A::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -727,7 +727,7 @@ final class ATest extends TestCase
             A::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -740,7 +740,7 @@ final class ATest extends TestCase
             A::tag()
                 ->type('text/html')
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute.",
+            "'type' must be serialized.",
         );
     }
 
@@ -753,7 +753,7 @@ final class ATest extends TestCase
             A::tag()
                 ->type(Type::TEXT_HTML)
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute.",
+            "'type' must be serialized.",
         );
     }
 
@@ -772,7 +772,7 @@ final class ATest extends TestCase
             <a class="from-global" id="value"></a>
             HTML,
             A::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -788,42 +788,42 @@ final class ATest extends TestCase
         self::assertNotSame(
             $a,
             $a->download(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $a,
             $a->href(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $a,
             $a->hreflang(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $a,
             $a->ping(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $a,
             $a->referrerpolicy(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $a,
             $a->rel(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $a,
             $a->target(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $a,
             $a->type(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
     }
 
@@ -834,7 +834,7 @@ final class ATest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -848,7 +848,7 @@ final class ATest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -862,7 +862,7 @@ final class ATest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::REFERRERPOLICY->value,
-                implode("', '", Enum::normalizeArray(Referrerpolicy::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Referrerpolicy::cases())),
             ),
         );
 
@@ -876,7 +876,7 @@ final class ATest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::REL->value,
-                implode("', '", Enum::normalizeArray(Rel::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Rel::cases())),
             ),
         );
 
@@ -890,7 +890,7 @@ final class ATest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -904,7 +904,7 @@ final class ATest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
@@ -918,7 +918,7 @@ final class ATest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", Enum::normalizeArray(Type::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
             ),
         );
 

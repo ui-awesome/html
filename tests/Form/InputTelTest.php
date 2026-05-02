@@ -48,7 +48,7 @@ final class InputTelTest extends TestCase
         self::assertSame(
             'value',
             InputTel::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -60,9 +60,9 @@ final class InputTelTest extends TestCase
                 'class' => 'value',
             ],
             InputTel::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -76,7 +76,7 @@ final class InputTelTest extends TestCase
                 ->accesskey('value')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -90,7 +90,7 @@ final class InputTelTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -104,7 +104,7 @@ final class InputTelTest extends TestCase
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -118,7 +118,7 @@ final class InputTelTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -132,7 +132,7 @@ final class InputTelTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -146,7 +146,7 @@ final class InputTelTest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -165,7 +165,7 @@ final class InputTelTest extends TestCase
                 )
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -179,7 +179,7 @@ final class InputTelTest extends TestCase
                 ->attributes(['class' => 'value'])
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -193,7 +193,7 @@ final class InputTelTest extends TestCase
                 ->autocomplete('on')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+            "'autocomplete' must be serialized.",
         );
     }
 
@@ -207,7 +207,7 @@ final class InputTelTest extends TestCase
                 ->autocomplete(Autocomplete::ON)
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autocomplete' attribute.",
+            "'autocomplete' must be serialized.",
         );
     }
 
@@ -221,7 +221,7 @@ final class InputTelTest extends TestCase
                 ->autofocus(true)
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -235,7 +235,7 @@ final class InputTelTest extends TestCase
                 ->class('value')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -249,7 +249,7 @@ final class InputTelTest extends TestCase
                 ->class(BackedString::VALUE)
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -263,7 +263,7 @@ final class InputTelTest extends TestCase
                 ->dataAttributes(['value' => 'value'])
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -276,7 +276,7 @@ final class InputTelTest extends TestCase
             InputTel::tag(['class' => 'default-class'])
                 ->id('inputtel')
                 ->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -290,7 +290,7 @@ final class InputTelTest extends TestCase
                 ->addDefaultProvider(DefaultProvider::class)
                 ->id('inputtel')
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -303,7 +303,7 @@ final class InputTelTest extends TestCase
             InputTel::tag()
                 ->id('inputtel')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -317,7 +317,7 @@ final class InputTelTest extends TestCase
                 ->dir('ltr')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -331,7 +331,7 @@ final class InputTelTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -345,7 +345,7 @@ final class InputTelTest extends TestCase
                 ->disabled(true)
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
+            "'disabled' must be serialized.",
         );
     }
 
@@ -364,7 +364,7 @@ final class InputTelTest extends TestCase
                 )
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -378,7 +378,7 @@ final class InputTelTest extends TestCase
                 ->form('value')
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'form' attribute.",
+            "'form' must be serialized.",
         );
     }
 
@@ -396,7 +396,7 @@ final class InputTelTest extends TestCase
             InputTel::tag()
                 ->id('inputtel')
                 ->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -415,7 +415,7 @@ final class InputTelTest extends TestCase
                 ->hidden(true)
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -428,7 +428,7 @@ final class InputTelTest extends TestCase
             InputTel::tag()
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -442,7 +442,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -456,7 +456,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -470,7 +470,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->list('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'list' attribute.",
+            "'list' must be serialized.",
         );
     }
 
@@ -484,7 +484,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->maxlength(10)
                 ->render(),
-            "Failed asserting that element renders correctly with 'maxlength' attribute.",
+            "'maxlength' must be serialized.",
         );
     }
 
@@ -498,7 +498,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->minlength(5)
                 ->render(),
-            "Failed asserting that element renders correctly with 'minlength' attribute.",
+            "'minlength' must be serialized.",
         );
     }
 
@@ -512,7 +512,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->name('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'name' attribute.",
+            "'name' must be serialized.",
         );
     }
 
@@ -526,7 +526,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')
                 ->render(),
-            "Failed asserting that element renders correctly with 'pattern' attribute.",
+            "'pattern' must be serialized.",
         );
     }
 
@@ -540,7 +540,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->placeholder('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'placeholder' attribute.",
+            "'placeholder' must be serialized.",
         );
     }
 
@@ -554,7 +554,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->readonly(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'readonly' attribute.",
+            "'readonly' must be serialized.",
         );
     }
 
@@ -569,7 +569,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -580,11 +580,11 @@ final class InputTelTest extends TestCase
             <input id="inputtel" type="tel">
             HTML,
             InputTel::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->id('inputtel')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -599,7 +599,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -614,7 +614,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -628,7 +628,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->required(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'required' attribute.",
+            "'required' must be serialized.",
         );
     }
 
@@ -642,7 +642,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->role('textbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -656,7 +656,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -668,9 +668,9 @@ final class InputTelTest extends TestCase
             HTML,
             InputTel::tag()
                 ->id('inputtel')
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -682,9 +682,9 @@ final class InputTelTest extends TestCase
             HTML,
             InputTel::tag()
                 ->id('inputtel')
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -698,7 +698,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->size(30)
                 ->render(),
-            "Failed asserting that element renders correctly with 'size' attribute.",
+            "'size' must be serialized.",
         );
     }
 
@@ -712,7 +712,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->spellcheck(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
+            "'spellcheck' must be serialized.",
         );
     }
 
@@ -726,7 +726,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -740,7 +740,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->tabIndex(1)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -756,7 +756,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
-            'Failed asserting that element renders correctly with a custom template wrapper.',
+            'Custom template wrapper must be applied.',
         );
     }
 
@@ -770,7 +770,7 @@ final class InputTelTest extends TestCase
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->id('inputtel')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -784,7 +784,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -795,7 +795,7 @@ final class InputTelTest extends TestCase
             <input type="tel">
             HTML,
             (string) InputTel::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -809,7 +809,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -823,7 +823,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -842,7 +842,7 @@ final class InputTelTest extends TestCase
             <input class="from-global" id="value" type="tel">
             HTML,
             InputTel::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -861,7 +861,7 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->value('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'value' attribute.",
+            "'value' must be serialized.",
         );
     }
 
@@ -872,7 +872,7 @@ final class InputTelTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -886,7 +886,7 @@ final class InputTelTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -928,7 +928,7 @@ final class InputTelTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -956,7 +956,7 @@ final class InputTelTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
@@ -970,7 +970,7 @@ final class InputTelTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", Enum::normalizeArray(Type::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
             ),
         );
 

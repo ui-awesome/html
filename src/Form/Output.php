@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use UIAwesome\Html\Attribute\Form\HasForm;
+use Stringable;
 use UIAwesome\Html\Attribute\{HasFor, HasName};
+use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Core\Element\BaseInline;
 use UIAwesome\Html\Interop\Inline;
+use UnitEnum;
 
 /**
  * Renders the HTML `<output>` element for calculation and action results.
@@ -31,8 +33,26 @@ use UIAwesome\Html\Interop\Inline;
 final class Output extends BaseInline
 {
     use HasFor;
-    use HasForm;
     use HasName;
+
+    /**
+     * Sets the `form` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->form('myForm');
+     * $element->form($formId);
+     * $element->form(null);
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value Form ID, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `form` attribute.
+     */
+    public function form(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::FORM, $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<output>` element.

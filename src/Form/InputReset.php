@@ -13,8 +13,6 @@ use UIAwesome\Html\Interop\Voids;
 /**
  * Renders the HTML `<input type="reset">` element.
  *
- * The `<input type="reset">` defines a button that resets all form values to their initial values.
- *
  * Usage example:
  * ```php
  * echo \UIAwesome\Html\Form\InputReset::tag()
@@ -46,9 +44,8 @@ final class InputReset extends BaseInput
     /**
      * Returns the default configuration for the input element.
      *
-     * @return array Default configuration array with method calls as keys.
-     *
-     * @phpstan-return array<string, mixed>
+     * @return array<string, mixed> Default configuration for the input element, including the default `type` attribute
+     * set to `reset`.
      */
     protected function loadDefault(): array
     {

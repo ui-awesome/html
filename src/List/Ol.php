@@ -7,7 +7,6 @@ namespace UIAwesome\Html\List;
 use Stringable;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\Lists;
-use UIAwesome\Html\List\Attribute\{HasReversed, HasStart};
 
 /**
  * Renders the HTML `<ol>` element for ordered lists.
@@ -30,9 +29,6 @@ use UIAwesome\Html\List\Attribute\{HasReversed, HasStart};
  */
 final class Ol extends BaseBlock
 {
-    use HasReversed;
-    use HasStart;
-
     /**
      * Appends multiple `<li>` elements to the ordered list.
      *
@@ -84,6 +80,47 @@ final class Ol extends BaseBlock
         }
 
         return $this->html($li, "\n");
+    }
+
+    /**
+     * Sets the `reversed` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\List\Ol::tag()
+     *     ->reversed(true)
+     *     ->render();
+     * ```
+     *
+     * @param bool $value Whether the list items are numbered in reverse order.
+     *
+     * @return static New instance with the updated `reversed` attribute.
+     */
+    public function reversed(bool $value): static
+    {
+        return $this->addAttribute('reversed', $value);
+    }
+
+    /**
+     * Sets the `start` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\List\Ol::tag()
+     *     ->start(4)
+     *     ->render();
+     * echo \UIAwesome\Html\List\Ol::tag()
+     *     ->start(null)
+     *     ->render();
+     * ```
+     *
+     * @param int|null $value Ordinal start value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `start` attribute.
+     */
+    public function start(int|null $value): static
+    {
+        return $this->addAttribute('start', $value);
     }
 
     /**

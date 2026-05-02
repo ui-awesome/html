@@ -41,7 +41,7 @@ final class Label extends BaseInline
      */
     public function for(string|null $value = null): static
     {
-        return $this->setAttribute('for', $value);
+        return $this->addAttribute('for', $value);
     }
 
     /**

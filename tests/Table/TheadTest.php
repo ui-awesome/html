@@ -49,7 +49,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->content('<value>')
                 ->getContent(),
-            "Failed asserting that 'content()' method encodes values correctly.",
+            'Content must be HTML-encoded.',
         );
     }
 
@@ -58,7 +58,7 @@ final class TheadTest extends TestCase
         self::assertSame(
             'value',
             Thead::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -67,9 +67,9 @@ final class TheadTest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             Thead::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -84,7 +84,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->html('<value>')
                 ->render(),
-            "Failed asserting that element renders correctly with 'html()' method.",
+            'Raw HTML content must be applied.',
         );
     }
 
@@ -98,7 +98,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -112,7 +112,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -126,7 +126,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -140,7 +140,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -154,7 +154,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -168,7 +168,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -187,7 +187,7 @@ final class TheadTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -201,7 +201,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -215,7 +215,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->autofocus(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -228,7 +228,7 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             Thead::tag()->begin() . 'Content' . Thead::end(),
-            "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+            'begin/end must produce a complete element.',
         );
     }
 
@@ -242,7 +242,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -256,7 +256,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->class(BackedString::VALUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -271,7 +271,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->content('value')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -285,7 +285,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->contentEditable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -299,7 +299,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -313,7 +313,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -325,7 +325,7 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             Thead::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -339,7 +339,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -351,7 +351,7 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             Thead::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -365,7 +365,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -379,7 +379,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -393,7 +393,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->draggable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -407,7 +407,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -424,7 +424,7 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             Thead::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -443,7 +443,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -457,7 +457,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -471,7 +471,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -485,7 +485,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -503,7 +503,7 @@ final class TheadTest extends TestCase
                 ->itemScope(true)
                 ->itemType('https://schema.org/Thing')
                 ->render(),
-            'Failed asserting that element renders correctly with microdata attributes.',
+            'Microdata attributes must be serialized.',
         );
     }
 
@@ -518,7 +518,7 @@ final class TheadTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -530,10 +530,10 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             Thead::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -548,7 +548,7 @@ final class TheadTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -562,7 +562,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->role('banner')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -576,7 +576,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -598,7 +598,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->row('Name', 'Age')
                 ->render(),
-            "Failed asserting that element renders correctly with 'row()' method.",
+            'Row must be appended.',
         );
     }
 
@@ -628,7 +628,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->rows(['Name', 'Age'], ['ID', 'Email'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method.",
+            'Rows collection must be applied.',
         );
     }
 
@@ -650,7 +650,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->rows(['col1' => 'Name', 'col2' => 'Age'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'rows()' method using associative arrays.",
+            'Rows must accept associative arrays.',
         );
     }
 
@@ -662,9 +662,9 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             Thead::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -676,9 +676,9 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             Thead::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -692,7 +692,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->spellcheck(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
+            "'spellcheck' must be serialized.",
         );
     }
 
@@ -706,7 +706,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -720,7 +720,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->tabIndex(3)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -734,7 +734,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -748,7 +748,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -760,7 +760,7 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             (string) Thead::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -779,7 +779,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->tr(Tr::tag()->th(Th::tag()->content('value')))
                 ->render(),
-            "Failed asserting that element renders correctly with 'tr()' method.",
+            'Tr entries must be appended.',
         );
     }
 
@@ -793,7 +793,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -807,7 +807,7 @@ final class TheadTest extends TestCase
             Thead::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -827,7 +827,7 @@ final class TheadTest extends TestCase
             </thead>
             HTML,
             Thead::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -843,17 +843,17 @@ final class TheadTest extends TestCase
         self::assertNotSame(
             $thead,
             $thead->row('value'),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $thead,
             $thead->rows(['value']),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $thead,
             $thead->tr(Tr::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
     }
 
@@ -864,7 +864,7 @@ final class TheadTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeArray(ContentEditable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
             ),
         );
 
@@ -878,7 +878,7 @@ final class TheadTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -892,7 +892,7 @@ final class TheadTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeArray(Draggable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
             ),
         );
 
@@ -906,7 +906,7 @@ final class TheadTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -920,7 +920,7 @@ final class TheadTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -948,7 +948,7 @@ final class TheadTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 

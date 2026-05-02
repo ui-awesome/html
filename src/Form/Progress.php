@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use UIAwesome\Html\Attribute\Form\HasMax;
+use Stringable;
 use UIAwesome\Html\Attribute\HasValue;
+use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Core\Element\BaseInline;
 use UIAwesome\Html\Interop\Inline;
+use UnitEnum;
 
 /**
  * Renders the HTML `<progress>` element as a progress indicator.
@@ -29,8 +31,27 @@ use UIAwesome\Html\Interop\Inline;
  */
 final class Progress extends BaseInline
 {
-    use HasMax;
     use HasValue;
+
+    /**
+     * Sets the `max` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->max(100);
+     * $element->max('2024-12-31');
+     * $element->max('23:59');
+     * $element->max(null);
+     * ```
+     *
+     * @param float|int|string|Stringable|UnitEnum|null $value Maximum value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `max` attribute.
+     */
+    public function max(float|int|string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::MAX, $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<progress>` element.

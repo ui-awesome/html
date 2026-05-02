@@ -16,6 +16,7 @@ use UIAwesome\Html\Attribute\Values\{
     Data,
     Direction,
     Draggable,
+    ElementAttribute,
     Fetchpriority,
     GlobalAttribute,
     Language,
@@ -55,7 +56,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->content('<value>')
                 ->getContent(),
-            "Failed asserting that 'content()' method encodes values correctly.",
+            'Content must be HTML-encoded.',
         );
     }
 
@@ -64,7 +65,7 @@ final class ScriptTest extends TestCase
         self::assertSame(
             'value',
             Script::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -73,9 +74,9 @@ final class ScriptTest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             Script::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -90,7 +91,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->html('<value>')
                 ->render(),
-            "Failed asserting that element renders correctly with 'html()' method.",
+            'Raw HTML content must be applied.',
         );
     }
 
@@ -104,7 +105,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -118,7 +119,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -132,7 +133,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -146,7 +147,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -160,7 +161,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -174,7 +175,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -193,7 +194,7 @@ final class ScriptTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -207,7 +208,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->async(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'async' attribute.",
+            "'async' must be serialized.",
         );
     }
 
@@ -221,7 +222,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -235,7 +236,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->autofocus(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -248,7 +249,7 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()->begin() . 'Content' . Script::end(),
-            "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+            'begin/end must produce a complete element.',
         );
     }
 
@@ -262,7 +263,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->blocking('render')
                 ->render(),
-            "Failed asserting that element renders correctly with 'blocking' attribute.",
+            "'blocking' must be serialized.",
         );
     }
 
@@ -276,7 +277,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->blocking(Blocking::RENDER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'blocking' attribute.",
+            "'blocking' must be serialized.",
         );
     }
 
@@ -290,7 +291,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -305,7 +306,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->content('<value>')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -319,7 +320,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->contentEditable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -333,7 +334,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -347,7 +348,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->crossorigin('anonymous')
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
+            "'crossorigin' must be serialized.",
         );
     }
 
@@ -361,7 +362,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->crossorigin(Crossorigin::ANONYMOUS)
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
+            "'crossorigin' must be serialized.",
         );
     }
 
@@ -375,7 +376,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -387,7 +388,7 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -401,7 +402,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -413,7 +414,7 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -427,7 +428,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->defer(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'defer' attribute.",
+            "'defer' must be serialized.",
         );
     }
 
@@ -441,7 +442,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -455,7 +456,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -469,7 +470,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->draggable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -483,7 +484,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -502,7 +503,7 @@ final class ScriptTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -516,7 +517,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->fetchpriority('high')
                 ->render(),
-            "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
+            "'fetchpriority' must be serialized.",
         );
     }
 
@@ -530,7 +531,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->fetchpriority(Fetchpriority::HIGH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
+            "'fetchpriority' must be serialized.",
         );
     }
 
@@ -547,7 +548,7 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -566,7 +567,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -580,7 +581,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -594,7 +595,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->integrity('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'integrity' attribute.",
+            "'integrity' must be serialized.",
         );
     }
 
@@ -608,7 +609,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -622,7 +623,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -640,7 +641,7 @@ final class ScriptTest extends TestCase
                 ->itemScope(true)
                 ->itemType('https://schema.org/Thing')
                 ->render(),
-            'Failed asserting that element renders correctly with microdata attributes.',
+            'Microdata attributes must be serialized.',
         );
     }
 
@@ -654,7 +655,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->nomodule(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'nomodule' attribute.",
+            "'nomodule' must be serialized.",
         );
     }
 
@@ -668,7 +669,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->referrerpolicy('no-referrer')
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
+            "'referrerpolicy' must be serialized.",
         );
     }
 
@@ -682,7 +683,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->referrerpolicy(Referrerpolicy::NO_REFERRER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
+            "'referrerpolicy' must be serialized.",
         );
     }
 
@@ -697,7 +698,7 @@ final class ScriptTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -709,10 +710,10 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -727,7 +728,7 @@ final class ScriptTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -742,7 +743,7 @@ final class ScriptTest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -756,7 +757,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->role('banner')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -770,7 +771,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -782,9 +783,9 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -796,9 +797,9 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -812,7 +813,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->spellcheck(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
+            "'spellcheck' must be serialized.",
         );
     }
 
@@ -826,7 +827,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->src('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'src' attribute.",
+            "'src' must be serialized.",
         );
     }
 
@@ -840,7 +841,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -854,7 +855,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->tabIndex(3)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -868,7 +869,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -882,7 +883,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -894,7 +895,7 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             (string) Script::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -908,7 +909,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -922,7 +923,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -936,7 +937,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->type('module')
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute.",
+            "'type' must be serialized.",
         );
     }
 
@@ -950,7 +951,7 @@ final class ScriptTest extends TestCase
             Script::tag()
                 ->type(Type::MODULE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute.",
+            "'type' must be serialized.",
         );
     }
 
@@ -970,7 +971,7 @@ final class ScriptTest extends TestCase
             </script>
             HTML,
             Script::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -986,52 +987,52 @@ final class ScriptTest extends TestCase
         self::assertNotSame(
             $script,
             $script->async(true),
-            'Should return a new instance when setting the async attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->blocking(''),
-            'Should return a new instance when setting the blocking attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->crossorigin(''),
-            'Should return a new instance when setting the crossorigin attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->defer(true),
-            'Should return a new instance when setting the defer attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->fetchpriority(''),
-            'Should return a new instance when setting the fetchpriority attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->integrity(''),
-            'Should return a new instance when setting the integrity attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->nomodule(true),
-            'Should return a new instance when setting the nomodule attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->referrerpolicy(''),
-            'Should return a new instance when setting the referrerpolicy attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->src(''),
-            'Should return a new instance when setting the src attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $script,
             $script->type(''),
-            'Should return a new instance when setting the type attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
     }
 
@@ -1041,8 +1042,8 @@ final class ScriptTest extends TestCase
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                Attribute::BLOCKING->value,
-                implode("', '", Enum::normalizeArray(Blocking::cases())),
+                ElementAttribute::BLOCKING->value,
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Blocking::cases())),
             ),
         );
 
@@ -1056,7 +1057,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeArray(ContentEditable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
             ),
         );
 
@@ -1070,7 +1071,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::CROSSORIGIN->value,
-                implode("', '", Enum::normalizeArray(Crossorigin::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Crossorigin::cases())),
             ),
         );
 
@@ -1084,7 +1085,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -1098,7 +1099,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeArray(Draggable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
             ),
         );
 
@@ -1112,7 +1113,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::FETCHPRIORITY->value,
-                implode("', '", Enum::normalizeArray(Fetchpriority::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Fetchpriority::cases())),
             ),
         );
 
@@ -1126,7 +1127,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -1140,7 +1141,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::REFERRERPOLICY->value,
-                implode("', '", Enum::normalizeArray(Referrerpolicy::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Referrerpolicy::cases())),
             ),
         );
 
@@ -1154,7 +1155,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -1182,7 +1183,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 

@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use UIAwesome\Html\Attribute\Form\{CanBeMultiple, CanBeRequired, HasAccept, HasForm};
+use Stringable;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
-use UIAwesome\Html\Attribute\Values\Type;
+use UIAwesome\Html\Attribute\Values\{Attribute, Type};
 use UIAwesome\Html\Core\Element\BaseInput;
-use UIAwesome\Html\Form\Attribute\HasCapture;
 use UIAwesome\Html\Helper\Naming;
 use UIAwesome\Html\Interop\Voids;
+use UnitEnum;
 
 /**
  * Renders the HTML `<input type="file">` element.
- *
- * The `<input type="file">` element allows the user to choose one or more files from their device storage. Once chosen,
- * the files can be uploaded to a server using form submission, or manipulated using JavaScript code and the File API.
  *
  * Usage example:
  * ```php
@@ -42,19 +39,57 @@ use UIAwesome\Html\Interop\Voids;
 final class InputFile extends BaseInput
 {
     use CanBeAutofocus;
-    use CanBeMultiple;
-    use CanBeRequired;
-    use HasAccept;
-    use HasCapture;
-    use HasForm;
     use HasTabindex;
+
+    /**
+     * Sets the `accept` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->accept('image/*');
+     * $element->accept('.jpg,.png,.pdf');
+     * $element->accept('image/jpeg,application/pdf');
+     * $element->accept(null);
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value Accept value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `accept` attribute.
+     */
+    public function accept(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::ACCEPT, $value);
+    }
+
+    /**
+     * Sets the `capture` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Form\InputFile::tag()
+     *     ->capture('user')
+     *     ->render();
+     * echo \UIAwesome\Html\Form\InputFile::tag()
+     *     ->capture('environment')
+     *     ->render();
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value Capture value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `capture` attribute.
+     */
+    public function capture(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::CAPTURE, $value);
+    }
 
     /**
      * Returns the array of HTML attributes for the element.
      *
      * @return array Attributes array assigned to the element.
      *
-     * @phpstan-return mixed[]
+     * @return mixed[] Array of attributes, with the `name` attribute modified to include '[]' if the `multiple`
+     * attribute is set, and the `value` attribute removed since it is not allowed for `<input type="file">`.
      */
     public function getAttributes(): array
     {
@@ -66,6 +101,44 @@ final class InputFile extends BaseInput
         unset($attributes['value']);
 
         return $attributes;
+    }
+
+    /**
+     * Sets the `multiple` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->multiple(true);
+     * $element->multiple(null);
+     * ```
+     *
+     * @param bool|null $value Multiple state. Use `true` to allow multiple values, `false` to disallow, or `null` to
+     * remove the attribute.
+     *
+     * @return static New instance with the updated `multiple` attribute.
+     */
+    public function multiple(bool|null $value): static
+    {
+        return $this->addAttribute(Attribute::MULTIPLE, $value);
+    }
+
+    /**
+     * Sets the `required` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->required(true);
+     * $element->required(null);
+     * ```
+     *
+     * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
+     * remove the attribute.
+     *
+     * @return static New instance with the updated `required` attribute.
+     */
+    public function required(bool|null $value): static
+    {
+        return $this->addAttribute(Attribute::REQUIRED, $value);
     }
 
     /**
@@ -81,9 +154,8 @@ final class InputFile extends BaseInput
     /**
      * Returns the default configuration for the input element.
      *
-     * @return array Default configuration array with method calls as keys.
-     *
-     * @phpstan-return array<string, mixed>
+     * @return array<string, mixed> Default configuration for the input element, including the default `type` attribute
+     * set to `file`.
      */
     protected function loadDefault(): array
     {
@@ -101,13 +173,13 @@ final class InputFile extends BaseInput
     }
 
     /**
-     * Generates the name of the input element, adding `[]` if the `multiple` attribute is set.
+     * Generates the name of the input element, adding '[]' if the `multiple` attribute is set.
      *
-     * @return string The generated name.
+     * @return string Generated name.
      */
     private function generateNameWithMultiple(): string
     {
-        /** @phpstan-var string $name */
+        /** @var string $name */
         $name = $this->getAttribute('name', '');
         $isMultiple = $this->getAttribute('multiple', false);
 
