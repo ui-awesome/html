@@ -1076,6 +1076,38 @@ final class VideoTest extends TestCase
         );
     }
 
+    public function testSetControlslistWithWhitespaceSeparatedTokens(): void
+    {
+        self::assertSame(
+            ['controlslist' => "nodownload\tnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\tnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\nnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\nnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\rnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\rnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\fnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\fnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
     {
         $this->expectException(InvalidArgumentException::class);

@@ -979,6 +979,38 @@ final class AudioTest extends TestCase
         );
     }
 
+    public function testSetControlslistWithWhitespaceSeparatedTokens(): void
+    {
+        self::assertSame(
+            ['controlslist' => "nodownload\tnoremoteplayback"],
+            Audio::tag()
+                ->controlslist("nodownload\tnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\nnoremoteplayback"],
+            Audio::tag()
+                ->controlslist("nodownload\nnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\rnoremoteplayback"],
+            Audio::tag()
+                ->controlslist("nodownload\rnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\fnoremoteplayback"],
+            Audio::tag()
+                ->controlslist("nodownload\fnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+    }
+
     public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
     {
         $this->expectException(InvalidArgumentException::class);

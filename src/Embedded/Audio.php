@@ -15,6 +15,7 @@ use UIAwesome\Html\Interop\Block;
 use UnitEnum;
 
 use function is_string;
+use function strpbrk;
 
 /**
  * Renders the HTML `<audio>` element for embedding audio content.
@@ -97,7 +98,7 @@ final class Audio extends BaseBlock
      */
     public function controlslist(string|UnitEnum|null $value): static
     {
-        if (is_string($value) && str_contains(trim($value), ' ')) {
+        if (is_string($value) && strpbrk(trim($value), " \t\n\r\f") !== false) {
             $tokens = preg_split('/\s+/', $value, -1, PREG_SPLIT_NO_EMPTY);
 
             if ($tokens === false) {
