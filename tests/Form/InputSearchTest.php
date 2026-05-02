@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
-use PHPForge\Support\Stub\BackedString;
+use PHPForge\Support\Stub\{BackedInteger, BackedString};
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -709,6 +709,20 @@ final class InputSearchTest extends TestCase
             InputSearch::tag()
                 ->id('inputsearch')
                 ->size(20)
+                ->render(),
+            "'size' must be serialized.",
+        );
+    }
+
+    public function testRenderWithSizeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputsearch" type="search" size="1">
+            HTML,
+            InputSearch::tag()
+                ->id('inputsearch')
+                ->size(BackedInteger::VALUE)
                 ->render(),
             "'size' must be serialized.",
         );

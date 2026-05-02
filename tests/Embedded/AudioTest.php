@@ -1009,6 +1009,13 @@ final class AudioTest extends TestCase
                 ->getAttributes(),
             'Assigned attributes must be returned.',
         );
+        self::assertSame(
+            ['controlslist' => "nodownload\t\nnoremoteplayback"],
+            Audio::tag()
+                ->controlslist("nodownload\t\nnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
@@ -1037,6 +1044,20 @@ final class AudioTest extends TestCase
         );
 
         Audio::tag()->controlslist('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingControlslistWithEmptyTokenBeforeInvalidToken(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                'controlslist',
+                self::validControlslistValues(),
+            ),
+        );
+
+        Audio::tag()->controlslist("nodownload\t\ninvalid-value");
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingControlslistWithInvalidTokenList(): void

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
-use PHPForge\Support\Stub\BackedString;
+use PHPForge\Support\Stub\{BackedInteger, BackedString};
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -804,6 +804,20 @@ final class SelectTest extends TestCase
             HTML,
             Select::tag()
                 ->size(4)
+                ->render(),
+            "'size' must be serialized.",
+        );
+    }
+
+    public function testRenderWithSizeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select size="1">
+            </select>
+            HTML,
+            Select::tag()
+                ->size(BackedInteger::VALUE)
                 ->render(),
             "'size' must be serialized.",
         );

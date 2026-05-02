@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
-use PHPForge\Support\Stub\BackedString;
+use PHPForge\Support\Stub\{BackedInteger, BackedString};
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -711,6 +711,20 @@ final class InputEmailTest extends TestCase
             InputEmail::tag()
                 ->id('inputemail')
                 ->size(30)
+                ->render(),
+            "'size' must be serialized.",
+        );
+    }
+
+    public function testRenderWithSizeUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="inputemail" type="email" size="1">
+            HTML,
+            InputEmail::tag()
+                ->id('inputemail')
+                ->size(BackedInteger::VALUE)
                 ->render(),
             "'size' must be serialized.",
         );

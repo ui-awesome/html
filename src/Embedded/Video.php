@@ -14,7 +14,9 @@ use UIAwesome\Html\Helper\Validator;
 use UIAwesome\Html\Interop\Block;
 use UnitEnum;
 
+use function explode;
 use function is_string;
+use function str_replace;
 use function strpbrk;
 
 /**
@@ -100,13 +102,13 @@ final class Video extends BaseBlock
     public function controlslist(string|UnitEnum|null $value): static
     {
         if (is_string($value) && strpbrk(trim($value), " \t\n\r\f") !== false) {
-            $tokens = preg_split('/\s+/', $value, -1, PREG_SPLIT_NO_EMPTY);
-
-            if ($tokens === false) {
-                throw new InvalidArgumentException('Unable to parse the controlslist attribute value.');
-            }
+            $tokens = explode(' ', str_replace(["\t", "\n", "\r", "\f"], ' ', $value));
 
             foreach ($tokens as $token) {
+                if ($token === '') {
+                    continue;
+                }
+
                 Validator::oneOf($token, Controlslist::cases(), ElementAttribute::CONTROLSLIST);
             }
 

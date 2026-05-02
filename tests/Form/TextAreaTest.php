@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
-use PHPForge\Support\Stub\BackedString;
+use PHPForge\Support\Stub\{BackedInteger, BackedString};
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
@@ -629,6 +629,20 @@ final class TextAreaTest extends TestCase
             HTML,
             TextArea::tag()
                 ->maxlength(100)
+                ->render(),
+            "'maxlength' must be serialized.",
+        );
+    }
+
+    public function testRenderWithMaxlengthUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <textarea maxlength="1">
+            </textarea>
+            HTML,
+            TextArea::tag()
+                ->maxlength(BackedInteger::VALUE)
                 ->render(),
             "'maxlength' must be serialized.",
         );
