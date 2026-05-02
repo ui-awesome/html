@@ -75,6 +75,7 @@ final class Colgroup extends BaseBlock
 
         return $colgroup;
     }
+
     /**
      * Sets the `span` attribute.
      *

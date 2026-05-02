@@ -116,6 +116,7 @@ final class Dialog extends BaseBlock
 
         return $this->addAttribute(ElementAttribute::CLOSEDBY, $value);
     }
+
     /**
      * Sets the `open` attribute.
      *
