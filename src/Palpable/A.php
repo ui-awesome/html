@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Palpable;
 
+use Stringable;
 use UIAwesome\Html\Attribute\{
     HasDownload,
     HasHreflang,
@@ -13,9 +14,10 @@ use UIAwesome\Html\Attribute\{
     HasTarget,
     HasType,
 };
-use UIAwesome\Html\Attribute\Element\HasHref;
+use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Core\Element\BaseInline;
 use UIAwesome\Html\Interop\Inline;
+use UnitEnum;
 
 /**
  * Renders the HTML `<a>` element for hyperlinks.
@@ -37,13 +39,32 @@ use UIAwesome\Html\Interop\Inline;
 final class A extends BaseInline
 {
     use HasDownload;
-    use HasHref;
     use HasHreflang;
     use HasPing;
     use HasReferrerpolicy;
     use HasRel;
     use HasTarget;
     use HasType;
+
+    /**
+     * Sets the `href` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->href('https://example.com/page');
+     * $element->href('/about');
+     * $element->href('#section');
+     * $element->href(null);
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value URL, path, or fragment, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `href` attribute.
+     */
+    public function href(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(ElementAttribute::HREF, $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<a>` element.

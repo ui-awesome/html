@@ -15,6 +15,7 @@ use UIAwesome\Html\Attribute\Values\{
     Crossorigin,
     Data,
     Direction,
+    ElementAttribute,
     Fetchpriority,
     GlobalAttribute,
     Language,
@@ -54,7 +55,7 @@ final class LinkTest extends TestCase
         self::assertSame(
             'value',
             Link::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -63,9 +64,9 @@ final class LinkTest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             Link::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -78,7 +79,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -91,7 +92,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -104,7 +105,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -117,7 +118,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -130,7 +131,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -143,7 +144,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -161,7 +162,7 @@ final class LinkTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -174,7 +175,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->as('style')
                 ->render(),
-            "Failed asserting that element renders correctly with 'as' attribute.",
+            "'as' must be serialized.",
         );
     }
 
@@ -187,7 +188,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->as(AsValue::STYLE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'as' attribute.",
+            "'as' must be serialized.",
         );
     }
 
@@ -200,7 +201,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -213,7 +214,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->blocking('render')
                 ->render(),
-            "Failed asserting that element renders correctly with 'blocking' attribute.",
+            "'blocking' must be serialized.",
         );
     }
 
@@ -226,7 +227,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->blocking(Blocking::RENDER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'blocking' attribute.",
+            "'blocking' must be serialized.",
         );
     }
 
@@ -239,7 +240,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -252,7 +253,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->crossorigin('anonymous')
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
+            "'crossorigin' must be serialized.",
         );
     }
 
@@ -265,7 +266,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->crossorigin(Crossorigin::ANONYMOUS)
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
+            "'crossorigin' must be serialized.",
         );
     }
 
@@ -278,7 +279,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -289,7 +290,7 @@ final class LinkTest extends TestCase
             <link class="default-class">
             HTML,
             Link::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -302,7 +303,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -313,7 +314,7 @@ final class LinkTest extends TestCase
             <link>
             HTML,
             Link::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -326,7 +327,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -339,7 +340,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -352,7 +353,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->disabled(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
+            "'disabled' must be serialized.",
         );
     }
 
@@ -370,7 +371,7 @@ final class LinkTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -383,7 +384,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->fetchpriority('high')
                 ->render(),
-            "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
+            "'fetchpriority' must be serialized.",
         );
     }
 
@@ -396,7 +397,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->fetchpriority(Fetchpriority::HIGH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'fetchpriority' attribute.",
+            "'fetchpriority' must be serialized.",
         );
     }
 
@@ -410,7 +411,7 @@ final class LinkTest extends TestCase
         self::assertSame(
             '<link class="default-class">',
             Link::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -428,7 +429,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -441,7 +442,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->href('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'href' attribute.",
+            "'href' must be serialized.",
         );
     }
 
@@ -454,7 +455,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->hreflang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'hreflang' attribute.",
+            "'hreflang' must be serialized.",
         );
     }
 
@@ -467,7 +468,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -480,7 +481,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->imagesizes('100vw')
                 ->render(),
-            "Failed asserting that element renders correctly with 'imagesizes' attribute.",
+            "'imagesizes' must be serialized.",
         );
     }
 
@@ -493,7 +494,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->imagesrcset('image-480.jpg 480w, image-800.jpg 800w')
                 ->render(),
-            "Failed asserting that element renders correctly with 'imagesrcset' attribute.",
+            "'imagesrcset' must be serialized.",
         );
     }
 
@@ -506,7 +507,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->integrity('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'integrity' attribute.",
+            "'integrity' must be serialized.",
         );
     }
 
@@ -519,7 +520,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -532,7 +533,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -545,7 +546,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->media('screen and (min-width: 768px)')
                 ->render(),
-            "Failed asserting that element renders correctly with 'media' attribute.",
+            "'media' must be serialized.",
         );
     }
 
@@ -558,7 +559,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->referrerpolicy('no-referrer')
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
+            "'referrerpolicy' must be serialized.",
         );
     }
 
@@ -571,7 +572,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->referrerpolicy(Referrerpolicy::NO_REFERRER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'referrerpolicy' attribute.",
+            "'referrerpolicy' must be serialized.",
         );
     }
 
@@ -584,7 +585,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->rel('stylesheet')
                 ->render(),
-            "Failed asserting that element renders correctly with 'rel' attribute.",
+            "'rel' must be serialized.",
         );
     }
 
@@ -597,7 +598,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->rel(Rel::STYLESHEET)
                 ->render(),
-            "Failed asserting that element renders correctly with 'rel' attribute.",
+            "'rel' must be serialized.",
         );
     }
 
@@ -611,7 +612,7 @@ final class LinkTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -622,10 +623,10 @@ final class LinkTest extends TestCase
             <link>
             HTML,
             Link::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -639,7 +640,7 @@ final class LinkTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -653,7 +654,7 @@ final class LinkTest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -666,7 +667,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->role('banner')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -679,7 +680,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -690,9 +691,9 @@ final class LinkTest extends TestCase
             <link class="value">
             HTML,
             Link::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -703,9 +704,9 @@ final class LinkTest extends TestCase
             <link title="value">
             HTML,
             Link::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -718,7 +719,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->sizes('16x16')
                 ->render(),
-            "Failed asserting that element renders correctly with 'sizes' attribute.",
+            "'sizes' must be serialized.",
         );
     }
 
@@ -731,7 +732,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -744,7 +745,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -757,7 +758,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -766,7 +767,7 @@ final class LinkTest extends TestCase
         self::assertSame(
             '<link>',
             (string) Link::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -779,7 +780,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -792,7 +793,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -805,7 +806,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->type('text/css')
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute.",
+            "'type' must be serialized.",
         );
     }
 
@@ -818,7 +819,7 @@ final class LinkTest extends TestCase
             Link::tag()
                 ->type(Type::TEXT_CSS)
                 ->render(),
-            "Failed asserting that element renders correctly with 'type' attribute.",
+            "'type' must be serialized.",
         );
     }
 
@@ -837,7 +838,7 @@ final class LinkTest extends TestCase
             <link class="from-global" id="value">
             HTML,
             Link::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -852,8 +853,8 @@ final class LinkTest extends TestCase
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                Attribute::BLOCKING->value,
-                implode("', '", Enum::normalizeArray(Blocking::cases())),
+                ElementAttribute::BLOCKING->value,
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Blocking::cases())),
             ),
         );
 
@@ -867,7 +868,7 @@ final class LinkTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::CROSSORIGIN->value,
-                implode("', '", Enum::normalizeArray(Crossorigin::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Crossorigin::cases())),
             ),
         );
 
@@ -881,7 +882,7 @@ final class LinkTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -895,7 +896,7 @@ final class LinkTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::FETCHPRIORITY->value,
-                implode("', '", Enum::normalizeArray(Fetchpriority::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Fetchpriority::cases())),
             ),
         );
 
@@ -909,7 +910,7 @@ final class LinkTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -923,7 +924,7 @@ final class LinkTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::REFERRERPOLICY->value,
-                implode("', '", Enum::normalizeArray(Referrerpolicy::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Referrerpolicy::cases())),
             ),
         );
 
@@ -937,7 +938,7 @@ final class LinkTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -951,7 +952,7 @@ final class LinkTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 

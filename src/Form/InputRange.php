@@ -4,25 +4,16 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use UIAwesome\Html\Attribute\Form\{
-    HasAutocomplete,
-    HasForm,
-    HasList,
-    HasMax,
-    HasMin,
-    HasStep
-};
+use Stringable;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
-use UIAwesome\Html\Attribute\Values\Type;
+use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute, Type};
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\Voids;
+use UnitEnum;
 
 /**
  * Renders the HTML `<input type="range">` element.
- *
- * The `<input type="range">` element lets the user specify a numeric value which must be no less than a given value,
- * and no more than another given value.
  *
  * Usage example:
  * ```php
@@ -48,14 +39,108 @@ use UIAwesome\Html\Interop\Voids;
 final class InputRange extends BaseInput
 {
     use CanBeAutofocus;
-    use HasAutocomplete;
-    use HasForm;
-    use HasList;
-    use HasMax;
-    use HasMin;
-    use HasStep;
     use HasTabindex;
     use HasValue;
+
+    /**
+     * Sets the `autocomplete` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->autocomplete('on');
+     * $element->autocomplete('email');
+     * $element->autocomplete('new-password');
+     * $element->autocomplete(null);
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `autocomplete` attribute.
+     */
+    public function autocomplete(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::AUTOCOMPLETE, $value);
+    }
+
+    /**
+     * Sets the `list` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->list('suggestions');
+     * $element->list('countries-list');
+     * $element->list(null);
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value Datalist ID, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `list` attribute.
+     */
+    public function list(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(ElementAttribute::LIST, $value);
+    }
+
+    /**
+     * Sets the `max` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->max(100);
+     * $element->max('2024-12-31');
+     * $element->max('23:59');
+     * $element->max(null);
+     * ```
+     *
+     * @param float|int|string|Stringable|UnitEnum|null $value Maximum value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `max` attribute.
+     */
+    public function max(float|int|string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::MAX, $value);
+    }
+
+    /**
+     * Sets the `min` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->min(0);
+     * $element->min('2024-01-01');
+     * $element->min('08:00');
+     * $element->min(null);
+     * ```
+     *
+     * @param float|int|string|Stringable|UnitEnum|null $value Minimum value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `min` attribute.
+     */
+    public function min(float|int|string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::MIN, $value);
+    }
+
+    /**
+     * Sets the `step` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->step(1);
+     * $element->step(0.5);
+     * $element->step('any');
+     * $element->step(null);
+     * ```
+     *
+     * @param float|int|string|Stringable|UnitEnum|null $value Step value. Use `'any' for no stepping restriction, or
+     * `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `step` attribute.
+     */
+    public function step(float|int|string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::STEP, $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<input>` element.
@@ -72,7 +157,8 @@ final class InputRange extends BaseInput
      *
      * @return array Default configuration array with method calls as keys.
      *
-     * @phpstan-return array<string, mixed>
+     * @return array<string, mixed> Default configuration for the input element, including the default `type` attribute
+     * set to `range`.
      */
     protected function loadDefault(): array
     {

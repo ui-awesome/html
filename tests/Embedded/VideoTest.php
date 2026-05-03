@@ -54,7 +54,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->content('<value>')
                 ->getContent(),
-            "Failed asserting that 'content()' method encodes values correctly.",
+            'Content must be HTML-encoded.',
         );
     }
 
@@ -63,7 +63,7 @@ final class VideoTest extends TestCase
         self::assertSame(
             'value',
             Video::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -72,9 +72,9 @@ final class VideoTest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             Video::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -89,7 +89,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->html('<value>')
                 ->render(),
-            "Failed asserting that element renders correctly with 'html()' method.",
+            'Raw HTML content must be applied.',
         );
     }
 
@@ -103,7 +103,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -117,7 +117,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -131,7 +131,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -145,7 +145,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -159,7 +159,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -173,7 +173,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -192,7 +192,7 @@ final class VideoTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -206,7 +206,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -220,7 +220,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->autofocus(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -234,7 +234,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->autoplay(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'autoplay' attribute.",
+            "'autoplay' must be serialized.",
         );
     }
 
@@ -247,7 +247,7 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             Video::tag()->begin() . 'Content' . Video::end(),
-            "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+            'begin/end must produce a complete element.',
         );
     }
 
@@ -261,7 +261,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -275,7 +275,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->class(BackedString::VALUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -290,7 +290,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->content('value')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -304,7 +304,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->contentEditable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -318,7 +318,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -332,7 +332,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->controls(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'controls' attribute.",
+            "'controls' must be serialized.",
         );
     }
 
@@ -346,7 +346,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->controlslist('nodownload')
                 ->render(),
-            "Failed asserting that element renders correctly with 'controlslist' attribute.",
+            "'controlslist' must be serialized.",
         );
     }
 
@@ -360,7 +360,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->controlslist(Controlslist::NOFULLSCREEN)
                 ->render(),
-            "Failed asserting that element renders correctly with 'controlslist' attribute.",
+            "'controlslist' must be serialized.",
         );
     }
 
@@ -374,7 +374,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->controlslist('nodownload noremoteplayback')
                 ->render(),
-            "Failed asserting that element renders correctly with space-separated tokens in 'controlslist' attribute.",
+            'controlslist must accept space-separated tokens.',
         );
     }
 
@@ -388,7 +388,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->crossorigin('anonymous')
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
+            "'crossorigin' must be serialized.",
         );
     }
 
@@ -402,7 +402,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->crossorigin(Crossorigin::USE_CREDENTIALS)
                 ->render(),
-            "Failed asserting that element renders correctly with 'crossorigin' attribute.",
+            "'crossorigin' must be serialized.",
         );
     }
 
@@ -416,7 +416,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -428,7 +428,7 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             Video::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -442,7 +442,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -454,7 +454,7 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             Video::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -468,7 +468,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -482,7 +482,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -496,7 +496,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->disablepictureinpicture(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'disablepictureinpicture' attribute.",
+            "'disablepictureinpicture' must be serialized.",
         );
     }
 
@@ -510,7 +510,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->disableremoteplayback(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'disableremoteplayback' attribute.",
+            "'disableremoteplayback' must be serialized.",
         );
     }
 
@@ -524,7 +524,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->draggable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -538,7 +538,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -555,7 +555,7 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             Video::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -574,7 +574,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->height(600)
                 ->render(),
-            "Failed asserting that element renders correctly with 'height' attribute.",
+            "'height' must be serialized.",
         );
     }
 
@@ -588,7 +588,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -602,7 +602,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -616,7 +616,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -630,7 +630,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -644,7 +644,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->loop(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'loop' attribute.",
+            "'loop' must be serialized.",
         );
     }
 
@@ -662,7 +662,7 @@ final class VideoTest extends TestCase
                 ->itemScope(true)
                 ->itemType('https://schema.org/Thing')
                 ->render(),
-            'Failed asserting that element renders correctly with microdata attributes.',
+            'Microdata attributes must be serialized.',
         );
     }
 
@@ -676,7 +676,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->muted(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'muted' attribute.",
+            "'muted' must be serialized.",
         );
     }
 
@@ -690,7 +690,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->playsinline(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'playsinline' attribute.",
+            "'playsinline' must be serialized.",
         );
     }
 
@@ -704,7 +704,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->poster('https://example.com/poster.jpg')
                 ->render(),
-            "Failed asserting that element renders correctly with 'poster' attribute.",
+            "'poster' must be serialized.",
         );
     }
 
@@ -718,7 +718,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->preload('metadata')
                 ->render(),
-            "Failed asserting that element renders correctly with 'preload' attribute.",
+            "'preload' must be serialized.",
         );
     }
 
@@ -732,7 +732,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->preload(Preload::AUTO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'preload' attribute.",
+            "'preload' must be serialized.",
         );
     }
 
@@ -747,7 +747,7 @@ final class VideoTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -759,10 +759,10 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             Video::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -777,7 +777,7 @@ final class VideoTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -791,7 +791,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->role('banner')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -805,7 +805,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -817,9 +817,9 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             Video::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -831,9 +831,9 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             Video::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -847,7 +847,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->spellcheck(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
+            "'spellcheck' must be serialized.",
         );
     }
 
@@ -861,7 +861,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->src('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'src' attribute.",
+            "'src' must be serialized.",
         );
     }
 
@@ -875,7 +875,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -889,7 +889,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->tabIndex(3)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -903,7 +903,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -917,7 +917,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -929,7 +929,7 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             (string) Video::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -943,7 +943,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -957,7 +957,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -977,7 +977,7 @@ final class VideoTest extends TestCase
             </video>
             HTML,
             Video::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -996,7 +996,7 @@ final class VideoTest extends TestCase
             Video::tag()
                 ->width(800)
                 ->render(),
-            "Failed asserting that element renders correctly with 'width' attribute.",
+            "'width' must be serialized.",
         );
     }
 
@@ -1007,72 +1007,111 @@ final class VideoTest extends TestCase
         self::assertNotSame(
             $video,
             $video->autoplay(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->controls(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->controlslist(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->crossorigin(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->disablepictureinpicture(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->disableremoteplayback(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->height(null),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->loop(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->muted(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->playsinline(true),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->poster(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->preload(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->src(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $video,
             $video->width(null),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
+        );
+    }
+
+    public function testSetControlslistWithWhitespaceSeparatedTokens(): void
+    {
+        self::assertSame(
+            ['controlslist' => "nodownload\tnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\tnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\nnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\nnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\rnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\rnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\fnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\fnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
+        );
+        self::assertSame(
+            ['controlslist' => "nodownload\t\nnoremoteplayback"],
+            Video::tag()
+                ->controlslist("nodownload\t\nnoremoteplayback")
+                ->getAttributes(),
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -1083,11 +1122,67 @@ final class VideoTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeArray(ContentEditable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
             ),
         );
 
         Video::tag()->contentEditable('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingControlslist(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                'controlslist',
+                self::validControlslistValues(),
+            ),
+        );
+
+        Video::tag()->controlslist('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingControlslistWithEmptyTokenBeforeInvalidToken(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                'controlslist',
+                self::validControlslistValues(),
+            ),
+        );
+
+        Video::tag()->controlslist("nodownload\t\ninvalid-value");
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingControlslistWithInvalidTokenList(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                'invalid-value',
+                'controlslist',
+                self::validControlslistValues(),
+            ),
+        );
+
+        Video::tag()->controlslist('nodownload invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSettingControlslistWithPaddedSingleToken(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            Message::VALUE_NOT_IN_LIST->getMessage(
+                ' nodownload',
+                'controlslist',
+                self::validControlslistValues(),
+            ),
+        );
+
+        Video::tag()->controlslist(' nodownload');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingCrossorigin(): void
@@ -1097,7 +1192,7 @@ final class VideoTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 \UIAwesome\Html\Attribute\Values\Attribute::CROSSORIGIN->value,
-                implode("', '", Enum::normalizeArray(Crossorigin::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Crossorigin::cases())),
             ),
         );
 
@@ -1111,7 +1206,7 @@ final class VideoTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -1125,7 +1220,7 @@ final class VideoTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeArray(Draggable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
             ),
         );
 
@@ -1139,7 +1234,7 @@ final class VideoTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -1153,7 +1248,7 @@ final class VideoTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 'preload',
-                implode("', '", Enum::normalizeArray(Preload::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Preload::cases())),
             ),
         );
 
@@ -1167,7 +1262,7 @@ final class VideoTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -1195,10 +1290,18 @@ final class VideoTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
         Video::tag()->translate('invalid-value');
+    }
+
+    private static function validControlslistValues(): string
+    {
+        return implode(
+            "', '",
+            array_map(static fn(\BackedEnum $case): string => $case->value, Controlslist::cases()),
+        );
     }
 }

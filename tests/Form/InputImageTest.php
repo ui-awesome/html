@@ -47,7 +47,7 @@ final class InputImageTest extends TestCase
         self::assertSame(
             'value',
             InputImage::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -59,9 +59,9 @@ final class InputImageTest extends TestCase
                 'class' => 'value',
             ],
             InputImage::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -75,7 +75,7 @@ final class InputImageTest extends TestCase
                 ->accesskey('value')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -89,7 +89,7 @@ final class InputImageTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -103,7 +103,7 @@ final class InputImageTest extends TestCase
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -117,7 +117,7 @@ final class InputImageTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -131,7 +131,7 @@ final class InputImageTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -145,7 +145,7 @@ final class InputImageTest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -159,7 +159,7 @@ final class InputImageTest extends TestCase
                 ->alt('value')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'alt' attribute.",
+            "'alt' must be serialized.",
         );
     }
 
@@ -178,7 +178,7 @@ final class InputImageTest extends TestCase
                 )
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -192,7 +192,7 @@ final class InputImageTest extends TestCase
                 ->attributes(['class' => 'value'])
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -206,7 +206,7 @@ final class InputImageTest extends TestCase
                 ->autofocus(true)
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -220,7 +220,7 @@ final class InputImageTest extends TestCase
                 ->class('value')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -234,7 +234,7 @@ final class InputImageTest extends TestCase
                 ->class(BackedString::VALUE)
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -248,7 +248,7 @@ final class InputImageTest extends TestCase
                 ->dataAttributes(['value' => 'value'])
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -261,7 +261,7 @@ final class InputImageTest extends TestCase
             InputImage::tag(['class' => 'default-class'])
                 ->id('inputimage')
                 ->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -275,7 +275,7 @@ final class InputImageTest extends TestCase
                 ->addDefaultProvider(DefaultProvider::class)
                 ->id('inputimage')
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -288,7 +288,7 @@ final class InputImageTest extends TestCase
             InputImage::tag()
                 ->id('inputimage')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -302,7 +302,7 @@ final class InputImageTest extends TestCase
                 ->dir('ltr')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -316,7 +316,7 @@ final class InputImageTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -330,7 +330,7 @@ final class InputImageTest extends TestCase
                 ->disabled(true)
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
+            "'disabled' must be serialized.",
         );
     }
 
@@ -349,7 +349,7 @@ final class InputImageTest extends TestCase
                 )
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -363,7 +363,7 @@ final class InputImageTest extends TestCase
                 ->formaction('/submit')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formaction' attribute.",
+            "'formaction' must be serialized.",
         );
     }
 
@@ -377,7 +377,7 @@ final class InputImageTest extends TestCase
                 ->formenctype('multipart/form-data')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formenctype' attribute.",
+            "'formenctype' must be serialized.",
         );
     }
 
@@ -391,7 +391,7 @@ final class InputImageTest extends TestCase
                 ->formmethod('post')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formmethod' attribute.",
+            "'formmethod' must be serialized.",
         );
     }
 
@@ -405,7 +405,7 @@ final class InputImageTest extends TestCase
                 ->formnovalidate(true)
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formnovalidate' attribute.",
+            "'formnovalidate' must be serialized.",
         );
     }
 
@@ -419,7 +419,7 @@ final class InputImageTest extends TestCase
                 ->formtarget('_blank')
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formtarget' attribute.",
+            "'formtarget' must be serialized.",
         );
     }
 
@@ -433,7 +433,7 @@ final class InputImageTest extends TestCase
                 ->formtarget(Target::BLANK)
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'formtarget' attribute.",
+            "'formtarget' must be serialized.",
         );
     }
 
@@ -451,7 +451,7 @@ final class InputImageTest extends TestCase
             InputImage::tag()
                 ->id('inputimage')
                 ->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -470,7 +470,7 @@ final class InputImageTest extends TestCase
                 ->height(100)
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'height' attribute.",
+            "'height' must be serialized.",
         );
     }
 
@@ -484,7 +484,7 @@ final class InputImageTest extends TestCase
                 ->hidden(true)
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -497,7 +497,7 @@ final class InputImageTest extends TestCase
             InputImage::tag()
                 ->id('inputimage')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -511,7 +511,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -525,7 +525,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -539,7 +539,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->name('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'name' attribute.",
+            "'name' must be serialized.",
         );
     }
 
@@ -554,7 +554,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -565,11 +565,11 @@ final class InputImageTest extends TestCase
             <input id="inputimage" type="image">
             HTML,
             InputImage::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->id('inputimage')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -584,7 +584,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -599,7 +599,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -613,7 +613,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->role('button')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -627,7 +627,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->role(Role::BUTTON)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -639,9 +639,9 @@ final class InputImageTest extends TestCase
             HTML,
             InputImage::tag()
                 ->id('inputimage')
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -653,9 +653,9 @@ final class InputImageTest extends TestCase
             HTML,
             InputImage::tag()
                 ->id('inputimage')
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -669,7 +669,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->src('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'src' attribute.",
+            "'src' must be serialized.",
         );
     }
 
@@ -683,7 +683,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -697,7 +697,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->tabIndex(1)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -713,7 +713,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
-            'Failed asserting that element renders correctly with a custom template wrapper.',
+            'Custom template wrapper must be applied.',
         );
     }
 
@@ -727,7 +727,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -741,7 +741,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -752,7 +752,7 @@ final class InputImageTest extends TestCase
             <input type="image">
             HTML,
             (string) InputImage::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -766,7 +766,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -780,7 +780,7 @@ final class InputImageTest extends TestCase
                 ->id('inputimage')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -799,7 +799,7 @@ final class InputImageTest extends TestCase
             <input class="from-global" id="value" type="image">
             HTML,
             InputImage::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -817,7 +817,7 @@ final class InputImageTest extends TestCase
             InputImage::tag()
                 ->id('inputimage')
                 ->width(100)->render(),
-            "Failed asserting that element renders correctly with 'width' attribute.",
+            "'width' must be serialized.",
         );
     }
 
@@ -828,7 +828,7 @@ final class InputImageTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -842,7 +842,7 @@ final class InputImageTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -856,7 +856,7 @@ final class InputImageTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -884,7 +884,7 @@ final class InputImageTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
@@ -898,7 +898,7 @@ final class InputImageTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", Enum::normalizeArray(Type::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
             ),
         );
 

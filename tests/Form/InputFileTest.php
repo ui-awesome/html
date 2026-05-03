@@ -46,7 +46,7 @@ final class InputFileTest extends TestCase
         self::assertSame(
             'value',
             InputFile::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -59,9 +59,9 @@ final class InputFileTest extends TestCase
                 'name' => '',
             ],
             InputFile::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -75,7 +75,7 @@ final class InputFileTest extends TestCase
                 ->accept('image/*')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accept' attribute.",
+            "'accept' must be serialized.",
         );
     }
 
@@ -89,7 +89,7 @@ final class InputFileTest extends TestCase
                 ->accesskey('value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -103,7 +103,7 @@ final class InputFileTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -117,7 +117,7 @@ final class InputFileTest extends TestCase
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -131,7 +131,7 @@ final class InputFileTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -145,7 +145,7 @@ final class InputFileTest extends TestCase
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -159,7 +159,7 @@ final class InputFileTest extends TestCase
                 ->addEvent('click', "alert('Clicked!')")
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -178,7 +178,7 @@ final class InputFileTest extends TestCase
                 )
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -192,7 +192,7 @@ final class InputFileTest extends TestCase
                 ->attributes(['class' => 'value'])
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -206,7 +206,7 @@ final class InputFileTest extends TestCase
                 ->autofocus(true)
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -220,7 +220,7 @@ final class InputFileTest extends TestCase
                 ->capture('user')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'capture' attribute.",
+            "'capture' must be serialized.",
         );
     }
 
@@ -234,7 +234,7 @@ final class InputFileTest extends TestCase
                 ->capture(Capture::ENVIRONMENT)
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'capture' attribute.",
+            "'capture' must be serialized.",
         );
     }
 
@@ -248,7 +248,7 @@ final class InputFileTest extends TestCase
                 ->class('file-input')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -262,7 +262,7 @@ final class InputFileTest extends TestCase
                 ->class(BackedString::VALUE)
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -276,7 +276,7 @@ final class InputFileTest extends TestCase
                 ->dataAttributes(['value' => 'value'])
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -289,7 +289,7 @@ final class InputFileTest extends TestCase
             InputFile::tag(['class' => 'default-class'])
                 ->id('inputfile')
                 ->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -303,7 +303,7 @@ final class InputFileTest extends TestCase
                 ->addDefaultProvider(DefaultProvider::class)
                 ->id('inputfile')
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -316,7 +316,7 @@ final class InputFileTest extends TestCase
             InputFile::tag()
                 ->id('inputfile')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -330,7 +330,7 @@ final class InputFileTest extends TestCase
                 ->dir('ltr')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -344,7 +344,7 @@ final class InputFileTest extends TestCase
                 ->dir(Direction::LTR)
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -358,7 +358,7 @@ final class InputFileTest extends TestCase
                 ->disabled(true)
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'disabled' attribute.",
+            "'disabled' must be serialized.",
         );
     }
 
@@ -377,7 +377,7 @@ final class InputFileTest extends TestCase
                 )
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'events()' method.",
+            'Event handler map must be applied.',
         );
     }
 
@@ -391,7 +391,7 @@ final class InputFileTest extends TestCase
                 ->form('value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'form' attribute.",
+            "'form' must be serialized.",
         );
     }
 
@@ -409,7 +409,7 @@ final class InputFileTest extends TestCase
             InputFile::tag()
                 ->id('inputfile')
                 ->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(InputFile::class, []);
@@ -425,7 +425,7 @@ final class InputFileTest extends TestCase
                 ->hidden(true)
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -438,7 +438,7 @@ final class InputFileTest extends TestCase
             InputFile::tag()
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -452,7 +452,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -466,7 +466,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -481,7 +481,7 @@ final class InputFileTest extends TestCase
                 ->multiple(true)
                 ->name('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'multiple' attribute.",
+            "'multiple' must be serialized.",
         );
     }
 
@@ -495,7 +495,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->name('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'name' attribute.",
+            "'name' must be serialized.",
         );
     }
 
@@ -510,7 +510,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -521,11 +521,11 @@ final class InputFileTest extends TestCase
             <input id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->id('inputfile')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -540,7 +540,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -555,7 +555,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->removeEvent('click')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeEvent()' method.",
+            'Event handler must be removed.',
         );
     }
 
@@ -569,7 +569,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->required(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'required' attribute.",
+            "'required' must be serialized.",
         );
     }
 
@@ -583,7 +583,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->role('textbox')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -597,7 +597,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->role(Role::TEXTBOX)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -609,9 +609,9 @@ final class InputFileTest extends TestCase
             HTML,
             InputFile::tag()
                 ->id('inputfile')
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -623,9 +623,9 @@ final class InputFileTest extends TestCase
             HTML,
             InputFile::tag()
                 ->id('inputfile')
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -639,7 +639,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->tabIndex(1)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -655,7 +655,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
-            'Failed asserting that element renders correctly with a custom template wrapper.',
+            'Custom template wrapper must be applied.',
         );
     }
 
@@ -669,7 +669,7 @@ final class InputFileTest extends TestCase
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -683,7 +683,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -694,7 +694,7 @@ final class InputFileTest extends TestCase
             <input type="file">
             HTML,
             (string) InputFile::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -708,7 +708,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -722,7 +722,7 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -741,7 +741,7 @@ final class InputFileTest extends TestCase
             <input class="from-global" id="value" type="file">
             HTML,
             InputFile::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -757,10 +757,10 @@ final class InputFileTest extends TestCase
             <input id="inputfile" type="file">
             HTML,
             InputFile::tag()
-                ->setAttribute('value', 'value')
+                ->addAttribute('value', 'value')
                 ->id('inputfile')
                 ->render(),
-            "Failed asserting that 'value' attribute is removed.",
+            'value attribute must be removed.',
         );
     }
 
@@ -771,7 +771,7 @@ final class InputFileTest extends TestCase
         self::assertNotSame(
             $inputFile,
             $inputFile->capture(''),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
     }
 
@@ -782,7 +782,7 @@ final class InputFileTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -796,7 +796,7 @@ final class InputFileTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -810,7 +810,7 @@ final class InputFileTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -838,7 +838,7 @@ final class InputFileTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 
@@ -852,7 +852,7 @@ final class InputFileTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", Enum::normalizeArray(Type::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
             ),
         );
 

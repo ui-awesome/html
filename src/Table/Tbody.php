@@ -77,8 +77,9 @@ final class Tbody extends BaseBlock
      *
      * Usage example:
      * ```php
-     * $tr = \UIAwesome\Html\Table\Tr::tag()->td(Td::tag()->content('Jane'));
-     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->tr($tr);
+     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->tr(
+     *     \UIAwesome\Html\Table\Tr::tag()->td(Td::tag()->content('Jane')),
+     * );
      * ```
      *
      * @param Tr $tr Table row element instance.

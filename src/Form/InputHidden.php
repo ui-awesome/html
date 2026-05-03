@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use UIAwesome\Html\Attribute\Form\{HasAutocomplete, HasForm};
+use Stringable;
 use UIAwesome\Html\Attribute\HasValue;
-use UIAwesome\Html\Attribute\Values\Type;
+use UIAwesome\Html\Attribute\Values\{Attribute, Type};
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\Voids;
+use UnitEnum;
 
 /**
  * Renders the HTML `<input type="hidden">` element.
- *
- * The `<input type="hidden">` defines a hidden input field.
  *
  * Usage example:
  * ```php
@@ -30,9 +29,27 @@ use UIAwesome\Html\Interop\Voids;
  */
 final class InputHidden extends BaseInput
 {
-    use HasAutocomplete;
-    use HasForm;
     use HasValue;
+
+    /**
+     * Sets the `autocomplete` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->autocomplete('on');
+     * $element->autocomplete('email');
+     * $element->autocomplete('new-password');
+     * $element->autocomplete(null);
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `autocomplete` attribute.
+     */
+    public function autocomplete(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::AUTOCOMPLETE, $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<input>` element.
@@ -47,9 +64,8 @@ final class InputHidden extends BaseInput
     /**
      * Returns the default configuration for the input element.
      *
-     * @return array Default configuration array with method calls as keys.
-     *
-     * @phpstan-return array<string, mixed>
+     * @return array<string, mixed> Default configuration for the input element, including the default `type` attribute
+     * set to `hidden`.
      */
     protected function loadDefault(): array
     {

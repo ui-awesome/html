@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
+use Stringable;
 use UIAwesome\Html\Attribute\{CanBeDisabled, HasName};
-use UIAwesome\Html\Attribute\Form\HasForm;
+use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\Block;
+use UnitEnum;
 
 /**
  * Renders the HTML `<fieldset>` element for grouping related form controls.
@@ -30,8 +32,26 @@ use UIAwesome\Html\Interop\Block;
 final class Fieldset extends BaseBlock
 {
     use CanBeDisabled;
-    use HasForm;
     use HasName;
+
+    /**
+     * Sets the `form` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->form('myForm');
+     * $element->form($formId);
+     * $element->form(null);
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value Form ID, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `form` attribute.
+     */
+    public function form(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::FORM, $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<fieldset>` element.

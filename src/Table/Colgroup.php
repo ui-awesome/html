@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Table;
 
+use InvalidArgumentException;
+use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Core\Element\BaseBlock;
+use UIAwesome\Html\Helper\Validator;
 use UIAwesome\Html\Interop\Table;
-use UIAwesome\Html\Table\Attribute\HasSpan;
 
 /**
  * Renders the HTML `<colgroup>` element for table column groups.
@@ -29,8 +31,6 @@ use UIAwesome\Html\Table\Attribute\HasSpan;
  */
 final class Colgroup extends BaseBlock
 {
-    use HasSpan;
-
     /**
      * Appends a `<col>` element to the column group.
      *
@@ -74,6 +74,38 @@ final class Colgroup extends BaseBlock
         }
 
         return $colgroup;
+    }
+
+    /**
+     * Sets the `span` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Table\Col::tag()
+     *     ->span(2)
+     *     ->render();
+     * ```
+     *
+     * @param int|string|null $value Number of consecutive columns this `<col>` spans ('1' to '1000'), or `null`
+     * to remove the attribute.
+     *
+     * @throws InvalidArgumentException if the provided value is not an integer-like value between '1' and '1000'.
+     *
+     * @return static New instance with the updated `span` attribute.
+     */
+    public function span(int|string|null $value): static
+    {
+        if ($value !== null && Validator::intLike($value, 1, 1000) === false) {
+            throw new InvalidArgumentException(
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                    (string) $value,
+                    'span',
+                    '1 <= value <= 1000',
+                ),
+            );
+        }
+
+        return $this->addAttribute('span', $value);
     }
 
     /**

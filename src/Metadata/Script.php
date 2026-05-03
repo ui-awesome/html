@@ -15,7 +15,6 @@ use UIAwesome\Html\Attribute\{
 };
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\MetadataBlock;
-use UIAwesome\Html\Metadata\Attribute\{HasAsync, HasDefer, HasNomodule};
 
 /**
  * Renders the HTML `<script>` element for executable code or data blocks.
@@ -36,16 +35,73 @@ use UIAwesome\Html\Metadata\Attribute\{HasAsync, HasDefer, HasNomodule};
  */
 final class Script extends BaseBlock
 {
-    use HasAsync;
     use HasBlocking;
     use HasCrossorigin;
-    use HasDefer;
     use HasFetchpriority;
     use HasIntegrity;
-    use HasNomodule;
     use HasReferrerpolicy;
     use HasSrc;
     use HasType;
+
+    /**
+     * Sets the `async` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Script::tag()
+     *     ->src('/assets/app.js')
+     *     ->async(true)
+     *     ->render();
+     * ```
+     *
+     * @param bool $value Whether to execute the script asynchronously.
+     *
+     * @return static New instance with the updated `async` attribute.
+     */
+    public function async(bool $value): static
+    {
+        return $this->addAttribute('async', $value);
+    }
+
+    /**
+     * Sets the `defer` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Script::tag()
+     *     ->src('/assets/app.js')
+     *     ->defer(true)
+     *     ->render();
+     * ```
+     *
+     * @param bool $value Whether to defer script execution.
+     *
+     * @return static New instance with the updated `defer` attribute.
+     */
+    public function defer(bool $value): static
+    {
+        return $this->addAttribute('defer', $value);
+    }
+
+    /**
+     * Sets the `nomodule` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Script::tag()
+     *     ->src('/assets/legacy.js')
+     *     ->nomodule(true)
+     *     ->render();
+     * ```
+     *
+     * @param bool $value Whether to prevent execution in browsers that support modules.
+     *
+     * @return static New instance with the updated `nomodule` attribute.
+     */
+    public function nomodule(bool $value): static
+    {
+        return $this->addAttribute('nomodule', $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<script>` element.

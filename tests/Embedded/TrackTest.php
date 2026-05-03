@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UIAwesome\Html\Tests\Table;
+namespace UIAwesome\Html\Tests\Embedded;
 
 use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
@@ -10,54 +10,42 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
-    ContentEditable,
     Data,
     Direction,
-    Draggable,
     GlobalAttribute,
     Language,
     Role,
     Translate,
 };
 use UIAwesome\Html\Core\Factory\SimpleFactory;
-use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Embedded\Track;
+use UIAwesome\Html\Embedded\Values\Kind;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Table\{Tbody, Tr};
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for {@see Tbody} rendering and body row composition behavior.
+ * Unit tests for {@see Track} rendering and track attribute behavior.
  *
  * Test coverage.
- * - Appends table body rows using `tr()`, `row()`, and `rows()` and renders expected output.
+ * - Applies track specific attributes (`default`, `kind`, `label`, `src`, `srclang`) and renders expected output.
  * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
  * - Ensures attribute accessors return assigned values and fallback defaults.
- * - Renders content, raw HTML, begin/end usage, and string casting with expected encoding behavior.
+ * - Ensures fluent attribute setters return new instances (immutability).
+ * - Renders string casting with expected output for a void element.
  * - Resolves default and theme providers, including global defaults and user overrides.
- * - Verifies invalid values throw {@see InvalidArgumentException}.
+ * - Verifies invalid enumerated values throw {@see InvalidArgumentException}.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
-#[Group('table')]
-final class TbodyTest extends TestCase
+#[Group('embedded')]
+final class TrackTest extends TestCase
 {
-    public function testContentEncodesValues(): void
-    {
-        self::assertSame(
-            '&lt;value&gt;',
-            Tbody::tag()
-                ->content('<value>')
-                ->getContent(),
-            'Content must be HTML-encoded.',
-        );
-    }
-
     public function testGetAttributeReturnsDefaultWhenMissing(): void
     {
         self::assertSame(
             'value',
-            Tbody::tag()->getAttribute('class', 'value'),
+            Track::tag()->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }
@@ -66,25 +54,10 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             ['class' => 'value'],
-            Tbody::tag()
+            Track::tag()
                 ->addAttribute('class', 'value')
                 ->getAttributes(),
             'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testHtmlDoesNotEncodeValues(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            <value>
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->html('<value>')
-                ->render(),
-            'Raw HTML content must be applied.',
         );
     }
 
@@ -92,10 +65,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody accesskey="value">
-            </tbody>
+            <track accesskey="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->accesskey('value')
                 ->render(),
             "'accesskey' must be serialized.",
@@ -106,10 +78,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody aria-label="value">
-            </tbody>
+            <track aria-label="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
             'ARIA attribute must be added.',
@@ -120,13 +91,12 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody aria-label="value">
-            </tbody>
+            <track aria-label="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            'ARIA attribute must be added.',
+            'ARIA attribute must accept an enum key.',
         );
     }
 
@@ -134,10 +104,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody data-value="value">
-            </tbody>
+            <track data-value="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
             'Data attribute must be added.',
@@ -148,13 +117,12 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody data-value="value">
-            </tbody>
+            <track data-value="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            'Data attribute must be added.',
+            'Data attribute must accept an enum key.',
         );
     }
 
@@ -162,10 +130,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody onclick="alert(&apos;Clicked!&apos;)">
-            </tbody>
+            <track onclick="alert(&apos;Clicked!&apos;)">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
             'Event handler must be added.',
@@ -176,10 +143,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody aria-controls="value" aria-label="value">
-            </tbody>
+            <track aria-controls="value" aria-label="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->ariaAttributes(
                     [
                         'controls' => 'value',
@@ -195,40 +161,12 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody class="value">
-            </tbody>
+            <track class="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
             'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAutofocus(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody autofocus>
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->autofocus(true)
-                ->render(),
-            "'autofocus' must be serialized.",
-        );
-    }
-
-    public function testRenderWithBeginEnd(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            Content
-            </tbody>
-            HTML,
-            Tbody::tag()->begin() . 'Content' . Tbody::end(),
-            'begin/end must produce a complete element.',
         );
     }
 
@@ -236,10 +174,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody class="value">
-            </tbody>
+            <track class="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->class('value')
                 ->render(),
             "'class' must be serialized.",
@@ -250,56 +187,12 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody class="value">
-            </tbody>
+            <track class="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->class(BackedString::VALUE)
                 ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithContent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            value
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->content('value')
-                ->render(),
-            'Bare element must render with no attributes.',
-        );
-    }
-
-    public function testRenderWithContentEditable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody contenteditable="true">
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->contentEditable(true)
-                ->render(),
-            "'contentEditable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithContentEditableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody contenteditable="true">
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->contentEditable(ContentEditable::TRUE)
-                ->render(),
-            "'contentEditable' must be serialized.",
+            "'class' must accept an enum value.",
         );
     }
 
@@ -307,13 +200,25 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody data-value="value">
-            </tbody>
+            <track data-value="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
             'Data attribute map must be applied.',
+        );
+    }
+
+    public function testRenderWithDefault(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <track default>
+            HTML,
+            Track::tag()
+                ->default(true)
+                ->render(),
+            "'default' must be serialized.",
         );
     }
 
@@ -321,10 +226,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody class="default-class">
-            </tbody>
+            <track class="default-class">
             HTML,
-            Tbody::tag(['class' => 'default-class'])->render(),
+            Track::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
         );
     }
@@ -333,10 +237,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody class="default-class">
-            </tbody>
+            <track class="default-class" title="default-title">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
             'Default provider must contribute attributes.',
@@ -347,10 +250,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody>
-            </tbody>
+            <track>
             HTML,
-            Tbody::tag()->render(),
+            Track::tag()->render(),
             'Bare element must render with no attributes.',
         );
     }
@@ -359,10 +261,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody dir="ltr">
-            </tbody>
+            <track dir="ltr">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->dir('ltr')
                 ->render(),
             "'dir' must be serialized.",
@@ -373,62 +274,32 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody dir="ltr">
-            </tbody>
+            <track dir="ltr">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDraggable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody draggable="true">
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->draggable(true)
-                ->render(),
-            "'draggable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDraggableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody draggable="true">
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->draggable(Draggable::TRUE)
-                ->render(),
-            "'draggable' must be serialized.",
+            "'dir' must accept an enum value.",
         );
     }
 
     public function testRenderWithGlobalDefaultsAreApplied(): void
     {
         SimpleFactory::setDefaults(
-            Tbody::class,
+            Track::class,
             ['class' => 'default-class'],
         );
 
         self::assertSame(
             <<<HTML
-            <tbody class="default-class">
-            </tbody>
+            <track class="default-class">
             HTML,
-            Tbody::tag()->render(),
+            Track::tag()->render(),
             'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
-            Tbody::class,
+            Track::class,
             [],
         );
     }
@@ -437,10 +308,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody hidden>
-            </tbody>
+            <track hidden>
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->hidden(true)
                 ->render(),
             "'hidden' must be serialized.",
@@ -451,13 +321,64 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody id="value">
-            </tbody>
+            <track id="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->id('value')
                 ->render(),
             "'id' must be serialized.",
+        );
+    }
+
+    public function testRenderWithKind(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <track kind="captions">
+            HTML,
+            Track::tag()
+                ->kind('captions')
+                ->render(),
+            "'kind' must be serialized.",
+        );
+    }
+
+    public function testRenderWithKindUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <track kind="subtitles">
+            HTML,
+            Track::tag()
+                ->kind(Kind::SUBTITLES)
+                ->render(),
+            "'kind' must accept an enum value.",
+        );
+    }
+
+    public function testRenderWithLabel(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <track label="English">
+            HTML,
+            Track::tag()
+                ->label('English')
+                ->render(),
+            "'label' must be serialized.",
+        );
+    }
+
+    public function testRenderWithLabelUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <track label="value">
+            HTML,
+            Track::tag()
+                ->label(BackedString::VALUE)
+                ->render(),
+            "'label' must accept an enum value.",
         );
     }
 
@@ -465,10 +386,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody lang="en">
-            </tbody>
+            <track lang="en">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->lang('en')
                 ->render(),
             "'lang' must be serialized.",
@@ -479,31 +399,12 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody lang="en">
-            </tbody>
+            <track lang="en">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithMicroData(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->itemId('https://example.com/item')
-                ->itemProp('name')
-                ->itemRef('info')
-                ->itemScope(true)
-                ->itemType('https://schema.org/Thing')
-                ->render(),
-            'Microdata attributes must be serialized.',
+            "'lang' must accept an enum value.",
         );
     }
 
@@ -511,10 +412,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody>
-            </tbody>
+            <track>
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
@@ -526,10 +426,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody>
-            </tbody>
+            <track>
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
@@ -541,10 +440,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody>
-            </tbody>
+            <track>
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
@@ -556,10 +454,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody role="banner">
-            </tbody>
+            <track role="banner">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->role('banner')
                 ->render(),
             "'role' must be serialized.",
@@ -570,87 +467,12 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody role="banner">
-            </tbody>
+            <track role="banner">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRow(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            <tr>
-            <td>
-            Jane
-            </td>
-            <td>
-            30
-            </td>
-            </tr>
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->row('Jane', '30')
-                ->render(),
-            'Row must be appended.',
-        );
-    }
-
-    public function testRenderWithRows(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            <tr>
-            <td>
-            Jane
-            </td>
-            <td>
-            30
-            </td>
-            </tr>
-            <tr>
-            <td>
-            John
-            </td>
-            <td>
-            25
-            </td>
-            </tr>
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->rows(['Jane', '30'], ['John', '25'])
-                ->render(),
-            'Rows collection must be applied.',
-        );
-    }
-
-    public function testRenderWithRowsUsingAssociativeArrays(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            <tr>
-            <td>
-            Jane
-            </td>
-            <td>
-            30
-            </td>
-            </tr>
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->rows(['name' => 'Jane', 'age' => '30'])
-                ->render(),
-            'Rows must accept associative arrays.',
+            "'role' must accept an enum value.",
         );
     }
 
@@ -658,10 +480,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody class="value">
-            </tbody>
+            <track class="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addAttribute('class', 'value')
                 ->render(),
             'Arbitrary attribute must be added.',
@@ -672,27 +493,51 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody title="value">
-            </tbody>
+            <track title="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            'Arbitrary attribute must be added.',
+            'Arbitrary attribute must accept an enum key.',
         );
     }
 
-    public function testRenderWithSpellcheck(): void
+    public function testRenderWithSrc(): void
     {
         self::assertSame(
             <<<HTML
-            <tbody spellcheck="true">
-            </tbody>
+            <track src="/media/subtitles.vtt">
             HTML,
-            Tbody::tag()
-                ->spellcheck(true)
+            Track::tag()
+                ->src('/media/subtitles.vtt')
                 ->render(),
-            "'spellcheck' must be serialized.",
+            "'src' must be serialized.",
+        );
+    }
+
+    public function testRenderWithSrclang(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <track srclang="en">
+            HTML,
+            Track::tag()
+                ->srclang('en')
+                ->render(),
+            "'srclang' must be serialized.",
+        );
+    }
+
+    public function testRenderWithSrclangUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <track srclang="value">
+            HTML,
+            Track::tag()
+                ->srclang(BackedString::VALUE)
+                ->render(),
+            "'srclang' must accept an enum value.",
         );
     }
 
@@ -700,27 +545,12 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody style='value'>
-            </tbody>
+            <track style='value'>
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->style('value')
                 ->render(),
             "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTabindex(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody tabindex="3">
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->tabIndex(3)
-                ->render(),
-            "'tabindex' must be serialized.",
         );
     }
 
@@ -728,10 +558,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody class="text-muted">
-            </tbody>
+            <track class="text-muted">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
             'Theme provider must contribute classes.',
@@ -742,10 +571,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody title="value">
-            </tbody>
+            <track title="value">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->title('value')
                 ->render(),
             "'title' must be serialized.",
@@ -756,28 +584,10 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody>
-            </tbody>
+            <track>
             HTML,
-            (string) Tbody::tag(),
+            (string) Track::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTr(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tbody>
-            <tr>
-            value
-            </tr>
-            </tbody>
-            HTML,
-            Tbody::tag()
-                ->tr(Tr::tag()->content('value'))
-                ->render(),
-            'Tr entries must be appended.',
         );
     }
 
@@ -785,10 +595,9 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody translate="no">
-            </tbody>
+            <track translate="no">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->translate(false)
                 ->render(),
             "'translate' must be serialized.",
@@ -799,20 +608,19 @@ final class TbodyTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <tbody translate="no">
-            </tbody>
+            <track translate="no">
             HTML,
-            Tbody::tag()
+            Track::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "'translate' must be serialized.",
+            "'translate' must accept an enum value.",
         );
     }
 
     public function testRenderWithUserOverridesGlobalDefaults(): void
     {
         SimpleFactory::setDefaults(
-            Tbody::class,
+            Track::class,
             [
                 'class' => 'from-global',
                 'id' => 'id-global',
@@ -821,52 +629,47 @@ final class TbodyTest extends TestCase
 
         self::assertSame(
             <<<HTML
-            <tbody class="from-global" id="value">
-            </tbody>
+            <track class="from-global" id="value">
             HTML,
-            Tbody::tag(['id' => 'value'])->render(),
+            Track::tag(['id' => 'value'])->render(),
             'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
-            Tbody::class,
+            Track::class,
             [],
         );
     }
 
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
-        $tbody = Tbody::tag();
+        $track = Track::tag();
 
         self::assertNotSame(
-            $tbody,
-            $tbody->row('value'),
+            $track,
+            $track->default(true),
             'New instance must be returned (immutability).',
         );
         self::assertNotSame(
-            $tbody,
-            $tbody->rows(['value']),
+            $track,
+            $track->kind('subtitles'),
             'New instance must be returned (immutability).',
         );
         self::assertNotSame(
-            $tbody,
-            $tbody->tr(Tr::tag()),
+            $track,
+            $track->label(''),
             'New instance must be returned (immutability).',
         );
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
-            ),
+        self::assertNotSame(
+            $track,
+            $track->src(''),
+            'New instance must be returned (immutability).',
         );
-
-        Tbody::tag()->contentEditable('invalid-value');
+        self::assertNotSame(
+            $track,
+            $track->srclang(''),
+            'New instance must be returned (immutability).',
+        );
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
@@ -880,21 +683,21 @@ final class TbodyTest extends TestCase
             ),
         );
 
-        Tbody::tag()->dir('invalid-value');
+        Track::tag()->dir('invalid-value');
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
+    public function testThrowInvalidArgumentExceptionWhenSettingKind(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                GlobalAttribute::DRAGGABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
+                'kind',
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Kind::cases())),
             ),
         );
 
-        Tbody::tag()->draggable('invalid-value');
+        Track::tag()->kind('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
@@ -908,7 +711,7 @@ final class TbodyTest extends TestCase
             ),
         );
 
-        Tbody::tag()->lang('invalid-value');
+        Track::tag()->lang('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
@@ -922,21 +725,7 @@ final class TbodyTest extends TestCase
             ),
         );
 
-        Tbody::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        Tbody::tag()->tabIndex(-2);
+        Track::tag()->role('invalid-value');
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
@@ -950,6 +739,6 @@ final class TbodyTest extends TestCase
             ),
         );
 
-        Tbody::tag()->translate('invalid-value');
+        Track::tag()->translate('invalid-value');
     }
 }

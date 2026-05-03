@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Metadata;
 
-use UIAwesome\Html\Attribute\Element\HasHref;
+use Stringable;
 use UIAwesome\Html\Attribute\HasTarget;
+use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Interop\MetadataVoid;
+use UnitEnum;
 
 /**
  * Renders the HTML `<base>` element for the document base URL and default navigation target.
@@ -28,8 +30,27 @@ use UIAwesome\Html\Interop\MetadataVoid;
  */
 final class Base extends BaseVoid
 {
-    use HasHref;
     use HasTarget;
+
+    /**
+     * Sets the `href` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->href('https://example.com/page');
+     * $element->href('/about');
+     * $element->href('#section');
+     * $element->href(null);
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value URL, path, or fragment, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `href` attribute.
+     */
+    public function href(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(ElementAttribute::HREF, $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<base>` element.

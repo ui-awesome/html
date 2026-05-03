@@ -6,8 +6,8 @@ namespace UIAwesome\Html\Interactive;
 
 use Stringable;
 use UIAwesome\Html\Attribute\HasName;
+use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Interactive\Attribute\CanBeOpen;
 use UIAwesome\Html\Interop\Block;
 
 /**
@@ -30,8 +30,26 @@ use UIAwesome\Html\Interop\Block;
  */
 final class Details extends BaseBlock
 {
-    use CanBeOpen;
     use HasName;
+
+    /**
+     * Sets the `open` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->open(true);
+     * $element->open(null);
+     * ```
+     *
+     * @param bool|null $value Open state. Use `true` to show details, `false` to hide, or `null` to remove the
+     * attribute.
+     *
+     * @return static New instance with the updated `open` attribute.
+     */
+    public function open(bool|null $value): static
+    {
+        return $this->addAttribute(ElementAttribute::OPEN, $value);
+    }
 
     /**
      * Appends a `<summary>` element to the details widget.

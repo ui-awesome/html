@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Interactive;
 
+use InvalidArgumentException;
 use Stringable;
+use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Form\{Button, Form};
 use UIAwesome\Html\Form\Values\{ButtonCommand, Method};
-use UIAwesome\Html\Interactive\Attribute\{CanBeOpen, HasClosedby};
+use UIAwesome\Html\Helper\Validator;
+use UIAwesome\Html\Interactive\Values\Closedby;
 use UIAwesome\Html\Interop\Block;
+use UnitEnum;
 
 /**
  * Renders the HTML `<dialog>` element for modal and non-modal dialogs.
@@ -35,9 +39,6 @@ use UIAwesome\Html\Interop\Block;
  */
 final class Dialog extends BaseBlock
 {
-    use CanBeOpen;
-    use HasClosedby;
-
     /**
      * Prepends a dialog-close button.
      *
@@ -53,9 +54,8 @@ final class Dialog extends BaseBlock
      *
      * @param Button|string|Stringable|null $button Button instance, button label text, or `null` to skip.
      *
-     * If the dialog has an `id` attribute, the button is wired with `command="close"` and
-     * `commandfor="{id}"` (MDN invoker command pattern). Otherwise, the button is wrapped in
-     * `<form method="dialog">`.
+     * If the dialog has an `id` attribute, the button is wired with `command="close"` and `commandfor="{id}"`
+     * (MDN invoker command pattern). Otherwise, the button is wrapped in `<form method="dialog">`.
      *
      * @return static New instance with the prepended close button.
      */
@@ -69,7 +69,7 @@ final class Dialog extends BaseBlock
             $button = Button::tag()->content($button);
         }
 
-        /** @phpstan-var string $dialogId */
+        /** @var string $dialogId */
         $dialogId = $this->getAttribute('id', '');
 
         $closeMarkup = $dialogId !== ''
@@ -86,6 +86,54 @@ final class Dialog extends BaseBlock
         $new->content = $closeMarkup . ($new->content === '' ? '' : "\n{$new->content}");
 
         return $new;
+    }
+
+    /**
+     * Sets the `closedby` attribute.
+     *
+     * Usage example:
+     * ```php
+     * use UIAwesome\Html\Interactive\Dialog;
+     * use UIAwesome\Html\Interactive\Values\Closedby;
+     *
+     * echo Dialog::tag()
+     *     ->closedby(Closedby::CLOSEREQUEST)
+     *     ->render();
+     * ```
+     *
+     * @param string|UnitEnum|null $value Dialog close policy ('any', 'closerequest', 'none'), or `null` to remove the
+     * attribute.
+     *
+     * @throws InvalidArgumentException if the provided value is not valid.
+     *
+     * @return static New instance with the updated `closedby` attribute.
+     *
+     * {@see Closedby} for predefined enum values.
+     */
+    public function closedby(string|UnitEnum|null $value): static
+    {
+        Validator::oneOf($value, Closedby::cases(), ElementAttribute::CLOSEDBY);
+
+        return $this->addAttribute(ElementAttribute::CLOSEDBY, $value);
+    }
+
+    /**
+     * Sets the `open` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->open(true);
+     * $element->open(null);
+     * ```
+     *
+     * @param bool|null $value Open state. Use `true` to show details, `false` to hide, or `null` to remove the
+     * attribute.
+     *
+     * @return static New instance with the updated `open` attribute.
+     */
+    public function open(bool|null $value): static
+    {
+        return $this->addAttribute(ElementAttribute::OPEN, $value);
     }
 
     /**

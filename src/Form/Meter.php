@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use UIAwesome\Html\Attribute\Form\{HasMax, HasMin};
+use Stringable;
 use UIAwesome\Html\Attribute\HasValue;
+use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Core\Element\BaseInline;
-use UIAwesome\Html\Form\Attribute\{HasHigh, HasLow, HasOptimum};
 use UIAwesome\Html\Interop\Inline;
+use UnitEnum;
 
 /**
  * Renders the HTML `<meter>` element for scalar measurements within a known range, such as disk usage or the relevance
@@ -35,12 +36,106 @@ use UIAwesome\Html\Interop\Inline;
  */
 final class Meter extends BaseInline
 {
-    use HasHigh;
-    use HasLow;
-    use HasMax;
-    use HasMin;
-    use HasOptimum;
     use HasValue;
+
+    /**
+     * Sets the `high` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Form\Meter::tag()
+     *     ->high(66)
+     *     ->render();
+     * ```
+     *
+     * @param float|int|string|null $value Lower numeric bound of the high end of the measured range, or `null` to
+     * remove the attribute.
+     *
+     * @return static New instance with the updated `high` attribute.
+     */
+    public function high(float|int|string|null $value): static
+    {
+        return $this->addAttribute('high', $value);
+    }
+
+    /**
+     * Sets the `low` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Form\Meter::tag()
+     *     ->low(33)
+     *     ->render();
+     * ```
+     *
+     * @param float|int|string|null $value Upper numeric bound of the low end of the measured range, or `null` to remove
+     * the attribute.
+     *
+     * @return static New instance with the updated `low` attribute.
+     */
+    public function low(float|int|string|null $value): static
+    {
+        return $this->addAttribute('low', $value);
+    }
+
+    /**
+     * Sets the `max` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->max(100);
+     * $element->max('2024-12-31');
+     * $element->max('23:59');
+     * $element->max(null);
+     * ```
+     *
+     * @param float|int|string|Stringable|UnitEnum|null $value Maximum value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `max` attribute.
+     */
+    public function max(float|int|string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::MAX, $value);
+    }
+
+    /**
+     * Sets the `min` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->min(0);
+     * $element->min('2024-01-01');
+     * $element->min('08:00');
+     * $element->min(null);
+     * ```
+     *
+     * @param float|int|string|Stringable|UnitEnum|null $value Minimum value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `min` attribute.
+     */
+    public function min(float|int|string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute(Attribute::MIN, $value);
+    }
+
+    /**
+     * Sets the `optimum` attribute.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Form\Meter::tag()
+     *     ->optimum(80)
+     *     ->render();
+     * ```
+     *
+     * @param float|int|string|null $value Optimal numeric value, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `optimum` attribute.
+     */
+    public function optimum(float|int|string|null $value): static
+    {
+        return $this->addAttribute('optimum', $value);
+    }
 
     /**
      * Returns the tag enumeration for the `<meter>` element.

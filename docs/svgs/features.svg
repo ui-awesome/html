@@ -1,72 +1,56 @@
-<svg fill="none" viewBox="0 0 1200 380" width="100%" height="340" xmlns="http://www.w3.org/2000/svg">
-    <foreignObject width="100%" height="100%">
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            <style>
-                .container {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 20px;
-                    padding: 20px;
-                }
-                .alert-box {
-                    border-left: 4px solid #1f883d;
-                    padding: 12px;
-                    margin-bottom: 16px;
-                    border-radius: 6px;
-                    background: rgba(31, 136, 61, 0.1);
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-                    width: 100%;
-                    box-sizing: border-box;
-                }
-                .alert-title {
-                    margin: 0 0 8px 0;
-                    font-weight: 600;
-                }
-                .alert-content {
-                    margin: 0;
-                    line-height: 1.5;
-                }
+<svg viewBox="0 0 1200 380" width="100%" height="340" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .box-bg { fill: #e6f4ea; stroke: #a7cdb3; stroke-width: 1; }
+        .title { font-weight: 700; font-size: 16px; fill: #1a202c; }
+        .content { font-size: 13px; fill: #4a5568; }
+    </style>
 
-                /* Light mode */
-                    @media (prefers-color-scheme: light) {
-                    .alert-title { color: #000000; }
-                    .alert-content { color: #333333; }
-                    .alert-box { background: rgba(31, 136, 61, 0.1); }
-                }
+    <g>
+        <rect class="box-bg" x="20" y="20" width="570" height="100" rx="6"/>
+        <rect x="20" y="20" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="40" y="50">Extensible</text>
+        <text class="content" x="40" y="78">Attribute providers, theme providers and UI Awesome integration</text>
+        <text class="content" x="40" y="98">Defaults keep reusable element configuration predictable</text>
+    </g>
 
-                /* Dark mode */
-                @media (prefers-color-scheme: dark) {
-                    .alert-title { color: #ffffff; }
-                    .alert-content { color: #ffffff; }
-                    .alert-box { background: rgba(31, 136, 61, 0.2); }
-                }
-            </style>
-            <div class="container">
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Extensible</strong></p>
-                    <p class="alert-content">Attribute providers • Theme providers • Integrates with other UI Awesome packages</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Fluent &amp; Immutable</strong></p>
-                    <p class="alert-content">Method chaining • Reusable element instances • Side-effect free rendering</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>HTML5 Elements</strong></p>
-                    <p class="alert-content">Root, metadata, flow, phrasing • Common tags included • Organized namespaces</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Rendering Helpers</strong></p>
-                    <p class="alert-content"><code>begin()</code>/<code>end()</code> streaming • Void tags handled • Consistent markup</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Safe by Default</strong></p>
-                    <p class="alert-content"><code>content()</code> encodes • <code>html()</code> for raw markup • Predictable output</p>
-                </div>
-                <div class="alert-box">
-                    <p class="alert-title"><strong>Typed Attributes</strong></p>
-                    <p class="alert-content">Global attributes • <code>data-*</code> and <code>aria-*</code> helpers • Enum-based APIs</p>
-                </div>
-            </div>
-        </div>
-    </foreignObject>
+    <g>
+        <rect class="box-bg" x="610" y="20" width="570" height="100" rx="6"/>
+        <rect x="610" y="20" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="630" y="50">Fluent &amp; Immutable</text>
+        <text class="content" x="630" y="78">Method chaining &#8226; reusable element instances &#8226; side-effect free rendering</text>
+        <text class="content" x="630" y="98">Every attribute update returns a new element instance</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="20" y="140" width="570" height="100" rx="6"/>
+        <rect x="20" y="140" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="40" y="170">HTML5 Elements</text>
+        <text class="content" x="40" y="198">Root, metadata, flow, phrasing, embedded, form, list and table tags</text>
+        <text class="content" x="40" y="218">Organized namespaces with concrete element classes</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="610" y="140" width="570" height="100" rx="6"/>
+        <rect x="610" y="140" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="630" y="170">Rendering Helpers</text>
+        <text class="content" x="630" y="198">begin() and end() streaming &#8226; void tags handled consistently</text>
+        <text class="content" x="630" y="218">Composition with nested elements, strings and Stringable values</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="20" y="260" width="570" height="100" rx="6"/>
+        <rect x="20" y="260" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="40" y="290">Safe by Default</text>
+        <text class="content" x="40" y="318">content() encodes text &#8226; html() accepts trusted raw markup</text>
+        <text class="content" x="40" y="338">Predictable output with standards-compliant HTML rendering</text>
+    </g>
+
+    <g>
+        <rect class="box-bg" x="610" y="260" width="570" height="100" rx="6"/>
+        <rect x="610" y="260" width="4" height="100" fill="#1f883d"/>
+        <text class="title" x="630" y="290">Typed Attributes</text>
+        <text class="content" x="630" y="318">Global attributes, data-* and aria-* helpers with enum-backed APIs</text>
+        <text class="content" x="630" y="338">Element-specific fluent methods validate and render attributes</text>
+    </g>
 </svg>

@@ -50,7 +50,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->content('<value>')
                 ->getContent(),
-            "Failed asserting that 'content()' method encodes values correctly.",
+            'Content must be HTML-encoded.',
         );
     }
 
@@ -59,7 +59,7 @@ final class TableTest extends TestCase
         self::assertSame(
             'value',
             Table::tag()->getAttribute('class', 'value'),
-            "Failed asserting that 'getAttribute()' returns the default value when missing.",
+            'Default fallback must be returned.',
         );
     }
 
@@ -68,9 +68,9 @@ final class TableTest extends TestCase
         self::assertSame(
             ['class' => 'value'],
             Table::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->getAttributes(),
-            "Failed asserting that 'getAttributes()' returns the assigned attributes.",
+            'Assigned attributes must be returned.',
         );
     }
 
@@ -85,7 +85,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->html('<value>')
                 ->render(),
-            "Failed asserting that element renders correctly with 'html()' method.",
+            'Raw HTML content must be applied.',
         );
     }
 
@@ -99,7 +99,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->accesskey('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'accesskey' attribute.",
+            "'accesskey' must be serialized.",
         );
     }
 
@@ -113,7 +113,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->addAriaAttribute('label', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -127,7 +127,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addAriaAttribute()' method.",
+            'ARIA attribute must be added.',
         );
     }
 
@@ -141,7 +141,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->addDataAttribute('value', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -155,7 +155,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'addDataAttribute()' method.",
+            'Data attribute must be added.',
         );
     }
 
@@ -169,7 +169,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->addEvent('click', "alert('Clicked!')")
                 ->render(),
-            "Failed asserting that element renders correctly with 'addEvent()' method.",
+            'Event handler must be added.',
         );
     }
 
@@ -188,7 +188,7 @@ final class TableTest extends TestCase
                     ],
                 )
                 ->render(),
-            "Failed asserting that element renders correctly with 'ariaAttributes()' method.",
+            'ARIA attribute map must be applied.',
         );
     }
 
@@ -202,7 +202,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->attributes(['class' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'attributes()' method.",
+            'Attribute map must be applied.',
         );
     }
 
@@ -216,7 +216,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->autofocus(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'autofocus' attribute.",
+            "'autofocus' must be serialized.",
         );
     }
 
@@ -229,7 +229,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()->begin() . 'Content' . Table::end(),
-            "Failed asserting that element renders correctly with 'begin()' and 'end()' methods.",
+            'begin/end must produce a complete element.',
         );
     }
 
@@ -246,7 +246,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->caption(Caption::tag()->content('value'))
                 ->render(),
-            "Failed asserting that element renders correctly with 'caption()' method using Caption instance.",
+            'Caption must accept a Caption instance.',
         );
     }
 
@@ -260,7 +260,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->caption(null)
                 ->render(),
-            "Failed asserting that element renders correctly with 'caption()' method using `null`.",
+            'Caption must accept `null` to drop the element.',
         );
     }
 
@@ -277,7 +277,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->caption('Monthly report')
                 ->render(),
-            "Failed asserting that element renders correctly with 'caption()' method using string.",
+            'Caption must accept a string.',
         );
     }
 
@@ -294,7 +294,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->caption('<em>Members</em>')
                 ->render(),
-            "Failed asserting that 'caption()' method escapes HTML when using string.",
+            'Caption must HTML-escape string content.',
         );
     }
 
@@ -308,7 +308,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->class('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -322,7 +322,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->class(BackedString::VALUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'class' attribute.",
+            "'class' must be serialized.",
         );
     }
 
@@ -339,7 +339,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->colgroup(Colgroup::tag()->col(Col::tag()->span(2)))
                 ->render(),
-            "Failed asserting that element renders correctly with 'colgroup()' method.",
+            'Colgroup must be appended.',
         );
     }
 
@@ -354,7 +354,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->content('value')
                 ->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -368,7 +368,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->contentEditable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -382,7 +382,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->contentEditable(ContentEditable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'contentEditable' attribute.",
+            "'contentEditable' must be serialized.",
         );
     }
 
@@ -396,7 +396,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->dataAttributes(['value' => 'value'])
                 ->render(),
-            "Failed asserting that element renders correctly with 'dataAttributes()' method.",
+            'Data attribute map must be applied.',
         );
     }
 
@@ -408,7 +408,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag(['class' => 'default-class'])->render(),
-            'Failed asserting that default configuration values are applied correctly.',
+            'Constructor configuration must be applied.',
         );
     }
 
@@ -422,7 +422,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->addDefaultProvider(DefaultProvider::class)
                 ->render(),
-            'Failed asserting that default provider is applied correctly.',
+            'Default provider must contribute attributes.',
         );
     }
 
@@ -434,7 +434,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()->render(),
-            'Failed asserting that element renders correctly with default values.',
+            'Bare element must render with no attributes.',
         );
     }
 
@@ -448,7 +448,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->dir('ltr')
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -462,7 +462,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->dir(Direction::LTR)
                 ->render(),
-            "Failed asserting that element renders correctly with 'dir' attribute.",
+            "'dir' must be serialized.",
         );
     }
 
@@ -476,7 +476,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->draggable(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -490,7 +490,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->draggable(Draggable::TRUE)
                 ->render(),
-            "Failed asserting that element renders correctly with 'draggable' attribute.",
+            "'draggable' must be serialized.",
         );
     }
 
@@ -535,7 +535,7 @@ final class TableTest extends TestCase
                 ->tbody(Tbody::tag()->tr(Tr::tag()->td(Td::tag()->content('Jane'))))
                 ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(Td::tag()->content('Total'))))
                 ->render(),
-            'Failed asserting that complete table widgets compose correctly into the final HTML.',
+            'Table widgets must compose into final HTML.',
         );
     }
 
@@ -585,7 +585,7 @@ final class TableTest extends TestCase
                 ->tbody(Tbody::tag()->row('Jane', '30'))
                 ->tfoot(Tfoot::tag()->row('Total', '1'))
                 ->render(),
-            'Failed asserting that complete table composes correctly using convenience methods.',
+            'Convenience methods must compose a complete table.',
         );
     }
 
@@ -602,7 +602,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()->render(),
-            'Failed asserting that global defaults are applied correctly.',
+            'Factory defaults must be applied.',
         );
 
         SimpleFactory::setDefaults(
@@ -621,7 +621,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->hidden(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'hidden' attribute.",
+            "'hidden' must be serialized.",
         );
     }
 
@@ -635,7 +635,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->id('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'id' attribute.",
+            "'id' must be serialized.",
         );
     }
 
@@ -649,7 +649,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->lang('en')
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -663,7 +663,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->lang(Language::ENGLISH)
                 ->render(),
-            "Failed asserting that element renders correctly with 'lang' attribute.",
+            "'lang' must be serialized.",
         );
     }
 
@@ -681,7 +681,7 @@ final class TableTest extends TestCase
                 ->itemScope(true)
                 ->itemType('https://schema.org/Thing')
                 ->render(),
-            'Failed asserting that element renders correctly with microdata attributes.',
+            'Microdata attributes must be serialized.',
         );
     }
 
@@ -696,7 +696,7 @@ final class TableTest extends TestCase
                 ->addAriaAttribute('label', 'value')
                 ->removeAriaAttribute('label')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAriaAttribute()' method.",
+            'ARIA attribute must be removed.',
         );
     }
 
@@ -708,10 +708,10 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->removeAttribute('class')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeAttribute()' method.",
+            'Attribute must be removed.',
         );
     }
 
@@ -726,7 +726,7 @@ final class TableTest extends TestCase
                 ->addDataAttribute('value', 'value')
                 ->removeDataAttribute('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'removeDataAttribute()' method.",
+            'Data attribute must be removed.',
         );
     }
 
@@ -740,7 +740,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->role('banner')
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -754,7 +754,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->role(Role::BANNER)
                 ->render(),
-            "Failed asserting that element renders correctly with 'role' attribute.",
+            "'role' must be serialized.",
         );
     }
 
@@ -766,9 +766,9 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()
-                ->setAttribute('class', 'value')
+                ->addAttribute('class', 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -780,9 +780,9 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag()
-                ->setAttribute(GlobalAttribute::TITLE, 'value')
+                ->addAttribute(GlobalAttribute::TITLE, 'value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'setAttribute()' method.",
+            'Arbitrary attribute must be added.',
         );
     }
 
@@ -796,7 +796,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->spellcheck(true)
                 ->render(),
-            "Failed asserting that element renders correctly with 'spellcheck' attribute.",
+            "'spellcheck' must be serialized.",
         );
     }
 
@@ -810,7 +810,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->style('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'style' attribute.",
+            "'style' must be serialized.",
         );
     }
 
@@ -824,7 +824,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->tabIndex(3)
                 ->render(),
-            "Failed asserting that element renders correctly with 'tabindex' attribute.",
+            "'tabindex' must be serialized.",
         );
     }
 
@@ -845,7 +845,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->tbody(Tbody::tag()->tr(Tr::tag()->td(Td::tag()->content('value'))))
                 ->render(),
-            "Failed asserting that element renders correctly with 'tbody()' method.",
+            'Tbody must be appended.',
         );
     }
 
@@ -866,7 +866,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->tfoot(Tfoot::tag()->tr(Tr::tag()->td(Td::tag()->content('value'))))
                 ->render(),
-            "Failed asserting that element renders correctly with 'tfoot()' method.",
+            'Tfoot must be appended.',
         );
     }
 
@@ -887,7 +887,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->thead(Thead::tag()->tr(Tr::tag()->th(Th::tag()->content('value'))))
                 ->render(),
-            "Failed asserting that element renders correctly with 'thead()' method.",
+            'Thead must be appended.',
         );
     }
 
@@ -901,7 +901,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->addThemeProvider('muted', DefaultThemeProvider::class)
                 ->render(),
-            "Failed asserting that element renders correctly with 'addThemeProvider()' method.",
+            'Theme provider must contribute classes.',
         );
     }
 
@@ -915,7 +915,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->title('value')
                 ->render(),
-            "Failed asserting that element renders correctly with 'title' attribute.",
+            "'title' must be serialized.",
         );
     }
 
@@ -927,7 +927,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             (string) Table::tag(),
-            "Failed asserting that '__toString()' method renders correctly.",
+            'Casting to string must produce HTML.',
         );
     }
 
@@ -946,7 +946,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->tr(Tr::tag()->td(Td::tag()->content('value')))
                 ->render(),
-            "Failed asserting that element renders correctly with 'tr()' method.",
+            'Tr entries must be appended.',
         );
     }
 
@@ -960,7 +960,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->translate(false)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -974,7 +974,7 @@ final class TableTest extends TestCase
             Table::tag()
                 ->translate(Translate::NO)
                 ->render(),
-            "Failed asserting that element renders correctly with 'translate' attribute.",
+            "'translate' must be serialized.",
         );
     }
 
@@ -994,7 +994,7 @@ final class TableTest extends TestCase
             </table>
             HTML,
             Table::tag(['id' => 'value'])->render(),
-            'Failed asserting that user-defined attributes override global defaults correctly.',
+            'User attributes must take precedence over factory defaults.',
         );
 
         SimpleFactory::setDefaults(
@@ -1010,32 +1010,32 @@ final class TableTest extends TestCase
         self::assertNotSame(
             $table,
             $table->caption('value'),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $table,
             $table->colgroup(Colgroup::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $table,
             $table->thead(Thead::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $table,
             $table->tbody(Tbody::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $table,
             $table->tr(Tr::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
         self::assertNotSame(
             $table,
             $table->tfoot(Tfoot::tag()),
-            'Should return a new instance when setting the attribute, ensuring immutability.',
+            'New instance must be returned (immutability).',
         );
     }
 
@@ -1046,7 +1046,7 @@ final class TableTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeArray(ContentEditable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
             ),
         );
 
@@ -1060,7 +1060,7 @@ final class TableTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeArray(Direction::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
             ),
         );
 
@@ -1074,7 +1074,7 @@ final class TableTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeArray(Draggable::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
             ),
         );
 
@@ -1088,7 +1088,7 @@ final class TableTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeArray(Language::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
             ),
         );
 
@@ -1102,7 +1102,7 @@ final class TableTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeArray(Role::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
             ),
         );
 
@@ -1130,7 +1130,7 @@ final class TableTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeArray(Translate::cases())),
+                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
             ),
         );
 

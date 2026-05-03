@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use UIAwesome\Html\Attribute\Form\CanBeRequired;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
-use UIAwesome\Html\Attribute\Values\Type;
+use UIAwesome\Html\Attribute\Values\{Attribute, Type};
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Form\Mixin\HasCheckedState;
 use UIAwesome\Html\Interop\Voids;
 
 /**
  * Represents the HTML `<input type="radio">` element.
- *
- * The radio button is a graphical control element that allows the user to choose only one of a predefined set of mutually
- * exclusive options.
  *
  * Usage example:
  * ```php
@@ -35,7 +31,6 @@ use UIAwesome\Html\Interop\Voids;
 final class InputRadio extends BaseInput
 {
     use CanBeAutofocus;
-    use CanBeRequired;
     use HasCheckedState;
     use HasTabindex;
     use HasValue;
@@ -53,6 +48,25 @@ final class InputRadio extends BaseInput
     }
 
     /**
+     * Sets the `required` attribute.
+     *
+     * Usage example:
+     * ```php
+     * $element->required(true);
+     * $element->required(null);
+     * ```
+     *
+     * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
+     * remove the attribute.
+     *
+     * @return static New instance with the updated `required` attribute.
+     */
+    public function required(bool|null $value): static
+    {
+        return $this->addAttribute(Attribute::REQUIRED, $value);
+    }
+
+    /**
      * Returns the tag enumeration for the `<input>` element.
      *
      * @return Voids Tag enumeration instance for `<input>`.
@@ -65,9 +79,8 @@ final class InputRadio extends BaseInput
     /**
      * Returns the default configuration for the input element.
      *
-     * @return array Default configuration array with method calls as keys.
-     *
-     * @phpstan-return array<string, mixed>
+     * @return array<string, mixed> Default configuration for the input element, including the default `type` attribute
+     * set to `radio`.
      */
     protected function loadDefault(): array
     {

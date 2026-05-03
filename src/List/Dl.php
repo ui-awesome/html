@@ -85,7 +85,7 @@ final class Dl extends BaseBlock
      * );
      * ```
      *
-     * @param array{0: Dt|string|Stringable, 1: Dd|string|Stringable} ...$pairs Arrays of `[term, description]` pairs.
+     * @param array{0: Dt|string|Stringable, 1: Dd|string|Stringable} ...$pairs Arrays of '[term, description]' pairs.
      *
      * @return static New instance with the appended term-description pairs.
      */
