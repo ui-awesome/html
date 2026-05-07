@@ -29,15 +29,9 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 use UnitEnum;
 
 /**
- * Unit tests for the {@see InputCheckbox} class.
+ * Unit tests for {@see InputCheckbox} rendering and checkbox attribute behavior.
  *
- * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input checkbox specific attributes (`autofocus`, `checked`, `disabled`, `form`, `name`, `required`,
- *   `tabindex`, `value`) and renders expected output.
- * - Handles edge cases for `checked` attribute with various data types and value comparisons.
- * - Renders attributes and string casting for a void element.
- * - Resolves default and theme providers, including global defaults and user overrides.
+ * {@see CheckedProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -763,7 +757,7 @@ final class InputCheckboxTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
+                implode("', '", Enum::normalizeStringArray(Direction::cases())),
             ),
         );
 
@@ -777,7 +771,7 @@ final class InputCheckboxTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
+                implode("', '", Enum::normalizeStringArray(Language::cases())),
             ),
         );
 
@@ -791,7 +785,7 @@ final class InputCheckboxTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
+                implode("', '", Enum::normalizeStringArray(Role::cases())),
             ),
         );
 
@@ -819,7 +813,7 @@ final class InputCheckboxTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
+                implode("', '", Enum::normalizeStringArray(Translate::cases())),
             ),
         );
 
@@ -833,7 +827,7 @@ final class InputCheckboxTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
+                implode("', '", Enum::normalizeStringArray(Type::cases())),
             ),
         );
 

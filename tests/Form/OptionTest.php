@@ -28,14 +28,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Option} rendering and attribute behavior.
  *
- * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies option-specific attributes (`disabled`, `label`, `selected`, `value`) and renders expected output.
- * - Ensures attribute accessors return assigned values and fallback defaults.
- * - Ensures fluent methods are immutable.
- * - Renders content, raw HTML, and string casting with expected encoding behavior.
- * - Resolves default and theme providers, including global defaults and user overrides.
- *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
@@ -818,7 +810,7 @@ final class OptionTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
+                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
             ),
         );
 
@@ -832,7 +824,7 @@ final class OptionTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
+                implode("', '", Enum::normalizeStringArray(Direction::cases())),
             ),
         );
 
@@ -846,7 +838,7 @@ final class OptionTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
+                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
             ),
         );
 
@@ -860,7 +852,7 @@ final class OptionTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
+                implode("', '", Enum::normalizeStringArray(Language::cases())),
             ),
         );
 
@@ -874,7 +866,7 @@ final class OptionTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
+                implode("', '", Enum::normalizeStringArray(Role::cases())),
             ),
         );
 
@@ -902,7 +894,7 @@ final class OptionTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
+                implode("', '", Enum::normalizeStringArray(Translate::cases())),
             ),
         );
 

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 0.4.1 Under development
 
 - chore: migrate to scaffold model; feat(phrasing): add `Code`, `Strong`, `Em`, `Small`, `Mark` classes; feat(flow): add `Pre` class.
+- test: standardize PHPDoc headers and replace `array_map` enum-normalization pattern with `Enum::normalizeStringArray()` across `tests/`.
 
 ## 0.4.0 May 2, 2026
 

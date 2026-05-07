@@ -33,18 +33,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Img} rendering and image attribute behavior.
  *
- * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies image specific attributes (`alt`, `crossorigin`, `decoding`, `elementtiming`, `fetchpriority`, `height`,
- *   `ismap`, `loading`, `referrerpolicy`, `sizes`, `src`, `srcset`, `usemap`, `width`) and renders expected output.
- * - Ensures attribute accessors return assigned values and fallback defaults.
- * - Ensures fluent attribute setters return new instances (immutability).
- * - Renders attributes and string casting for a void element.
- * - Resolves default and theme providers, including global defaults and user overrides.
- * - Verifies invalid enumerated values throw {@see InvalidArgumentException}.
- *
- * {@see Img} for the base implementation.
- *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
@@ -918,7 +906,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::CROSSORIGIN->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Crossorigin::cases())),
+                implode("', '", Enum::normalizeStringArray(Crossorigin::cases())),
             ),
         );
 
@@ -932,7 +920,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 ElementAttribute::DECODING->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Decoding::cases())),
+                implode("', '", Enum::normalizeStringArray(Decoding::cases())),
             ),
         );
 
@@ -946,7 +934,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
+                implode("', '", Enum::normalizeStringArray(Direction::cases())),
             ),
         );
 
@@ -960,7 +948,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::FETCHPRIORITY->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Fetchpriority::cases())),
+                implode("', '", Enum::normalizeStringArray(Fetchpriority::cases())),
             ),
         );
 
@@ -974,7 +962,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
+                implode("', '", Enum::normalizeStringArray(Language::cases())),
             ),
         );
 
@@ -988,7 +976,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 ElementAttribute::LOADING->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Loading::cases())),
+                implode("', '", Enum::normalizeStringArray(Loading::cases())),
             ),
         );
 
@@ -1002,7 +990,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::REFERRERPOLICY->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Referrerpolicy::cases())),
+                implode("', '", Enum::normalizeStringArray(Referrerpolicy::cases())),
             ),
         );
 
@@ -1016,7 +1004,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
+                implode("', '", Enum::normalizeStringArray(Role::cases())),
             ),
         );
 
@@ -1030,7 +1018,7 @@ final class ImgTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
+                implode("', '", Enum::normalizeStringArray(Translate::cases())),
             ),
         );
 
