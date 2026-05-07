@@ -27,17 +27,7 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
- * Unit tests for the {@see InputUrl} class.
- *
- * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies input url specific attributes (`autocomplete`, `autofocus`, `disabled`, `form`, `list`, `maxlength`,
- *   `minlength`, `name`, `pattern`, `placeholder`, `readonly`, `required`, `size`, `spellcheck`, `tabindex`, `value`)
- *   and renders expected output.
- * - Renders attributes and string casting for a void element.
- * - Resolves default and theme providers, including global defaults and user overrides.
- *
- * {@see InputUrl} for the base implementation.
+ * Unit tests for {@see InputUrl} class.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -888,7 +878,7 @@ final class InputUrlTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
+                implode("', '", Enum::normalizeStringArray(Direction::cases())),
             ),
         );
 
@@ -902,7 +892,7 @@ final class InputUrlTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
+                implode("', '", Enum::normalizeStringArray(Language::cases())),
             ),
         );
 
@@ -944,7 +934,7 @@ final class InputUrlTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
+                implode("', '", Enum::normalizeStringArray(Role::cases())),
             ),
         );
 
@@ -972,7 +962,7 @@ final class InputUrlTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
+                implode("', '", Enum::normalizeStringArray(Translate::cases())),
             ),
         );
 
@@ -986,7 +976,7 @@ final class InputUrlTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TYPE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Type::cases())),
+                implode("', '", Enum::normalizeStringArray(Type::cases())),
             ),
         );
 

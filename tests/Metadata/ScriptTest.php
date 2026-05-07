@@ -34,15 +34,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Script} rendering and script attribute behavior.
  *
- * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*`, `on*` and enum-backed values.
- * - Applies script specific attributes (`async`, `blocking`, `crossorigin`, `defer`, `fetchpriority`, `integrity`,
- *   `nomodule`, `referrerpolicy`, `src`, `type`) and renders expected output.
- * - Ensures attribute accessors return assigned values and fallback defaults.
- * - Renders content, raw HTML, and string casting with expected encoding behavior.
- * - Resolves default and theme providers, including global defaults and user overrides.
- * - Verifies invalid enumerated values throw {@see InvalidArgumentException}.
- *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
@@ -1043,7 +1034,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 ElementAttribute::BLOCKING->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Blocking::cases())),
+                implode("', '", Enum::normalizeStringArray(Blocking::cases())),
             ),
         );
 
@@ -1057,7 +1048,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
+                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
             ),
         );
 
@@ -1071,7 +1062,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::CROSSORIGIN->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Crossorigin::cases())),
+                implode("', '", Enum::normalizeStringArray(Crossorigin::cases())),
             ),
         );
 
@@ -1085,7 +1076,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
+                implode("', '", Enum::normalizeStringArray(Direction::cases())),
             ),
         );
 
@@ -1099,7 +1090,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
+                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
             ),
         );
 
@@ -1113,7 +1104,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::FETCHPRIORITY->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Fetchpriority::cases())),
+                implode("', '", Enum::normalizeStringArray(Fetchpriority::cases())),
             ),
         );
 
@@ -1127,7 +1118,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
+                implode("', '", Enum::normalizeStringArray(Language::cases())),
             ),
         );
 
@@ -1141,7 +1132,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::REFERRERPOLICY->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Referrerpolicy::cases())),
+                implode("', '", Enum::normalizeStringArray(Referrerpolicy::cases())),
             ),
         );
 
@@ -1155,7 +1146,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
+                implode("', '", Enum::normalizeStringArray(Role::cases())),
             ),
         );
 
@@ -1183,7 +1174,7 @@ final class ScriptTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
+                implode("', '", Enum::normalizeStringArray(Translate::cases())),
             ),
         );
 

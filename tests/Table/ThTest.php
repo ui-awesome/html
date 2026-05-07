@@ -30,16 +30,7 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Th} rendering and table header cell attribute behavior.
  *
- * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
- * - Applies table header cell specific attributes (`abbr`, `colspan`, `headers`, `rowspan`, `scope`) and renders
- *   expected output.
- * - Covers `colspan` and `rowspan` boundary values for minimum and maximum valid limits with integer and
- *   numeric-string inputs.
- * - Ensures attribute accessors return assigned values and fallback defaults.
- * - Renders content, raw HTML, begin/end usage, and string casting with expected encoding behavior.
- * - Resolves default and theme providers, including global defaults and user overrides.
- * - Verifies invalid values throw {@see InvalidArgumentException}.
+ * {@see ThProvider} for test case data providers.
  *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
@@ -922,7 +913,7 @@ final class ThTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
+                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
             ),
         );
 
@@ -936,7 +927,7 @@ final class ThTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
+                implode("', '", Enum::normalizeStringArray(Direction::cases())),
             ),
         );
 
@@ -950,7 +941,7 @@ final class ThTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
+                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
             ),
         );
 
@@ -964,7 +955,7 @@ final class ThTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
+                implode("', '", Enum::normalizeStringArray(Language::cases())),
             ),
         );
 
@@ -978,7 +969,7 @@ final class ThTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
+                implode("', '", Enum::normalizeStringArray(Role::cases())),
             ),
         );
 
@@ -1020,7 +1011,7 @@ final class ThTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 'scope',
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Scope::cases())),
+                implode("', '", Enum::normalizeStringArray(Scope::cases())),
             ),
         );
 
@@ -1048,7 +1039,7 @@ final class ThTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
+                implode("', '", Enum::normalizeStringArray(Translate::cases())),
             ),
         );
 

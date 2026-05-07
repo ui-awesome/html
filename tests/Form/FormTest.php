@@ -34,13 +34,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 /**
  * Unit tests for {@see Form} rendering and attribute behavior.
  *
- * Test coverage.
- * - Applies global and custom attributes, including `aria-*`, `data-*` and enum-backed values.
- * - Ensures attribute accessors return assigned values and fallback defaults.
- * - Renders content, raw HTML, and string casting with expected encoding behavior.
- * - Resolves default and theme providers, including global defaults and user overrides.
- * - Covers all `<form>` element-specific attributes per MDN specification.
- *
  * @copyright Copyright (C) 2026 Terabytesoftw.
  * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
@@ -998,7 +991,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 'autocapitalize',
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Autocapitalize::cases())),
+                implode("', '", Enum::normalizeStringArray(Autocapitalize::cases())),
             ),
         );
 
@@ -1012,7 +1005,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, ContentEditable::cases())),
+                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
             ),
         );
 
@@ -1026,7 +1019,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DIR->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Direction::cases())),
+                implode("', '", Enum::normalizeStringArray(Direction::cases())),
             ),
         );
 
@@ -1040,7 +1033,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::DRAGGABLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Draggable::cases())),
+                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
             ),
         );
 
@@ -1054,7 +1047,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 'enctype',
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Enctype::cases())),
+                implode("', '", Enum::normalizeStringArray(Enctype::cases())),
             ),
         );
 
@@ -1068,7 +1061,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::LANG->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Language::cases())),
+                implode("', '", Enum::normalizeStringArray(Language::cases())),
             ),
         );
 
@@ -1082,7 +1075,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 'method',
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Method::cases())),
+                implode("', '", Enum::normalizeStringArray(Method::cases())),
             ),
         );
 
@@ -1096,7 +1089,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::REL->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Rel::cases())),
+                implode("', '", Enum::normalizeStringArray(Rel::cases())),
             ),
         );
 
@@ -1110,7 +1103,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::ROLE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Role::cases())),
+                implode("', '", Enum::normalizeStringArray(Role::cases())),
             ),
         );
 
@@ -1124,7 +1117,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 Attribute::TARGET->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Target::cases())),
+                implode("', '", Enum::normalizeStringArray(Target::cases())),
             ),
         );
 
@@ -1138,7 +1131,7 @@ final class FormTest extends TestCase
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
                 GlobalAttribute::TRANSLATE->value,
-                implode("', '", array_map(static fn(\BackedEnum $case): string => $case->value, Translate::cases())),
+                implode("', '", Enum::normalizeStringArray(Translate::cases())),
             ),
         );
 
