@@ -41,6 +41,7 @@ final class Pre extends BaseBlock
     {
         return $result;
     }
+
     /**
      * Returns the tag enumeration for the `<pre>` element.
      *
