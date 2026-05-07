@@ -339,7 +339,8 @@ final class PreTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <pre></pre>
+            <pre>
+            </pre>
             HTML,
             Pre::tag()->render(),
             'Bare element must render with no attributes.',
