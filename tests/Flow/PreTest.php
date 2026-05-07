@@ -334,6 +334,7 @@ final class PreTest extends TestCase
             'Default provider must contribute attributes.',
         );
     }
+
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
