@@ -334,6 +334,16 @@ final class PreTest extends TestCase
             'Default provider must contribute attributes.',
         );
     }
+    public function testRenderWithDefaultValues(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <pre></pre>
+            HTML,
+            Pre::tag()->render(),
+            'Bare element must render with no attributes.',
+        );
+    }
 
     public function testRenderWithDir(): void
     {
