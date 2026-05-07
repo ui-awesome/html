@@ -5,12 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.4.1 Under development
+## 0.4.1 May 07, 2026
 
 - chore: migrate to scaffold model; feat(phrasing): add `Code`, `Strong`, `Em`, `Small`, `Mark` classes; feat(flow): add `Pre` class.
 - test: standardize PHPDoc headers and replace `array_map` enum-normalization pattern with `Enum::normalizeStringArray()` across `tests/`.
 
-## 0.4.0 May 2, 2026
+## 0.4.0 May 02, 2026
 
 - perf: refactor codebase to improve performance.
 - feat(list): add `Dl`, `Dt`, and `Dd` classes for description list elements.
@@ -107,13 +107,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(docs): fix broken links in `Div`, `Li`, `Ol`, `P`, and `Ul` documentation.
 - feat: add `Hr` class widget.
 
-## 0.1.1 March 8, 2024
+## 0.1.1 March 08, 2024
 
 - fix(form): remove auto-generated ID in `UIAwesome\Html\FormControl\Button` class.
 - fix: add `Html\Interop\RenderInterface` to all classes.
 - fix(build): change branch alias to `1.0-dev` in `composer.json`.
 
-## 0.1.0 March 6, 2024
+## 0.1.0 March 06, 2024
 
 - Initial release.
 - fix(docs): improve `README.md` organization and headings for better readability.
