@@ -80,6 +80,23 @@ final class PreTest extends TestCase
         );
     }
 
+    public function testRenderPreservesConsecutiveNewlinesAndWhitespace(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <pre>
+            a
+
+             b
+            </pre>
+            HTML,
+            Pre::tag()
+                ->content("a\n\n b")
+                ->render(),
+            'Consecutive newlines and whitespace must be preserved in preformatted text.',
+        );
+    }
+
     public function testRenderWithAccesskey(): void
     {
         self::assertSame(
