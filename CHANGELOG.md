@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.4.1 Under development
 
+- chore: migrate to scaffold model; feat(phrasing): add `Code`, `Strong`, `Em`, `Small`, `Mark` classes; feat(flow): add `Pre` class.
+
 ## 0.4.0 May 2, 2026
 
 - perf: refactor codebase to improve performance.
