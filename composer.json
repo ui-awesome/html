@@ -49,8 +49,7 @@
             "allowed-packages": [
                 "php-forge/baseline",
                 "php-forge/coding-standard"
-            ],
-            "auto": false
+            ]
         }
     },
     "config": {
