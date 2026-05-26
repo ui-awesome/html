@@ -893,6 +893,20 @@ final class IframeTest extends TestCase
         );
     }
 
+    public function testRenderWithWidth(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <iframe width="300">
+            </iframe>
+            HTML,
+            Iframe::tag()
+                ->width(300)
+                ->render(),
+            "'width' must be serialized.",
+        );
+    }
+
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
         $iframe = Iframe::tag();
