@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 0.4.2 Under development
 
 - chore: update dependencies and configuration files.
+- feat(embedded): add `Iframe` class for `<iframe>` element.
 
 ## 0.4.1 May 07, 2026
 
