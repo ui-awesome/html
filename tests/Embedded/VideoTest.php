@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Embedded;
 
-use UIAwesome\Html\Attribute\Values\Attribute;
 use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
@@ -21,6 +20,7 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
+use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
 use UIAwesome\Html\Embedded\Video;
