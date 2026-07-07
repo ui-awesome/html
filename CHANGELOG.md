@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.4.3 Under development
 
+- chore: update dependencies and configuration files and remove copyright and license comments from files.
+- ci: replace Super-Linter with reusable quality and security workflows, pin reusable workflow references, group Dependabot updates, and refresh project status badges.
+
 ## 0.4.2 May 26, 2026
 
 - chore: update dependencies and configuration files.
 - feat(embedded): add `Iframe` class for `<iframe>` element.
-- chore: update dependencies and configuration files and remove copyright and license comments from files.
 
 ## 0.4.1 May 07, 2026
 
