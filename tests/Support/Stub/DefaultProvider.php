@@ -10,9 +10,6 @@ use UIAwesome\Html\Core\Provider\DefaultsProviderInterface;
 
 /**
  * Stub defaults provider for tests.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class DefaultProvider implements DefaultsProviderInterface
 {

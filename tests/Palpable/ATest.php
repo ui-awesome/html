@@ -29,9 +29,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see A} rendering and anchor attribute behavior.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('palpable')]
 final class ATest extends TestCase

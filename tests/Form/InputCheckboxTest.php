@@ -32,9 +32,6 @@ use UnitEnum;
  * Unit tests for {@see InputCheckbox} rendering and checkbox attribute behavior.
  *
  * {@see CheckedProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('form')]
 final class InputCheckboxTest extends TestCase

@@ -34,9 +34,6 @@ use function str_replace;
  * Unit tests for {@see InputRadio} rendering and radio attribute behavior.
  *
  * {@see CheckedProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('form')]
 final class InputRadioTest extends TestCase

@@ -24,10 +24,7 @@ use UnitEnum;
  *     ->render();
  * ```
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/number
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/number
  */
 final class InputNumber extends BaseInput
 {

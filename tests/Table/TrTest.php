@@ -28,9 +28,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Tr} rendering and row composition behavior.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('table')]
 final class TrTest extends TestCase

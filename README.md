@@ -1,8 +1,6 @@
 <!-- markdownlint-disable MD041 -->
 <p align="center">
-    <picture>
-        <img src="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome.png" alt="UI Awesome" width="25%">
-    </picture>
+    <img src="https://raw.githubusercontent.com/ui-awesome/.github/refs/heads/main/logo/ui_awesome.png" alt="UI Awesome" width="25%">
     <h1 align="center">Html</h1>
     <br>
 </p>

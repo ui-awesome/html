@@ -6,11 +6,6 @@ namespace UIAwesome\Html\Tests\Provider\Table;
 
 /**
  * Data provider for {@see \UIAwesome\Html\Tests\Table\TdTest} test cases.
- *
- * Provides boundary and numeric-string input/output pairs for the `colspan` and `rowspan` attributes.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class TdProvider
 {

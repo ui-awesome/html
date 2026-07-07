@@ -20,6 +20,7 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
+use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Embedded\Audio;
 use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
@@ -29,9 +30,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Audio} rendering and audio attribute behavior.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('embedded')]
 final class AudioTest extends TestCase
@@ -1085,7 +1083,7 @@ final class AudioTest extends TestCase
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                \UIAwesome\Html\Attribute\Values\Attribute::CROSSORIGIN->value,
+                Attribute::CROSSORIGIN->value,
                 implode("', '", Enum::normalizeStringArray(Crossorigin::cases())),
             ),
         );
