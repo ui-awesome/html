@@ -7,10 +7,7 @@ namespace UIAwesome\Html\Form\Values;
 /**
  * Represents values for the HTML `wrap` attribute.
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#wrap
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea#wrap
  */
 enum Wrap: string
 {

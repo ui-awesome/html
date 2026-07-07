@@ -23,11 +23,8 @@ use UIAwesome\Html\Interop\Table;
  *     ->render();
  * ```
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/colgroup
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/colgroup
  * {@see BaseBlock} for the base implementation.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class Colgroup extends BaseBlock
 {

@@ -31,9 +31,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Th} rendering and table header cell attribute behavior.
  *
  * {@see ThProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('table')]
 final class ThTest extends TestCase

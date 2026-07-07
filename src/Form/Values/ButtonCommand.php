@@ -9,10 +9,7 @@ namespace UIAwesome\Html\Form\Values;
  *
  * Experimental HTML attribute. Availability and behavior may vary across browsers.
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#command
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#command
  */
 enum ButtonCommand: string
 {

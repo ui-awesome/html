@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - chore: update dependencies and configuration files.
 - feat(embedded): add `Iframe` class for `<iframe>` element.
-- chore: update dependencies and configuration files.
+- chore: update dependencies and configuration files and remove copyright and license comments from files.
 
 ## 0.4.1 May 07, 2026
 

@@ -15,6 +15,7 @@
         "^code_coverage/",
         "^composer\\.lock$",
         "^runtime/",
+        "^tests/Flow/PreTest\\.php$",
         "^tests/runtime/",
         "^vendor/",
         "phpstan-baseline\\.neon$",

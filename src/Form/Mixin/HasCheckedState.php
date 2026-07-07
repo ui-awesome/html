@@ -14,16 +14,13 @@ use function is_scalar;
 
 /**
  * Provides methods to configure the checked state of form elements like checkboxes and radio buttons.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 trait HasCheckedState
 {
     /**
      * Determines the checked state of the element.
      *
-     * @phpstan-var mixed[]|bool|float|int|string|Stringable|UnitEnum|null $checked
+     * @phpstan-var mixed[]|bool|float|int|string|Stringable|UnitEnum|null
      */
     private array|bool|float|int|string|Stringable|UnitEnum|null $checked = null;
 

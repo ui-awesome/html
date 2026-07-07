@@ -30,9 +30,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
  * Unit tests for {@see Colgroup} rendering and column group behavior.
  *
  * {@see ColgroupProvider} for test case data providers.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('table')]
 final class ColgroupTest extends TestCase

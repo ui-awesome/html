@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Embedded;
 
+use UIAwesome\Html\Attribute\Values\Attribute;
 use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
@@ -29,9 +30,6 @@ use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Audio} rendering and audio attribute behavior.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 #[Group('embedded')]
 final class AudioTest extends TestCase
@@ -1085,7 +1083,7 @@ final class AudioTest extends TestCase
         $this->expectExceptionMessage(
             Message::VALUE_NOT_IN_LIST->getMessage(
                 'invalid-value',
-                \UIAwesome\Html\Attribute\Values\Attribute::CROSSORIGIN->value,
+                Attribute::CROSSORIGIN->value,
                 implode("', '", Enum::normalizeStringArray(Crossorigin::cases())),
             ),
         );

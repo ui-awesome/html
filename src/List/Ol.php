@@ -21,11 +21,8 @@ use UIAwesome\Html\Interop\Lists;
  *     ->render();
  * ```
  *
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol
  * {@see BaseBlock} for the base implementation.
- *
- * @copyright Copyright (C) 2026 Terabytesoftw.
- * @license https://opensource.org/license/bsd-3-clause BSD 3-Clause License.
  */
 final class Ol extends BaseBlock
 {
