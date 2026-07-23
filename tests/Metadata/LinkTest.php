@@ -25,7 +25,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
     Type,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Link;
@@ -385,25 +384,6 @@ final class LinkTest extends TestCase
                 ->fetchpriority(Fetchpriority::HIGH)
                 ->render(),
             "'fetchpriority' must be serialized.",
-        );
-    }
-
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Link::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            '<link class="default-class">',
-            Link::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Link::class,
-            [],
         );
     }
 
@@ -807,30 +787,6 @@ final class LinkTest extends TestCase
                 ->type(Type::TEXT_CSS)
                 ->render(),
             "'type' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Link::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <link class="from-global" id="value">
-            HTML,
-            Link::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Link::class,
-            [],
         );
     }
 

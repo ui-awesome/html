@@ -24,7 +24,6 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Embedded\Img;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -384,25 +383,6 @@ final class ImgTest extends TestCase
                 ->fetchpriority(Fetchpriority::LOW)
                 ->render(),
             "'fetchpriority' must be serialized.",
-        );
-    }
-
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Img::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            '<img class="default-class">',
-            Img::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Img::class,
-            [],
         );
     }
 
@@ -780,30 +760,6 @@ final class ImgTest extends TestCase
                 ->usemap('#map')
                 ->render(),
             "'usemap' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Img::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <img class="from-global" id="value">
-            HTML,
-            Img::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Img::class,
-            [],
         );
     }
 

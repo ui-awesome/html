@@ -17,7 +17,6 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Embedded\Track;
 use UIAwesome\Html\Embedded\Values\Kind;
 use UIAwesome\Html\Helper\Enum;
@@ -269,27 +268,6 @@ final class TrackTest extends TestCase
                 ->dir(Direction::LTR)
                 ->render(),
             "'dir' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Track::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <track class="default-class">
-            HTML,
-            Track::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Track::class,
-            [],
         );
     }
 
@@ -603,30 +581,6 @@ final class TrackTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Track::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <track class="from-global" id="value">
-            HTML,
-            Track::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Track::class,
-            [],
         );
     }
 

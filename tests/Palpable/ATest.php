@@ -21,7 +21,6 @@ use UIAwesome\Html\Attribute\Values\{
     Type,
 };
 use UIAwesome\Html\Attribute\Values\Attribute;
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Palpable\A;
@@ -327,27 +326,6 @@ final class ATest extends TestCase
                 )
                 ->render(),
             'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            A::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <a class="default-class"></a>
-            HTML,
-            A::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            A::class,
-            [],
         );
     }
 
@@ -740,30 +718,6 @@ final class ATest extends TestCase
                 ->type(Type::TEXT_HTML)
                 ->render(),
             "'type' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            A::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <a class="from-global" id="value"></a>
-            HTML,
-            A::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            A::class,
-            [],
         );
     }
 

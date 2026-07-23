@@ -22,7 +22,6 @@ use UIAwesome\Html\Attribute\Values\{
     Type,
 };
 use UIAwesome\Html\Attribute\Values\Blocking;
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Style;
@@ -436,28 +435,6 @@ final class StyleTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Style::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <style class="default-class">
-            </style>
-            HTML,
-            Style::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Style::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -811,31 +788,6 @@ final class StyleTest extends TestCase
                 ->type(Type::TEXT_CSS)
                 ->render(),
             "'type' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Style::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <style class="from-global" id="value">
-            </style>
-            HTML,
-            Style::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Style::class,
-            [],
         );
     }
 

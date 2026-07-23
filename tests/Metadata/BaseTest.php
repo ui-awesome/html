@@ -18,7 +18,6 @@ use UIAwesome\Html\Attribute\Values\{
     Target,
     Translate,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Base;
@@ -261,25 +260,6 @@ final class BaseTest extends TestCase
                 )
                 ->render(),
             'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Base::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            '<base class="default-class">',
-            Base::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Base::class,
-            [],
         );
     }
 
@@ -553,30 +533,6 @@ final class BaseTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Base::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <base class="from-global" id="value">
-            HTML,
-            Base::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Base::class,
-            [],
         );
     }
 

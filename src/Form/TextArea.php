@@ -10,6 +10,7 @@ use UIAwesome\Html\Attribute\{CanBeDisabled, HasName};
 use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Attribute\Global\{HasAutocapitalize, HasAutocorrect};
 use UIAwesome\Html\Attribute\Values\Attribute;
+use UIAwesome\Html\Contracts\Form\FormControlInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Form\Values\Wrap;
 use UIAwesome\Html\Helper\{Enum, Validator};
@@ -32,7 +33,7 @@ use UnitEnum;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea
  * {@see BaseBlock} for the base implementation.
  */
-final class TextArea extends BaseBlock
+final class TextArea extends BaseBlock implements FormControlInterface
 {
     use CanBeDisabled;
     use HasAutocapitalize;

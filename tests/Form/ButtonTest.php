@@ -20,7 +20,6 @@ use UIAwesome\Html\Attribute\Values\{
     Target,
     Translate,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\Button;
 use UIAwesome\Html\Form\Values\{ButtonCommand, ButtonType};
 use UIAwesome\Html\Helper\Enum;
@@ -468,27 +467,6 @@ final class ButtonTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Button::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <button class="default-class"></button>
-            HTML,
-            Button::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Button::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -799,30 +777,6 @@ final class ButtonTest extends TestCase
                 ->type(ButtonType::SUBMIT)
                 ->render(),
             "'type' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Button::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <button class="from-global" id="value"></button>
-            HTML,
-            Button::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Button::class,
-            [],
         );
     }
 

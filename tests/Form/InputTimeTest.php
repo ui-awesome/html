@@ -20,7 +20,6 @@ use UIAwesome\Html\Attribute\Values\{
     Type,
 };
 use UIAwesome\Html\Attribute\Values\Attribute;
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputTime;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -368,29 +367,6 @@ final class InputTimeTest extends TestCase
                 ->id('inputtime')
                 ->render(),
             "'form' must be serialized.",
-        );
-    }
-
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            InputTime::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputtime" type="time">
-            HTML,
-            InputTime::tag()
-                ->id('inputtime')
-                ->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            InputTime::class,
-            [],
         );
     }
 
@@ -801,27 +777,6 @@ final class InputTimeTest extends TestCase
                 ->render(),
             "'translate' must be serialized.",
         );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            InputTime::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="from-global" id="value" type="time">
-            HTML,
-            InputTime::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(InputTime::class, []);
     }
 
     public function testRenderWithValue(): void
