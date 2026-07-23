@@ -18,7 +18,6 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\List\Li;
@@ -392,28 +391,6 @@ final class LiTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Li::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <li class="default-class">
-            </li>
-            HTML,
-            Li::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Li::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -726,31 +703,6 @@ final class LiTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Li::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <li class="from-global" id="value">
-            </li>
-            HTML,
-            Li::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Li::class,
-            [],
         );
     }
 

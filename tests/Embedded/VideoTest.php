@@ -21,7 +21,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Attribute\Values\Attribute;
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
 use UIAwesome\Html\Embedded\Video;
 use UIAwesome\Html\Helper\Enum;
@@ -529,28 +528,6 @@ final class VideoTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Video::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <video class="default-class">
-            </video>
-            HTML,
-            Video::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Video::class,
-            [],
-        );
-    }
-
     public function testRenderWithHeight(): void
     {
         self::assertSame(
@@ -945,31 +922,6 @@ final class VideoTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Video::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <video class="from-global" id="value">
-            </video>
-            HTML,
-            Video::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Video::class,
-            [],
         );
     }
 

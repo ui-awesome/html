@@ -25,7 +25,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
     Type,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Script;
@@ -523,28 +522,6 @@ final class ScriptTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Script::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <script class="default-class">
-            </script>
-            HTML,
-            Script::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Script::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -940,31 +917,6 @@ final class ScriptTest extends TestCase
                 ->type(Type::MODULE)
                 ->render(),
             "'type' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Script::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <script class="from-global" id="value">
-            </script>
-            HTML,
-            Script::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Script::class,
-            [],
         );
     }
 

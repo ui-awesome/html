@@ -19,7 +19,6 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Table\{Col, Colgroup};
@@ -437,28 +436,6 @@ final class ColgroupTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Colgroup::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <colgroup class="default-class">
-            </colgroup>
-            HTML,
-            Colgroup::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Colgroup::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -753,31 +730,6 @@ final class ColgroupTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Colgroup::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <colgroup class="from-global" id="value">
-            </colgroup>
-            HTML,
-            Colgroup::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Colgroup::class,
-            [],
         );
     }
 

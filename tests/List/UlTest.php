@@ -8,7 +8,6 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{ Aria, ContentEditable, Data, Direction, Draggable, GlobalAttribute, Language, Role, Translate, };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\List\Ul;
@@ -382,28 +381,6 @@ final class UlTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Ul::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <ul class="default-class">
-            </ul>
-            HTML,
-            Ul::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Ul::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -752,31 +729,6 @@ final class UlTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Ul::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <ul class="from-global" id="value">
-            </ul>
-            HTML,
-            Ul::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Ul::class,
-            [],
         );
     }
 

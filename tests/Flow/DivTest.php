@@ -19,7 +19,6 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Flow\Div;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -407,28 +406,6 @@ final class DivTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Div::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <div class="default-class">
-            </div>
-            HTML,
-            Div::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Div::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -726,31 +703,6 @@ final class DivTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Div::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <div class="from-global" id="value">
-            </div>
-            HTML,
-            Div::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Div::class,
-            [],
         );
     }
 

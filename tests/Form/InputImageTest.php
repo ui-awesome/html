@@ -20,7 +20,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
     Type,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputImage;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -427,29 +426,6 @@ final class InputImageTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            InputImage::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputimage" type="image">
-            HTML,
-            InputImage::tag()
-                ->id('inputimage')
-                ->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            InputImage::class,
-            [],
-        );
-    }
-
     public function testRenderWithHeight(): void
     {
         self::assertSame(
@@ -771,30 +747,6 @@ final class InputImageTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            InputImage::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="from-global" id="value" type="image">
-            HTML,
-            InputImage::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            InputImage::class,
-            [],
         );
     }
 

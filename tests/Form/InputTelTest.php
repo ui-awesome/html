@@ -20,7 +20,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
     Type,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputTel;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -368,29 +367,6 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->render(),
             "'form' must be serialized.",
-        );
-    }
-
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            InputTel::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputtel" type="tel">
-            HTML,
-            InputTel::tag()
-                ->id('inputtel')
-                ->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            InputTel::class,
-            [],
         );
     }
 
@@ -827,30 +803,6 @@ final class InputTelTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            InputTel::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="from-global" id="value" type="tel">
-            HTML,
-            InputTel::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            InputTel::class,
-            [],
         );
     }
 

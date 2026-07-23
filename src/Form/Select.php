@@ -9,6 +9,7 @@ use Stringable;
 use UIAwesome\Html\Attribute\{CanBeDisabled, HasName};
 use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Attribute\Values\Attribute;
+use UIAwesome\Html\Contracts\Form\FormControlInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Helper\{Enum, Validator};
 use UIAwesome\Html\Interop\Block;
@@ -29,7 +30,7 @@ use UnitEnum;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select
  * {@see BaseBlock} for the base implementation.
  */
-final class Select extends BaseBlock
+final class Select extends BaseBlock implements FormControlInterface
 {
     use CanBeDisabled;
     use HasName;

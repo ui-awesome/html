@@ -21,7 +21,8 @@
         "php": "^8.3",
         "ext-mbstring": "*",
         "ui-awesome/html-attribute": "^0.6",
-        "ui-awesome/html-core": "^0.6",
+        "ui-awesome/html-contracts": "^0.1",
+        "ui-awesome/html-core": "^0.7@dev",
         "ui-awesome/html-helper": "^0.7",
         "ui-awesome/html-interop": "^0.4",
         "ui-awesome/html-mixin": "^0.6"
@@ -36,7 +37,6 @@
         "phpstan/phpstan": "^2.2",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^12.5",
-        "ui-awesome/html-contracts": "^0.1",
         "yii2-extensions/scaffold": "^0.2"
     },
     "autoload": {

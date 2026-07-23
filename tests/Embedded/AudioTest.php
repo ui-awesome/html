@@ -21,7 +21,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Attribute\Values\Attribute;
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Embedded\Audio;
 use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
 use UIAwesome\Html\Helper\Enum;
@@ -515,28 +514,6 @@ final class AudioTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            Audio::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <audio class="default-class">
-            </audio>
-            HTML,
-            Audio::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            Audio::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -889,31 +866,6 @@ final class AudioTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            Audio::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <audio class="from-global" id="value">
-            </audio>
-            HTML,
-            Audio::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            Audio::class,
-            [],
         );
     }
 

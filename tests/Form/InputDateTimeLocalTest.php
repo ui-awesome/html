@@ -20,7 +20,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
     Type,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputDateTimeLocal;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -368,29 +367,6 @@ final class InputDateTimeLocalTest extends TestCase
                 ->id('inputdatetimelocal')
                 ->render(),
             "'form' must be serialized.",
-        );
-    }
-
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            InputDateTimeLocal::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputdatetimelocal" type="datetime-local">
-            HTML,
-            InputDateTimeLocal::tag()
-                ->id('inputdatetimelocal')
-                ->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            InputDateTimeLocal::class,
-            [],
         );
     }
 
@@ -800,30 +776,6 @@ final class InputDateTimeLocalTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            InputDateTimeLocal::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="from-global" id="value" type="datetime-local">
-            HTML,
-            InputDateTimeLocal::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            InputDateTimeLocal::class,
-            [],
         );
     }
 

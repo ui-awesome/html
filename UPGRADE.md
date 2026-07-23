@@ -1,5 +1,24 @@
 # Upgrade Guide
 
+## 0.5.0
+
+### Scoped configuration
+
+The package now requires `ui-awesome/html-core 0.7`. Global configuration through `SimpleFactory::$defaults`,
+`SimpleFactory::getDefaults()`, and `SimpleFactory::setDefaults()` is no longer available. Use an application-scoped
+`Config` instance and canonical recipe method names instead:
+
+```php
+$config = new Config($theme);
+
+$select = Select::tag()
+    ->config($config, new ComponentContext('field.control.select'))
+    ->id('country');
+```
+
+`Select` and `TextArea` now implement `FormControlInterface`, so factories and field wrappers can handle inputs,
+selects, and textareas through one minimal contract.
+
 ## 0.4.0
 
 ### PHP and package requirements

@@ -20,7 +20,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
     Type,
 };
-use UIAwesome\Html\Core\Factory\SimpleFactory;
 use UIAwesome\Html\Form\InputRadio;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -390,29 +389,6 @@ final class InputRadioTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            InputRadio::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputradio" type="radio">
-            HTML,
-            InputRadio::tag()
-                ->id('inputradio')
-                ->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            InputRadio::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -705,27 +681,6 @@ final class InputRadioTest extends TestCase
                 ->render(),
             "'translate' must be serialized.",
         );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            InputRadio::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <input class="from-global" id="value" type="radio">
-            HTML,
-            InputRadio::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(InputRadio::class, []);
     }
 
     public function testRenderWithValue(): void

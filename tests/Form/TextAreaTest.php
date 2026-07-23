@@ -22,7 +22,7 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Attribute\Values\{Autocapitalize, Autocorrect};
-use UIAwesome\Html\Core\Factory\SimpleFactory;
+use UIAwesome\Html\Contracts\Form\FormControlInterface;
 use UIAwesome\Html\Form\TextArea;
 use UIAwesome\Html\Form\Values\Wrap;
 use UIAwesome\Html\Helper\Enum;
@@ -78,6 +78,15 @@ final class TextAreaTest extends TestCase
                 ->html('<value>')
                 ->render(),
             'Raw HTML content must be applied.',
+        );
+    }
+
+    public function testImplementsFormControlInterface(): void
+    {
+        self::assertInstanceOf(
+            FormControlInterface::class,
+            TextArea::tag(),
+            'TextArea must satisfy the form control contract.',
         );
     }
 
@@ -532,28 +541,6 @@ final class TextAreaTest extends TestCase
         );
     }
 
-    public function testRenderWithGlobalDefaultsAreApplied(): void
-    {
-        SimpleFactory::setDefaults(
-            TextArea::class,
-            ['class' => 'default-class'],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <textarea class="default-class">
-            </textarea>
-            HTML,
-            TextArea::tag()->render(),
-            'Factory defaults must be applied.',
-        );
-
-        SimpleFactory::setDefaults(
-            TextArea::class,
-            [],
-        );
-    }
-
     public function testRenderWithHidden(): void
     {
         self::assertSame(
@@ -948,31 +935,6 @@ final class TextAreaTest extends TestCase
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithUserOverridesGlobalDefaults(): void
-    {
-        SimpleFactory::setDefaults(
-            TextArea::class,
-            [
-                'class' => 'from-global',
-                'id' => 'id-global',
-            ],
-        );
-
-        self::assertSame(
-            <<<HTML
-            <textarea class="from-global" id="value">
-            </textarea>
-            HTML,
-            TextArea::tag(['id' => 'value'])->render(),
-            'User attributes must take precedence over factory defaults.',
-        );
-
-        SimpleFactory::setDefaults(
-            TextArea::class,
-            [],
         );
     }
 
