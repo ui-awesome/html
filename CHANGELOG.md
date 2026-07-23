@@ -7,8 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 0.5.0 Under development
 
-- feat!: require `ui-awesome/html-core 0.7` and remove support for global `SimpleFactory` defaults and make `Select` and
-`TextArea` implement `FormControlInterface`.
+- feat!: require `ui-awesome/html-core 0.7` and remove support for global `SimpleFactory` defaults and make `Select` and `TextArea` implement `FormControlInterface`.
 
 ## 0.4.3 July 21, 2026
 
