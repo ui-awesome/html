@@ -7,6 +7,7 @@ namespace UIAwesome\Html\Form;
 use Override;
 use Stringable;
 use UIAwesome\Html\Attribute\HasName;
+use UIAwesome\Html\Attribute\Values\{ElementAttribute, GlobalAttribute};
 use UIAwesome\Html\Contracts\Form\FormControlInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Core\Html;
@@ -230,13 +231,8 @@ abstract class AbstractChoiceList extends BaseBlock implements FormControlInterf
             return parent::run();
         }
 
-        $containerAttributes = $this->getAttributes();
-
-        $id = $this->normalizeIdentifier($containerAttributes['id'] ?? null);
-        $name = $this->normalizeIdentifier($containerAttributes['name'] ?? null);
-
-        unset($containerAttributes['name']);
-
+        $id = $this->normalizeIdentifier($this->getAttribute(GlobalAttribute::ID));
+        $name = $this->normalizeIdentifier($this->getAttribute(ElementAttribute::NAME));
         $inputName = $name !== null && $this->usesArrayName() ? "{$name}[]" : $name;
 
         $content = [];
@@ -262,8 +258,36 @@ abstract class AbstractChoiceList extends BaseBlock implements FormControlInterf
         return Html::element(
             $this->getTag(),
             $this->getContent() . implode("\n", $content),
-            $containerAttributes,
+            $this->containerAttributes(),
         );
+    }
+
+    /**
+     * Returns the opening tag for begin/end rendering.
+     *
+     * @return string Opening HTML tag for the list container.
+     */
+    #[Override]
+    protected function runBegin(): string
+    {
+        return Html::begin($this->getTag(), $this->containerAttributes());
+    }
+
+    /**
+     * Returns the attributes serialized on the list container.
+     *
+     * The `name` attribute is transferred to the item inputs, so it is never serialized on the container, which is
+     * not a submitting element.
+     *
+     * @return mixed[] Attributes serialized on the container.
+     */
+    private function containerAttributes(): array
+    {
+        $attributes = $this->getAttributes();
+
+        unset($attributes[ElementAttribute::NAME->value]);
+
+        return $attributes;
     }
 
     /**

@@ -265,6 +265,23 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testRenderWithBeginEndOmittingName(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div class="box" id="choices">
+            Content
+            </div>
+            HTML,
+            CheckboxList::tag()
+                ->class('box')
+                ->id('choices')
+                ->name('choice')
+                ->begin() . 'Content' . CheckboxList::end(),
+            'Container must not serialize the form control name.',
+        );
+    }
+
     public function testRenderWithChecked(): void
     {
         self::assertSame(
