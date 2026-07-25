@@ -195,6 +195,11 @@ abstract class AbstractChoiceList extends BaseBlock implements FormControlInterf
      * $list->uncheckedValue(null);
      * ```
      *
+     * The hidden input always carries the plain list name, never the `name[]` form used by {@see CheckboxList} items,
+     * so that a checked item overwrites the fallback under PHP's query-string parsing: `name=0&name[]=1` yields
+     * `['1']`, while `name[]=0&name[]=1` would keep the fallback as `['0', '1']`. Consumers that do not apply that
+     * bracket normalization, such as the `FormData` API, receive `name` and `name[]` as separate keys.
+     *
      * @param bool|float|int|string|Stringable|UnitEnum|null $value Fallback value, or `null` to omit the hidden input.
      *
      * @return static New instance with the updated unchecked value.

@@ -816,6 +816,30 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testRenderWithSelectedValueAsSingleElementArray(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option value="dog">
+            Dog
+            </option>
+            <option value="cat" selected>
+            Cat
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->options(
+                    Option::tag()->value('dog')->content('Dog'),
+                    Option::tag()->value('cat')->content('Cat'),
+                )
+                ->value(['cat'])
+                ->render(),
+            'A single-element array must be accepted without `multiple`.',
+        );
+    }
+
     public function testRenderWithSelectedValueClearsExistingSelection(): void
     {
         self::assertSame(
@@ -1371,5 +1395,19 @@ final class SelectTest extends TestCase
         );
 
         Select::tag()->translate('invalid-value');
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenSingleValueHasMoreThanOneValue(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                'dog, cat',
+                ElementAttribute::VALUE->value,
+                'single value unless "multiple" is true',
+            ),
+        );
+
+        Select::tag()->value(['dog', 'cat'])->render();
     }
 }

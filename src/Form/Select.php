@@ -17,6 +17,8 @@ use UIAwesome\Html\Helper\{Enum, Validator};
 use UIAwesome\Html\Interop\Block;
 use UnitEnum;
 
+use function count;
+use function implode;
 use function is_array;
 
 /**
@@ -261,7 +263,8 @@ final class Select extends BaseBlock implements FormControlInterface
      * ```
      *
      * @param array<mixed>|bool|float|int|string|Stringable|UnitEnum|null $value Selected value or values. Must be an
-     * `array` or `null` when `multiple` is `true`; the constraint is enforced on render.
+     * `array` or `null` when `multiple` is `true`, and must not hold more than one value otherwise; the constraint is
+     * enforced on render.
      *
      * @return static New instance with the updated selected value.
      */
@@ -289,26 +292,15 @@ final class Select extends BaseBlock implements FormControlInterface
     /**
      * Validates the selected value and renders the `<select>` element.
      *
-     * @throws InvalidArgumentException if a non-`null` scalar value is selected while `multiple` is `true`.
+     * @throws InvalidArgumentException if the selected value does not match the `multiple` attribute.
      *
      * @return string Rendered HTML for the `<select>` element.
      */
     #[Override]
     protected function run(): string
     {
-        if (
-            $this->isBeginExecuted() === false
-            && $this->value !== null
-            && $this->getAttribute(Attribute::MULTIPLE) === true
-            && is_array($this->value) === false
-        ) {
-            throw new InvalidArgumentException(
-                Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                    Enum::normalizeStringValue($this->value),
-                    ElementAttribute::VALUE->value,
-                    'array when "multiple" is true',
-                ),
-            );
+        if ($this->isBeginExecuted() === false) {
+            $this->validateValue();
         }
 
         return parent::run();
@@ -330,5 +322,43 @@ final class Select extends BaseBlock implements FormControlInterface
         }
 
         return Enum::normalizeStringArray(is_array($this->value) ? $this->value : [$this->value]);
+    }
+
+    /**
+     * Validates the selected value against the `multiple` attribute.
+     *
+     * A `multiple` select carries an array of values, while a single select carries at most one, since the browser
+     * submits only one value and would discard the rest.
+     *
+     * @throws InvalidArgumentException if the selected value does not match the `multiple` attribute.
+     */
+    private function validateValue(): void
+    {
+        if ($this->value === null) {
+            return;
+        }
+
+        $isMultiple = $this->getAttribute(Attribute::MULTIPLE) === true;
+        $isArray = is_array($this->value);
+
+        if ($isMultiple && $isArray === false) {
+            throw new InvalidArgumentException(
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                    Enum::normalizeStringValue($this->value),
+                    ElementAttribute::VALUE->value,
+                    'array when "multiple" is true',
+                ),
+            );
+        }
+
+        if ($isMultiple === false && $isArray && count($this->value) > 1) {
+            throw new InvalidArgumentException(
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                    implode(', ', Enum::normalizeStringArray($this->value)),
+                    ElementAttribute::VALUE->value,
+                    'single value unless "multiple" is true',
+                ),
+            );
+        }
     }
 }

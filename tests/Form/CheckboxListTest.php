@@ -1204,7 +1204,7 @@ final class CheckboxListTest extends TestCase
                 ->name('choice')
                 ->uncheckedValue('0')
                 ->render(),
-            'Unchecked value must render a hidden input before the items.',
+            'Fallback must keep the plain name so a checked item overwrites it.',
         );
     }
 
