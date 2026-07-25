@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
     ContentEditable,
@@ -699,6 +700,53 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testRenderWithIdentifiersUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div id="value">
+            <input name="value" type="hidden" value="0">
+            <input id="value-0" name="value[]" type="checkbox" value="1">
+            <label for="value-0">One</label>
+            </div>
+            HTML,
+            CheckboxList::tag()
+                ->id(BackedString::VALUE)
+                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->name(BackedString::VALUE)
+                ->uncheckedValue('0')
+                ->render(),
+            'Enum identifiers must be transferred to the item inputs.',
+        );
+    }
+
+    public function testRenderWithIdentifiersUsingStringable(): void
+    {
+        $identifier = new class implements Stringable {
+            public function __toString(): string
+            {
+                return 'choice';
+            }
+        };
+
+        self::assertSame(
+            <<<HTML
+            <div id="choice">
+            <input name="choice" type="hidden" value="0">
+            <input id="choice-0" name="choice[]" type="checkbox" value="1">
+            <label for="choice-0">One</label>
+            </div>
+            HTML,
+            CheckboxList::tag()
+                ->id($identifier)
+                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->name($identifier)
+                ->uncheckedValue('0')
+                ->render(),
+            'Stringable identifiers must be transferred to the item inputs.',
+        );
+    }
+
     public function testRenderWithItemAttributes(): void
     {
         self::assertSame(
@@ -848,7 +896,7 @@ final class CheckboxListTest extends TestCase
                 ->items(ChoiceItem::tag()->label('One')->value(1))
                 ->uncheckedValue('0')
                 ->render(),
-            'Non-string identifiers must not be transferred to item inputs.',
+            'Unsupported identifier types must not be transferred to item inputs.',
         );
     }
 

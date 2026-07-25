@@ -870,6 +870,102 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testRenderWithSelectedValueMatchingOptionText(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option selected>
+            Dog
+            </option>
+            <option>
+            Cat
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->options(
+                    Option::tag()->content('Dog'),
+                    Option::tag()->content('Cat'),
+                )
+                ->value('Dog')
+                ->render(),
+            'Option without a `value` attribute must match on its submitted text.',
+        );
+    }
+
+    public function testRenderWithSelectedValueMatchingOptionTextCollapsingWhitespace(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option selected>
+            \tDog\r\n and\f  Cat\x20
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->option(Option::tag()->html("\tDog\r\n and\f  Cat "))
+                ->value('Dog and Cat')
+                ->render(),
+            'ASCII whitespace must be stripped and collapsed before matching.',
+        );
+    }
+
+    public function testRenderWithSelectedValueMatchingOptionTextContainingEntity(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option selected>
+            Dog &amp; Cat
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->option(Option::tag()->content('Dog & Cat'))
+                ->value('Dog & Cat')
+                ->render(),
+            'Encoded text must be decoded before matching.',
+        );
+    }
+
+    public function testRenderWithSelectedValueMatchingOptionTextContainingQuoteEntity(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option selected>
+            Dog &apos;n Cat
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->option(Option::tag()->html('Dog &apos;n Cat'))
+                ->value("Dog 'n Cat")
+                ->render(),
+            'HTML5 quote entities must be decoded before matching.',
+        );
+    }
+
+    public function testRenderWithSelectedValueMatchingOptionTextIgnoringMarkup(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option selected>
+            <b>Dog</b>
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->option(Option::tag()->html('<b>Dog</b>'))
+                ->value('Dog')
+                ->render(),
+            'Markup must be excluded from the matched text.',
+        );
+    }
+
     public function testRenderWithSelectedValuePreservesOptionValue(): void
     {
         self::assertSame(

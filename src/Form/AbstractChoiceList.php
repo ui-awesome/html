@@ -10,6 +10,7 @@ use UIAwesome\Html\Attribute\HasName;
 use UIAwesome\Html\Contracts\Form\FormControlInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Core\Html;
+use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Interop\Block;
 use UnitEnum;
 
@@ -231,13 +232,11 @@ abstract class AbstractChoiceList extends BaseBlock implements FormControlInterf
 
         $containerAttributes = $this->getAttributes();
 
-        $id = $containerAttributes['id'] ?? null;
-        $name = $containerAttributes['name'] ?? null;
+        $id = $this->normalizeIdentifier($containerAttributes['id'] ?? null);
+        $name = $this->normalizeIdentifier($containerAttributes['name'] ?? null);
 
         unset($containerAttributes['name']);
 
-        $id = is_string($id) ? $id : null;
-        $name = is_string($name) ? $name : null;
         $inputName = $name !== null && $this->usesArrayName() ? "{$name}[]" : $name;
 
         $content = [];
@@ -265,5 +264,24 @@ abstract class AbstractChoiceList extends BaseBlock implements FormControlInterf
             $this->getContent() . implode("\n", $content),
             $containerAttributes,
         );
+    }
+
+    /**
+     * Normalizes a container identifier to the string transferred to the item inputs.
+     *
+     * Accepts the types allowed by {@see HasId::id()} and {@see HasName::name()}; any other value assigned through
+     * {@see addAttribute()} is not a supported identifier and yields `null`.
+     *
+     * @param mixed $value Identifier assigned to the container.
+     *
+     * @return string|null Normalized identifier, or `null` when the value is not a supported identifier type.
+     */
+    private function normalizeIdentifier(mixed $value): string|null
+    {
+        return match (true) {
+            is_string($value) => $value,
+            $value instanceof Stringable, $value instanceof UnitEnum => Enum::normalizeStringValue($value),
+            default => null,
+        };
     }
 }
