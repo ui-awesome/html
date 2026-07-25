@@ -292,6 +292,28 @@ final class CheckedProvider
                 <input id="inputcheckbox" type="checkbox" value="other">
                 HTML,
             ],
+            // default submitted value (`on`) when the element has no `value` attribute
+            'checked: "on", value: null' => [
+                'on',
+                null,
+                <<<HTML
+                <input id="inputcheckbox" type="checkbox" checked>
+                HTML,
+            ],
+            'checked: ["on"], value: null' => [
+                ['on'],
+                null,
+                <<<HTML
+                <input id="inputcheckbox" type="checkbox" checked>
+                HTML,
+            ],
+            'checked: "other", value: null' => [
+                'other',
+                null,
+                <<<HTML
+                <input id="inputcheckbox" type="checkbox">
+                HTML,
+            ],
         ];
     }
 }

@@ -397,6 +397,25 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testRenderWithCheckedUsingDefaultSubmittedValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div id="choices">
+            <input id="choices-0" name="choice[]" type="checkbox" checked>
+            <label for="choices-0">One</label>
+            </div>
+            HTML,
+            CheckboxList::tag()
+                ->checked('on')
+                ->id('choices')
+                ->items(ChoiceItem::tag()->label('One'))
+                ->name('choice')
+                ->render(),
+            'Item without a value must match the submitted `on` value.',
+        );
+    }
+
     public function testRenderWithCheckedUsingEnum(): void
     {
         self::assertSame(
