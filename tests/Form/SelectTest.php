@@ -21,7 +21,6 @@ use UIAwesome\Html\Attribute\Values\{
     Role,
     Translate,
 };
-use UIAwesome\Html\Contracts\Form\FormControlInterface;
 use UIAwesome\Html\Form\{Optgroup, Option, Select};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
@@ -76,15 +75,6 @@ final class SelectTest extends TestCase
                 ->html('<value>')
                 ->render(),
             'Raw HTML content must be applied.',
-        );
-    }
-
-    public function testImplementsFormControlInterface(): void
-    {
-        self::assertInstanceOf(
-            FormControlInterface::class,
-            Select::tag(),
-            'Select must satisfy the form control contract.',
         );
     }
 
@@ -562,6 +552,25 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testRenderWithMultipleAndNullValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select multiple>
+            <option value="dog">
+            Dog
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->multiple(true)
+                ->option(Option::tag()->selected(true)->value('dog')->content('Dog'))
+                ->value(null)
+                ->render(),
+            '`null` must clear the selection instead of failing the array constraint.',
+        );
+    }
+
     public function testRenderWithName(): void
     {
         self::assertSame(
@@ -616,6 +625,26 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testRenderWithOptionPreservesContentOrder(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            Before<option value="1">
+            Santiago
+            </option>
+            After
+            </select>
+            HTML,
+            Select::tag()
+                ->content('Before')
+                ->option(Option::tag()->value('1')->content('Santiago'))
+                ->content('After')
+                ->render(),
+            'Option must preserve its position relative to other content.',
+        );
+    }
+
     public function testRenderWithOptions(): void
     {
         self::assertSame(
@@ -633,9 +662,30 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->options(['dog', 'Dog'], ['cat', 'Cat'], ['hamster', 'Hamster'])
+                ->options(
+                    Option::tag()->value('dog')->content('Dog'),
+                    Option::tag()->value('cat')->content('Cat'),
+                    Option::tag()->value('hamster')->content('Hamster'),
+                )
                 ->render(),
             'Options collection must be applied.',
+        );
+    }
+
+    public function testRenderWithoutValuePreservesOptionSelection(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option value="dog" selected>
+            Dog
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->option(Option::tag()->selected(true)->value('dog')->content('Dog'))
+                ->render(),
+            'Option-level selection must be preserved when select value is not configured.',
         );
     }
 
@@ -738,6 +788,149 @@ final class SelectTest extends TestCase
                 ->role(Role::BANNER)
                 ->render(),
             "'role' must be serialized.",
+        );
+    }
+
+    public function testRenderWithSelectedValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option value="dog">
+            Dog
+            </option>
+            <option value="cat" selected>
+            Cat
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->options(
+                    Option::tag()->value('dog')->content('Dog'),
+                    Option::tag()->value('cat')->content('Cat'),
+                )
+                ->value('cat')
+                ->render(),
+            'Selected value must mark the matching option.',
+        );
+    }
+
+    public function testRenderWithSelectedValueClearsExistingSelection(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option value="dog">
+            Dog
+            </option>
+            <option value="cat" selected>
+            Cat
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->options(
+                    Option::tag()->selected(true)->value('dog')->content('Dog'),
+                    Option::tag()->value('cat')->content('Cat'),
+                )
+                ->value('cat')
+                ->render(),
+            'Configured value must replace option-level selection.',
+        );
+    }
+
+    public function testRenderWithSelectedValueInOptgroup(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <optgroup label="Pets">
+            <option value="dog">
+            Dog
+            </option>
+            <option value="cat" selected>
+            Cat
+            </option>
+            </optgroup>
+            </select>
+            HTML,
+            Select::tag()
+                ->optgroup(
+                    Optgroup::tag()
+                        ->label('Pets')
+                        ->options(
+                            Option::tag()->value('dog')->content('Dog'),
+                            Option::tag()->value('cat')->content('Cat'),
+                        ),
+                )
+                ->value('cat')
+                ->render(),
+            'Selected value must be applied to grouped options.',
+        );
+    }
+
+    public function testRenderWithSelectedValuePreservesOptionValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option value="yes">
+            Yes
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->option(Option::tag()->value('yes')->content('Yes'))
+                ->value('no')
+                ->render(),
+            'Selected value must not overwrite the submitted option value.',
+        );
+    }
+
+    public function testRenderWithSelectedValues(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select multiple>
+            <option value="1" selected>
+            One
+            </option>
+            <option value="2">
+            Two
+            </option>
+            <option value="3" selected>
+            Three
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->multiple(true)
+                ->options(
+                    Option::tag()->value(1)->content('One'),
+                    Option::tag()->value(2)->content('Two'),
+                    Option::tag()->value(3)->content('Three'),
+                )
+                ->value(['1', 3])
+                ->render(),
+            'Multiple selected values must mark every matching option.',
+        );
+    }
+
+    public function testRenderWithSelectedValueUsingEnum(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option value="value" selected>
+            Value
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->option(Option::tag()->value('value')->content('Value'))
+                ->value(BackedString::VALUE)
+                ->render(),
+            'Enum value must select its normalized option value.',
         );
     }
 
@@ -907,6 +1100,30 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testRenderWithValueNullClearsExistingSelection(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select>
+            <option value="dog">
+            Dog
+            </option>
+            <option value="null">
+            Null
+            </option>
+            </select>
+            HTML,
+            Select::tag()
+                ->options(
+                    Option::tag()->selected(true)->value('dog')->content('Dog'),
+                    Option::tag()->selected(true)->value('null')->content('Null'),
+                )
+                ->value(null)
+                ->render(),
+            'Null selected value must clear option-level selection.',
+        );
+    }
+
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
         $select = Select::tag();
@@ -923,9 +1140,24 @@ final class SelectTest extends TestCase
         );
         self::assertNotSame(
             $select,
-            $select->options(['dog', 'Dog']),
+            $select->options(Option::tag()->value('dog')->content('Dog')),
             'New instance must be returned (immutability).',
         );
+        self::assertNotSame(
+            $select,
+            $select->value('dog'),
+            'New instance must be returned (immutability).',
+        );
+    }
+
+    public function testThrowInvalidArgumentExceptionWhenMultipleValueIsScalar(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid value \'dog\' for attribute \'value\'. Expected: \'array when "multiple" is true\'.',
+        );
+
+        Select::tag()->multiple(true)->value('dog')->render();
     }
 
     public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void

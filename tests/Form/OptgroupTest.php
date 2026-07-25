@@ -504,6 +504,49 @@ final class OptgroupTest extends TestCase
         );
     }
 
+    public function testRenderWithOptionPreservesContentOrder(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <optgroup>
+            Before<option value="1">
+            Santiago
+            </option>
+            After
+            </optgroup>
+            HTML,
+            Optgroup::tag()
+                ->content('Before')
+                ->option(Option::tag()->value('1')->content('Santiago'))
+                ->content('After')
+                ->render(),
+            'Option must preserve its position relative to other content.',
+        );
+    }
+
+    public function testRenderWithOptions(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <optgroup>
+            <option value="1">
+            Santiago
+            </option>
+            <option value="2">
+            Concepcion
+            </option>
+            </optgroup>
+            HTML,
+            Optgroup::tag()
+                ->options(
+                    Option::tag()->value('1')->content('Santiago'),
+                    Option::tag()->value('2')->content('Concepcion'),
+                )
+                ->render(),
+            'Options collection must be applied.',
+        );
+    }
+
     public function testRenderWithRemoveAriaAttribute(): void
     {
         self::assertSame(
@@ -737,6 +780,16 @@ final class OptgroupTest extends TestCase
         self::assertNotSame(
             $optgroup,
             $optgroup->option(Option::tag()),
+            'New instance must be returned (immutability).',
+        );
+        self::assertNotSame(
+            $optgroup,
+            $optgroup->options(Option::tag()),
+            'New instance must be returned (immutability).',
+        );
+        self::assertNotSame(
+            $optgroup,
+            $optgroup->selectedValues([]),
             'New instance must be returned (immutability).',
         );
     }

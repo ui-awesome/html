@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Form;
 
 use UIAwesome\Html\Attribute\{CanBeDisabled, CanBeSelected, HasLabel, HasValue};
+use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Form\Values\SelectTag;
+use UIAwesome\Html\Helper\Enum;
+
+use function in_array;
 
 /**
  * Renders the HTML `<option>` element for selectable options.
@@ -28,6 +32,22 @@ final class Option extends BaseBlock
     use CanBeSelected;
     use HasLabel;
     use HasValue;
+
+    /**
+     * Resolves the `selected` attribute against the values selected by the parent element.
+     *
+     * @param string[] $values Normalized selected values.
+     *
+     * @return static New instance with the resolved `selected` attribute.
+     *
+     * @internal
+     */
+    public function selectedValues(array $values): static
+    {
+        $value = $this->getAttribute(ElementAttribute::VALUE);
+
+        return $this->selected($value !== null && in_array(Enum::normalizeStringValue($value), $values, true));
+    }
 
     /**
      * Returns the tag enumeration for the `<option>` element.

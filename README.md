@@ -133,6 +133,35 @@ $metadata = Dl::tag()
 $html = $features->render() . PHP_EOL . $steps->render() . PHP_EOL . $metadata->render();
 ```
 
+#### Typed form choices
+
+Build selects and choice lists from typed objects. Selection state stays on the composite control while each option
+keeps its own submitted value.
+
+```php
+use UIAwesome\Html\Form\{CheckboxList, ChoiceItem, Option, Select};
+
+$pet = Select::tag()
+    ->name('pet')
+    ->options(
+        Option::tag()->value('dog')->content('Dog'),
+        Option::tag()->value('cat')->content('Cat'),
+    )
+    ->value('cat');
+
+$channels = CheckboxList::tag()
+    ->id('channels')
+    ->name('channels')
+    ->items(
+        ChoiceItem::tag()->value('email')->label('Email'),
+        ChoiceItem::tag()->value('sms')->label('SMS'),
+    )
+    ->checked(['email']);
+
+// Render both controls
+$html = $pet->render() . PHP_EOL . $channels->render();
+```
+
 ## Documentation
 
 For detailed testing and quality workflows.

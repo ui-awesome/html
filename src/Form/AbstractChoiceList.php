@@ -1,0 +1,267 @@
+<?php
+
+declare(strict_types=1);
+
+namespace UIAwesome\Html\Form;
+
+use Override;
+use Stringable;
+use UIAwesome\Html\Attribute\HasName;
+use UIAwesome\Html\Contracts\Form\FormControlInterface;
+use UIAwesome\Html\Core\Element\BaseBlock;
+use UIAwesome\Html\Core\Html;
+use UIAwesome\Html\Interop\Block;
+use UnitEnum;
+
+use function array_values;
+use function implode;
+use function is_string;
+
+/**
+ * Provides shared immutable rendering behavior for checkbox and radio lists.
+ *
+ * Renders every {@see ChoiceItem} as an atomic input paired with a `<label>`, wrapped in a container element that
+ * carries the list attributes. Selection is configured on the list through {@see checked()}, never on the items.
+ *
+ * {@see CheckboxList} for the checkbox implementation.
+ * {@see RadioList} for the radio implementation.
+ */
+abstract class AbstractChoiceList extends BaseBlock implements FormControlInterface
+{
+    use HasName;
+
+    /**
+     * Values determining which items are checked.
+     *
+     * @var array<mixed>|bool|float|int|string|Stringable|UnitEnum|null
+     */
+    private array|bool|float|int|string|Stringable|UnitEnum|null $checked = null;
+    /**
+     * Whether every item input and its text are enclosed by the item label.
+     */
+    private bool $enclosedByLabel = false;
+    /**
+     * @var mixed[] Attributes applied to every item input.
+     */
+    private array $itemAttributes = [];
+    /**
+     * @var list<ChoiceItem> Items rendered by the list.
+     */
+    private array $items = [];
+    /**
+     * Value submitted when no list item is selected.
+     */
+    private bool|float|int|string|Stringable|UnitEnum|null $uncheckedValue = null;
+
+    /**
+     * Creates the atomic input used for each item.
+     *
+     * @return InputCheckbox|InputRadio Input element instance rendered for every item.
+     */
+    abstract protected function createInput(): InputCheckbox|InputRadio;
+
+    /**
+     * Returns whether item names use array notation.
+     *
+     * @return bool `true` when every item input is named `name[]`, `false` when items share the plain list name.
+     */
+    abstract protected function usesArrayName(): bool;
+
+    /**
+     * Sets the values determining which items are checked.
+     *
+     * Usage example:
+     * ```php
+     * $list->checked('email');
+     * $list->checked(['email', 'sms']);
+     * $list->checked(null);
+     * ```
+     *
+     * @param array<mixed>|bool|float|int|string|Stringable|UnitEnum|null $value Checked values.
+     *
+     * - `array`: Every item whose value is in the array is checked.
+     * - `false`: No item is checked.
+     * - `true`: Every item is checked.
+     * - `float|int|string|Stringable|UnitEnum`: The item whose value matches is checked.
+     * - `null`: No item is checked.
+     *
+     * @return static New instance with the updated checked values.
+     */
+    public function checked(array|bool|float|int|string|Stringable|UnitEnum|null $value): static
+    {
+        $new = clone $this;
+        $new->checked = $value;
+
+        return $new;
+    }
+
+    /**
+     * Configures whether every item input and its text are enclosed by the item label.
+     *
+     * Usage example:
+     * ```php
+     * $list->enclosedByLabel();
+     * $list->enclosedByLabel(false);
+     * ```
+     *
+     * @param bool $value Enclosure state. Use `true` to wrap the input inside its `<label>`, `false` to render the
+     * input and the label as siblings.
+     *
+     * @return static New instance with the updated label enclosure state.
+     */
+    public function enclosedByLabel(bool $value = true): static
+    {
+        $new = clone $this;
+        $new->enclosedByLabel = $value;
+
+        return $new;
+    }
+
+    /**
+     * Identifies this control as a list so field wrappers render a group label instead of a `for` label.
+     *
+     * Usage example:
+     * ```php
+     * if ($list->isList()) {
+     *     // Render a group label instead of a label bound to a single control.
+     * }
+     * ```
+     *
+     * @return true Always `true`.
+     */
+    public function isList(): true
+    {
+        return true;
+    }
+
+    /**
+     * Sets attributes applied to every item input.
+     *
+     * Merges with the attributes already configured, so consecutive calls accumulate.
+     *
+     * Usage example:
+     * ```php
+     * $list->itemAttributes(['class' => 'choice']);
+     * $list->itemAttributes(['data-state' => 'ready']);
+     * ```
+     *
+     * @param mixed[] $values Input attributes indexed by attribute name.
+     *
+     * @return static New instance with the updated item attributes.
+     */
+    public function itemAttributes(array $values): static
+    {
+        $new = clone $this;
+        $new->itemAttributes = [...$new->itemAttributes, ...$values];
+
+        return $new;
+    }
+
+    /**
+     * Replaces the items rendered by the list.
+     *
+     * Usage example:
+     * ```php
+     * $list->items(
+     *     \UIAwesome\Html\Form\ChoiceItem::tag()->value('email')->label('Email'),
+     *     \UIAwesome\Html\Form\ChoiceItem::tag()->value('sms')->label('SMS'),
+     * );
+     * ```
+     *
+     * @param ChoiceItem ...$items Item instances rendered in order.
+     *
+     * @return static New instance with the replacement items.
+     */
+    public function items(ChoiceItem ...$items): static
+    {
+        $new = clone $this;
+        $new->items = array_values($items);
+
+        return $new;
+    }
+
+    /**
+     * Sets the value submitted when no list item is selected.
+     *
+     * Renders a hidden input carrying the list name before the items, and is skipped when the list has no name.
+     *
+     * Usage example:
+     * ```php
+     * $list->uncheckedValue('0');
+     * $list->uncheckedValue(null);
+     * ```
+     *
+     * @param bool|float|int|string|Stringable|UnitEnum|null $value Fallback value, or `null` to omit the hidden input.
+     *
+     * @return static New instance with the updated unchecked value.
+     */
+    public function uncheckedValue(bool|float|int|string|Stringable|UnitEnum|null $value): static
+    {
+        $new = clone $this;
+        $new->uncheckedValue = $value;
+
+        return $new;
+    }
+
+    /**
+     * Returns the tag enumeration for the list container.
+     *
+     * @return Block Tag enumeration instance for `<div>`.
+     */
+    protected function getTag(): Block
+    {
+        return Block::DIV;
+    }
+
+    /**
+     * Renders the list container with its content, the unchecked input, and every item.
+     *
+     * The `name` attribute is transferred to the item inputs instead of being serialized on the container.
+     *
+     * @return string Rendered HTML for the choice list.
+     */
+    #[Override]
+    protected function run(): string
+    {
+        if ($this->isBeginExecuted()) {
+            return parent::run();
+        }
+
+        $containerAttributes = $this->getAttributes();
+
+        $id = $containerAttributes['id'] ?? null;
+        $name = $containerAttributes['name'] ?? null;
+
+        unset($containerAttributes['name']);
+
+        $id = is_string($id) ? $id : null;
+        $name = is_string($name) ? $name : null;
+        $inputName = $name !== null && $this->usesArrayName() ? "{$name}[]" : $name;
+
+        $content = [];
+
+        if ($this->uncheckedValue !== null && $name !== null) {
+            $content[] = InputHidden::tag()
+                ->name($name)
+                ->value($this->uncheckedValue)
+                ->render();
+        }
+
+        foreach ($this->items as $index => $item) {
+            $content[] = $item->render(
+                $this->createInput(),
+                $this->itemAttributes,
+                $id === null ? null : "{$id}-{$index}",
+                $inputName,
+                $this->checked,
+                $this->enclosedByLabel,
+            );
+        }
+
+        return Html::element(
+            $this->getTag(),
+            $this->getContent() . implode("\n", $content),
+            $containerAttributes,
+        );
+    }
+}

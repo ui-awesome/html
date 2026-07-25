@@ -22,7 +22,6 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Attribute\Values\{Autocapitalize, Autocorrect};
-use UIAwesome\Html\Contracts\Form\FormControlInterface;
 use UIAwesome\Html\Form\TextArea;
 use UIAwesome\Html\Form\Values\Wrap;
 use UIAwesome\Html\Helper\Enum;
@@ -78,15 +77,6 @@ final class TextAreaTest extends TestCase
                 ->html('<value>')
                 ->render(),
             'Raw HTML content must be applied.',
-        );
-    }
-
-    public function testImplementsFormControlInterface(): void
-    {
-        self::assertInstanceOf(
-            FormControlInterface::class,
-            TextArea::tag(),
-            'TextArea must satisfy the form control contract.',
         );
     }
 

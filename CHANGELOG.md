@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 0.5.0 Under development
 
 - feat!: require `ui-awesome/html-core 0.7` and remove support for global `SimpleFactory` defaults and make `Select` and `TextArea` implement `FormControlInterface`.
+- feat(form)!: add typed `ChoiceItem`, `CheckboxList`, and `RadioList` controls, add `Select::value()`, and make `Select::options()` take `Option`.
 
 ## 0.4.3 July 21, 2026
 
