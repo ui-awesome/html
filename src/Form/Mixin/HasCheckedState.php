@@ -18,6 +18,12 @@ use function is_scalar;
 trait HasCheckedState
 {
     /**
+     * Value browsers submit for a checkbox or radio rendered without a `value` attribute.
+     *
+     * @see https://html.spec.whatwg.org/multipage/input.html#dom-input-value-default-on
+     */
+    private const string DEFAULT_SUBMITTED_VALUE = 'on';
+    /**
      * Determines the checked state of the element.
      *
      * @phpstan-var mixed[]|bool|float|int|string|Stringable|UnitEnum|null
@@ -40,7 +46,8 @@ trait HasCheckedState
      * - `array`: Element is checked if the value is in the array.
      * - `false`: Element is unchecked.
      * - `true`: Element is checked.
-     * - `float|int|string|Stringable|UnitEnum`: Element is checked if the value matches the `value` attribute.
+     * - `float|int|string|Stringable|UnitEnum`: Element is checked if the value matches the `value` attribute, or
+     *   `on` when the element has no `value` attribute.
      * - `null`: Attribute is removed.
      *
      * @return static New instance with the updated `checked` attribute.
@@ -59,7 +66,8 @@ trait HasCheckedState
      * Builds the attributes for the `<input>` element.
      *
      * This method normalizes the `value` attribute and determines the `checked` state based on the current value and
-     * the configured checked options.
+     * the configured checked options. An element without a `value` attribute is matched against `on`, the value
+     * browsers submit for it, while the attribute itself stays omitted.
      *
      * @param array $attributes Initial attributes array.
      *
@@ -84,7 +92,7 @@ trait HasCheckedState
             return $attributes;
         }
 
-        $value = $attributes['value'] ?? null;
+        $value = $attributes['value'] ?? self::DEFAULT_SUBMITTED_VALUE;
 
         if ($normalizedChecked === true) {
             $attributes['checked'] = true;
