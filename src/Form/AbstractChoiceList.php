@@ -128,6 +128,8 @@ abstract class AbstractChoiceList extends BaseBlock implements FormControlInterf
      * ```
      *
      * @return true Always `true`.
+     *
+     * @codeCoverageIgnore
      */
     public function isList(): true
     {
