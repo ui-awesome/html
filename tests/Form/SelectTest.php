@@ -16,6 +16,7 @@ use UIAwesome\Html\Attribute\Values\{
     Data,
     Direction,
     Draggable,
+    ElementAttribute,
     GlobalAttribute,
     Language,
     Role,
@@ -930,7 +931,7 @@ final class SelectTest extends TestCase
                 ->option(Option::tag()->value('value')->content('Value'))
                 ->value(BackedString::VALUE)
                 ->render(),
-            'Enum value must select its normalized option value.',
+            'Selected value must mark the matching option.',
         );
     }
 
@@ -1154,7 +1155,11 @@ final class SelectTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid value \'dog\' for attribute \'value\'. Expected: \'array when "multiple" is true\'.',
+            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
+                'dog',
+                ElementAttribute::VALUE->value,
+                'array when "multiple" is true',
+            ),
         );
 
         Select::tag()->multiple(true)->value('dog')->render();

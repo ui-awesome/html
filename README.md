@@ -36,7 +36,7 @@
 ### Installation
 
 ```bash
-composer require ui-awesome/html:^0.4
+composer require ui-awesome/html:^0.5
 ```
 
 ### Quick start

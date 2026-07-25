@@ -283,6 +283,102 @@ final class CheckboxListTest extends TestCase
         );
     }
 
+    public function testRenderWithCheckedFalse(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div id="choices">
+            <input id="choices-0" name="choice[]" type="checkbox" value="1">
+            <label for="choices-0">One</label>
+            <input id="choices-1" name="choice[]" type="checkbox" value="2">
+            <label for="choices-1">Two</label>
+            </div>
+            HTML,
+            CheckboxList::tag()
+                ->checked(false)
+                ->id('choices')
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                    ChoiceItem::tag()->label('Two')->value(2),
+                )
+                ->name('choice')
+                ->render(),
+            'No item must be checked.',
+        );
+    }
+
+    public function testRenderWithCheckedNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div id="choices">
+            <input id="choices-0" name="choice[]" type="checkbox" value="1">
+            <label for="choices-0">One</label>
+            <input id="choices-1" name="choice[]" type="checkbox" value="2">
+            <label for="choices-1">Two</label>
+            </div>
+            HTML,
+            CheckboxList::tag()
+                ->checked(null)
+                ->id('choices')
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                    ChoiceItem::tag()->label('Two')->value(2),
+                )
+                ->name('choice')
+                ->render(),
+            'No item must be checked.',
+        );
+    }
+
+    public function testRenderWithCheckedTrue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div id="choices">
+            <input id="choices-0" name="choice[]" type="checkbox" value="1" checked>
+            <label for="choices-0">One</label>
+            <input id="choices-1" name="choice[]" type="checkbox" value="2" checked>
+            <label for="choices-1">Two</label>
+            </div>
+            HTML,
+            CheckboxList::tag()
+                ->checked(true)
+                ->id('choices')
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                    ChoiceItem::tag()->label('Two')->value(2),
+                )
+                ->name('choice')
+                ->render(),
+            'Every item must be checked.',
+        );
+    }
+
+    public function testRenderWithCheckedUsingArray(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <div id="choices">
+            <input id="choices-0" name="choice[]" type="checkbox" value="1" checked>
+            <label for="choices-0">One</label>
+            <input id="choices-1" name="choice[]" type="checkbox" value="2">
+            <label for="choices-1">Two</label>
+            </div>
+            HTML,
+            CheckboxList::tag()
+                ->checked([1])
+                ->id('choices')
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                    ChoiceItem::tag()->label('Two')->value(2),
+                )
+                ->name('choice')
+                ->render(),
+            'Matching item must be checked.',
+        );
+    }
+
     public function testRenderWithCheckedUsingEnum(): void
     {
         self::assertSame(
@@ -298,7 +394,7 @@ final class CheckboxListTest extends TestCase
                 ->items(ChoiceItem::tag()->label('Value')->value('value'))
                 ->name('choice')
                 ->render(),
-            'Enum value must check its normalized item value.',
+            'Matching item must be checked.',
         );
     }
 
