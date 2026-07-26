@@ -7,6 +7,8 @@ namespace UIAwesome\Html\Form;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\{Attribute, Type};
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
+use UIAwesome\Html\Contracts\Form\CheckedStateInterface;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Form\Mixin\HasCheckedState;
 use UIAwesome\Html\Interop\Voids;
@@ -25,7 +27,7 @@ use UIAwesome\Html\Interop\Voids;
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
  */
-final class InputRadio extends BaseInput
+final class InputRadio extends BaseInput implements CheckedStateInterface, ValueInterface
 {
     use CanBeAutofocus;
     use HasCheckedState;

@@ -8,6 +8,7 @@ use Stringable;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Attribute\Values\Type;
+use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\Voids;
 use UnitEnum;
@@ -27,7 +28,7 @@ use UnitEnum;
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image
  */
-final class InputImage extends BaseInput
+final class InputImage extends BaseInput implements SrcInterface
 {
     use CanBeAutofocus;
     use HasTabindex;

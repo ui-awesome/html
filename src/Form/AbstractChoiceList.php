@@ -8,7 +8,7 @@ use Override;
 use Stringable;
 use UIAwesome\Html\Attribute\HasName;
 use UIAwesome\Html\Attribute\Values\{ElementAttribute, GlobalAttribute};
-use UIAwesome\Html\Contracts\Form\FormControlInterface;
+use UIAwesome\Html\Contracts\Form\{CheckedStateInterface, ChoiceListInterface, FormControlInterface};
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Core\Html;
 use UIAwesome\Html\Helper\Enum;
@@ -28,7 +28,10 @@ use function is_string;
  * {@see CheckboxList} for the checkbox implementation.
  * {@see RadioList} for the radio implementation.
  */
-abstract class AbstractChoiceList extends BaseBlock implements FormControlInterface
+abstract class AbstractChoiceList extends BaseBlock implements
+    CheckedStateInterface,
+    ChoiceListInterface,
+    FormControlInterface
 {
     use HasName;
 

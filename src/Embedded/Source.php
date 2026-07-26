@@ -7,6 +7,7 @@ namespace UIAwesome\Html\Embedded;
 use Stringable;
 use UIAwesome\Html\Attribute\{HasMedia, HasSizes};
 use UIAwesome\Html\Attribute\Values\ElementAttribute;
+use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Interop\Voids;
 use UnitEnum;
@@ -25,7 +26,7 @@ use UnitEnum;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/source
  * {@see BaseVoid} for the base implementation.
  */
-final class Source extends BaseVoid
+final class Source extends BaseVoid implements SrcInterface
 {
     use HasMedia;
     use HasSizes;

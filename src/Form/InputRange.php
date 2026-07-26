@@ -8,6 +8,7 @@ use Stringable;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute, Type};
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Interop\Voids;
 use UnitEnum;
@@ -33,7 +34,7 @@ use UnitEnum;
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range
  */
-final class InputRange extends BaseInput
+final class InputRange extends BaseInput implements ValueInterface
 {
     use CanBeAutofocus;
     use HasTabindex;

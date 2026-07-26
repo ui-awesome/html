@@ -6,6 +6,7 @@ namespace UIAwesome\Html\Form;
 
 use UIAwesome\Html\Attribute\{CanBeDisabled, CanBeSelected, HasLabel, HasValue};
 use UIAwesome\Html\Attribute\Values\ElementAttribute;
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Form\Values\SelectTag;
 use UIAwesome\Html\Helper\Enum;
@@ -32,7 +33,7 @@ use function strip_tags;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option
  * {@see BaseBlock} for the base implementation.
  */
-final class Option extends BaseBlock
+final class Option extends BaseBlock implements ValueInterface
 {
     use CanBeDisabled;
     use CanBeSelected;

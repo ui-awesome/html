@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Stringable;
 use UIAwesome\Html\Attribute\HasLabel;
 use UIAwesome\Html\Attribute\Values\ElementAttribute;
+use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Embedded\Values\Kind;
 use UIAwesome\Html\Helper\Validator;
@@ -31,7 +32,7 @@ use UnitEnum;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track
  * {@see BaseVoid} for the base implementation.
  */
-final class Track extends BaseVoid
+final class Track extends BaseVoid implements SrcInterface
 {
     use HasLabel;
 

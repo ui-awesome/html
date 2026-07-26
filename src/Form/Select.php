@@ -10,7 +10,8 @@ use Stringable;
 use UIAwesome\Html\Attribute\{CanBeDisabled, HasName};
 use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute};
-use UIAwesome\Html\Contracts\Form\FormControlInterface;
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
+use UIAwesome\Html\Contracts\Form\{FormControlInterface, MultiValueInterface};
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Form\Mixin\HasSelectableChildren;
 use UIAwesome\Html\Helper\{Enum, Validator};
@@ -36,7 +37,7 @@ use function is_array;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select
  * {@see BaseBlock} for the base implementation.
  */
-final class Select extends BaseBlock implements FormControlInterface
+final class Select extends BaseBlock implements FormControlInterface, MultiValueInterface, ValueInterface
 {
     use CanBeDisabled;
     use HasName;

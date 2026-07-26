@@ -10,6 +10,8 @@ use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasInputMode, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\{Attribute, Type};
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
+use UIAwesome\Html\Contracts\Form\PlaceholderInterface;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Helper\{Enum, Validator};
 use UIAwesome\Html\Interop\Voids;
@@ -29,7 +31,7 @@ use UnitEnum;
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/password
  */
-final class InputPassword extends BaseInput
+final class InputPassword extends BaseInput implements PlaceholderInterface, ValueInterface
 {
     use CanBeAutofocus;
     use HasInputMode;

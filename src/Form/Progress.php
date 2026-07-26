@@ -7,6 +7,7 @@ namespace UIAwesome\Html\Form;
 use Stringable;
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\Attribute;
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
 use UIAwesome\Html\Core\Element\BaseInline;
 use UIAwesome\Html\Interop\Inline;
 use UnitEnum;
@@ -26,7 +27,7 @@ use UnitEnum;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/progress
  * {@see BaseInline} for the base implementation.
  */
-final class Progress extends BaseInline
+final class Progress extends BaseInline implements ValueInterface
 {
     use HasValue;
 

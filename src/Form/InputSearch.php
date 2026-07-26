@@ -10,6 +10,8 @@ use UIAwesome\Html\Attribute\Exception\Message;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasSpellcheck, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute, Type};
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
+use UIAwesome\Html\Contracts\Form\PlaceholderInterface;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Helper\{Enum, Validator};
 use UIAwesome\Html\Interop\Voids;
@@ -33,7 +35,7 @@ use UnitEnum;
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/search
  */
-final class InputSearch extends BaseInput
+final class InputSearch extends BaseInput implements PlaceholderInterface, ValueInterface
 {
     use CanBeAutofocus;
     use HasSpellcheck;
