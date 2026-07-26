@@ -23,7 +23,6 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Table\{Col, Colgroup};
 use UIAwesome\Html\Tests\Provider\Table\ColgroupProvider;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Colgroup} rendering and column group behavior.

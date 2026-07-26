@@ -22,7 +22,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\InputReset;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputReset} class.

@@ -23,7 +23,6 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Table\Td;
 use UIAwesome\Html\Tests\Provider\Table\TdProvider;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Td} rendering and table cell attribute behavior.

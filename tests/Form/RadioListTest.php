@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\{ChoiceItem, RadioList};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see RadioList} rendering and attribute behavior.

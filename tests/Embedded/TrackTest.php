@@ -21,7 +21,6 @@ use UIAwesome\Html\Embedded\Track;
 use UIAwesome\Html\Embedded\Values\Kind;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Track} rendering and track attribute behavior.

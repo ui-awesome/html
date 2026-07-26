@@ -26,7 +26,6 @@ use UIAwesome\Html\Form\TextArea;
 use UIAwesome\Html\Form\Values\Wrap;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see TextArea} rendering and attribute behavior.

@@ -24,7 +24,6 @@ use UIAwesome\Html\Form\Button;
 use UIAwesome\Html\Form\Values\{ButtonCommand, ButtonType};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Button} inline form behavior.

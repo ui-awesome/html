@@ -25,7 +25,6 @@ use UIAwesome\Html\Embedded\Audio;
 use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Audio} rendering and audio attribute behavior.

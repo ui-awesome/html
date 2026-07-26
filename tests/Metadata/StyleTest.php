@@ -25,7 +25,6 @@ use UIAwesome\Html\Attribute\Values\Blocking;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Style;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Style} rendering and style attribute behavior.

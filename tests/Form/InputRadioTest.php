@@ -24,7 +24,6 @@ use UIAwesome\Html\Form\InputRadio;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Tests\Provider\Form\CheckedProvider;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 use UnitEnum;
 
 use function str_replace;

@@ -11,7 +11,6 @@ use UIAwesome\Html\Attribute\Values\{ Aria, ContentEditable, Data, Direction, Dr
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\List\Ul;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Ul} rendering and global attribute behavior.

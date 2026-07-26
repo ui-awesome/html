@@ -24,7 +24,6 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Table\Th;
 use UIAwesome\Html\Table\Values\Scope;
 use UIAwesome\Html\Tests\Provider\Table\ThProvider;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Th} rendering and table header cell attribute behavior.

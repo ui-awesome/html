@@ -21,7 +21,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\List\{Dd, Dl, Dt};
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Dl} rendering and global attribute behavior.

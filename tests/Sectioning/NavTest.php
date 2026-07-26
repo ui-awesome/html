@@ -21,7 +21,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Sectioning\Nav;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Nav} sectioning content behavior.

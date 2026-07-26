@@ -24,7 +24,6 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Interactive\Dialog;
 use UIAwesome\Html\Interactive\Values\Closedby;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Dialog} rendering and global attribute behavior.

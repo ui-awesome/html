@@ -23,7 +23,6 @@ use UIAwesome\Html\Form\InputFile;
 use UIAwesome\Html\Form\Values\Capture;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputFile} class.

@@ -20,7 +20,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Embedded\Source;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Source} rendering and source attribute behavior.

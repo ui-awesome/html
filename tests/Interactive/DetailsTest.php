@@ -23,7 +23,6 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Interactive\Details;
 use UIAwesome\Html\Interactive\Summary;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Details} rendering and disclosure attribute behavior.

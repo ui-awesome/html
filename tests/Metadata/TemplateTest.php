@@ -22,7 +22,6 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Template;
 use UIAwesome\Html\Metadata\Values\ShadowRootMode;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Template} rendering and template attribute behavior.

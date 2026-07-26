@@ -25,7 +25,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\{Optgroup, Option, Select};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Select} rendering and attribute behavior.

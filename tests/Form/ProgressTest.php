@@ -11,7 +11,6 @@ use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Lan
 use UIAwesome\Html\Form\Progress;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Progress} form behavior.

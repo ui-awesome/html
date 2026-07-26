@@ -22,7 +22,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Flow\Main;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Main} rendering and global attribute behavior.

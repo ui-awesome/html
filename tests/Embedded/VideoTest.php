@@ -25,7 +25,6 @@ use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
 use UIAwesome\Html\Embedded\Video;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Video} rendering and video attribute behavior.
