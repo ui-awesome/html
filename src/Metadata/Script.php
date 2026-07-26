@@ -13,6 +13,7 @@ use UIAwesome\Html\Attribute\{
     HasSrc,
     HasType,
 };
+use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\MetadataBlock;
 
@@ -30,7 +31,7 @@ use UIAwesome\Html\Interop\MetadataBlock;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script
  * {@see BaseBlock} for the base implementation.
  */
-final class Script extends BaseBlock
+final class Script extends BaseBlock implements SrcInterface
 {
     use HasBlocking;
     use HasCrossorigin;

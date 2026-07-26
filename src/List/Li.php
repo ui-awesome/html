@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\List;
 
 use UIAwesome\Html\Attribute\HasValue;
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\Lists;
 
@@ -22,7 +23,7 @@ use UIAwesome\Html\Interop\Lists;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li
  * {@see BaseBlock} for the base implementation.
  */
-final class Li extends BaseBlock
+final class Li extends BaseBlock implements ValueInterface
 {
     use HasValue;
 

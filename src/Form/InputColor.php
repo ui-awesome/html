@@ -9,6 +9,7 @@ use Stringable;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\HasValue;
 use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute, Type};
+use UIAwesome\Html\Contracts\Attribute\ValueInterface;
 use UIAwesome\Html\Core\Element\BaseInput;
 use UIAwesome\Html\Form\Values\Colorspace;
 use UIAwesome\Html\Helper\Validator;
@@ -42,7 +43,7 @@ use UnitEnum;
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/color
  */
-final class InputColor extends BaseInput
+final class InputColor extends BaseInput implements ValueInterface
 {
     use CanBeAutofocus;
     use HasTabindex;

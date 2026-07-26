@@ -7,6 +7,7 @@ namespace UIAwesome\Html\Embedded;
 use InvalidArgumentException;
 use Stringable;
 use UIAwesome\Html\Attribute\Values\{ElementAttribute, Loading, Referrerpolicy};
+use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Helper\Validator;
 use UIAwesome\Html\Interop\Block;
@@ -27,7 +28,7 @@ use UnitEnum;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe
  * {@see BaseBlock} for the base implementation.
  */
-final class Iframe extends BaseBlock
+final class Iframe extends BaseBlock implements SrcInterface
 {
     /**
      * Sets the `allow` attribute.

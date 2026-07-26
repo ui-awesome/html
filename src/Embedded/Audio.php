@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Stringable;
 use UIAwesome\Html\Attribute\HasCrossorigin;
 use UIAwesome\Html\Attribute\Values\ElementAttribute;
+use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
 use UIAwesome\Html\Helper\Validator;
@@ -35,7 +36,7 @@ use function strpbrk;
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/audio
  * {@see BaseBlock} for the base implementation.
  */
-final class Audio extends BaseBlock
+final class Audio extends BaseBlock implements SrcInterface
 {
     use HasCrossorigin;
 
