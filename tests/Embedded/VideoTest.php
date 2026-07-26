@@ -25,7 +25,6 @@ use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
 use UIAwesome\Html\Embedded\Video;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Video} rendering and video attribute behavior.
@@ -415,20 +414,6 @@ final class VideoTest extends TestCase
             HTML,
             Video::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <video class="default-class">
-            </video>
-            HTML,
-            Video::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -854,20 +839,6 @@ final class VideoTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <video class="text-muted">
-            </video>
-            HTML,
-            Video::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

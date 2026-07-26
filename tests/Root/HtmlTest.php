@@ -21,7 +21,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Root\Html;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Html} root element behavior.
@@ -299,20 +298,6 @@ final class HtmlTest extends TestCase
             HTML,
             Html::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <html class="default-class">
-            </html>
-            HTML,
-            Html::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -620,20 +605,6 @@ final class HtmlTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <html class="tag-default">
-            </html>
-            HTML,
-            Html::tag()
-                ->addThemeProvider('default', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

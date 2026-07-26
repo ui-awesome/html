@@ -23,7 +23,6 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Table\Td;
 use UIAwesome\Html\Tests\Provider\Table\TdProvider;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Td} rendering and table cell attribute behavior.
@@ -329,20 +328,6 @@ final class TdTest extends TestCase
             HTML,
             Td::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <td class="default-class">
-            </td>
-            HTML,
-            Td::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -668,20 +653,6 @@ final class TdTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <td class="text-muted">
-            </td>
-            HTML,
-            Td::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

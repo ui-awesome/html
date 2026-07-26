@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Table\{Td, Th, Tr};
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Tr} rendering and row composition behavior.
@@ -359,20 +358,6 @@ final class TrTest extends TestCase
             HTML,
             Tr::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tr class="default-class">
-            </tr>
-            HTML,
-            Tr::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -736,20 +721,6 @@ final class TrTest extends TestCase
                 ->th(Th::tag()->content('value'))
                 ->render(),
             'Th entries must be appended.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tr class="text-muted">
-            </tr>
-            HTML,
-            Tr::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

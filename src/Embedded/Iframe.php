@@ -6,7 +6,7 @@ namespace UIAwesome\Html\Embedded;
 
 use InvalidArgumentException;
 use Stringable;
-use UIAwesome\Html\Attribute\Values\{ElementAttribute, Loading, Referrerpolicy};
+use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute, Loading, Referrerpolicy};
 use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Helper\Validator;
@@ -153,9 +153,9 @@ final class Iframe extends BaseBlock implements SrcInterface
      */
     public function referrerpolicy(string|Stringable|UnitEnum|null $value): static
     {
-        Validator::oneOf($value, Referrerpolicy::cases(), ElementAttribute::REFERRERPOLICY);
+        Validator::oneOf($value, Referrerpolicy::cases(), Attribute::REFERRERPOLICY);
 
-        return $this->addAttribute(ElementAttribute::REFERRERPOLICY, $value);
+        return $this->addAttribute(Attribute::REFERRERPOLICY, $value);
     }
 
     /**
@@ -194,7 +194,7 @@ final class Iframe extends BaseBlock implements SrcInterface
      */
     public function src(string|Stringable|UnitEnum|null $value): static
     {
-        return $this->addAttribute(ElementAttribute::SRC, $value);
+        return $this->addAttribute(Attribute::SRC, $value);
     }
 
     /**

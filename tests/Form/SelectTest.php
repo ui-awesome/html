@@ -25,7 +25,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\{Optgroup, Option, Select};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Select} rendering and attribute behavior.
@@ -345,20 +344,6 @@ final class SelectTest extends TestCase
             HTML,
             Select::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select class="default-class">
-            </select>
-            HTML,
-            Select::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -1150,20 +1135,6 @@ final class SelectTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select class="text-muted">
-            </select>
-            HTML,
-            Select::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

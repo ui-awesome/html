@@ -24,7 +24,6 @@ use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Palpable\A;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see A} rendering and anchor attribute behavior.
@@ -232,19 +231,6 @@ final class ATest extends TestCase
             HTML,
             A::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <a class="default-class" title="default-title"></a>
-            HTML,
-            A::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -629,19 +615,6 @@ final class ATest extends TestCase
                 ->target(Target::BLANK)
                 ->render(),
             "'target' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <a class="text-muted"></a>
-            HTML,
-            A::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

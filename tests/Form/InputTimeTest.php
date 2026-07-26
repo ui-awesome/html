@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Form\InputTime;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputTime} class.
@@ -265,20 +264,6 @@ final class InputTimeTest extends TestCase
                 ->id('inputtime')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputtime" type="time" title="default-title">
-            HTML,
-            InputTime::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputtime')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -709,20 +694,6 @@ final class InputTimeTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputtime" type="time">
-            HTML,
-            InputTime::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputtime')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

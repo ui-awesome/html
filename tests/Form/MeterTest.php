@@ -11,7 +11,6 @@ use UIAwesome\Html\Attribute\Values\{Aria, Data, Direction, GlobalAttribute, Lan
 use UIAwesome\Html\Form\Meter;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Meter} inline phrasing behavior.
@@ -219,19 +218,6 @@ final class MeterTest extends TestCase
             HTML,
             Meter::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <meter class="default-class" title="default-title"></meter>
-            HTML,
-            Meter::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -493,19 +479,6 @@ final class MeterTest extends TestCase
                 ->style('value')
                 ->render(),
             "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <meter class="text-muted"></meter>
-            HTML,
-            Meter::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

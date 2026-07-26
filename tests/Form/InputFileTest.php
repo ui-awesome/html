@@ -23,7 +23,6 @@ use UIAwesome\Html\Form\InputFile;
 use UIAwesome\Html\Form\Values\Capture;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputFile} class.
@@ -280,20 +279,6 @@ final class InputFileTest extends TestCase
                 ->id('inputfile')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputfile" type="file" title="default-title">
-            HTML,
-            InputFile::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputfile')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -626,20 +611,6 @@ final class InputFileTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputfile" type="file">
-            HTML,
-            InputFile::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputfile')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

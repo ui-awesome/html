@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\InputText;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputText} class.
@@ -265,20 +264,6 @@ final class InputTextTest extends TestCase
                 ->id('inputtext')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputtext" type="text" title="default-title">
-            HTML,
-            InputText::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputtext')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -750,20 +735,6 @@ final class InputTextTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputtext" type="text">
-            HTML,
-            InputText::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputtext')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

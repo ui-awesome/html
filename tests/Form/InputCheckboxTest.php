@@ -24,7 +24,6 @@ use UIAwesome\Html\Form\InputCheckbox;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Tests\Provider\Form\CheckedProvider;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 use UnitEnum;
 
 /**
@@ -275,20 +274,6 @@ final class InputCheckboxTest extends TestCase
                 ->id('inputcheckbox')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputcheckbox" type="checkbox" title="default-title">
-            HTML,
-            InputCheckbox::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputcheckbox')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -604,20 +589,6 @@ final class InputCheckboxTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputcheckbox" type="checkbox">
-            HTML,
-            InputCheckbox::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputcheckbox')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

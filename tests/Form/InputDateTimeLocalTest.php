@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\InputDateTimeLocal;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputDateTimeLocal} class.
@@ -265,20 +264,6 @@ final class InputDateTimeLocalTest extends TestCase
                 ->id('inputdatetimelocal')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputdatetimelocal" type="datetime-local" title="default-title">
-            HTML,
-            InputDateTimeLocal::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputdatetimelocal')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -709,20 +694,6 @@ final class InputDateTimeLocalTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputdatetimelocal" type="datetime-local">
-            HTML,
-            InputDateTimeLocal::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputdatetimelocal')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

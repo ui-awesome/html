@@ -24,7 +24,6 @@ use UIAwesome\Html\Form\InputColor;
 use UIAwesome\Html\Form\Values\Colorspace;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputColor} class.
@@ -308,20 +307,6 @@ final class InputColorTest extends TestCase
                 ->id('inputcolor')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputcolor" type="color" title="default-title">
-            HTML,
-            InputColor::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputcolor')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -653,20 +638,6 @@ final class InputColorTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputcolor')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

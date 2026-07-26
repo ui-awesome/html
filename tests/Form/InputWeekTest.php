@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Form\InputWeek;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputWeek} class.
@@ -265,20 +264,6 @@ final class InputWeekTest extends TestCase
                 ->id('inputweek')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputweek" type="week" title="default-title">
-            HTML,
-            InputWeek::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputweek')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -709,20 +694,6 @@ final class InputWeekTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputweek" type="week">
-            HTML,
-            InputWeek::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputweek')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

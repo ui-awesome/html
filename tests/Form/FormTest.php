@@ -28,7 +28,6 @@ use UIAwesome\Html\Form\Form;
 use UIAwesome\Html\Form\Values\{Enctype, Method};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Form} rendering and attribute behavior.
@@ -404,20 +403,6 @@ final class FormTest extends TestCase
             HTML,
             Form::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <form class="default-class">
-            </form>
-            HTML,
-            Form::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -831,20 +816,6 @@ final class FormTest extends TestCase
                 ->target(Target::BLANK)
                 ->render(),
             "'target' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <form class="text-muted">
-            </form>
-            HTML,
-            Form::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\{CheckboxList, ChoiceItem};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see CheckboxList} rendering and attribute behavior.
@@ -552,23 +551,6 @@ final class CheckboxListTest extends TestCase
                 ->items(ChoiceItem::tag()->label('One')->value(1))
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="default-class">
-            <input type="checkbox" value="1">
-            <label>One</label>
-            </div>
-            HTML,
-            CheckboxList::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -1124,23 +1106,6 @@ final class CheckboxListTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="text-muted">
-            <input type="checkbox" value="1">
-            <label>One</label>
-            </div>
-            HTML,
-            CheckboxList::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

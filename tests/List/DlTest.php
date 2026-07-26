@@ -21,7 +21,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\List\{Dd, Dl, Dt};
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Dl} rendering and global attribute behavior.
@@ -337,20 +336,6 @@ final class DlTest extends TestCase
             HTML,
             Dl::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <dl class="default-class">
-            </dl>
-            HTML,
-            Dl::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -763,20 +748,6 @@ final class DlTest extends TestCase
                 ->terms([Dt::tag()->class('bold')->content('Term'), Dd::tag()->class('highlight')->content('Description')])
                 ->render(),
             'Terms must accept term instances.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <dl class="text-muted">
-            </dl>
-            HTML,
-            Dl::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

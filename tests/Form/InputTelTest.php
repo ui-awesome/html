@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\InputTel;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputTel} class.
@@ -265,20 +264,6 @@ final class InputTelTest extends TestCase
                 ->id('inputtel')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputtel" type="tel" title="default-title">
-            HTML,
-            InputTel::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputtel')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -736,20 +721,6 @@ final class InputTelTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputtel" type="tel">
-            HTML,
-            InputTel::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputtel')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

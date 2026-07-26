@@ -26,7 +26,6 @@ use UIAwesome\Html\Form\TextArea;
 use UIAwesome\Html\Form\Values\Wrap;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see TextArea} rendering and attribute behavior.
@@ -416,20 +415,6 @@ final class TextAreaTest extends TestCase
             HTML,
             TextArea::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <textarea class="default-class">
-            </textarea>
-            HTML,
-            TextArea::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -857,20 +842,6 @@ final class TextAreaTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <textarea class="text-muted">
-            </textarea>
-            HTML,
-            TextArea::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

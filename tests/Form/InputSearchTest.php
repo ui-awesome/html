@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\InputSearch;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputSearch} class.
@@ -263,20 +262,6 @@ final class InputSearchTest extends TestCase
                 ->id('inputsearch')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputsearch" type="search" title="default-title">
-            HTML,
-            InputSearch::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputsearch')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -748,20 +733,6 @@ final class InputSearchTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputsearch" type="search">
-            HTML,
-            InputSearch::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputsearch')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

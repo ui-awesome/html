@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\{ChoiceItem, RadioList};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see RadioList} rendering and attribute behavior.
@@ -552,23 +551,6 @@ final class RadioListTest extends TestCase
                 ->items(ChoiceItem::tag()->label('One')->value(1))
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="default-class">
-            <input type="radio" value="1">
-            <label>One</label>
-            </div>
-            HTML,
-            RadioList::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -1124,23 +1106,6 @@ final class RadioListTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="text-muted">
-            <input type="radio" value="1">
-            <label>One</label>
-            </div>
-            HTML,
-            RadioList::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

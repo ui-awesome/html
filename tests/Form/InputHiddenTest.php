@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\InputHidden;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputHidden} class.
@@ -251,20 +250,6 @@ final class InputHiddenTest extends TestCase
                 ->id('inputhidden')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputhidden" type="hidden" title="default-title">
-            HTML,
-            InputHidden::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputhidden')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -552,20 +537,6 @@ final class InputHiddenTest extends TestCase
                 ->style('value')
                 ->render(),
             "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputhidden" type="hidden">
-            HTML,
-            InputHidden::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputhidden')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

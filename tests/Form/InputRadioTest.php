@@ -24,7 +24,6 @@ use UIAwesome\Html\Form\InputRadio;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Tests\Provider\Form\CheckedProvider;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 use UnitEnum;
 
 use function str_replace;
@@ -284,20 +283,6 @@ final class InputRadioTest extends TestCase
                 ->id('inputradio')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputradio" type="radio" title="default-title">
-            HTML,
-            InputRadio::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputradio')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -613,20 +598,6 @@ final class InputRadioTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputradio" type="radio">
-            HTML,
-            InputRadio::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputradio')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

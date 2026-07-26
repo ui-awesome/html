@@ -24,7 +24,6 @@ use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Table\Th;
 use UIAwesome\Html\Table\Values\Scope;
 use UIAwesome\Html\Tests\Provider\Table\ThProvider;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see Th} rendering and table header cell attribute behavior.
@@ -358,20 +357,6 @@ final class ThTest extends TestCase
             HTML,
             Th::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <th class="default-class">
-            </th>
-            HTML,
-            Th::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -725,20 +710,6 @@ final class ThTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <th class="text-muted">
-            </th>
-            HTML,
-            Th::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

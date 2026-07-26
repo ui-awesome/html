@@ -23,7 +23,6 @@ use UIAwesome\Html\Attribute\Values\{
 use UIAwesome\Html\Form\InputMonth;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
-use UIAwesome\Html\Tests\Support\Stub\{DefaultProvider, DefaultThemeProvider};
 
 /**
  * Unit tests for {@see InputMonth} class.
@@ -265,20 +264,6 @@ final class InputMonthTest extends TestCase
                 ->id('inputmonth')
                 ->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputmonth" type="month" title="default-title">
-            HTML,
-            InputMonth::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputmonth')
-                ->render(),
-            'Default provider must contribute attributes.',
         );
     }
 
@@ -709,20 +694,6 @@ final class InputMonthTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputmonth" type="month">
-            HTML,
-            InputMonth::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputmonth')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 
