@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - refactor: extract the shared maxlength, minlength, pattern, placeholder, and size form attribute methods into reusable traits.
 - refactor: collapse the date and time input controls into a shared abstract base without changing their public API.
 - feat: add the `Html` facade with explicit static factory methods and the `el()` terminal shortcut.
+- fix: update `ui-awesome/html-interop` dependency to latest version.
 
 ## 0.4.3 July 21, 2026
 
