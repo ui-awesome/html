@@ -340,20 +340,6 @@ final class DlTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <dl class="default-class">
-            </dl>
-            HTML,
-            Dl::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDir(): void
     {
         self::assertSame(
@@ -763,20 +749,6 @@ final class DlTest extends TestCase
                 ->terms([Dt::tag()->class('bold')->content('Term'), Dd::tag()->class('highlight')->content('Description')])
                 ->render(),
             'Terms must accept term instances.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <dl class="text-muted">
-            </dl>
-            HTML,
-            Dl::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

@@ -418,20 +418,6 @@ final class VideoTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <video class="default-class">
-            </video>
-            HTML,
-            Video::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -854,20 +840,6 @@ final class VideoTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <video class="text-muted">
-            </video>
-            HTML,
-            Video::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

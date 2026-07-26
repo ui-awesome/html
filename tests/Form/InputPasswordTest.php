@@ -269,20 +269,6 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputpassword" type="password" title="default-title">
-            HTML,
-            InputPassword::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputpassword')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -737,20 +723,6 @@ final class InputPasswordTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

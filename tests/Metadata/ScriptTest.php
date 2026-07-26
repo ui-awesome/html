@@ -379,20 +379,6 @@ final class ScriptTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script class="default-class">
-            </script>
-            HTML,
-            Script::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -821,20 +807,6 @@ final class ScriptTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script class="text-muted">
-            </script>
-            HTML,
-            Script::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

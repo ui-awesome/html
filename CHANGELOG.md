@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat(embedded): make every element carrying a `src` attribute implement `SrcInterface`: `Audio`, `Iframe`, `Img`, `InputImage`, `Script`, `Source`, `Track`, and `Video`.
 - feat(form): make `AbstractChoiceList` implement `ChoiceListInterface`, and `AbstractChoiceList`, `InputCheckbox`, and `InputRadio` implement `CheckedStateInterface`.
 - feat(form): make `InputEmail`, `InputNumber`, `InputPassword`, `InputSearch`, `InputTel`, `InputText`, `InputUrl`, and `TextArea` implement `PlaceholderInterface`.
+- refactor: read the referrerpolicy and src attribute names from the Attribute enum instead of ElementAttribute.
+- refactor: extract the shared maxlength, minlength, pattern, placeholder, and size form attribute methods into reusable traits.
+- refactor: collapse the date and time input controls into a shared abstract base without changing their public API.
+- feat: add the `Html` facade with explicit static factory methods and the `el()` terminal shortcut.
 
 ## 0.4.3 July 21, 2026
 

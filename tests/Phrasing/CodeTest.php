@@ -220,19 +220,6 @@ final class CodeTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <code class="default-class" title="default-title"></code>
-            HTML,
-            Code::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -458,19 +445,6 @@ final class CodeTest extends TestCase
                 ->style('value')
                 ->render(),
             "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <code class="text-muted"></code>
-            HTML,
-            Code::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

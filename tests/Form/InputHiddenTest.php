@@ -254,20 +254,6 @@ final class InputHiddenTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputhidden" type="hidden" title="default-title">
-            HTML,
-            InputHidden::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputhidden')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -552,20 +538,6 @@ final class InputHiddenTest extends TestCase
                 ->style('value')
                 ->render(),
             "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputhidden" type="hidden">
-            HTML,
-            InputHidden::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputhidden')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

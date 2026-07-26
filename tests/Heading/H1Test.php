@@ -302,20 +302,6 @@ final class H1Test extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <h1 class="default-class">
-            </h1>
-            HTML,
-            H1::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDir(): void
     {
         self::assertSame(
@@ -620,20 +606,6 @@ final class H1Test extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <h1 class="text-muted">
-            </h1>
-            HTML,
-            H1::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

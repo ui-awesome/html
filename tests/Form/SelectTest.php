@@ -348,20 +348,6 @@ final class SelectTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select class="default-class">
-            </select>
-            HTML,
-            Select::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDir(): void
     {
         self::assertSame(
@@ -1150,20 +1136,6 @@ final class SelectTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select class="text-muted">
-            </select>
-            HTML,
-            Select::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

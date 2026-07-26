@@ -7,7 +7,7 @@ namespace UIAwesome\Html\Embedded;
 use InvalidArgumentException;
 use Stringable;
 use UIAwesome\Html\Attribute\HasCrossorigin;
-use UIAwesome\Html\Attribute\Values\ElementAttribute;
+use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute};
 use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
@@ -294,7 +294,7 @@ final class Video extends BaseBlock implements SrcInterface
      */
     public function src(string|Stringable|UnitEnum|null $value): static
     {
-        return $this->addAttribute(ElementAttribute::SRC, $value);
+        return $this->addAttribute(Attribute::SRC, $value);
     }
 
     /**

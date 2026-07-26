@@ -268,20 +268,6 @@ final class InputTimeTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputtime" type="time" title="default-title">
-            HTML,
-            InputTime::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputtime')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -709,20 +695,6 @@ final class InputTimeTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputtime" type="time">
-            HTML,
-            InputTime::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputtime')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

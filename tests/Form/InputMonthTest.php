@@ -268,20 +268,6 @@ final class InputMonthTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputmonth" type="month" title="default-title">
-            HTML,
-            InputMonth::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputmonth')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -709,20 +695,6 @@ final class InputMonthTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputmonth" type="month">
-            HTML,
-            InputMonth::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputmonth')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

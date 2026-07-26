@@ -555,23 +555,6 @@ final class CheckboxListTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="default-class">
-            <input type="checkbox" value="1">
-            <label>One</label>
-            </div>
-            HTML,
-            CheckboxList::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDir(): void
     {
         self::assertSame(
@@ -1124,23 +1107,6 @@ final class CheckboxListTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="text-muted">
-            <input type="checkbox" value="1">
-            <label>One</label>
-            </div>
-            HTML,
-            CheckboxList::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

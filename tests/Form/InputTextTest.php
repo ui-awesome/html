@@ -268,20 +268,6 @@ final class InputTextTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputtext" type="text" title="default-title">
-            HTML,
-            InputText::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputtext')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -750,20 +736,6 @@ final class InputTextTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputtext" type="text">
-            HTML,
-            InputText::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputtext')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

@@ -6,7 +6,7 @@ namespace UIAwesome\Html\Embedded;
 
 use Stringable;
 use UIAwesome\Html\Attribute\{HasMedia, HasSizes};
-use UIAwesome\Html\Attribute\Values\ElementAttribute;
+use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute};
 use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseVoid;
 use UIAwesome\Html\Interop\Voids;
@@ -67,7 +67,7 @@ final class Source extends BaseVoid implements SrcInterface
      */
     public function src(string|Stringable|UnitEnum|null $value): static
     {
-        return $this->addAttribute(ElementAttribute::SRC, $value);
+        return $this->addAttribute(Attribute::SRC, $value);
     }
 
     /**

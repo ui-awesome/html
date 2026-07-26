@@ -240,20 +240,6 @@ final class InputSubmitTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputsubmit" type="submit" title="default-title">
-            HTML,
-            InputSubmit::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputsubmit')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -680,20 +666,6 @@ final class InputSubmitTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputsubmit')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

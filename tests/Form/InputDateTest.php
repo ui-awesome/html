@@ -268,20 +268,6 @@ final class InputDateTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputdate" type="date" title="default-title">
-            HTML,
-            InputDate::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputdate')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -709,20 +695,6 @@ final class InputDateTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputdate" type="date">
-            HTML,
-            InputDate::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputdate')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

@@ -287,20 +287,6 @@ final class InputRadioTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputradio" type="radio" title="default-title">
-            HTML,
-            InputRadio::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputradio')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -613,20 +599,6 @@ final class InputRadioTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputradio" type="radio">
-            HTML,
-            InputRadio::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputradio')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

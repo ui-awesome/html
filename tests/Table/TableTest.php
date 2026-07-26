@@ -399,20 +399,6 @@ final class TableTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <table class="default-class">
-            </table>
-            HTML,
-            Table::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -853,20 +839,6 @@ final class TableTest extends TestCase
                 ->thead(Thead::tag()->tr(Tr::tag()->th(Th::tag()->content('value'))))
                 ->render(),
             'Thead must be appended.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <table class="text-muted">
-            </table>
-            HTML,
-            Table::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

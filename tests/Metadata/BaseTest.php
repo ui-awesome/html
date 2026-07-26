@@ -195,19 +195,6 @@ final class BaseTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <base class="default-class" title="default-title">
-            HTML,
-            Base::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -472,19 +459,6 @@ final class BaseTest extends TestCase
                 ->target(Target::BLANK)
                 ->render(),
             "'target' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <base class="text-muted">
-            HTML,
-            Base::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

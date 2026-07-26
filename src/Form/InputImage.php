@@ -6,6 +6,7 @@ namespace UIAwesome\Html\Form;
 
 use Stringable;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
+use UIAwesome\Html\Attribute\Values\Attribute;
 use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Attribute\Values\Type;
 use UIAwesome\Html\Contracts\Attribute\SrcInterface;
@@ -186,7 +187,7 @@ final class InputImage extends BaseInput implements SrcInterface
      */
     public function src(string|Stringable|UnitEnum|null $value): static
     {
-        return $this->addAttribute(ElementAttribute::SRC, $value);
+        return $this->addAttribute(Attribute::SRC, $value);
     }
 
     /**

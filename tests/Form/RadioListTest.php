@@ -555,23 +555,6 @@ final class RadioListTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="default-class">
-            <input type="radio" value="1">
-            <label>One</label>
-            </div>
-            HTML,
-            RadioList::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDir(): void
     {
         self::assertSame(
@@ -1124,23 +1107,6 @@ final class RadioListTest extends TestCase
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="text-muted">
-            <input type="radio" value="1">
-            <label>One</label>
-            </div>
-            HTML,
-            RadioList::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

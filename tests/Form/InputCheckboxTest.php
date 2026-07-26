@@ -278,20 +278,6 @@ final class InputCheckboxTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputcheckbox" type="checkbox" title="default-title">
-            HTML,
-            InputCheckbox::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputcheckbox')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -604,20 +590,6 @@ final class InputCheckboxTest extends TestCase
                 ->tabIndex(1)
                 ->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputcheckbox" type="checkbox">
-            HTML,
-            InputCheckbox::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputcheckbox')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

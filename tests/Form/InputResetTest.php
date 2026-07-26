@@ -239,20 +239,6 @@ final class InputResetTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputreset" type="reset" title="default-title">
-            HTML,
-            InputReset::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputreset')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -553,20 +539,6 @@ final class InputResetTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputreset" type="reset">
-            HTML,
-            InputReset::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputreset')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

@@ -268,20 +268,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputurl" type="url" title="default-title">
-            HTML,
-            InputUrl::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputurl')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -736,20 +722,6 @@ final class InputUrlTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputurl')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

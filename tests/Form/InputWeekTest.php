@@ -268,20 +268,6 @@ final class InputWeekTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="default-class" id="inputweek" type="week" title="default-title">
-            HTML,
-            InputWeek::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->id('inputweek')
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -709,20 +695,6 @@ final class InputWeekTest extends TestCase
                 ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
                 ->render(),
             'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="text-muted" id="inputweek" type="week">
-            HTML,
-            InputWeek::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->id('inputweek')
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

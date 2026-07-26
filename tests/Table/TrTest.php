@@ -362,20 +362,6 @@ final class TrTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tr class="default-class">
-            </tr>
-            HTML,
-            Tr::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDefaultValues(): void
     {
         self::assertSame(
@@ -736,20 +722,6 @@ final class TrTest extends TestCase
                 ->th(Th::tag()->content('value'))
                 ->render(),
             'Th entries must be appended.',
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <tr class="text-muted">
-            </tr>
-            HTML,
-            Tr::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 

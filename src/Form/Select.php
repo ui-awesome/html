@@ -13,8 +13,8 @@ use UIAwesome\Html\Attribute\Values\{Attribute, ElementAttribute};
 use UIAwesome\Html\Contracts\Attribute\ValueInterface;
 use UIAwesome\Html\Contracts\Form\{FormControlInterface, MultiValueInterface};
 use UIAwesome\Html\Core\Element\BaseBlock;
-use UIAwesome\Html\Form\Mixin\HasSelectableChildren;
-use UIAwesome\Html\Helper\{Enum, Validator};
+use UIAwesome\Html\Form\Mixin\{HasSelectableChildren, HasSize};
+use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Interop\Block;
 use UnitEnum;
 
@@ -42,6 +42,7 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
     use CanBeDisabled;
     use HasName;
     use HasSelectableChildren;
+    use HasSize;
 
     /**
      * Selected value or values.
@@ -211,41 +212,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
     public function required(bool|null $value): static
     {
         return $this->addAttribute(Attribute::REQUIRED, $value);
-    }
-
-    /**
-     * Sets the `size` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->size(10);
-     * $element->size(50);
-     * $element->size(null);
-     * ```
-     *
-     * @param int|string|Stringable|UnitEnum|null $value Size value. Must be '>= 0', or `null` to remove the attribute.
-     *
-     * @throws InvalidArgumentException if the value is not an integer-like value '>= 0'.
-     *
-     * @return static New instance with the updated `size` attribute.
-     */
-    public function size(int|string|Stringable|UnitEnum|null $value): static
-    {
-        if ($value instanceof UnitEnum) {
-            $value = Enum::normalizeValue($value);
-        }
-
-        if ($value !== null && Validator::intLike($value) === false) {
-            throw new InvalidArgumentException(
-                Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                    (string) $value,
-                    Attribute::SIZE->value,
-                    'value >= 0',
-                ),
-            );
-        }
-
-        return $this->addAttribute(Attribute::SIZE, $value);
     }
 
     /**

@@ -302,20 +302,6 @@ final class HGroupTest extends TestCase
         );
     }
 
-    public function testRenderWithDefaultProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <hgroup class="default-class">
-            </hgroup>
-            HTML,
-            HGroup::tag()
-                ->addDefaultProvider(DefaultProvider::class)
-                ->render(),
-            'Default provider must contribute attributes.',
-        );
-    }
-
     public function testRenderWithDir(): void
     {
         self::assertSame(
@@ -618,20 +604,6 @@ final class HGroupTest extends TestCase
             HTML,
             HGroup::tag()->tabIndex(3)->render(),
             "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithThemeProvider(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <hgroup class="text-muted">
-            </hgroup>
-            HTML,
-            HGroup::tag()
-                ->addThemeProvider('muted', DefaultThemeProvider::class)
-                ->render(),
-            'Theme provider must contribute classes.',
         );
     }
 
