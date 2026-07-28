@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Metadata;
 
 use InvalidArgumentException;
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Blocking, ElementAttribute, Type};
+use UIAwesome\Html\Attribute\Values\{Blocking, ElementAttribute};
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Style;
@@ -97,7 +98,7 @@ final class StyleTest extends TestCase
     }
 
     #[DataProviderExternal(StyleProvider::class, 'type')]
-    public function testRenderWithType(string|Type $value, string $expected): void
+    public function testRenderWithType(string|BackedString $value, string $expected): void
     {
         self::assertSame(
             <<<HTML

@@ -6,9 +6,10 @@ namespace UIAwesome\Html\Tests\Metadata;
 
 use Closure;
 use InvalidArgumentException;
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{AsValue, Blocking, Crossorigin, Fetchpriority, Referrerpolicy, Rel, Type};
+use UIAwesome\Html\Attribute\Values\{AsValue, Blocking, Crossorigin, Fetchpriority, Referrerpolicy, Rel};
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Link;
 use UIAwesome\Html\Tests\Provider\Metadata\LinkProvider;
@@ -213,7 +214,7 @@ final class LinkTest extends TestCase
     }
 
     #[DataProviderExternal(LinkProvider::class, 'type')]
-    public function testRenderWithType(string|Type $value, string $expected): void
+    public function testRenderWithType(string|BackedString $value, string $expected): void
     {
         self::assertSame(
             <<<HTML

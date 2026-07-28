@@ -6,9 +6,10 @@ namespace UIAwesome\Html\Tests\Palpable;
 
 use Closure;
 use InvalidArgumentException;
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Language, Referrerpolicy, Rel, Target, Type};
+use UIAwesome\Html\Attribute\Values\{Language, Referrerpolicy, Rel, Target};
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Palpable\A;
 use UIAwesome\Html\Tests\Provider\Palpable\AProvider;
@@ -166,7 +167,7 @@ final class ATest extends TestCase
     }
 
     #[DataProviderExternal(AProvider::class, 'type')]
-    public function testRenderWithType(string|Type $value, string $expected): void
+    public function testRenderWithType(string|BackedString $value, string $expected): void
     {
         self::assertSame(
             <<<HTML

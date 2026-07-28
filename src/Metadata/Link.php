@@ -19,7 +19,6 @@ use UIAwesome\Html\Attribute\{
     HasReferrerpolicy,
     HasRel,
     HasSizes,
-    HasType,
 };
 use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Core\Element\BaseVoid;
@@ -55,7 +54,6 @@ final class Link extends BaseVoid
     use HasReferrerpolicy;
     use HasRel;
     use HasSizes;
-    use HasType;
 
     /**
      * Sets the `href` attribute.
@@ -75,6 +73,33 @@ final class Link extends BaseVoid
     public function href(string|Stringable|UnitEnum|null $value): static
     {
         return $this->addAttribute(ElementAttribute::HREF, $value);
+    }
+
+    /**
+     * Sets the `type` attribute.
+     *
+     * Hints at the MIME type of the linked resource. Any MIME type is accepted; browsers treat the value as an
+     * advisory hint and fetch the resource regardless.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Link::tag()
+     *     ->href('/feed.xml')
+     *     ->rel('alternate')
+     *     ->type('application/rss+xml')
+     *     ->render();
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value MIME type of the linked resource, or `null` to remove the
+     * attribute.
+     *
+     * @return static New instance with the updated `type` attribute.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link#type
+     */
+    public function type(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute('type', $value);
     }
 
     /**
