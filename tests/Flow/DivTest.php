@@ -23,8 +23,11 @@ use UIAwesome\Html\Flow\Div;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 
+use function implode;
+
 /**
- * Unit tests for {@see Div} rendering and global attribute behavior.
+ * Unit tests for {@see Div} plus the universal attribute battery for the {@see \UIAwesome\Html\Core\Element\BaseBlock}
+ * render pipeline.
  */
 #[Group('flow')]
 final class DivTest extends TestCase
@@ -44,7 +47,8 @@ final class DivTest extends TestCase
     {
         self::assertSame(
             'value',
-            Div::tag()->getAttribute('class', 'value'),
+            Div::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }

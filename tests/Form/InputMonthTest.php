@@ -6,7 +6,7 @@ namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{Group, TestWith};
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Attribute\Values\{
     Aria,
@@ -24,8 +24,11 @@ use UIAwesome\Html\Form\InputMonth;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 
+use function implode;
+
 /**
- * Unit tests for {@see InputMonth} class.
+ * Unit tests for {@see InputMonth} plus the universal attribute battery for the
+ * {@see \UIAwesome\Html\Core\Element\BaseInput} render pipeline.
  */
 #[Group('form')]
 final class InputMonthTest extends TestCase
@@ -34,7 +37,8 @@ final class InputMonthTest extends TestCase
     {
         self::assertSame(
             'value',
-            InputMonth::tag()->getAttribute('class', 'value'),
+            InputMonth::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }
@@ -170,28 +174,16 @@ final class InputMonthTest extends TestCase
         );
     }
 
-    public function testRenderWithAutocomplete(): void
+    #[TestWith(['on'], 'string')]
+    #[TestWith([Autocomplete::ON], 'enum')]
+    public function testRenderWithAutocomplete(string|Autocomplete $value): void
     {
         self::assertSame(
             <<<HTML
             <input id="inputmonth" type="month" autocomplete="on">
             HTML,
             InputMonth::tag()
-                ->autocomplete('on')
-                ->id('inputmonth')
-                ->render(),
-            "'autocomplete' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAutocompleteUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputmonth" type="month" autocomplete="on">
-            HTML,
-            InputMonth::tag()
-                ->autocomplete(Autocomplete::ON)
+                ->autocomplete($value)
                 ->id('inputmonth')
                 ->render(),
             "'autocomplete' must be serialized.",

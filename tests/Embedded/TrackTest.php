@@ -6,196 +6,24 @@ namespace UIAwesome\Html\Tests\Embedded;
 
 use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Data,
-    Direction,
-    GlobalAttribute,
-    Language,
-    Role,
-    Translate,
-};
 use UIAwesome\Html\Embedded\Track;
 use UIAwesome\Html\Embedded\Values\Kind;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Embedded\TrackProvider;
+
+use function implode;
 
 /**
  * Unit tests for {@see Track} rendering and track attribute behavior.
+ *
+ * {@see TrackProvider} for test case data providers.
  */
 #[Group('embedded')]
 final class TrackTest extends TestCase
 {
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            Track::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            Track::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track accesskey="value">
-            HTML,
-            Track::tag()
-                ->accesskey('value')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track aria-label="value">
-            HTML,
-            Track::tag()
-                ->addAriaAttribute('label', 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track aria-label="value">
-            HTML,
-            Track::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->render(),
-            'ARIA attribute must accept an enum key.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track data-value="value">
-            HTML,
-            Track::tag()
-                ->addDataAttribute('value', 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track data-value="value">
-            HTML,
-            Track::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->render(),
-            'Data attribute must accept an enum key.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track onclick="alert(&apos;Clicked!&apos;)">
-            HTML,
-            Track::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track aria-controls="value" aria-label="value">
-            HTML,
-            Track::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track class="value">
-            HTML,
-            Track::tag()
-                ->attributes(['class' => 'value'])
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track class="value">
-            HTML,
-            Track::tag()
-                ->class('value')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track class="value">
-            HTML,
-            Track::tag()
-                ->class(BackedString::VALUE)
-                ->render(),
-            "'class' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track data-value="value">
-            HTML,
-            Track::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->render(),
-            'Data attribute map must be applied.',
-        );
-    }
-
     public function testRenderWithDefault(): void
     {
         self::assertSame(
@@ -231,227 +59,32 @@ final class TrackTest extends TestCase
         );
     }
 
-    public function testRenderWithDir(): void
+    #[DataProviderExternal(TrackProvider::class, 'kind')]
+    public function testRenderWithKind(string|Kind $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <track dir="ltr">
+            <track kind="{$expected}">
             HTML,
             Track::tag()
-                ->dir('ltr')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track dir="ltr">
-            HTML,
-            Track::tag()
-                ->dir(Direction::LTR)
-                ->render(),
-            "'dir' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track hidden>
-            HTML,
-            Track::tag()
-                ->hidden(true)
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track id="value">
-            HTML,
-            Track::tag()
-                ->id('value')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithKind(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track kind="captions">
-            HTML,
-            Track::tag()
-                ->kind('captions')
+                ->kind($value)
                 ->render(),
             "'kind' must be serialized.",
         );
     }
 
-    public function testRenderWithKindUsingEnum(): void
+    #[TestWith(['English', 'English'], 'string')]
+    #[TestWith([BackedString::VALUE, 'value'], 'enum')]
+    public function testRenderWithLabel(string|BackedString $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <track kind="subtitles">
+            <track label="{$expected}">
             HTML,
             Track::tag()
-                ->kind(Kind::SUBTITLES)
+                ->label($value)
                 ->render(),
-            "'kind' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithLabel(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track label="English">
-            HTML,
-            Track::tag()
-                ->label('English')
-                ->render(),
-            "'label' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLabelUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track label="value">
-            HTML,
-            Track::tag()
-                ->label(BackedString::VALUE)
-                ->render(),
-            "'label' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track lang="en">
-            HTML,
-            Track::tag()
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track lang="en">
-            HTML,
-            Track::tag()
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track>
-            HTML,
-            Track::tag()
-                ->addAriaAttribute('label', 'value')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track>
-            HTML,
-            Track::tag()
-                ->addAttribute('class', 'value')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track>
-            HTML,
-            Track::tag()
-                ->addDataAttribute('value', 'value')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track role="banner">
-            HTML,
-            Track::tag()
-                ->role('banner')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track role="banner">
-            HTML,
-            Track::tag()
-                ->role(Role::BANNER)
-                ->render(),
-            "'role' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track class="value">
-            HTML,
-            Track::tag()
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track title="value">
-            HTML,
-            Track::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must accept an enum key.',
+            "'label' must be serialized from both input forms.",
         );
     }
 
@@ -468,55 +101,18 @@ final class TrackTest extends TestCase
         );
     }
 
-    public function testRenderWithSrclang(): void
+    #[TestWith(['en', 'en'], 'string')]
+    #[TestWith([BackedString::VALUE, 'value'], 'enum')]
+    public function testRenderWithSrclang(string|BackedString $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <track srclang="en">
+            <track srclang="{$expected}">
             HTML,
             Track::tag()
-                ->srclang('en')
+                ->srclang($value)
                 ->render(),
-            "'srclang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSrclangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track srclang="value">
-            HTML,
-            Track::tag()
-                ->srclang(BackedString::VALUE)
-                ->render(),
-            "'srclang' must accept an enum value.",
-        );
-    }
-
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track style='value'>
-            HTML,
-            Track::tag()
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track title="value">
-            HTML,
-            Track::tag()
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
+            "'srclang' must be serialized from both input forms.",
         );
     }
 
@@ -528,32 +124,6 @@ final class TrackTest extends TestCase
             HTML,
             (string) Track::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track translate="no">
-            HTML,
-            Track::tag()
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <track translate="no">
-            HTML,
-            Track::tag()
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must accept an enum value.",
         );
     }
 
@@ -588,20 +158,6 @@ final class TrackTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        Track::tag()->dir('invalid-value');
-    }
-
     public function testThrowInvalidArgumentExceptionWhenSettingKind(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -614,47 +170,5 @@ final class TrackTest extends TestCase
         );
 
         Track::tag()->kind('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        Track::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        Track::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        Track::tag()->translate('invalid-value');
     }
 }

@@ -4,28 +4,19 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use Closure;
 use InvalidArgumentException;
-use PHPForge\Support\Stub\{BackedInteger, BackedString};
-use PHPUnit\Framework\Attributes\Group;
+use PHPForge\Support\Stub\BackedInteger;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Autocomplete,
-    Data,
-    Direction,
-    GlobalAttribute,
-    Language,
-    Role,
-    Translate,
-    Type,
-};
+use UIAwesome\Html\Attribute\Values\{Autocomplete, Type};
 use UIAwesome\Html\Form\InputUrl;
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Form\InputUrlProvider;
 
 /**
- * Unit tests for {@see InputUrl} class.
+ * Unit tests for {@see InputUrl} rendering and URL input attribute behavior.
+ *
+ * {@see InputUrlProvider} for test case data providers.
  */
 #[Group('form')]
 final class InputUrlTest extends TestCase
@@ -34,7 +25,8 @@ final class InputUrlTest extends TestCase
     {
         self::assertSame(
             'value',
-            InputUrl::tag()->getAttribute('class', 'value'),
+            InputUrl::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }
@@ -53,145 +45,16 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" accesskey="value">
-            HTML,
-            InputUrl::tag()
-                ->accesskey('value')
-                ->id('inputurl')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-label="value">
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputurl')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-label="value">
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputurl')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" data-value="value">
-            HTML,
-            InputUrl::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputurl')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" data-value="value">
-            HTML,
-            InputUrl::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputurl')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" onclick="alert(&apos;Clicked!&apos;)">
-            HTML,
-            InputUrl::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputurl')
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" aria-controls="value" aria-label="value">
-            HTML,
-            InputUrl::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->id('inputurl')
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->class('value')
-                ->id('inputurl')
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAutocomplete(): void
+    #[TestWith(['on'], 'string')]
+    #[TestWith([Autocomplete::ON], 'enum')]
+    public function testRenderWithAutocomplete(string|Autocomplete $value): void
     {
         self::assertSame(
             <<<HTML
             <input id="inputurl" type="url" autocomplete="on">
             HTML,
             InputUrl::tag()
-                ->autocomplete('on')
-                ->id('inputurl')
-                ->render(),
-            "'autocomplete' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAutocompleteUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" autocomplete="on">
-            HTML,
-            InputUrl::tag()
-                ->autocomplete(Autocomplete::ON)
+                ->autocomplete($value)
                 ->id('inputurl')
                 ->render(),
             "'autocomplete' must be serialized.",
@@ -209,48 +72,6 @@ final class InputUrlTest extends TestCase
                 ->id('inputurl')
                 ->render(),
             "'autofocus' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->class('value')
-                ->id('inputurl')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->class(BackedString::VALUE)
-                ->id('inputurl')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" data-value="value">
-            HTML,
-            InputUrl::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->id('inputurl')
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -277,136 +98,6 @@ final class InputUrlTest extends TestCase
                 ->id('inputurl')
                 ->render(),
             'Bare element must render with no attributes.',
-        );
-    }
-
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" dir="ltr">
-            HTML,
-            InputUrl::tag()
-                ->dir('ltr')
-                ->id('inputurl')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" dir="ltr">
-            HTML,
-            InputUrl::tag()
-                ->dir(Direction::LTR)
-                ->id('inputurl')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDisabled(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" disabled>
-            HTML,
-            InputUrl::tag()
-                ->disabled(true)
-                ->id('inputurl')
-                ->render(),
-            "'disabled' must be serialized.",
-        );
-    }
-
-    public function testRenderWithEvents(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" onfocus="handleFocus()" onblur="handleBlur()">
-            HTML,
-            InputUrl::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->id('inputurl')
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithForm(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" form="value">
-            HTML,
-            InputUrl::tag()
-                ->form('value')
-                ->id('inputurl')
-                ->render(),
-            "'form' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" hidden>
-            HTML,
-            InputUrl::tag()
-                ->hidden(true)
-                ->id('inputurl')
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" lang="en">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" lang="en">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
         );
     }
 
@@ -452,20 +143,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithName(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" name="value" type="url">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->name('value')
-                ->render(),
-            "'name' must be serialized.",
-        );
-    }
-
     public function testRenderWithPattern(): void
     {
         self::assertSame(
@@ -508,66 +185,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputurl')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->addAttribute('class', 'value')
-                ->id('inputurl')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputurl')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputurl')
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
-        );
-    }
-
     public function testRenderWithRequired(): void
     {
         self::assertSame(
@@ -582,85 +199,17 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithRole(): void
+    #[TestWith([30, 30], 'int')]
+    #[TestWith([BackedInteger::VALUE, 1], 'enum')]
+    public function testRenderWithSize(int|BackedInteger $value, int $expected): void
     {
         self::assertSame(
             <<<HTML
-            <input id="inputurl" type="url" role="textbox">
+            <input id="inputurl" type="url" size="{$expected}">
             HTML,
             InputUrl::tag()
                 ->id('inputurl')
-                ->role('textbox')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" role="textbox">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->role(Role::TEXTBOX)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputurl" type="url">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" title="value">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSize(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" size="30">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->size(30)
-                ->render(),
-            "'size' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSizeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" size="1">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->size(BackedInteger::VALUE)
+                ->size($value)
                 ->render(),
             "'size' must be serialized.",
         );
@@ -680,20 +229,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" style='value'>
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
-        );
-    }
-
     public function testRenderWithTabindex(): void
     {
         self::assertSame(
@@ -708,36 +243,6 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testRenderWithTemplate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="value">
-            <input id="inputurl" type="url">
-            </div>
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
-                ->render(),
-            'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" title="value">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
-        );
-    }
-
     public function testRenderWithToString(): void
     {
         self::assertSame(
@@ -746,34 +251,6 @@ final class InputUrlTest extends TestCase
             HTML,
             (string) InputUrl::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" translate="no">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputurl" type="url" translate="no">
-            HTML,
-            InputUrl::tag()
-                ->id('inputurl')
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
         );
     }
 
@@ -791,115 +268,15 @@ final class InputUrlTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    /**
+     * @phpstan-param Closure(): InputUrl $setter
+     */
+    #[DataProviderExternal(InputUrlProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
+        $this->expectExceptionMessage($expected);
 
-        InputUrl::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        InputUrl::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingMaxlength(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-1',
-                Attribute::MAXLENGTH->value,
-                'value >= 0',
-            ),
-        );
-
-        InputUrl::tag()->maxlength(-1);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingMinlength(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-1',
-                Attribute::MINLENGTH->value,
-                'value >= 0',
-            ),
-        );
-
-        InputUrl::tag()->minlength(-1);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        InputUrl::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        InputUrl::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        InputUrl::tag()->translate('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::TYPE->value,
-                implode("', '", Enum::normalizeStringArray(Type::cases())),
-            ),
-        );
-
-        InputUrl::tag()->type('invalid-value');
+        $setter();
     }
 }

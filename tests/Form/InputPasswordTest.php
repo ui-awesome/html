@@ -4,29 +4,19 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use Closure;
 use InvalidArgumentException;
-use PHPForge\Support\Stub\{BackedInteger, BackedString};
-use PHPUnit\Framework\Attributes\Group;
+use PHPForge\Support\Stub\BackedInteger;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Autocomplete,
-    Data,
-    Direction,
-    GlobalAttribute,
-    InputMode,
-    Language,
-    Role,
-    Translate,
-    Type,
-};
+use UIAwesome\Html\Attribute\Values\{Autocomplete, InputMode, Type};
 use UIAwesome\Html\Form\InputPassword;
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Form\InputPasswordProvider;
 
 /**
- * Unit tests for {@see InputPassword} class.
+ * Unit tests for {@see InputPassword} rendering and password input attribute behavior.
+ *
+ * {@see InputPasswordProvider} for test case data providers.
  */
 #[Group('form')]
 final class InputPasswordTest extends TestCase
@@ -35,7 +25,8 @@ final class InputPasswordTest extends TestCase
     {
         self::assertSame(
             'value',
-            InputPassword::tag()->getAttribute('class', 'value'),
+            InputPassword::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }
@@ -54,145 +45,16 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" accesskey="value">
-            HTML,
-            InputPassword::tag()
-                ->accesskey('value')
-                ->id('inputpassword')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" aria-label="value">
-            HTML,
-            InputPassword::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputpassword')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" aria-label="value">
-            HTML,
-            InputPassword::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputpassword')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" data-value="value">
-            HTML,
-            InputPassword::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputpassword')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" data-value="value">
-            HTML,
-            InputPassword::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputpassword')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" onclick="alert(&apos;Clicked!&apos;)">
-            HTML,
-            InputPassword::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputpassword')
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" aria-controls="value" aria-label="value">
-            HTML,
-            InputPassword::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->id('inputpassword')
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->attributes(['class' => 'value'])
-                ->id('inputpassword')
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAutocomplete(): void
+    #[TestWith(['off'], 'string')]
+    #[TestWith([Autocomplete::OFF], 'enum')]
+    public function testRenderWithAutocomplete(string|Autocomplete $value): void
     {
         self::assertSame(
             <<<HTML
             <input id="inputpassword" type="password" autocomplete="off">
             HTML,
             InputPassword::tag()
-                ->autocomplete('off')
-                ->id('inputpassword')
-                ->render(),
-            "'autocomplete' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAutocompleteUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" autocomplete="off">
-            HTML,
-            InputPassword::tag()
-                ->autocomplete(Autocomplete::OFF)
+                ->autocomplete($value)
                 ->id('inputpassword')
                 ->render(),
             "'autocomplete' must be serialized.",
@@ -210,48 +72,6 @@ final class InputPasswordTest extends TestCase
                 ->id('inputpassword')
                 ->render(),
             "'autofocus' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->class('value')
-                ->id('inputpassword')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->class(BackedString::VALUE)
-                ->id('inputpassword')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" data-value="value">
-            HTML,
-            InputPassword::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->id('inputpassword')
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -281,109 +101,9 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" dir="ltr">
-            HTML,
-            InputPassword::tag()
-                ->dir('ltr')
-                ->id('inputpassword')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" dir="ltr">
-            HTML,
-            InputPassword::tag()
-                ->dir(Direction::LTR)
-                ->id('inputpassword')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDisabled(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" disabled>
-            HTML,
-            InputPassword::tag()
-                ->disabled(true)
-                ->id('inputpassword')
-                ->render(),
-            "'disabled' must be serialized.",
-        );
-    }
-
-    public function testRenderWithEvents(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" onfocus="handleFocus()" onblur="handleBlur()">
-            HTML,
-            InputPassword::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->id('inputpassword')
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithForm(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" form="value">
-            HTML,
-            InputPassword::tag()
-                ->form('value')
-                ->id('inputpassword')
-                ->render(),
-            "'form' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" hidden>
-            HTML,
-            InputPassword::tag()
-                ->hidden(true)
-                ->id('inputpassword')
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithInputMode(): void
+    #[TestWith(['numeric'], 'string')]
+    #[TestWith([InputMode::NUMERIC], 'enum')]
+    public function testRenderWithInputMode(string|InputMode $value): void
     {
         self::assertSame(
             <<<HTML
@@ -391,51 +111,9 @@ final class InputPasswordTest extends TestCase
             HTML,
             InputPassword::tag()
                 ->id('inputpassword')
-                ->inputMode('numeric')
+                ->inputMode($value)
                 ->render(),
             "'inputmode' must be serialized.",
-        );
-    }
-
-    public function testRenderWithInputModeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" inputmode="numeric">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->inputMode(InputMode::NUMERIC)
-                ->render(),
-            "'inputmode' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" lang="en">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" lang="en">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
         );
     }
 
@@ -464,20 +142,6 @@ final class InputPasswordTest extends TestCase
                 ->minlength(8)
                 ->render(),
             "'minlength' must be serialized.",
-        );
-    }
-
-    public function testRenderWithName(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" name="value" type="password">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->name('value')
-                ->render(),
-            "'name' must be serialized.",
         );
     }
 
@@ -523,66 +187,6 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->addAriaAttribute('label', 'value')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->addAttribute('class', 'value')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->addDataAttribute('value', 'value')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password">
-            HTML,
-            InputPassword::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputpassword')
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
-        );
-    }
-
     public function testRenderWithRequired(): void
     {
         self::assertSame(
@@ -597,101 +201,19 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testRenderWithRole(): void
+    #[TestWith([20, 20], 'int')]
+    #[TestWith([BackedInteger::VALUE, 1], 'enum')]
+    public function testRenderWithSize(int|BackedInteger $value, int $expected): void
     {
         self::assertSame(
             <<<HTML
-            <input id="inputpassword" type="password" role="textbox">
+            <input id="inputpassword" type="password" size="{$expected}">
             HTML,
             InputPassword::tag()
                 ->id('inputpassword')
-                ->role('textbox')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" role="textbox">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->role(Role::TEXTBOX)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" data-value="value">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->addAttribute('data-value', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" title="value">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSize(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" size="20">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->size(20)
+                ->size($value)
                 ->render(),
             "'size' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSizeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" size="1">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->size(BackedInteger::VALUE)
-                ->render(),
-            "'size' must be serialized.",
-        );
-    }
-
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" style='value'>
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
         );
     }
 
@@ -709,36 +231,6 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testRenderWithTemplate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="value">
-            <input id="inputpassword" type="password">
-            </div>
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
-                ->render(),
-            'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" title="value">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
-        );
-    }
-
     public function testRenderWithToString(): void
     {
         self::assertSame(
@@ -747,34 +239,6 @@ final class InputPasswordTest extends TestCase
             HTML,
             (string) InputPassword::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" translate="no">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputpassword" type="password" translate="no">
-            HTML,
-            InputPassword::tag()
-                ->id('inputpassword')
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
         );
     }
 
@@ -792,129 +256,15 @@ final class InputPasswordTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    /**
+     * @phpstan-param Closure(): InputPassword $setter
+     */
+    #[DataProviderExternal(InputPasswordProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
+        $this->expectExceptionMessage($expected);
 
-        InputPassword::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingInputMode(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::INPUTMODE->value,
-                implode("', '", Enum::normalizeStringArray(InputMode::cases())),
-            ),
-        );
-
-        InputPassword::tag()->inputMode('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        InputPassword::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingMaxlength(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-1',
-                Attribute::MAXLENGTH->value,
-                'value >= 0',
-            ),
-        );
-
-        InputPassword::tag()->maxlength(-1);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingMinlength(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-1',
-                Attribute::MINLENGTH->value,
-                'value >= 0',
-            ),
-        );
-
-        InputPassword::tag()->minlength(-1);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        InputPassword::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        InputPassword::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        InputPassword::tag()->translate('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::TYPE->value,
-                implode("', '", Enum::normalizeStringArray(Type::cases())),
-            ),
-        );
-
-        InputPassword::tag()->type('invalid-value');
+        $setter();
     }
 }

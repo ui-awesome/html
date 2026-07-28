@@ -13,8 +13,11 @@ use UIAwesome\Html\Flow\Hr;
 use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 
+use function implode;
+
 /**
- * Unit tests for {@see Hr} rendering and global attribute behavior.
+ * Unit tests for {@see Hr} plus the universal attribute battery for the {@see \UIAwesome\Html\Core\Element\BaseVoid}
+ * render pipeline.
  */
 #[Group('flow')]
 final class HrTest extends TestCase
@@ -23,7 +26,8 @@ final class HrTest extends TestCase
     {
         self::assertSame(
             'value',
-            Hr::tag()->getAttribute('class', 'value'),
+            Hr::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }

@@ -4,211 +4,24 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Embedded;
 
+use Closure;
 use InvalidArgumentException;
-use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    ContentEditable,
-    Crossorigin,
-    Data,
-    Direction,
-    Draggable,
-    GlobalAttribute,
-    Language,
-    Role,
-    Translate,
-};
-use UIAwesome\Html\Attribute\Values\Attribute;
+use UIAwesome\Html\Attribute\Values\Crossorigin;
 use UIAwesome\Html\Embedded\Audio;
 use UIAwesome\Html\Embedded\Values\{Controlslist, Preload};
-use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Embedded\AudioProvider;
 
 /**
  * Unit tests for {@see Audio} rendering and audio attribute behavior.
+ *
+ * {@see AudioProvider} for test case data providers.
  */
 #[Group('embedded')]
 final class AudioTest extends TestCase
 {
-    public function testContentEncodesValues(): void
-    {
-        self::assertSame(
-            '&lt;value&gt;',
-            Audio::tag()
-                ->content('<value>')
-                ->getContent(),
-            'Content must be HTML-encoded.',
-        );
-    }
-
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            Audio::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            Audio::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testHtmlDoesNotEncodeValues(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio>
-            <value>
-            </audio>
-            HTML,
-            Audio::tag()
-                ->html('<value>')
-                ->render(),
-            'Raw HTML content must be applied.',
-        );
-    }
-
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio accesskey="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->accesskey('value')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio aria-label="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addAriaAttribute('label', 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio aria-label="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio data-value="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addDataAttribute('value', 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio data-value="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio onclick="alert(&apos;Clicked!&apos;)">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio aria-controls="value" aria-label="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio class="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->attributes(['class' => 'value'])
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAutofocus(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio autofocus>
-            </audio>
-            HTML,
-            Audio::tag()
-                ->autofocus(true)
-                ->render(),
-            "'autofocus' must be serialized.",
-        );
-    }
-
     public function testRenderWithAutoplay(): void
     {
         self::assertSame(
@@ -220,90 +33,6 @@ final class AudioTest extends TestCase
                 ->autoplay(true)
                 ->render(),
             "'autoplay' must be serialized.",
-        );
-    }
-
-    public function testRenderWithBeginEnd(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio>
-            Content
-            </audio>
-            HTML,
-            Audio::tag()->begin() . 'Content' . Audio::end(),
-            'begin/end must produce a complete element.',
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio class="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->class('value')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio class="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->class(BackedString::VALUE)
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithContent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio>
-            value
-            </audio>
-            HTML,
-            Audio::tag()
-                ->content('value')
-                ->render(),
-            'Bare element must render with no attributes.',
-        );
-    }
-
-    public function testRenderWithContentEditable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio contenteditable="true">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->contentEditable(true)
-                ->render(),
-            "'contentEditable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithContentEditableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio contenteditable="true">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->contentEditable(ContentEditable::TRUE)
-                ->render(),
-            "'contentEditable' must be serialized.",
         );
     }
 
@@ -321,29 +50,16 @@ final class AudioTest extends TestCase
         );
     }
 
-    public function testRenderWithControlslist(): void
+    #[DataProviderExternal(AudioProvider::class, 'controlslist')]
+    public function testRenderWithControlslist(string|Controlslist $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <audio controlslist="nodownload">
+            <audio controlslist="{$expected}">
             </audio>
             HTML,
             Audio::tag()
-                ->controlslist('nodownload')
-                ->render(),
-            "'controlslist' must be serialized.",
-        );
-    }
-
-    public function testRenderWithControlslistUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio controlslist="noremoteplayback">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->controlslist(Controlslist::NOREMOTEPLAYBACK)
+                ->controlslist($value)
                 ->render(),
             "'controlslist' must be serialized.",
         );
@@ -363,45 +79,18 @@ final class AudioTest extends TestCase
         );
     }
 
-    public function testRenderWithCrossorigin(): void
+    #[DataProviderExternal(AudioProvider::class, 'crossorigin')]
+    public function testRenderWithCrossorigin(string|Crossorigin $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <audio crossorigin="anonymous">
+            <audio crossorigin="{$expected}">
             </audio>
             HTML,
             Audio::tag()
-                ->crossorigin('anonymous')
+                ->crossorigin($value)
                 ->render(),
             "'crossorigin' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCrossoriginUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio crossorigin="use-credentials">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->crossorigin(Crossorigin::USE_CREDENTIALS)
-                ->render(),
-            "'crossorigin' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio data-value="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -429,34 +118,6 @@ final class AudioTest extends TestCase
         );
     }
 
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio dir="ltr">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->dir('ltr')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio dir="ltr">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->dir(Direction::LTR)
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
     public function testRenderWithDisableremoteplayback(): void
     {
         self::assertSame(
@@ -468,90 +129,6 @@ final class AudioTest extends TestCase
                 ->disableremoteplayback(true)
                 ->render(),
             "'disableremoteplayback' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDraggable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio draggable="true">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->draggable(true)
-                ->render(),
-            "'draggable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDraggableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio draggable="true">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->draggable(Draggable::TRUE)
-                ->render(),
-            "'draggable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio hidden>
-            </audio>
-            HTML,
-            Audio::tag()
-                ->hidden(true)
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio id="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->id('value')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio lang="en">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio lang="en">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
         );
     }
 
@@ -569,24 +146,6 @@ final class AudioTest extends TestCase
         );
     }
 
-    public function testRenderWithMicroData(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->itemId('https://example.com/item')
-                ->itemProp('name')
-                ->itemRef('info')
-                ->itemScope(true)
-                ->itemType('https://schema.org/Thing')
-                ->render(),
-            'Microdata attributes must be serialized.',
-        );
-    }
-
     public function testRenderWithMuted(): void
     {
         self::assertSame(
@@ -601,146 +160,18 @@ final class AudioTest extends TestCase
         );
     }
 
-    public function testRenderWithPreload(): void
+    #[DataProviderExternal(AudioProvider::class, 'preload')]
+    public function testRenderWithPreload(string|Preload $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <audio preload="metadata">
+            <audio preload="{$expected}">
             </audio>
             HTML,
             Audio::tag()
-                ->preload('metadata')
+                ->preload($value)
                 ->render(),
             "'preload' must be serialized.",
-        );
-    }
-
-    public function testRenderWithPreloadUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio preload="auto">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->preload(Preload::AUTO)
-                ->render(),
-            "'preload' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio>
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addAriaAttribute('label', 'value')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio>
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addAttribute('class', 'value')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio>
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addDataAttribute('value', 'value')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio role="banner">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->role('banner')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio role="banner">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->role(Role::BANNER)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio class="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio title="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSpellcheck(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio spellcheck="true">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->spellcheck(true)
-                ->render(),
-            "'spellcheck' must be serialized.",
         );
     }
 
@@ -758,48 +189,6 @@ final class AudioTest extends TestCase
         );
     }
 
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio style='value'>
-            </audio>
-            HTML,
-            Audio::tag()
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTabindex(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio tabindex="3">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->tabIndex(3)
-                ->render(),
-            "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio title="value">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
-        );
-    }
-
     public function testRenderWithToString(): void
     {
         self::assertSame(
@@ -809,34 +198,6 @@ final class AudioTest extends TestCase
             HTML,
             (string) Audio::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio translate="no">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <audio translate="no">
-            </audio>
-            HTML,
-            Audio::tag()
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
         );
     }
 
@@ -891,232 +252,21 @@ final class AudioTest extends TestCase
         );
     }
 
-    public function testSetControlslistWithWhitespaceSeparatedTokens(): void
-    {
-        self::assertSame(
-            ['controlslist' => "nodownload\tnoremoteplayback"],
-            Audio::tag()
-                ->controlslist("nodownload\tnoremoteplayback")
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-        self::assertSame(
-            ['controlslist' => "nodownload\nnoremoteplayback"],
-            Audio::tag()
-                ->controlslist("nodownload\nnoremoteplayback")
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-        self::assertSame(
-            ['controlslist' => "nodownload\rnoremoteplayback"],
-            Audio::tag()
-                ->controlslist("nodownload\rnoremoteplayback")
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-        self::assertSame(
-            ['controlslist' => "nodownload\fnoremoteplayback"],
-            Audio::tag()
-                ->controlslist("nodownload\fnoremoteplayback")
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-        self::assertSame(
-            ['controlslist' => "nodownload\t\nnoremoteplayback"],
-            Audio::tag()
-                ->controlslist("nodownload\t\nnoremoteplayback")
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
-    {
+    /**
+     * @phpstan-param Closure(): Audio $setter
+     */
+    #[DataProviderExternal(AudioProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(
+        Closure $setter,
+        string $rejected,
+        string $attribute,
+        string $allowedValues,
+    ): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
-            ),
+            Message::VALUE_NOT_IN_LIST->getMessage($rejected, $attribute, $allowedValues),
         );
 
-        Audio::tag()->contentEditable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingControlslist(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                'controlslist',
-                self::validControlslistValues(),
-            ),
-        );
-
-        Audio::tag()->controlslist('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingControlslistWithEmptyTokenBeforeInvalidToken(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                'controlslist',
-                self::validControlslistValues(),
-            ),
-        );
-
-        Audio::tag()->controlslist("nodownload\t\ninvalid-value");
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingControlslistWithInvalidTokenList(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                'controlslist',
-                self::validControlslistValues(),
-            ),
-        );
-
-        Audio::tag()->controlslist('nodownload invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingControlslistWithPaddedSingleToken(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                ' nodownload',
-                'controlslist',
-                self::validControlslistValues(),
-            ),
-        );
-
-        Audio::tag()->controlslist(' nodownload');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingCrossorigin(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::CROSSORIGIN->value,
-                implode("', '", Enum::normalizeStringArray(Crossorigin::cases())),
-            ),
-        );
-
-        Audio::tag()->crossorigin('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        Audio::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
-            ),
-        );
-
-        Audio::tag()->draggable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        Audio::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingPreload(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                'preload',
-                implode("', '", Enum::normalizeStringArray(Preload::cases())),
-            ),
-        );
-
-        Audio::tag()->preload('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        Audio::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        Audio::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        Audio::tag()->translate('invalid-value');
-    }
-
-    private static function validControlslistValues(): string
-    {
-        return implode(
-            "', '",
-            Enum::normalizeStringArray(Controlslist::cases()),
-        );
+        $setter();
     }
 }

@@ -4,30 +4,19 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use Closure;
 use InvalidArgumentException;
 use PHPForge\Support\Stub\{BackedInteger, BackedString};
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Autocomplete,
-    ContentEditable,
-    Data,
-    Direction,
-    Draggable,
-    ElementAttribute,
-    GlobalAttribute,
-    Language,
-    Role,
-    Translate,
-};
+use UIAwesome\Html\Attribute\Values\Autocomplete;
 use UIAwesome\Html\Form\{Optgroup, Option, Select};
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Form\SelectProvider;
 
 /**
- * Unit tests for {@see Select} rendering and attribute behavior.
+ * Unit tests for {@see Select} rendering and option selection behavior.
+ *
+ * {@see SelectProvider} for test case data providers.
  */
 #[Group('form')]
 final class SelectTest extends TestCase
@@ -43,159 +32,9 @@ final class SelectTest extends TestCase
         );
     }
 
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            Select::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            Select::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testHtmlDoesNotEncodeValues(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select>
-            <value>
-            </select>
-            HTML,
-            Select::tag()
-                ->html('<value>')
-                ->render(),
-            'Raw HTML content must be applied.',
-        );
-    }
-
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select accesskey="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->accesskey('value')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select aria-label="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->addAriaAttribute('label', 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select aria-label="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select data-value="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->addDataAttribute('value', 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select data-value="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select onclick="alert(&apos;Clicked!&apos;)">
-            </select>
-            HTML,
-            Select::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select aria-controls="value" aria-label="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select class="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->attributes(['class' => 'value'])
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAutocomplete(): void
+    #[TestWith(['on'], 'string')]
+    #[TestWith([Autocomplete::ON], 'enum')]
+    public function testRenderWithAutocomplete(string|Autocomplete $value): void
     {
         self::assertSame(
             <<<HTML
@@ -203,37 +42,9 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->autocomplete('on')
+                ->autocomplete($value)
                 ->render(),
             "'autocomplete' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAutocompleteUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select autocomplete="on">
-            </select>
-            HTML,
-            Select::tag()
-                ->autocomplete(Autocomplete::ON)
-                ->render(),
-            "'autocomplete' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAutofocus(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select autofocus>
-            </select>
-            HTML,
-            Select::tag()
-                ->autofocus(true)
-                ->render(),
-            "'autofocus' must be serialized.",
         );
     }
 
@@ -241,40 +52,32 @@ final class SelectTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <select>
-            Content
+            <select id="select" name="choice">
+            <option value="dog">Dog</option>
             </select>
             HTML,
-            Select::tag()->begin() . 'Content' . Select::end(),
+            Select::tag()
+                ->id('select')
+                ->name('choice')
+                ->begin() . '<option value="dog">Dog</option>' . Select::end(),
             'begin/end must produce a complete element.',
         );
     }
 
-    public function testRenderWithClass(): void
+    public function testRenderWithBeginEndSkippingValueValidation(): void
     {
         self::assertSame(
             <<<HTML
-            <select class="value">
+            <select id="select" multiple>
+            <option value="dog">Dog</option>
             </select>
             HTML,
             Select::tag()
-                ->class('value')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select class="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->class(BackedString::VALUE)
-                ->render(),
-            "'class' must be serialized.",
+                ->id('select')
+                ->multiple(true)
+                ->value('dog')
+                ->begin() . '<option value="dog">Dog</option>' . Select::end(),
+            'A scalar value with `multiple` must not be rejected on this path.',
         );
     }
 
@@ -293,48 +96,6 @@ final class SelectTest extends TestCase
         );
     }
 
-    public function testRenderWithContentEditable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select contenteditable="true">
-            </select>
-            HTML,
-            Select::tag()
-                ->contentEditable(true)
-                ->render(),
-            "'contentEditable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithContentEditableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select contenteditable="true">
-            </select>
-            HTML,
-            Select::tag()
-                ->contentEditable(ContentEditable::TRUE)
-                ->render(),
-            "'contentEditable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select data-value="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->render(),
-            'Data attribute map must be applied.',
-        );
-    }
-
     public function testRenderWithDefaultConfigurationValues(): void
     {
         self::assertSame(
@@ -344,34 +105,6 @@ final class SelectTest extends TestCase
             HTML,
             Select::tag(['class' => 'default-class'])->render(),
             'Constructor configuration must be applied.',
-        );
-    }
-
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select dir="ltr">
-            </select>
-            HTML,
-            Select::tag()
-                ->dir('ltr')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select dir="ltr">
-            </select>
-            HTML,
-            Select::tag()
-                ->dir(Direction::LTR)
-                ->render(),
-            "'dir' must be serialized.",
         );
     }
 
@@ -389,53 +122,6 @@ final class SelectTest extends TestCase
         );
     }
 
-    public function testRenderWithDraggable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select draggable="true">
-            </select>
-            HTML,
-            Select::tag()
-                ->draggable(true)
-                ->render(),
-            "'draggable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDraggableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select draggable="true">
-            </select>
-            HTML,
-            Select::tag()
-                ->draggable(Draggable::TRUE)
-                ->render(),
-            "'draggable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithEvents(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select onfocus="handleFocus()" onblur="handleBlur()">
-            </select>
-            HTML,
-            Select::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
     public function testRenderWithForm(): void
     {
         self::assertSame(
@@ -447,80 +133,6 @@ final class SelectTest extends TestCase
                 ->form('value')
                 ->render(),
             "'form' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select hidden>
-            </select>
-            HTML,
-            Select::tag()
-                ->hidden(true)
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select id="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->id('value')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select lang="en">
-            </select>
-            HTML,
-            Select::tag()
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select lang="en">
-            </select>
-            HTML,
-            Select::tag()
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithMicroData(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </select>
-            HTML,
-            Select::tag()
-                ->itemId('https://example.com/item')
-                ->itemProp('name')
-                ->itemRef('info')
-                ->itemScope(true)
-                ->itemType('https://schema.org/Thing')
-                ->render(),
-            'Microdata attributes must be serialized.',
         );
     }
 
@@ -550,7 +162,9 @@ final class SelectTest extends TestCase
             HTML,
             Select::tag()
                 ->multiple(true)
-                ->option(Option::tag()->selected(true)->value('dog')->content('Dog'))
+                ->option(
+                    Option::tag()->selected(true)->value('dog')->content('Dog'),
+                )
                 ->value(null)
                 ->render(),
             '`null` must clear the selection instead of failing the array constraint.',
@@ -605,7 +219,9 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->option(Option::tag()->value('1')->content('Santiago'))
+                ->option(
+                    Option::tag()->value('1')->content('Santiago'),
+                )
                 ->render(),
             'Option must be appended.',
         );
@@ -624,7 +240,9 @@ final class SelectTest extends TestCase
             HTML,
             Select::tag()
                 ->content('Before')
-                ->option(Option::tag()->value('1')->content('Santiago'))
+                ->option(
+                    Option::tag()->value('1')->content('Santiago'),
+                )
                 ->content('After')
                 ->render(),
             'Option must preserve its position relative to other content.',
@@ -669,69 +287,11 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->option(Option::tag()->selected(true)->value('dog')->content('Dog'))
+                ->option(
+                    Option::tag()->selected(true)->value('dog')->content('Dog'),
+                )
                 ->render(),
             'Option-level selection must be preserved when select value is not configured.',
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select>
-            </select>
-            HTML,
-            Select::tag()
-                ->addAriaAttribute('label', 'value')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select>
-            </select>
-            HTML,
-            Select::tag()
-                ->addAttribute('class', 'value')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select>
-            </select>
-            HTML,
-            Select::tag()
-                ->addDataAttribute('value', 'value')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select>
-            </select>
-            HTML,
-            Select::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
         );
     }
 
@@ -746,34 +306,6 @@ final class SelectTest extends TestCase
                 ->required(true)
                 ->render(),
             "'required' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select role="banner">
-            </select>
-            HTML,
-            Select::tag()
-                ->role('banner')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select role="banner">
-            </select>
-            HTML,
-            Select::tag()
-                ->role(Role::BANNER)
-                ->render(),
-            "'role' must be serialized.",
         );
     }
 
@@ -914,7 +446,9 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->option(Option::tag()->html("\tDog\r\n and\f  Cat "))
+                ->option(
+                    Option::tag()->html("\tDog\r\n and\f  Cat "),
+                )
                 ->value('Dog and Cat')
                 ->render(),
             'ASCII whitespace must be stripped and collapsed before matching.',
@@ -932,7 +466,9 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->option(Option::tag()->content('Dog & Cat'))
+                ->option(
+                    Option::tag()->content('Dog & Cat'),
+                )
                 ->value('Dog & Cat')
                 ->render(),
             'Encoded text must be decoded before matching.',
@@ -950,7 +486,9 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->option(Option::tag()->html('Dog &apos;n Cat'))
+                ->option(
+                    Option::tag()->html('Dog &apos;n Cat'),
+                )
                 ->value("Dog 'n Cat")
                 ->render(),
             'HTML5 quote entities must be decoded before matching.',
@@ -968,7 +506,9 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->option(Option::tag()->html('<b>Dog</b>'))
+                ->option(
+                    Option::tag()->html('<b>Dog</b>'),
+                )
                 ->value('Dog')
                 ->render(),
             'Markup must be excluded from the matched text.',
@@ -986,7 +526,9 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->option(Option::tag()->value('yes')->content('Yes'))
+                ->option(
+                    Option::tag()->value('yes')->content('Yes'),
+                )
                 ->value('no')
                 ->render(),
             'Selected value must not overwrite the submitted option value.',
@@ -1033,122 +575,28 @@ final class SelectTest extends TestCase
             </select>
             HTML,
             Select::tag()
-                ->option(Option::tag()->value('value')->content('Value'))
+                ->option(
+                    Option::tag()->value('value')->content('Value'),
+                )
                 ->value(BackedString::VALUE)
                 ->render(),
             'Selected value must mark the matching option.',
         );
     }
 
-    public function testRenderWithSetAttribute(): void
+    #[TestWith([4, 4], 'int')]
+    #[TestWith([BackedInteger::VALUE, 1], 'enum')]
+    public function testRenderWithSize(int|BackedInteger $value, int $expected): void
     {
         self::assertSame(
             <<<HTML
-            <select class="value">
+            <select size="{$expected}">
             </select>
             HTML,
             Select::tag()
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select title="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSize(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select size="4">
-            </select>
-            HTML,
-            Select::tag()
-                ->size(4)
+                ->size($value)
                 ->render(),
             "'size' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSizeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select size="1">
-            </select>
-            HTML,
-            Select::tag()
-                ->size(BackedInteger::VALUE)
-                ->render(),
-            "'size' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSpellcheck(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select spellcheck="true">
-            </select>
-            HTML,
-            Select::tag()
-                ->spellcheck(true)
-                ->render(),
-            "'spellcheck' must be serialized.",
-        );
-    }
-
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select style='value'>
-            </select>
-            HTML,
-            Select::tag()
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTabindex(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select tabindex="3">
-            </select>
-            HTML,
-            Select::tag()
-                ->tabIndex(3)
-                ->render(),
-            "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select title="value">
-            </select>
-            HTML,
-            Select::tag()
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
         );
     }
 
@@ -1161,34 +609,6 @@ final class SelectTest extends TestCase
             HTML,
             (string) Select::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select translate="no">
-            </select>
-            HTML,
-            Select::tag()
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <select translate="no">
-            </select>
-            HTML,
-            Select::tag()
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
         );
     }
 
@@ -1242,143 +662,15 @@ final class SelectTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenMultipleValueIsScalar(): void
+    /**
+     * @phpstan-param Closure(): string $setter
+     */
+    #[DataProviderExternal(SelectProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                'dog',
-                ElementAttribute::VALUE->value,
-                'array when "multiple" is true',
-            ),
-        );
+        $this->expectExceptionMessage($expected);
 
-        Select::tag()->multiple(true)->value('dog')->render();
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
-            ),
-        );
-
-        Select::tag()->contentEditable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        Select::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
-            ),
-        );
-
-        Select::tag()->draggable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        Select::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        Select::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingSize(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                'invalid-value',
-                Attribute::SIZE->value,
-                'value >= 0',
-            ),
-        );
-
-        Select::tag()->size('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        Select::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        Select::tag()->translate('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSingleValueHasMoreThanOneValue(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                'dog, cat',
-                ElementAttribute::VALUE->value,
-                'single value unless "multiple" is true',
-            ),
-        );
-
-        Select::tag()->value(['dog', 'cat'])->render();
+        $setter();
     }
 }

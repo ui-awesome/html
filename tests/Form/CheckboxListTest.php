@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
-use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -21,61 +20,13 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Form\{CheckboxList, ChoiceItem};
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
 
 /**
- * Unit tests for {@see CheckboxList} rendering and attribute behavior.
+ * Unit tests for {@see CheckboxList} rendering and choice list behavior.
  */
 #[Group('form')]
 final class CheckboxListTest extends TestCase
 {
-    public function testContentEncodesValues(): void
-    {
-        self::assertSame(
-            '&lt;value&gt;',
-            CheckboxList::tag()
-                ->content('<value>')
-                ->getContent(),
-            'Content must be HTML-encoded.',
-        );
-    }
-
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            CheckboxList::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            CheckboxList::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testHtmlDoesNotEncodeValues(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div>
-            <value>
-            </div>
-            HTML,
-            CheckboxList::tag()
-                ->html('<value>')
-                ->render(),
-            'Raw HTML content must be applied.',
-        );
-    }
-
     public function testItemsReplaceExistingItems(): void
     {
         self::assertSame(
@@ -248,19 +199,6 @@ final class CheckboxListTest extends TestCase
                 ->items(ChoiceItem::tag()->label('One')->value(1))
                 ->render(),
             "'autofocus' must be serialized.",
-        );
-    }
-
-    public function testRenderWithBeginEnd(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div>
-            Content
-            </div>
-            HTML,
-            CheckboxList::tag()->begin() . 'Content' . CheckboxList::end(),
-            'begin/end must produce a complete element.',
         );
     }
 
@@ -1221,103 +1159,5 @@ final class CheckboxListTest extends TestCase
             $checkboxList->uncheckedValue(null),
             'New instance must be returned (immutability).',
         );
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
-            ),
-        );
-
-        CheckboxList::tag()->contentEditable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        CheckboxList::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
-            ),
-        );
-
-        CheckboxList::tag()->draggable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        CheckboxList::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        CheckboxList::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        CheckboxList::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        CheckboxList::tag()->translate('invalid-value');
     }
 }
