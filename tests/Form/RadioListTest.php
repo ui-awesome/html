@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
-use InvalidArgumentException;
 use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -21,46 +20,13 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Form\{ChoiceItem, RadioList};
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
 
 /**
- * Unit tests for {@see RadioList} rendering and attribute behavior.
+ * Unit tests for {@see RadioList} rendering and choice list behavior.
  */
 #[Group('form')]
 final class RadioListTest extends TestCase
 {
-    public function testContentEncodesValues(): void
-    {
-        self::assertSame(
-            '&lt;value&gt;',
-            RadioList::tag()
-                ->content('<value>')
-                ->getContent(),
-            'Content must be HTML-encoded.',
-        );
-    }
-
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            RadioList::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            RadioList::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
     public function testHtmlDoesNotEncodeValues(): void
     {
         self::assertSame(
@@ -86,8 +52,12 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
-                ->items(ChoiceItem::tag()->label('Two')->value(2))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
+                ->items(
+                    ChoiceItem::tag()->label('Two')->value(2),
+                )
                 ->render(),
             'Items must replace existing items when set.',
         );
@@ -104,7 +74,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->accesskey('value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'accesskey' must be serialized.",
         );
@@ -121,7 +93,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addAriaAttribute('label', 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'ARIA attribute must be added.',
         );
@@ -138,7 +112,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addAriaAttribute(Aria::LABEL, 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'ARIA attribute must be added.',
         );
@@ -155,7 +131,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addDataAttribute('value', 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Data attribute must be added.',
         );
@@ -172,7 +150,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addDataAttribute(Data::VALUE, 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Data attribute must be added.',
         );
@@ -189,7 +169,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Event handler must be added.',
         );
@@ -211,7 +193,9 @@ final class RadioListTest extends TestCase
                         'label' => 'value',
                     ],
                 )
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'ARIA attribute map must be applied.',
         );
@@ -228,7 +212,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->attributes(['class' => 'value'])
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Attribute map must be applied.',
         );
@@ -245,7 +231,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->autofocus(true)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'autofocus' must be serialized.",
         );
@@ -293,7 +281,9 @@ final class RadioListTest extends TestCase
             RadioList::tag()
                 ->checked('value')
                 ->id('choices')
-                ->items(ChoiceItem::tag()->label('Value')->value('value'))
+                ->items(
+                    ChoiceItem::tag()->label('Value')->value('value'),
+                )
                 ->name('choice')
                 ->render(),
             'Matching item must be checked.',
@@ -408,7 +398,9 @@ final class RadioListTest extends TestCase
             RadioList::tag()
                 ->checked('on')
                 ->id('choices')
-                ->items(ChoiceItem::tag()->label('One'))
+                ->items(
+                    ChoiceItem::tag()->label('One'),
+                )
                 ->name('choice')
                 ->render(),
             'Item without a value must match the submitted `on` value.',
@@ -427,7 +419,9 @@ final class RadioListTest extends TestCase
             RadioList::tag()
                 ->checked(BackedString::VALUE)
                 ->id('choices')
-                ->items(ChoiceItem::tag()->label('Value')->value('value'))
+                ->items(
+                    ChoiceItem::tag()->label('Value')->value('value'),
+                )
                 ->name('choice')
                 ->render(),
             'Matching item must be checked.',
@@ -445,7 +439,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->class('value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'class' must be serialized.",
         );
@@ -462,7 +458,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->class(BackedString::VALUE)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'class' must be serialized.",
         );
@@ -480,7 +478,9 @@ final class RadioListTest extends TestCase
             RadioList::tag()
                 ->content('Pick one:')
                 ->id('choices')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name('choice')
                 ->render(),
             'Container content must precede the rendered items.',
@@ -498,7 +498,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->contentEditable(true)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'contentEditable' must be serialized.",
         );
@@ -515,7 +517,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->contentEditable(ContentEditable::TRUE)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'contentEditable' must be serialized.",
         );
@@ -532,7 +536,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->dataAttributes(['value' => 'value'])
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Data attribute map must be applied.',
         );
@@ -548,7 +554,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag(['class' => 'default-class'])
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Constructor configuration must be applied.',
         );
@@ -565,7 +573,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->dir('ltr')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'dir' must be serialized.",
         );
@@ -582,7 +592,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->dir(Direction::LTR)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'dir' must be serialized.",
         );
@@ -599,7 +611,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->draggable(true)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'draggable' must be serialized.",
         );
@@ -616,7 +630,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->draggable(Draggable::TRUE)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'draggable' must be serialized.",
         );
@@ -634,7 +650,9 @@ final class RadioListTest extends TestCase
                 ->checked(1)
                 ->enclosedByLabel()
                 ->id('choices')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name('choice')
                 ->render(),
             'Item input and text must be enclosed by the label.',
@@ -655,7 +673,9 @@ final class RadioListTest extends TestCase
                 ->enclosedByLabel()
                 ->enclosedByLabel(false)
                 ->id('choices')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name('choice')
                 ->render(),
             'Disabling enclosure must restore sibling label rendering.',
@@ -678,7 +698,9 @@ final class RadioListTest extends TestCase
                         'blur' => 'handleBlur()',
                     ],
                 )
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Event handler map must be applied.',
         );
@@ -695,7 +717,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->hidden(true)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'hidden' must be serialized.",
         );
@@ -712,7 +736,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->id('value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             "'id' must be serialized.",
         );
@@ -730,7 +756,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->id(BackedString::VALUE)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name(BackedString::VALUE)
                 ->uncheckedValue('0')
                 ->render(),
@@ -757,7 +785,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->id($identifier)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name($identifier)
                 ->uncheckedValue('0')
                 ->render(),
@@ -778,7 +808,9 @@ final class RadioListTest extends TestCase
                 ->id('choices')
                 ->itemAttributes(['class' => 'choice'])
                 ->itemAttributes(['data-state' => 'ready'])
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name('choice')
                 ->render(),
             'Item attributes must merge and apply to every item input.',
@@ -818,7 +850,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->lang('en')
                 ->render(),
             "'lang' must be serialized.",
@@ -835,7 +869,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->lang(Language::ENGLISH)
                 ->render(),
             "'lang' must be serialized.",
@@ -852,7 +888,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->itemId('https://example.com/item')
                 ->itemProp('name')
                 ->itemRef('info')
@@ -874,7 +912,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->id('choices')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name('choice')
                 ->render(),
             "'name' must be transferred to the item inputs as 'choice'.",
@@ -892,7 +932,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->id('choices')
-                ->items(first: ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    first: ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name('choice')
                 ->render(),
             'Named variadic items must be normalized to sequential item indexes.',
@@ -911,7 +953,9 @@ final class RadioListTest extends TestCase
             RadioList::tag()
                 ->addAttribute('id', 1)
                 ->addAttribute('name', 1)
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->uncheckedValue('0')
                 ->render(),
             'Unsupported identifier types must not be transferred to item inputs.',
@@ -929,7 +973,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addAriaAttribute('label', 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->removeAriaAttribute('label')
                 ->render(),
             'ARIA attribute must be removed.',
@@ -947,7 +993,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addAttribute('class', 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->removeAttribute('class')
                 ->render(),
             'Attribute must be removed.',
@@ -965,7 +1013,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addDataAttribute('value', 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->removeDataAttribute('value')
                 ->render(),
             'Data attribute must be removed.',
@@ -983,7 +1033,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addEvent('click', "alert('Clicked!')")
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->removeEvent('click')
                 ->render(),
             'Event handler must be removed.',
@@ -1000,7 +1052,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->role('banner')
                 ->render(),
             "'role' must be serialized.",
@@ -1017,7 +1071,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->role(Role::BANNER)
                 ->render(),
             "'role' must be serialized.",
@@ -1035,7 +1091,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addAttribute('class', 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Arbitrary attribute must be added.',
         );
@@ -1052,7 +1110,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->render(),
             'Arbitrary attribute must be added.',
         );
@@ -1068,7 +1128,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->spellcheck(true)
                 ->render(),
             "'spellcheck' must be serialized.",
@@ -1085,7 +1147,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->style('value')
                 ->render(),
             "'style' must be serialized.",
@@ -1102,7 +1166,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->tabIndex(3)
                 ->render(),
             "'tabindex' must be serialized.",
@@ -1119,7 +1185,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->title('value')
                 ->render(),
             "'title' must be serialized.",
@@ -1148,7 +1216,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->translate(false)
                 ->render(),
             "'translate' must be serialized.",
@@ -1165,7 +1235,9 @@ final class RadioListTest extends TestCase
             </div>
             HTML,
             RadioList::tag()
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->translate(Translate::NO)
                 ->render(),
             "'translate' must be serialized.",
@@ -1184,7 +1256,9 @@ final class RadioListTest extends TestCase
             HTML,
             RadioList::tag()
                 ->id('choices')
-                ->items(ChoiceItem::tag()->label('One')->value(1))
+                ->items(
+                    ChoiceItem::tag()->label('One')->value(1),
+                )
                 ->name('choice')
                 ->uncheckedValue('0')
                 ->render(),
@@ -1221,103 +1295,5 @@ final class RadioListTest extends TestCase
             $radioList->uncheckedValue(null),
             'New instance must be returned (immutability).',
         );
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
-            ),
-        );
-
-        RadioList::tag()->contentEditable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        RadioList::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
-            ),
-        );
-
-        RadioList::tag()->draggable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        RadioList::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        RadioList::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        RadioList::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        RadioList::tag()->translate('invalid-value');
     }
 }

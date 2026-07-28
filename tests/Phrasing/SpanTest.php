@@ -12,8 +12,11 @@ use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Phrasing\Span;
 
+use function implode;
+
 /**
- * Unit tests for {@see Span} inline phrasing behavior.
+ * Unit tests for {@see Span} plus the universal attribute battery for the {@see \UIAwesome\Html\Core\Element\BaseInline}
+ * render pipeline.
  */
 #[Group('phrasing')]
 final class SpanTest extends TestCase
@@ -33,7 +36,8 @@ final class SpanTest extends TestCase
     {
         self::assertSame(
             'value',
-            Span::tag()->getAttribute('class', 'value'),
+            Span::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }
@@ -68,7 +72,9 @@ final class SpanTest extends TestCase
             <<<HTML
             <span accesskey="value"></span>
             HTML,
-            Span::tag()->accesskey('value')->render(),
+            Span::tag()
+                ->accesskey('value')
+                ->render(),
             "'accesskey' must be serialized.",
         );
     }

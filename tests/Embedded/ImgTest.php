@@ -4,134 +4,23 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Embedded;
 
+use Closure;
 use InvalidArgumentException;
-use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Crossorigin,
-    Data,
-    Decoding,
-    Direction,
-    ElementAttribute,
-    Fetchpriority,
-    GlobalAttribute,
-    Language,
-    Loading,
-    Referrerpolicy,
-    Role,
-    Translate,
-};
+use UIAwesome\Html\Attribute\Values\{Crossorigin, Decoding, Fetchpriority, Loading, Referrerpolicy};
 use UIAwesome\Html\Embedded\Img;
-use UIAwesome\Html\Helper\Enum;
 use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Embedded\ImgProvider;
 
 /**
  * Unit tests for {@see Img} rendering and image attribute behavior.
+ *
+ * {@see ImgProvider} for test case data providers.
  */
 #[Group('embedded')]
 final class ImgTest extends TestCase
 {
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            Img::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            Img::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img accesskey="value">
-            HTML,
-            Img::tag()
-                ->accesskey('value')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img aria-label="value">
-            HTML,
-            Img::tag()
-                ->addAriaAttribute('label', 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img aria-label="value">
-            HTML,
-            Img::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img data-value="value">
-            HTML,
-            Img::tag()
-                ->addDataAttribute('value', 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img data-value="value">
-            HTML,
-            Img::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img onclick="alert(&apos;Clicked!&apos;)">
-            HTML,
-            Img::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
     public function testRenderWithAlt(): void
     {
         self::assertSame(
@@ -145,123 +34,29 @@ final class ImgTest extends TestCase
         );
     }
 
-    public function testRenderWithAriaAttributes(): void
+    #[DataProviderExternal(ImgProvider::class, 'crossorigin')]
+    public function testRenderWithCrossorigin(string|Crossorigin $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <img aria-controls="value" aria-label="value">
+            <img crossorigin="{$expected}">
             HTML,
             Img::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img class="value">
-            HTML,
-            Img::tag()
-                ->attributes(['class' => 'value'])
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img class="value">
-            HTML,
-            Img::tag()
-                ->class('value')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img class="value">
-            HTML,
-            Img::tag()
-                ->class(BackedString::VALUE)
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCrossorigin(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img crossorigin="anonymous">
-            HTML,
-            Img::tag()
-                ->crossorigin('anonymous')
+                ->crossorigin($value)
                 ->render(),
             "'crossorigin' must be serialized.",
         );
     }
 
-    public function testRenderWithCrossoriginUsingEnum(): void
+    #[DataProviderExternal(ImgProvider::class, 'decoding')]
+    public function testRenderWithDecoding(string|Decoding $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <img crossorigin="use-credentials">
+            <img decoding="{$expected}">
             HTML,
             Img::tag()
-                ->crossorigin(Crossorigin::USE_CREDENTIALS)
-                ->render(),
-            "'crossorigin' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img data-value="value">
-            HTML,
-            Img::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->render(),
-            'Data attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithDecoding(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img decoding="async">
-            HTML,
-            Img::tag()
-                ->decoding('async')
-                ->render(),
-            "'decoding' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDecodingUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img decoding="sync">
-            HTML,
-            Img::tag()
-                ->decoding(Decoding::SYNC)
+                ->decoding($value)
                 ->render(),
             "'decoding' must be serialized.",
         );
@@ -289,32 +84,6 @@ final class ImgTest extends TestCase
         );
     }
 
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img dir="ltr">
-            HTML,
-            Img::tag()
-                ->dir('ltr')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img dir="ltr">
-            HTML,
-            Img::tag()
-                ->dir(Direction::LTR)
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
     public function testRenderWithElementtiming(): void
     {
         self::assertSame(
@@ -328,45 +97,15 @@ final class ImgTest extends TestCase
         );
     }
 
-    public function testRenderWithEvents(): void
+    #[DataProviderExternal(ImgProvider::class, 'fetchpriority')]
+    public function testRenderWithFetchpriority(string|Fetchpriority $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <img onfocus="handleFocus()" onblur="handleBlur()">
+            <img fetchpriority="{$expected}">
             HTML,
             Img::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithFetchpriority(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img fetchpriority="high">
-            HTML,
-            Img::tag()
-                ->fetchpriority('high')
-                ->render(),
-            "'fetchpriority' must be serialized.",
-        );
-    }
-
-    public function testRenderWithFetchpriorityUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img fetchpriority="low">
-            HTML,
-            Img::tag()
-                ->fetchpriority(Fetchpriority::LOW)
+                ->fetchpriority($value)
                 ->render(),
             "'fetchpriority' must be serialized.",
         );
@@ -385,241 +124,43 @@ final class ImgTest extends TestCase
         );
     }
 
-    public function testRenderWithHidden(): void
+    #[DataProviderExternal(ImgProvider::class, 'ismap')]
+    public function testRenderWithIsmap(bool $value, string $expected): void
     {
         self::assertSame(
-            <<<HTML
-            <img hidden>
-            HTML,
+            $expected,
             Img::tag()
-                ->hidden(true)
+                ->ismap($value)
                 ->render(),
-            "'hidden' must be serialized.",
+            'Boolean attribute must render only when `true`.',
         );
     }
 
-    public function testRenderWithId(): void
+    #[DataProviderExternal(ImgProvider::class, 'loading')]
+    public function testRenderWithLoading(string|Loading $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <img id="value">
+            <img loading="{$expected}">
             HTML,
             Img::tag()
-                ->id('value')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithIsmap(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img ismap>
-            HTML,
-            Img::tag()
-                ->ismap(true)
-                ->render(),
-            "'ismap' must be serialized.",
-        );
-    }
-
-    public function testRenderWithIsmapFalse(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img>
-            HTML,
-            Img::tag()
-                ->ismap(false)
-                ->render(),
-            'ismap must be omitted when `false`.',
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img lang="en">
-            HTML,
-            Img::tag()
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img lang="en">
-            HTML,
-            Img::tag()
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLoading(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img loading="eager">
-            HTML,
-            Img::tag()
-                ->loading('eager')
+                ->loading($value)
                 ->render(),
             "'loading' must be serialized.",
         );
     }
 
-    public function testRenderWithLoadingUsingEnum(): void
+    #[DataProviderExternal(ImgProvider::class, 'referrerpolicy')]
+    public function testRenderWithReferrerpolicy(string|Referrerpolicy $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <img loading="eager">
+            <img referrerpolicy="{$expected}">
             HTML,
             Img::tag()
-                ->loading(Loading::EAGER)
-                ->render(),
-            "'loading' must be serialized.",
-        );
-    }
-
-    public function testRenderWithReferrerpolicy(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img referrerpolicy="no-referrer">
-            HTML,
-            Img::tag()
-                ->referrerpolicy('no-referrer')
+                ->referrerpolicy($value)
                 ->render(),
             "'referrerpolicy' must be serialized.",
-        );
-    }
-
-    public function testRenderWithReferrerpolicyUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img referrerpolicy="origin">
-            HTML,
-            Img::tag()
-                ->referrerpolicy(Referrerpolicy::ORIGIN)
-                ->render(),
-            "'referrerpolicy' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img>
-            HTML,
-            Img::tag()
-                ->addAriaAttribute('label', 'value')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img>
-            HTML,
-            Img::tag()
-                ->addAttribute('class', 'value')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img>
-            HTML,
-            Img::tag()
-                ->addDataAttribute('value', 'value')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img>
-            HTML,
-            Img::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img role="banner">
-            HTML,
-            Img::tag()
-                ->role('banner')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img role="banner">
-            HTML,
-            Img::tag()
-                ->role(Role::BANNER)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img data-value="value">
-            HTML,
-            Img::tag()
-                ->addAttribute('data-value', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img title="value">
-            HTML,
-            Img::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
         );
     }
 
@@ -662,64 +203,12 @@ final class ImgTest extends TestCase
         );
     }
 
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img style='value'>
-            HTML,
-            Img::tag()
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img title="value">
-            HTML,
-            Img::tag()
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
-        );
-    }
-
     public function testRenderWithToString(): void
     {
         self::assertSame(
             '<img>',
             (string) Img::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img translate="no">
-            HTML,
-            Img::tag()
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <img translate="no">
-            HTML,
-            Img::tag()
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
         );
     }
 
@@ -825,129 +314,20 @@ final class ImgTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingCrossorigin(): void
-    {
+    /**
+     * @phpstan-param Closure(): Img $setter
+     */
+    #[DataProviderExternal(ImgProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(
+        Closure $setter,
+        string $attribute,
+        string $allowedValues,
+    ): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::CROSSORIGIN->value,
-                implode("', '", Enum::normalizeStringArray(Crossorigin::cases())),
-            ),
+            Message::VALUE_NOT_IN_LIST->getMessage('invalid-value', $attribute, $allowedValues),
         );
 
-        Img::tag()->crossorigin('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDecoding(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                ElementAttribute::DECODING->value,
-                implode("', '", Enum::normalizeStringArray(Decoding::cases())),
-            ),
-        );
-
-        Img::tag()->decoding('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        Img::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingFetchpriority(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::FETCHPRIORITY->value,
-                implode("', '", Enum::normalizeStringArray(Fetchpriority::cases())),
-            ),
-        );
-
-        Img::tag()->fetchpriority('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        Img::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLoading(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                ElementAttribute::LOADING->value,
-                implode("', '", Enum::normalizeStringArray(Loading::cases())),
-            ),
-        );
-
-        Img::tag()->loading('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingReferrerpolicy(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::REFERRERPOLICY->value,
-                implode("', '", Enum::normalizeStringArray(Referrerpolicy::cases())),
-            ),
-        );
-
-        Img::tag()->referrerpolicy('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        Img::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        Img::tag()->translate('invalid-value');
+        $setter();
     }
 }

@@ -4,186 +4,23 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Metadata;
 
+use Closure;
 use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Blocking,
-    ContentEditable,
-    Crossorigin,
-    Data,
-    Direction,
-    Draggable,
-    ElementAttribute,
-    Fetchpriority,
-    GlobalAttribute,
-    Language,
-    Referrerpolicy,
-    Role,
-    Translate,
-    Type,
-};
-use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Attribute\Values\{Blocking, Crossorigin, Fetchpriority, Referrerpolicy, Type};
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Script;
+use UIAwesome\Html\Tests\Provider\Metadata\ScriptProvider;
 
 /**
  * Unit tests for {@see Script} rendering and script attribute behavior.
+ *
+ * {@see ScriptProvider} for test case data providers.
  */
 #[Group('metadata')]
 final class ScriptTest extends TestCase
 {
-    public function testContentEncodesValues(): void
-    {
-        self::assertSame(
-            '&lt;value&gt;',
-            Script::tag()
-                ->content('<value>')
-                ->getContent(),
-            'Content must be HTML-encoded.',
-        );
-    }
-
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            Script::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            Script::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testHtmlDoesNotEncodeValues(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script>
-            <value>
-            </script>
-            HTML,
-            Script::tag()
-                ->html('<value>')
-                ->render(),
-            'Raw HTML content must be applied.',
-        );
-    }
-
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script accesskey="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->accesskey('value')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script aria-label="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->addAriaAttribute('label', 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script aria-label="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script data-value="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->addDataAttribute('value', 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script data-value="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script onclick="alert(&apos;Clicked!&apos;)">
-            </script>
-            HTML,
-            Script::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script aria-controls="value" aria-label="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
     public function testRenderWithAsync(): void
     {
         self::assertSame(
@@ -191,178 +28,34 @@ final class ScriptTest extends TestCase
             <script async>
             </script>
             HTML,
-            Script::tag()
-                ->async(true)
-                ->render(),
+            Script::tag()->async(true)->render(),
             "'async' must be serialized.",
         );
     }
 
-    public function testRenderWithAttributes(): void
+    #[DataProviderExternal(ScriptProvider::class, 'blocking')]
+    public function testRenderWithBlocking(string|Blocking $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <script class="value">
+            <script blocking="{$expected}">
             </script>
             HTML,
-            Script::tag()
-                ->attributes(['class' => 'value'])
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAutofocus(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script autofocus>
-            </script>
-            HTML,
-            Script::tag()
-                ->autofocus(true)
-                ->render(),
-            "'autofocus' must be serialized.",
-        );
-    }
-
-    public function testRenderWithBeginEnd(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script>
-            Content
-            </script>
-            HTML,
-            Script::tag()->begin() . 'Content' . Script::end(),
-            'begin/end must produce a complete element.',
-        );
-    }
-
-    public function testRenderWithBlocking(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script blocking="render">
-            </script>
-            HTML,
-            Script::tag()
-                ->blocking('render')
-                ->render(),
+            Script::tag()->blocking($value)->render(),
             "'blocking' must be serialized.",
         );
     }
 
-    public function testRenderWithBlockingUsingEnum(): void
+    #[DataProviderExternal(ScriptProvider::class, 'crossorigin')]
+    public function testRenderWithCrossorigin(string|Crossorigin $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <script blocking="render">
+            <script crossorigin="{$expected}">
             </script>
             HTML,
-            Script::tag()
-                ->blocking(Blocking::RENDER)
-                ->render(),
-            "'blocking' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script class="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->class('value')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithContent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script>
-            &lt;value&gt;
-            </script>
-            HTML,
-            Script::tag()
-                ->content('<value>')
-                ->render(),
-            'Bare element must render with no attributes.',
-        );
-    }
-
-    public function testRenderWithContentEditable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script contenteditable="true">
-            </script>
-            HTML,
-            Script::tag()
-                ->contentEditable(true)
-                ->render(),
-            "'contentEditable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithContentEditableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script contenteditable="true">
-            </script>
-            HTML,
-            Script::tag()
-                ->contentEditable(ContentEditable::TRUE)
-                ->render(),
-            "'contentEditable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCrossorigin(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script crossorigin="anonymous">
-            </script>
-            HTML,
-            Script::tag()
-                ->crossorigin('anonymous')
-                ->render(),
+            Script::tag()->crossorigin($value)->render(),
             "'crossorigin' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCrossoriginUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script crossorigin="anonymous">
-            </script>
-            HTML,
-            Script::tag()
-                ->crossorigin(Crossorigin::ANONYMOUS)
-                ->render(),
-            "'crossorigin' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script data-value="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -397,141 +90,21 @@ final class ScriptTest extends TestCase
             <script defer>
             </script>
             HTML,
-            Script::tag()
-                ->defer(true)
-                ->render(),
+            Script::tag()->defer(true)->render(),
             "'defer' must be serialized.",
         );
     }
 
-    public function testRenderWithDir(): void
+    #[DataProviderExternal(ScriptProvider::class, 'fetchpriority')]
+    public function testRenderWithFetchpriority(string|Fetchpriority $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <script dir="ltr">
+            <script fetchpriority="{$expected}">
             </script>
             HTML,
-            Script::tag()
-                ->dir('ltr')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script dir="ltr">
-            </script>
-            HTML,
-            Script::tag()
-                ->dir(Direction::LTR)
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDraggable(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script draggable="true">
-            </script>
-            HTML,
-            Script::tag()
-                ->draggable(true)
-                ->render(),
-            "'draggable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDraggableUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script draggable="true">
-            </script>
-            HTML,
-            Script::tag()
-                ->draggable(Draggable::TRUE)
-                ->render(),
-            "'draggable' must be serialized.",
-        );
-    }
-
-    public function testRenderWithEvents(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script onfocus="handleFocus()" onblur="handleBlur()">
-            </script>
-            HTML,
-            Script::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithFetchpriority(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script fetchpriority="high">
-            </script>
-            HTML,
-            Script::tag()
-                ->fetchpriority('high')
-                ->render(),
+            Script::tag()->fetchpriority($value)->render(),
             "'fetchpriority' must be serialized.",
-        );
-    }
-
-    public function testRenderWithFetchpriorityUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script fetchpriority="high">
-            </script>
-            HTML,
-            Script::tag()
-                ->fetchpriority(Fetchpriority::HIGH)
-                ->render(),
-            "'fetchpriority' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script hidden>
-            </script>
-            HTML,
-            Script::tag()
-                ->hidden(true)
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script id="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->id('value')
-                ->render(),
-            "'id' must be serialized.",
         );
     }
 
@@ -542,56 +115,8 @@ final class ScriptTest extends TestCase
             <script integrity="value">
             </script>
             HTML,
-            Script::tag()
-                ->integrity('value')
-                ->render(),
+            Script::tag()->integrity('value')->render(),
             "'integrity' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script lang="en">
-            </script>
-            HTML,
-            Script::tag()
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script lang="en">
-            </script>
-            HTML,
-            Script::tag()
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithMicroData(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script itemid="https://example.com/item" itemprop="name" itemref="info" itemscope itemtype="https://schema.org/Thing">
-            </script>
-            HTML,
-            Script::tag()
-                ->itemId('https://example.com/item')
-                ->itemProp('name')
-                ->itemRef('info')
-                ->itemScope(true)
-                ->itemType('https://schema.org/Thing')
-                ->render(),
-            'Microdata attributes must be serialized.',
         );
     }
 
@@ -602,168 +127,21 @@ final class ScriptTest extends TestCase
             <script nomodule>
             </script>
             HTML,
-            Script::tag()
-                ->nomodule(true)
-                ->render(),
+            Script::tag()->nomodule(true)->render(),
             "'nomodule' must be serialized.",
         );
     }
 
-    public function testRenderWithReferrerpolicy(): void
+    #[DataProviderExternal(ScriptProvider::class, 'referrerpolicy')]
+    public function testRenderWithReferrerpolicy(string|Referrerpolicy $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <script referrerpolicy="no-referrer">
+            <script referrerpolicy="{$expected}">
             </script>
             HTML,
-            Script::tag()
-                ->referrerpolicy('no-referrer')
-                ->render(),
+            Script::tag()->referrerpolicy($value)->render(),
             "'referrerpolicy' must be serialized.",
-        );
-    }
-
-    public function testRenderWithReferrerpolicyUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script referrerpolicy="no-referrer">
-            </script>
-            HTML,
-            Script::tag()
-                ->referrerpolicy(Referrerpolicy::NO_REFERRER)
-                ->render(),
-            "'referrerpolicy' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script>
-            </script>
-            HTML,
-            Script::tag()
-                ->addAriaAttribute('label', 'value')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script>
-            </script>
-            HTML,
-            Script::tag()
-                ->addAttribute('class', 'value')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script>
-            </script>
-            HTML,
-            Script::tag()
-                ->addDataAttribute('value', 'value')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script>
-            </script>
-            HTML,
-            Script::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script role="banner">
-            </script>
-            HTML,
-            Script::tag()
-                ->role('banner')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script role="banner">
-            </script>
-            HTML,
-            Script::tag()
-                ->role(Role::BANNER)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script class="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script title="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSpellcheck(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script spellcheck="true">
-            </script>
-            HTML,
-            Script::tag()
-                ->spellcheck(true)
-                ->render(),
-            "'spellcheck' must be serialized.",
         );
     }
 
@@ -774,52 +152,8 @@ final class ScriptTest extends TestCase
             <script src="value">
             </script>
             HTML,
-            Script::tag()
-                ->src('value')
-                ->render(),
+            Script::tag()->src('value')->render(),
             "'src' must be serialized.",
-        );
-    }
-
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script style='value'>
-            </script>
-            HTML,
-            Script::tag()
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTabindex(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script tabindex="3">
-            </script>
-            HTML,
-            Script::tag()
-                ->tabIndex(3)
-                ->render(),
-            "'tabindex' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script title="value">
-            </script>
-            HTML,
-            Script::tag()
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
         );
     }
 
@@ -835,58 +169,15 @@ final class ScriptTest extends TestCase
         );
     }
 
-    public function testRenderWithTranslate(): void
+    #[DataProviderExternal(ScriptProvider::class, 'type')]
+    public function testRenderWithType(string|Type $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <script translate="no">
+            <script type="{$expected}">
             </script>
             HTML,
-            Script::tag()
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script translate="no">
-            </script>
-            HTML,
-            Script::tag()
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithType(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script type="module">
-            </script>
-            HTML,
-            Script::tag()
-                ->type('module')
-                ->render(),
-            "'type' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTypeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <script type="module">
-            </script>
-            HTML,
-            Script::tag()
-                ->type(Type::MODULE)
-                ->render(),
+            Script::tag()->type($value)->render(),
             "'type' must be serialized.",
         );
     }
@@ -947,157 +238,20 @@ final class ScriptTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingBlocking(): void
-    {
+    /**
+     * @phpstan-param Closure(): Script $setter
+     */
+    #[DataProviderExternal(ScriptProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(
+        Closure $setter,
+        string $attribute,
+        string $allowedValues,
+    ): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                ElementAttribute::BLOCKING->value,
-                implode("', '", Enum::normalizeStringArray(Blocking::cases())),
-            ),
+            Message::VALUE_NOT_IN_LIST->getMessage('invalid-value', $attribute, $allowedValues),
         );
 
-        Script::tag()->blocking('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingContentEditable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::CONTENTEDITABLE->value,
-                implode("', '", Enum::normalizeStringArray(ContentEditable::cases())),
-            ),
-        );
-
-        Script::tag()->contentEditable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingCrossorigin(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::CROSSORIGIN->value,
-                implode("', '", Enum::normalizeStringArray(Crossorigin::cases())),
-            ),
-        );
-
-        Script::tag()->crossorigin('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        Script::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDraggable(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DRAGGABLE->value,
-                implode("', '", Enum::normalizeStringArray(Draggable::cases())),
-            ),
-        );
-
-        Script::tag()->draggable('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingFetchpriority(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::FETCHPRIORITY->value,
-                implode("', '", Enum::normalizeStringArray(Fetchpriority::cases())),
-            ),
-        );
-
-        Script::tag()->fetchpriority('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        Script::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingReferrerpolicy(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::REFERRERPOLICY->value,
-                implode("', '", Enum::normalizeStringArray(Referrerpolicy::cases())),
-            ),
-        );
-
-        Script::tag()->referrerpolicy('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        Script::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        Script::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        Script::tag()->translate('invalid-value');
+        $setter();
     }
 }

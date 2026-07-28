@@ -4,29 +4,17 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use Closure;
 use InvalidArgumentException;
-use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Autocomplete,
-    Data,
-    Direction,
-    GlobalAttribute,
-    Language,
-    Role,
-    Translate,
-    Type,
-};
+use UIAwesome\Html\Attribute\Values\{Autocomplete, Type};
 use UIAwesome\Html\Form\InputColor;
 use UIAwesome\Html\Form\Values\Colorspace;
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Form\InputColorProvider;
 
 /**
- * Unit tests for {@see InputColor} class.
+ * Unit tests for {@see InputColor} rendering and color input attribute behavior.
  */
 #[Group('form')]
 final class InputColorTest extends TestCase
@@ -35,7 +23,8 @@ final class InputColorTest extends TestCase
     {
         self::assertSame(
             'value',
-            InputColor::tag()->getAttribute('class', 'value'),
+            InputColor::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }
@@ -54,90 +43,6 @@ final class InputColorTest extends TestCase
         );
     }
 
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" accesskey="value">
-            HTML,
-            InputColor::tag()
-                ->accesskey('value')
-                ->id('inputcolor')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" aria-label="value">
-            HTML,
-            InputColor::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputcolor')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" aria-label="value">
-            HTML,
-            InputColor::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputcolor')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" data-value="value">
-            HTML,
-            InputColor::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputcolor')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" data-value="value">
-            HTML,
-            InputColor::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputcolor')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" onclick="alert(&apos;Clicked!&apos;)">
-            HTML,
-            InputColor::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputcolor')
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
     public function testRenderWithAlpha(): void
     {
         self::assertSame(
@@ -145,68 +50,22 @@ final class InputColorTest extends TestCase
             <input id="inputcolor" type="color" alpha>
             HTML,
             InputColor::tag()
-                ->alpha(true)
-                ->id('inputcolor')
+                ->alpha(true)->id('inputcolor')
                 ->render(),
             "'alpha' must be serialized.",
         );
     }
 
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" aria-controls="value" aria-label="value">
-            HTML,
-            InputColor::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->id('inputcolor')
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->attributes(['class' => 'value'])
-                ->id('inputcolor')
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAutocomplete(): void
+    #[TestWith(['on'], 'string')]
+    #[TestWith([Autocomplete::ON], 'enum')]
+    public function testRenderWithAutocomplete(string|Autocomplete $value): void
     {
         self::assertSame(
             <<<HTML
             <input id="inputcolor" type="color" autocomplete="on">
             HTML,
             InputColor::tag()
-                ->autocomplete('on')
-                ->id('inputcolor')
-                ->render(),
-            "'autocomplete' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAutocompleteUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" autocomplete="on">
-            HTML,
-            InputColor::tag()
-                ->autocomplete(Autocomplete::ON)
+                ->autocomplete($value)
                 ->id('inputcolor')
                 ->render(),
             "'autocomplete' must be serialized.",
@@ -227,73 +86,19 @@ final class InputColorTest extends TestCase
         );
     }
 
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->class('value')
-                ->id('inputcolor')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->class(BackedString::VALUE)
-                ->id('inputcolor')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithColorspace(): void
+    #[TestWith(['display-p3'], 'string')]
+    #[TestWith([Colorspace::DISPLAY_P3], 'enum')]
+    public function testRenderWithColorspace(string|Colorspace $value): void
     {
         self::assertSame(
             <<<HTML
             <input id="inputcolor" type="color" colorspace="display-p3">
             HTML,
             InputColor::tag()
-                ->colorspace('display-p3')
+                ->colorspace($value)
                 ->id('inputcolor')
                 ->render(),
             "'colorspace' must be serialized.",
-        );
-    }
-
-    public function testRenderWithColorspaceUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" colorspace="display-p3">
-            HTML,
-            InputColor::tag()
-                ->colorspace(Colorspace::DISPLAY_P3)
-                ->id('inputcolor')
-                ->render(),
-            "'colorspace' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" data-value="value">
-            HTML,
-            InputColor::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->id('inputcolor')
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -323,136 +128,6 @@ final class InputColorTest extends TestCase
         );
     }
 
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" dir="ltr">
-            HTML,
-            InputColor::tag()
-                ->dir('ltr')
-                ->id('inputcolor')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" dir="ltr">
-            HTML,
-            InputColor::tag()
-                ->dir(Direction::LTR)
-                ->id('inputcolor')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDisabled(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" disabled>
-            HTML,
-            InputColor::tag()
-                ->disabled(true)
-                ->id('inputcolor')
-                ->render(),
-            "'disabled' must be serialized.",
-        );
-    }
-
-    public function testRenderWithEvents(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" onfocus="handleFocus()" onblur="handleBlur()">
-            HTML,
-            InputColor::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->id('inputcolor')
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithForm(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" form="value">
-            HTML,
-            InputColor::tag()
-                ->form('value')
-                ->id('inputcolor')
-                ->render(),
-            "'form' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" hidden>
-            HTML,
-            InputColor::tag()
-                ->hidden(true)
-                ->id('inputcolor')
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" lang="en">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" lang="en">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
     public function testRenderWithList(): void
     {
         self::assertSame(
@@ -464,150 +139,6 @@ final class InputColorTest extends TestCase
                 ->list('value')
                 ->render(),
             "'list' must be serialized.",
-        );
-    }
-
-    public function testRenderWithName(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" name="value" type="color">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->name('value')
-                ->render(),
-            "'name' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputcolor')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->addAttribute('class', 'value')
-                ->id('inputcolor')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputcolor')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputcolor')
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" role="textbox">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->role('textbox')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" role="textbox">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->role(Role::TEXTBOX)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputcolor" type="color">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" title="value">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" style='value'>
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
         );
     }
 
@@ -625,36 +156,6 @@ final class InputColorTest extends TestCase
         );
     }
 
-    public function testRenderWithTemplate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="value">
-            <input id="inputcolor" type="color">
-            </div>
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
-                ->render(),
-            'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" title="value">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
-        );
-    }
-
     public function testRenderWithToString(): void
     {
         self::assertSame(
@@ -663,34 +164,6 @@ final class InputColorTest extends TestCase
             HTML,
             (string) InputColor::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" translate="no">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputcolor" type="color" translate="no">
-            HTML,
-            InputColor::tag()
-                ->id('inputcolor')
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
         );
     }
 
@@ -724,101 +197,15 @@ final class InputColorTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingColorspace(): void
+    /**
+     * @phpstan-param Closure(): InputColor $setter
+     */
+    #[DataProviderExternal(InputColorProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                'colorspace',
-                implode("', '", Enum::normalizeStringArray(Colorspace::cases())),
-            ),
-        );
+        $this->expectExceptionMessage($expected);
 
-        InputColor::tag()->colorspace('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        InputColor::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        InputColor::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        InputColor::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        InputColor::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        InputColor::tag()->translate('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::TYPE->value,
-                implode("', '", Enum::normalizeStringArray(Type::cases())),
-            ),
-        );
-
-        InputColor::tag()->type('invalid-value');
+        $setter();
     }
 }

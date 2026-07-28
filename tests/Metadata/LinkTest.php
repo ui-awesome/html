@@ -4,267 +4,56 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Metadata;
 
+use Closure;
 use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    AsValue,
-    Attribute,
-    Blocking,
-    Crossorigin,
-    Data,
-    Direction,
-    ElementAttribute,
-    Fetchpriority,
-    GlobalAttribute,
-    Language,
-    Referrerpolicy,
-    Rel,
-    Role,
-    Translate,
-    Type,
-};
-use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Attribute\Values\{AsValue, Blocking, Crossorigin, Fetchpriority, Referrerpolicy, Rel, Type};
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Link;
+use UIAwesome\Html\Tests\Provider\Metadata\LinkProvider;
 
 /**
  * Unit tests for {@see Link} rendering and link attribute behavior.
+ *
+ * {@see LinkProvider} for test case data providers.
  */
 #[Group('metadata')]
 final class LinkTest extends TestCase
 {
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            Link::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            Link::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testRenderWithAccesskey(): void
+    #[DataProviderExternal(LinkProvider::class, 'as')]
+    public function testRenderWithAs(string|AsValue $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <link accesskey="value">
+            <link as="{$expected}">
             HTML,
-            Link::tag()
-                ->accesskey('value')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link aria-label="value">
-            HTML,
-            Link::tag()
-                ->addAriaAttribute('label', 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link aria-label="value">
-            HTML,
-            Link::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link data-value="value">
-            HTML,
-            Link::tag()
-                ->addDataAttribute('value', 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link data-value="value">
-            HTML,
-            Link::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link onclick="alert(&apos;Clicked!&apos;)">
-            HTML,
-            Link::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link aria-controls="value" aria-label="value">
-            HTML,
-            Link::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAs(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link as="style">
-            HTML,
-            Link::tag()
-                ->as('style')
-                ->render(),
+            Link::tag()->as($value)->render(),
             "'as' must be serialized.",
         );
     }
 
-    public function testRenderWithAsUsingEnum(): void
+    #[DataProviderExternal(LinkProvider::class, 'blocking')]
+    public function testRenderWithBlocking(string|Blocking $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <link as="style">
+            <link blocking="{$expected}">
             HTML,
-            Link::tag()
-                ->as(AsValue::STYLE)
-                ->render(),
-            "'as' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link class="value">
-            HTML,
-            Link::tag()
-                ->attributes(['class' => 'value'])
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithBlocking(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link blocking="render">
-            HTML,
-            Link::tag()
-                ->blocking('render')
-                ->render(),
+            Link::tag()->blocking($value)->render(),
             "'blocking' must be serialized.",
         );
     }
 
-    public function testRenderWithBlockingUsingEnum(): void
+    #[DataProviderExternal(LinkProvider::class, 'crossorigin')]
+    public function testRenderWithCrossorigin(string|Crossorigin $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <link blocking="render">
+            <link crossorigin="{$expected}">
             HTML,
-            Link::tag()
-                ->blocking(Blocking::RENDER)
-                ->render(),
-            "'blocking' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link class="value">
-            HTML,
-            Link::tag()
-                ->class('value')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCrossorigin(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link crossorigin="anonymous">
-            HTML,
-            Link::tag()
-                ->crossorigin('anonymous')
-                ->render(),
+            Link::tag()->crossorigin($value)->render(),
             "'crossorigin' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCrossoriginUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link crossorigin="anonymous">
-            HTML,
-            Link::tag()
-                ->crossorigin(Crossorigin::ANONYMOUS)
-                ->render(),
-            "'crossorigin' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link data-value="value">
-            HTML,
-            Link::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -290,99 +79,26 @@ final class LinkTest extends TestCase
         );
     }
 
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link dir="ltr">
-            HTML,
-            Link::tag()
-                ->dir('ltr')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link dir="ltr">
-            HTML,
-            Link::tag()
-                ->dir(Direction::LTR)
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
     public function testRenderWithDisabled(): void
     {
         self::assertSame(
             <<<HTML
             <link disabled>
             HTML,
-            Link::tag()
-                ->disabled(true)
-                ->render(),
+            Link::tag()->disabled(true)->render(),
             "'disabled' must be serialized.",
         );
     }
 
-    public function testRenderWithEvents(): void
+    #[DataProviderExternal(LinkProvider::class, 'fetchpriority')]
+    public function testRenderWithFetchpriority(string|Fetchpriority $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <link onfocus="handleFocus()" onblur="handleBlur()">
+            <link fetchpriority="{$expected}">
             HTML,
-            Link::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithFetchpriority(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link fetchpriority="high">
-            HTML,
-            Link::tag()
-                ->fetchpriority('high')
-                ->render(),
+            Link::tag()->fetchpriority($value)->render(),
             "'fetchpriority' must be serialized.",
-        );
-    }
-
-    public function testRenderWithFetchpriorityUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link fetchpriority="high">
-            HTML,
-            Link::tag()
-                ->fetchpriority(Fetchpriority::HIGH)
-                ->render(),
-            "'fetchpriority' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link hidden>
-            HTML,
-            Link::tag()
-                ->hidden(true)
-                ->render(),
-            "'hidden' must be serialized.",
         );
     }
 
@@ -392,9 +108,7 @@ final class LinkTest extends TestCase
             <<<HTML
             <link href="value">
             HTML,
-            Link::tag()
-                ->href('value')
-                ->render(),
+            Link::tag()->href('value')->render(),
             "'href' must be serialized.",
         );
     }
@@ -405,23 +119,8 @@ final class LinkTest extends TestCase
             <<<HTML
             <link hreflang="en">
             HTML,
-            Link::tag()
-                ->hreflang('en')
-                ->render(),
+            Link::tag()->hreflang('en')->render(),
             "'hreflang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link id="value">
-            HTML,
-            Link::tag()
-                ->id('value')
-                ->render(),
-            "'id' must be serialized.",
         );
     }
 
@@ -431,9 +130,7 @@ final class LinkTest extends TestCase
             <<<HTML
             <link imagesizes="100vw">
             HTML,
-            Link::tag()
-                ->imagesizes('100vw')
-                ->render(),
+            Link::tag()->imagesizes('100vw')->render(),
             "'imagesizes' must be serialized.",
         );
     }
@@ -444,9 +141,7 @@ final class LinkTest extends TestCase
             <<<HTML
             <link imagesrcset="image-480.jpg 480w, image-800.jpg 800w">
             HTML,
-            Link::tag()
-                ->imagesrcset('image-480.jpg 480w, image-800.jpg 800w')
-                ->render(),
+            Link::tag()->imagesrcset('image-480.jpg 480w, image-800.jpg 800w')->render(),
             "'imagesrcset' must be serialized.",
         );
     }
@@ -457,36 +152,8 @@ final class LinkTest extends TestCase
             <<<HTML
             <link integrity="value">
             HTML,
-            Link::tag()
-                ->integrity('value')
-                ->render(),
+            Link::tag()->integrity('value')->render(),
             "'integrity' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link lang="en">
-            HTML,
-            Link::tag()
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link lang="en">
-            HTML,
-            Link::tag()
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
         );
     }
 
@@ -496,170 +163,32 @@ final class LinkTest extends TestCase
             <<<HTML
             <link media="screen and (min-width: 768px)">
             HTML,
-            Link::tag()
-                ->media('screen and (min-width: 768px)')
-                ->render(),
+            Link::tag()->media('screen and (min-width: 768px)')->render(),
             "'media' must be serialized.",
         );
     }
 
-    public function testRenderWithReferrerpolicy(): void
+    #[DataProviderExternal(LinkProvider::class, 'referrerpolicy')]
+    public function testRenderWithReferrerpolicy(string|Referrerpolicy $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <link referrerpolicy="no-referrer">
+            <link referrerpolicy="{$expected}">
             HTML,
-            Link::tag()
-                ->referrerpolicy('no-referrer')
-                ->render(),
+            Link::tag()->referrerpolicy($value)->render(),
             "'referrerpolicy' must be serialized.",
         );
     }
 
-    public function testRenderWithReferrerpolicyUsingEnum(): void
+    #[DataProviderExternal(LinkProvider::class, 'rel')]
+    public function testRenderWithRel(string|Rel $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <link referrerpolicy="no-referrer">
+            <link rel="{$expected}">
             HTML,
-            Link::tag()
-                ->referrerpolicy(Referrerpolicy::NO_REFERRER)
-                ->render(),
-            "'referrerpolicy' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRel(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link rel="stylesheet">
-            HTML,
-            Link::tag()
-                ->rel('stylesheet')
-                ->render(),
+            Link::tag()->rel($value)->render(),
             "'rel' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRelUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link rel="stylesheet">
-            HTML,
-            Link::tag()
-                ->rel(Rel::STYLESHEET)
-                ->render(),
-            "'rel' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link>
-            HTML,
-            Link::tag()
-                ->addAriaAttribute('label', 'value')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link>
-            HTML,
-            Link::tag()
-                ->addAttribute('class', 'value')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link>
-            HTML,
-            Link::tag()
-                ->addDataAttribute('value', 'value')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link>
-            HTML,
-            Link::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link role="banner">
-            HTML,
-            Link::tag()
-                ->role('banner')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link role="banner">
-            HTML,
-            Link::tag()
-                ->role(Role::BANNER)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link class="value">
-            HTML,
-            Link::tag()
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link title="value">
-            HTML,
-            Link::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
         );
     }
 
@@ -669,36 +198,8 @@ final class LinkTest extends TestCase
             <<<HTML
             <link sizes="16x16">
             HTML,
-            Link::tag()
-                ->sizes('16x16')
-                ->render(),
+            Link::tag()->sizes('16x16')->render(),
             "'sizes' must be serialized.",
-        );
-    }
-
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link style='value'>
-            HTML,
-            Link::tag()
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link title="value">
-            HTML,
-            Link::tag()
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
         );
     }
 
@@ -711,167 +212,32 @@ final class LinkTest extends TestCase
         );
     }
 
-    public function testRenderWithTranslate(): void
+    #[DataProviderExternal(LinkProvider::class, 'type')]
+    public function testRenderWithType(string|Type $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <link translate="no">
+            <link type="{$expected}">
             HTML,
-            Link::tag()
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link translate="no">
-            HTML,
-            Link::tag()
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithType(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link type="text/css">
-            HTML,
-            Link::tag()
-                ->type('text/css')
-                ->render(),
+            Link::tag()->type($value)->render(),
             "'type' must be serialized.",
         );
     }
 
-    public function testRenderWithTypeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <link type="text/css">
-            HTML,
-            Link::tag()
-                ->type(Type::TEXT_CSS)
-                ->render(),
-            "'type' must be serialized.",
-        );
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingBlocking(): void
-    {
+    /**
+     * @phpstan-param Closure(): Link $setter
+     */
+    #[DataProviderExternal(LinkProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(
+        Closure $setter,
+        string $attribute,
+        string $allowedValues,
+    ): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                ElementAttribute::BLOCKING->value,
-                implode("', '", Enum::normalizeStringArray(Blocking::cases())),
-            ),
+            Message::VALUE_NOT_IN_LIST->getMessage('invalid-value', $attribute, $allowedValues),
         );
 
-        Link::tag()->blocking('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingCrossorigin(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::CROSSORIGIN->value,
-                implode("', '", Enum::normalizeStringArray(Crossorigin::cases())),
-            ),
-        );
-
-        Link::tag()->crossorigin('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        Link::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingFetchpriority(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::FETCHPRIORITY->value,
-                implode("', '", Enum::normalizeStringArray(Fetchpriority::cases())),
-            ),
-        );
-
-        Link::tag()->fetchpriority('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        Link::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingReferrerpolicy(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::REFERRERPOLICY->value,
-                implode("', '", Enum::normalizeStringArray(Referrerpolicy::cases())),
-            ),
-        );
-
-        Link::tag()->referrerpolicy('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        Link::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        Link::tag()->translate('invalid-value');
+        $setter();
     }
 }

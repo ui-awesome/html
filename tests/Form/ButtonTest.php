@@ -4,26 +4,14 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use Closure;
 use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Data,
-    Direction,
-    ElementAttribute,
-    GlobalAttribute,
-    Language,
-    PopoverTargetAction,
-    Role,
-    Target,
-    Translate,
-};
+use UIAwesome\Html\Attribute\Values\{PopoverTargetAction, Target};
 use UIAwesome\Html\Form\Button;
 use UIAwesome\Html\Form\Values\{ButtonCommand, ButtonType};
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Form\ButtonProvider;
 
 /**
  * Unit tests for {@see Button} inline form behavior.
@@ -31,159 +19,6 @@ use UIAwesome\Html\Helper\Exception\Message;
 #[Group('form')]
 final class ButtonTest extends TestCase
 {
-    public function testContentEncodesValues(): void
-    {
-        self::assertSame(
-            '&lt;value&gt;',
-            Button::tag()
-                ->content('<value>')
-                ->getContent(),
-            'Content must be HTML-encoded.',
-        );
-    }
-
-    public function testGetAttributeReturnsDefaultWhenMissing(): void
-    {
-        self::assertSame(
-            'value',
-            Button::tag()->getAttribute('class', 'value'),
-            'Default fallback must be returned.',
-        );
-    }
-
-    public function testGetAttributesReturnsAssignedAttributes(): void
-    {
-        self::assertSame(
-            ['class' => 'value'],
-            Button::tag()
-                ->addAttribute('class', 'value')
-                ->getAttributes(),
-            'Assigned attributes must be returned.',
-        );
-    }
-
-    public function testHtmlDoesNotEncodeValues(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button><value></button>
-            HTML,
-            Button::tag()
-                ->html('<value>')
-                ->render(),
-            'Raw HTML content must be applied.',
-        );
-    }
-
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button accesskey="value"></button>
-            HTML,
-            Button::tag()
-                ->accesskey('value')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button aria-label="value"></button>
-            HTML,
-            Button::tag()
-                ->addAriaAttribute('label', 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button aria-label="value"></button>
-            HTML,
-            Button::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button data-value="value"></button>
-            HTML,
-            Button::tag()
-                ->addDataAttribute('value', 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button data-value="value"></button>
-            HTML,
-            Button::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button onclick="alert(&apos;Clicked!&apos;)"></button>
-            HTML,
-            Button::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button aria-controls="value" aria-label="value"></button>
-            HTML,
-            Button::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button class="value"></button>
-            HTML,
-            Button::tag()
-                ->attributes(['class' => 'value'])
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
     public function testRenderWithAutofocus(): void
     {
         self::assertSame(
@@ -197,53 +32,16 @@ final class ButtonTest extends TestCase
         );
     }
 
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button class="value"></button>
-            HTML,
-            Button::tag()
-                ->class('value')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCommand(): void
+    #[TestWith(['show-modal'], 'string')]
+    #[TestWith([ButtonCommand::SHOW_MODAL], 'enum')]
+    public function testRenderWithCommand(string|ButtonCommand $value): void
     {
         self::assertSame(
             <<<HTML
             <button command="show-modal"></button>
             HTML,
             Button::tag()
-                ->command('show-modal')
-                ->render(),
-            "'command' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCommandfor(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button commandfor="my-dialog"></button>
-            HTML,
-            Button::tag()
-                ->commandfor('my-dialog')
-                ->render(),
-            "'commandfor' must be serialized.",
-        );
-    }
-
-    public function testRenderWithCommandUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button command="show-modal"></button>
-            HTML,
-            Button::tag()
-                ->command(ButtonCommand::SHOW_MODAL)
+                ->command($value)
                 ->render(),
             "'command' must be serialized.",
         );
@@ -259,19 +57,6 @@ final class ButtonTest extends TestCase
                 ->content('<value>')
                 ->render(),
             'Bare element must render with no attributes.',
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button data-value="value"></button>
-            HTML,
-            Button::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -294,32 +79,6 @@ final class ButtonTest extends TestCase
             HTML,
             Button::tag()->render(),
             'Bare element must render with no attributes.',
-        );
-    }
-
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button dir="ltr"></button>
-            HTML,
-            Button::tag()
-                ->dir('ltr')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button dir="ltr"></button>
-            HTML,
-            Button::tag()
-                ->dir(Direction::LTR)
-                ->render(),
-            "'dir' must be serialized.",
         );
     }
 
@@ -427,81 +186,18 @@ final class ButtonTest extends TestCase
         );
     }
 
-    public function testRenderWithFormtarget(): void
+    #[TestWith(['_blank'], 'string')]
+    #[TestWith([Target::BLANK], 'enum')]
+    public function testRenderWithFormtarget(string|Target $value): void
     {
         self::assertSame(
             <<<HTML
             <button formtarget="_blank"></button>
             HTML,
             Button::tag()
-                ->formtarget('_blank')
+                ->formtarget($value)
                 ->render(),
             "'formtarget' must be serialized.",
-        );
-    }
-
-    public function testRenderWithFormtargetUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button formtarget="_blank"></button>
-            HTML,
-            Button::tag()
-                ->formtarget(Target::BLANK)
-                ->render(),
-            "'formtarget' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button hidden></button>
-            HTML,
-            Button::tag()
-                ->hidden(true)
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button id="value"></button>
-            HTML,
-            Button::tag()
-                ->id('value')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button lang="en"></button>
-            HTML,
-            Button::tag()
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button lang="en"></button>
-            HTML,
-            Button::tag()
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
         );
     }
 
@@ -531,136 +227,17 @@ final class ButtonTest extends TestCase
         );
     }
 
-    public function testRenderWithPopoverTargetAction(): void
+    #[DataProviderExternal(ButtonProvider::class, 'popoverTargetAction')]
+    public function testRenderWithPopoverTargetAction(string|PopoverTargetAction $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <button popovertargetaction="toggle"></button>
+            <button popovertargetaction="{$expected}"></button>
             HTML,
             Button::tag()
-                ->popoverTargetAction('toggle')
+                ->popoverTargetAction($value)
                 ->render(),
             "'popovertargetaction' must be serialized.",
-        );
-    }
-
-    public function testRenderWithPopoverTargetActionUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button popovertargetaction="toggle"></button>
-            HTML,
-            Button::tag()
-                ->popoverTargetAction(PopoverTargetAction::TOGGLE)
-                ->render(),
-            "'popovertargetaction' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button></button>
-            HTML,
-            Button::tag()
-                ->addAriaAttribute('label', 'value')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button></button>
-            HTML,
-            Button::tag()
-                ->addAttribute('class', 'value')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button></button>
-            HTML,
-            Button::tag()
-                ->addDataAttribute('value', 'value')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button role="button"></button>
-            HTML,
-            Button::tag()
-                ->role('button')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button role="button"></button>
-            HTML,
-            Button::tag()
-                ->role(Role::BUTTON)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button class="value"></button>
-            HTML,
-            Button::tag()
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button title="value"></button>
-            HTML,
-            Button::tag()
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button style='value'></button>
-            HTML,
-            Button::tag()
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
         );
     }
 
@@ -677,19 +254,6 @@ final class ButtonTest extends TestCase
         );
     }
 
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button title="value"></button>
-            HTML,
-            Button::tag()
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
-        );
-    }
-
     public function testRenderWithToString(): void
     {
         self::assertSame(
@@ -701,53 +265,15 @@ final class ButtonTest extends TestCase
         );
     }
 
-    public function testRenderWithTranslate(): void
+    #[DataProviderExternal(ButtonProvider::class, 'type')]
+    public function testRenderWithType(string|ButtonType $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
-            <button translate="no"></button>
+            <button type="{$expected}"></button>
             HTML,
             Button::tag()
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button translate="no"></button>
-            HTML,
-            Button::tag()
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithType(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button type="submit"></button>
-            HTML,
-            Button::tag()
-                ->type('submit')
-                ->render(),
-            "'type' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTypeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <button type="submit"></button>
-            HTML,
-            Button::tag()
-                ->type(ButtonType::SUBMIT)
+                ->type($value)
                 ->render(),
             "'type' must be serialized.",
         );
@@ -766,101 +292,15 @@ final class ButtonTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    /**
+     * @phpstan-param Closure(): Button $setter
+     */
+    #[DataProviderExternal(ButtonProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
+        $this->expectExceptionMessage($expected);
 
-        Button::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        Button::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingPopoverTargetAction(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                ElementAttribute::POPOVERTARGETACTION->value,
-                implode("', '", Enum::normalizeStringArray(PopoverTargetAction::cases())),
-            ),
-        );
-
-        Button::tag()->popoverTargetAction('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        Button::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        Button::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        Button::tag()->translate('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::TYPE->value,
-                implode("', '", Enum::normalizeStringArray(ButtonType::cases())),
-            ),
-        );
-
-        Button::tag()->type('invalid-value');
+        $setter();
     }
 }

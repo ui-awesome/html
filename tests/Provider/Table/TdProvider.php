@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Provider\Table;
 
+use Closure;
+use UIAwesome\Html\Attribute\Exception\Message;
+use UIAwesome\Html\Table\Td;
+
 /**
  * Data provider for {@see \UIAwesome\Html\Tests\Table\TdTest} test cases.
  */
@@ -42,6 +46,30 @@ final class TdProvider
                 <td colspan="1">
                 </td>
                 HTML,
+            ],
+        ];
+    }
+    /**
+     * @return array<string, array{Closure(): Td, string}>
+     */
+    public static function invalidAttributeValues(): array
+    {
+        return [
+            'colspan above range' => [
+                static fn(): Td => Td::tag()->colspan(1001),
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage('1001', 'colspan', '1 <= value <= 1000'),
+            ],
+            'colspan below range' => [
+                static fn(): Td => Td::tag()->colspan(0),
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage('0', 'colspan', '1 <= value <= 1000'),
+            ],
+            'rowspan above range' => [
+                static fn(): Td => Td::tag()->rowspan(65535),
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage('65535', 'rowspan', '0 <= value <= 65534'),
+            ],
+            'rowspan below range' => [
+                static fn(): Td => Td::tag()->rowspan(-1),
+                Message::ATTRIBUTE_INVALID_VALUE->getMessage('-1', 'rowspan', '0 <= value <= 65534'),
             ],
         ];
     }

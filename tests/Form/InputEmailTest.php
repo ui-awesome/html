@@ -4,28 +4,17 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use Closure;
 use InvalidArgumentException;
-use PHPForge\Support\Stub\{BackedInteger, BackedString};
-use PHPUnit\Framework\Attributes\Group;
+use PHPForge\Support\Stub\BackedInteger;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Autocomplete,
-    Data,
-    Direction,
-    GlobalAttribute,
-    Language,
-    Role,
-    Translate,
-    Type,
-};
+use UIAwesome\Html\Attribute\Values\{Autocomplete, Type};
 use UIAwesome\Html\Form\InputEmail;
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
+use UIAwesome\Html\Tests\Provider\Form\InputEmailProvider;
 
 /**
- * Unit tests for {@see InputEmail} class.
+ * Unit tests for {@see InputEmail} rendering and email input attribute behavior.
  */
 #[Group('form')]
 final class InputEmailTest extends TestCase
@@ -34,7 +23,8 @@ final class InputEmailTest extends TestCase
     {
         self::assertSame(
             'value',
-            InputEmail::tag()->getAttribute('class', 'value'),
+            InputEmail::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }
@@ -53,145 +43,16 @@ final class InputEmailTest extends TestCase
         );
     }
 
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" accesskey="value">
-            HTML,
-            InputEmail::tag()
-                ->accesskey('value')
-                ->id('inputemail')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" aria-label="value">
-            HTML,
-            InputEmail::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputemail')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" aria-label="value">
-            HTML,
-            InputEmail::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputemail')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" data-value="value">
-            HTML,
-            InputEmail::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputemail')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" data-value="value">
-            HTML,
-            InputEmail::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputemail')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" onclick="alert(&apos;Clicked!&apos;)">
-            HTML,
-            InputEmail::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputemail')
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" aria-controls="value" aria-label="value">
-            HTML,
-            InputEmail::tag()
-                ->attributes(
-                    [
-                        'aria-controls' => 'value',
-                        'aria-label' => 'value',
-                    ],
-                )
-                ->id('inputemail')
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->attributes(['class' => 'value'])
-                ->id('inputemail')
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAutocomplete(): void
+    #[TestWith(['on'], 'string')]
+    #[TestWith([Autocomplete::ON], 'enum')]
+    public function testRenderWithAutocomplete(string|Autocomplete $value): void
     {
         self::assertSame(
             <<<HTML
             <input id="inputemail" type="email" autocomplete="on">
             HTML,
             InputEmail::tag()
-                ->autocomplete('on')
-                ->id('inputemail')
-                ->render(),
-            "'autocomplete' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAutocompleteUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" autocomplete="on">
-            HTML,
-            InputEmail::tag()
-                ->autocomplete(Autocomplete::ON)
+                ->autocomplete($value)
                 ->id('inputemail')
                 ->render(),
             "'autocomplete' must be serialized.",
@@ -209,48 +70,6 @@ final class InputEmailTest extends TestCase
                 ->id('inputemail')
                 ->render(),
             "'autofocus' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->class('value')
-                ->id('inputemail')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->class(BackedString::VALUE)
-                ->id('inputemail')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" data-value="value">
-            HTML,
-            InputEmail::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->id('inputemail')
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -277,136 +96,6 @@ final class InputEmailTest extends TestCase
                 ->id('inputemail')
                 ->render(),
             'Bare element must render with no attributes.',
-        );
-    }
-
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" dir="ltr">
-            HTML,
-            InputEmail::tag()
-                ->dir('ltr')
-                ->id('inputemail')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" dir="ltr">
-            HTML,
-            InputEmail::tag()
-                ->dir(Direction::LTR)
-                ->id('inputemail')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDisabled(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" disabled>
-            HTML,
-            InputEmail::tag()
-                ->disabled(true)
-                ->id('inputemail')
-                ->render(),
-            "'disabled' must be serialized.",
-        );
-    }
-
-    public function testRenderWithEvents(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" onfocus="handleFocus()" onblur="handleBlur()">
-            HTML,
-            InputEmail::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->id('inputemail')
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithForm(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" form="value">
-            HTML,
-            InputEmail::tag()
-                ->form('value')
-                ->id('inputemail')
-                ->render(),
-            "'form' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" hidden>
-            HTML,
-            InputEmail::tag()
-                ->hidden(true)
-                ->id('inputemail')
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" lang="en">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" lang="en">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
         );
     }
 
@@ -466,20 +155,6 @@ final class InputEmailTest extends TestCase
         );
     }
 
-    public function testRenderWithName(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" name="value" type="email">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->name('value')
-                ->render(),
-            "'name' must be serialized.",
-        );
-    }
-
     public function testRenderWithPattern(): void
     {
         self::assertSame(
@@ -522,66 +197,6 @@ final class InputEmailTest extends TestCase
         );
     }
 
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputemail')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->addAttribute('class', 'value')
-                ->id('inputemail')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputemail')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputemail')
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
-        );
-    }
-
     public function testRenderWithRequired(): void
     {
         self::assertSame(
@@ -596,85 +211,17 @@ final class InputEmailTest extends TestCase
         );
     }
 
-    public function testRenderWithRole(): void
+    #[TestWith([30, 30], 'int')]
+    #[TestWith([BackedInteger::VALUE, 1], 'enum')]
+    public function testRenderWithSize(int|BackedInteger $value, int $expected): void
     {
         self::assertSame(
             <<<HTML
-            <input id="inputemail" type="email" role="textbox">
+            <input id="inputemail" type="email" size="{$expected}">
             HTML,
             InputEmail::tag()
                 ->id('inputemail')
-                ->role('textbox')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" role="textbox">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->role(Role::TEXTBOX)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputemail" type="email">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" title="value">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSize(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" size="30">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->size(30)
-                ->render(),
-            "'size' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSizeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" size="1">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->size(BackedInteger::VALUE)
+                ->size($value)
                 ->render(),
             "'size' must be serialized.",
         );
@@ -694,20 +241,6 @@ final class InputEmailTest extends TestCase
         );
     }
 
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" style='value'>
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
-        );
-    }
-
     public function testRenderWithTabindex(): void
     {
         self::assertSame(
@@ -722,36 +255,6 @@ final class InputEmailTest extends TestCase
         );
     }
 
-    public function testRenderWithTemplate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="value">
-            <input id="inputemail" type="email">
-            </div>
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
-                ->render(),
-            'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" title="value">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
-        );
-    }
-
     public function testRenderWithToString(): void
     {
         self::assertSame(
@@ -760,34 +263,6 @@ final class InputEmailTest extends TestCase
             HTML,
             (string) InputEmail::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" translate="no">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputemail" type="email" translate="no">
-            HTML,
-            InputEmail::tag()
-                ->id('inputemail')
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
         );
     }
 
@@ -805,115 +280,15 @@ final class InputEmailTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
+    /**
+     * @phpstan-param Closure(): InputEmail $setter
+     */
+    #[DataProviderExternal(InputEmailProvider::class, 'invalidAttributeValues')]
+    public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
+        $this->expectExceptionMessage($expected);
 
-        InputEmail::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        InputEmail::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingMaxlength(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-1',
-                Attribute::MAXLENGTH->value,
-                'value >= 0',
-            ),
-        );
-
-        InputEmail::tag()->maxlength(-1);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingMinlength(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-1',
-                Attribute::MINLENGTH->value,
-                'value >= 0',
-            ),
-        );
-
-        InputEmail::tag()->minlength(-1);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        InputEmail::tag()->role('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            \UIAwesome\Html\Attribute\Exception\Message::ATTRIBUTE_INVALID_VALUE->getMessage(
-                '-2',
-                GlobalAttribute::TABINDEX->value,
-                'value >= -1',
-            ),
-        );
-
-        InputEmail::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        InputEmail::tag()->translate('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::TYPE->value,
-                implode("', '", Enum::normalizeStringArray(Type::cases())),
-            ),
-        );
-
-        InputEmail::tag()->type('invalid-value');
+        $setter();
     }
 }

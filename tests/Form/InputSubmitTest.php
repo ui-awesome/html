@@ -5,27 +5,13 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
-use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{Group, TestWith};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{
-    Aria,
-    Attribute,
-    Data,
-    Direction,
-    GlobalAttribute,
-    Language,
-    Role,
-    Target,
-    Translate,
-    Type,
-};
+use UIAwesome\Html\Attribute\Values\{GlobalAttribute, Target, Type};
 use UIAwesome\Html\Form\InputSubmit;
-use UIAwesome\Html\Helper\Enum;
-use UIAwesome\Html\Helper\Exception\Message;
 
 /**
- * Unit tests for {@see InputSubmit} class.
+ * Unit tests for {@see InputSubmit} rendering and form submission attribute behavior.
  */
 #[Group('form')]
 final class InputSubmitTest extends TestCase
@@ -34,7 +20,8 @@ final class InputSubmitTest extends TestCase
     {
         self::assertSame(
             'value',
-            InputSubmit::tag()->getAttribute('class', 'value'),
+            InputSubmit::tag()
+                ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
         );
     }
@@ -53,123 +40,6 @@ final class InputSubmitTest extends TestCase
         );
     }
 
-    public function testRenderWithAccesskey(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" accesskey="value">
-            HTML,
-            InputSubmit::tag()
-                ->accesskey('value')
-                ->id('inputsubmit')
-                ->render(),
-            "'accesskey' must be serialized.",
-        );
-    }
-
-    public function testRenderWithAddAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" aria-label="value">
-            HTML,
-            InputSubmit::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputsubmit')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddAriaAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" aria-label="value">
-            HTML,
-            InputSubmit::tag()
-                ->addAriaAttribute(Aria::LABEL, 'value')
-                ->id('inputsubmit')
-                ->render(),
-            'ARIA attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" data-value="value">
-            HTML,
-            InputSubmit::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputsubmit')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddDataAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" data-value="value">
-            HTML,
-            InputSubmit::tag()
-                ->addDataAttribute(Data::VALUE, 'value')
-                ->id('inputsubmit')
-                ->render(),
-            'Data attribute must be added.',
-        );
-    }
-
-    public function testRenderWithAddEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" onclick="alert(&apos;Clicked!&apos;)">
-            HTML,
-            InputSubmit::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputsubmit')
-                ->render(),
-            'Event handler must be added.',
-        );
-    }
-
-    public function testRenderWithAriaAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" aria-controls="value" aria-label="value">
-            HTML,
-            InputSubmit::tag()
-                ->ariaAttributes(
-                    [
-                        'controls' => 'value',
-                        'label' => 'value',
-                    ],
-                )
-                ->id('inputsubmit')
-                ->render(),
-            'ARIA attribute map must be applied.',
-        );
-    }
-
-    public function testRenderWithAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->attributes(['class' => 'value'])
-                ->id('inputsubmit')
-                ->render(),
-            'Attribute map must be applied.',
-        );
-    }
-
     public function testRenderWithAutofocus(): void
     {
         self::assertSame(
@@ -181,48 +51,6 @@ final class InputSubmitTest extends TestCase
                 ->id('inputsubmit')
                 ->render(),
             "'autofocus' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClass(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->class('value')
-                ->id('inputsubmit')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithClassUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->class(BackedString::VALUE)
-                ->id('inputsubmit')
-                ->render(),
-            "'class' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDataAttributes(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" data-value="value">
-            HTML,
-            InputSubmit::tag()
-                ->dataAttributes(['value' => 'value'])
-                ->id('inputsubmit')
-                ->render(),
-            'Data attribute map must be applied.',
         );
     }
 
@@ -249,81 +77,6 @@ final class InputSubmitTest extends TestCase
                 ->id('inputsubmit')
                 ->render(),
             'Bare element must render with no attributes.',
-        );
-    }
-
-    public function testRenderWithDir(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" dir="ltr">
-            HTML,
-            InputSubmit::tag()
-                ->dir('ltr')
-                ->id('inputsubmit')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDirUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" dir="ltr">
-            HTML,
-            InputSubmit::tag()
-                ->dir(Direction::LTR)
-                ->id('inputsubmit')
-                ->render(),
-            "'dir' must be serialized.",
-        );
-    }
-
-    public function testRenderWithDisabled(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" disabled>
-            HTML,
-            InputSubmit::tag()
-                ->disabled(true)
-                ->id('inputsubmit')
-                ->render(),
-            "'disabled' must be serialized.",
-        );
-    }
-
-    public function testRenderWithEvents(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" onfocus="handleFocus()" onblur="handleBlur()">
-            HTML,
-            InputSubmit::tag()
-                ->events(
-                    [
-                        'focus' => 'handleFocus()',
-                        'blur' => 'handleBlur()',
-                    ],
-                )
-                ->id('inputsubmit')
-                ->render(),
-            'Event handler map must be applied.',
-        );
-    }
-
-    public function testRenderWithForm(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" form="value">
-            HTML,
-            InputSubmit::tag()
-                ->form('value')
-                ->id('inputsubmit')
-                ->render(),
-            "'form' must be serialized.",
         );
     }
 
@@ -411,230 +164,19 @@ final class InputSubmitTest extends TestCase
         );
     }
 
-    public function testRenderWithFormtarget(): void
+    #[TestWith(['_blank'], 'string')]
+    #[TestWith([Target::BLANK], 'enum')]
+    public function testRenderWithFormtarget(string|Target $value): void
     {
         self::assertSame(
             <<<HTML
             <input id="inputsubmit" type="submit" formtarget="_blank">
             HTML,
             InputSubmit::tag()
-                ->formtarget('_blank')
+                ->formtarget($value)
                 ->id('inputsubmit')
                 ->render(),
             "'formtarget' must be serialized.",
-        );
-    }
-
-    public function testRenderWithFormtargetUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" formtarget="_blank">
-            HTML,
-            InputSubmit::tag()
-                ->formtarget(Target::BLANK)
-                ->id('inputsubmit')
-                ->render(),
-            "'formtarget' must be serialized.",
-        );
-    }
-
-    public function testRenderWithHidden(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" hidden>
-            HTML,
-            InputSubmit::tag()
-                ->hidden(true)
-                ->id('inputsubmit')
-                ->render(),
-            "'hidden' must be serialized.",
-        );
-    }
-
-    public function testRenderWithId(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->render(),
-            "'id' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLang(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" lang="en">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->lang('en')
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithLangUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" lang="en">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->lang(Language::ENGLISH)
-                ->render(),
-            "'lang' must be serialized.",
-        );
-    }
-
-    public function testRenderWithName(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" name="value" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->name('value')
-                ->render(),
-            "'name' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRemoveAriaAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->addAriaAttribute('label', 'value')
-                ->id('inputsubmit')
-                ->removeAriaAttribute('label')
-                ->render(),
-            'ARIA attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->addAttribute('class', 'value')
-                ->id('inputsubmit')
-                ->removeAttribute('class')
-                ->render(),
-            'Attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveDataAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->addDataAttribute('value', 'value')
-                ->id('inputsubmit')
-                ->removeDataAttribute('value')
-                ->render(),
-            'Data attribute must be removed.',
-        );
-    }
-
-    public function testRenderWithRemoveEvent(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->addEvent('click', "alert('Clicked!')")
-                ->id('inputsubmit')
-                ->removeEvent('click')
-                ->render(),
-            'Event handler must be removed.',
-        );
-    }
-
-    public function testRenderWithRole(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" role="button">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->role('button')
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithRoleUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" role="button">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->role(Role::BUTTON)
-                ->render(),
-            "'role' must be serialized.",
-        );
-    }
-
-    public function testRenderWithSetAttribute(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input class="value" id="inputsubmit" type="submit">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->addAttribute('class', 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithSetAttributeUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" title="value">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->addAttribute(GlobalAttribute::TITLE, 'value')
-                ->render(),
-            'Arbitrary attribute must be added.',
-        );
-    }
-
-    public function testRenderWithStyle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" style='value'>
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->style('value')
-                ->render(),
-            "'style' must be serialized.",
         );
     }
 
@@ -652,36 +194,6 @@ final class InputSubmitTest extends TestCase
         );
     }
 
-    public function testRenderWithTemplate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <div class="value">
-            <input id="inputsubmit" type="submit">
-            </div>
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->template('<div class="value">' . PHP_EOL . '{tag}' . PHP_EOL . '</div>')
-                ->render(),
-            'Custom template wrapper must be applied.',
-        );
-    }
-
-    public function testRenderWithTitle(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" title="value">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->title('value')
-                ->render(),
-            "'title' must be serialized.",
-        );
-    }
-
     public function testRenderWithToString(): void
     {
         self::assertSame(
@@ -690,34 +202,6 @@ final class InputSubmitTest extends TestCase
             HTML,
             (string) InputSubmit::tag(),
             'Casting to string must produce HTML.',
-        );
-    }
-
-    public function testRenderWithTranslate(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" translate="no">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->translate(false)
-                ->render(),
-            "'translate' must be serialized.",
-        );
-    }
-
-    public function testRenderWithTranslateUsingEnum(): void
-    {
-        self::assertSame(
-            <<<HTML
-            <input id="inputsubmit" type="submit" translate="no">
-            HTML,
-            InputSubmit::tag()
-                ->id('inputsubmit')
-                ->translate(Translate::NO)
-                ->render(),
-            "'translate' must be serialized.",
         );
     }
 
@@ -735,48 +219,6 @@ final class InputSubmitTest extends TestCase
         );
     }
 
-    public function testThrowInvalidArgumentExceptionWhenSettingDir(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::DIR->value,
-                implode("', '", Enum::normalizeStringArray(Direction::cases())),
-            ),
-        );
-
-        InputSubmit::tag()->dir('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingLang(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::LANG->value,
-                implode("', '", Enum::normalizeStringArray(Language::cases())),
-            ),
-        );
-
-        InputSubmit::tag()->lang('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingRole(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::ROLE->value,
-                implode("', '", Enum::normalizeStringArray(Role::cases())),
-            ),
-        );
-
-        InputSubmit::tag()->role('invalid-value');
-    }
-
     public function testThrowInvalidArgumentExceptionWhenSettingTabindex(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -789,33 +231,5 @@ final class InputSubmitTest extends TestCase
         );
 
         InputSubmit::tag()->tabIndex(-2);
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingTranslate(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                GlobalAttribute::TRANSLATE->value,
-                implode("', '", Enum::normalizeStringArray(Translate::cases())),
-            ),
-        );
-
-        InputSubmit::tag()->translate('invalid-value');
-    }
-
-    public function testThrowInvalidArgumentExceptionWhenSettingType(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            Message::VALUE_NOT_IN_LIST->getMessage(
-                'invalid-value',
-                Attribute::TYPE->value,
-                implode("', '", Enum::normalizeStringArray(Type::cases())),
-            ),
-        );
-
-        InputSubmit::tag()->type('invalid-value');
     }
 }
