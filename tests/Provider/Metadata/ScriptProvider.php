@@ -23,7 +23,7 @@ use UIAwesome\Html\Metadata\Script;
 final class ScriptProvider
 {
     /**
-     * @return array<string, array{string|Blocking, string}>
+     * @return array<string, array{Blocking|string, string}>
      */
     public static function blocking(): array
     {
@@ -40,7 +40,7 @@ final class ScriptProvider
     }
 
     /**
-     * @return array<string, array{string|Crossorigin, string}>
+     * @return array<string, array{Crossorigin|string, string}>
      */
     public static function crossorigin(): array
     {
@@ -65,7 +65,7 @@ final class ScriptProvider
     }
 
     /**
-     * @return array<string, array{string|Fetchpriority, string}>
+     * @return array<string, array{Fetchpriority|string, string}>
      */
     public static function fetchpriority(): array
     {
@@ -127,7 +127,7 @@ final class ScriptProvider
     }
 
     /**
-     * @return array<string, array{string|Referrerpolicy, string}>
+     * @return array<string, array{Referrerpolicy|string, string}>
      */
     public static function referrerpolicy(): array
     {

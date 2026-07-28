@@ -25,7 +25,7 @@ use function implode;
 final class ImgProvider
 {
     /**
-     * @return array<string, array{string|Crossorigin, string}>
+     * @return array<string, array{Crossorigin|string, string}>
      */
     public static function crossorigin(): array
     {
@@ -50,7 +50,7 @@ final class ImgProvider
     }
 
     /**
-     * @return array<string, array{string|Decoding, string}>
+     * @return array<string, array{Decoding|string, string}>
      */
     public static function decoding(): array
     {
@@ -83,7 +83,7 @@ final class ImgProvider
     }
 
     /**
-     * @return array<string, array{string|Fetchpriority, string}>
+     * @return array<string, array{Fetchpriority|string, string}>
      */
     public static function fetchpriority(): array
     {
@@ -171,7 +171,7 @@ final class ImgProvider
     }
 
     /**
-     * @return array<string, array{string|Loading, string}>
+     * @return array<string, array{Loading|string, string}>
      */
     public static function loading(): array
     {
@@ -196,7 +196,7 @@ final class ImgProvider
     }
 
     /**
-     * @return array<string, array{string|Referrerpolicy, string}>
+     * @return array<string, array{Referrerpolicy|string, string}>
      */
     public static function referrerpolicy(): array
     {

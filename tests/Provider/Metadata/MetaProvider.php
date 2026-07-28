@@ -12,7 +12,7 @@ use UIAwesome\Html\Attribute\Values\{Charset, HttpEquiv};
 final class MetaProvider
 {
     /**
-     * @return array<string, array{string|Charset, string}>
+     * @return array<string, array{Charset|string, string}>
      */
     public static function charset(): array
     {
@@ -253,7 +253,7 @@ final class MetaProvider
     }
 
     /**
-     * @return array<string, array{string|HttpEquiv, string}>
+     * @return array<string, array{HttpEquiv|string, string}>
      */
     public static function httpEquiv(): array
     {

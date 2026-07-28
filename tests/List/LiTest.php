@@ -62,5 +62,4 @@ final class LiTest extends TestCase
             "'value' must be serialized.",
         );
     }
-
 }

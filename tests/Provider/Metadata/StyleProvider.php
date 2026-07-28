@@ -12,7 +12,7 @@ use UIAwesome\Html\Attribute\Values\{Blocking, Type};
 final class StyleProvider
 {
     /**
-     * @return array<string, array{string|Blocking, string}>
+     * @return array<string, array{Blocking|string, string}>
      */
     public static function blocking(): array
     {

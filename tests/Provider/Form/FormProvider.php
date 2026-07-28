@@ -18,7 +18,7 @@ use function implode;
 final class FormProvider
 {
     /**
-     * @return array<string, array{string|Autocapitalize, string}>
+     * @return array<string, array{Autocapitalize|string, string}>
      */
     public static function autocapitalize(): array
     {
@@ -75,7 +75,7 @@ final class FormProvider
     }
 
     /**
-     * @return array<string, array{string|Enctype, string}>
+     * @return array<string, array{Enctype|string, string}>
      */
     public static function enctype(): array
     {
@@ -142,7 +142,7 @@ final class FormProvider
     }
 
     /**
-     * @return array<string, array{string|Method, string}>
+     * @return array<string, array{Method|string, string}>
      */
     public static function method(): array
     {
@@ -175,7 +175,7 @@ final class FormProvider
     }
 
     /**
-     * @return array<string, array{string|Rel, string}>
+     * @return array<string, array{Rel|string, string}>
      */
     public static function rel(): array
     {

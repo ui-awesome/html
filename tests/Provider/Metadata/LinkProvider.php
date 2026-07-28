@@ -27,7 +27,7 @@ use function implode;
 final class LinkProvider
 {
     /**
-     * @return array<string, array{string|AsValue, string}>
+     * @return array<string, array{AsValue|string, string}>
      */
     public static function as(): array
     {
@@ -132,7 +132,7 @@ final class LinkProvider
     }
 
     /**
-     * @return array<string, array{string|Blocking, string}>
+     * @return array<string, array{Blocking|string, string}>
      */
     public static function blocking(): array
     {
@@ -149,7 +149,7 @@ final class LinkProvider
     }
 
     /**
-     * @return array<string, array{string|Crossorigin, string}>
+     * @return array<string, array{Crossorigin|string, string}>
      */
     public static function crossorigin(): array
     {
@@ -174,7 +174,7 @@ final class LinkProvider
     }
 
     /**
-     * @return array<string, array{string|Fetchpriority, string}>
+     * @return array<string, array{Fetchpriority|string, string}>
      */
     public static function fetchpriority(): array
     {
@@ -236,7 +236,7 @@ final class LinkProvider
     }
 
     /**
-     * @return array<string, array{string|Referrerpolicy, string}>
+     * @return array<string, array{Referrerpolicy|string, string}>
      */
     public static function referrerpolicy(): array
     {
@@ -309,7 +309,7 @@ final class LinkProvider
     }
 
     /**
-     * @return array<string, array{string|Rel, string}>
+     * @return array<string, array{Rel|string, string}>
      */
     public static function rel(): array
     {

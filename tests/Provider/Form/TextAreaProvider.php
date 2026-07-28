@@ -19,7 +19,7 @@ use function implode;
 final class TextAreaProvider
 {
     /**
-     * @return array<string, array{string|Autocapitalize, string}>
+     * @return array<string, array{Autocapitalize|string, string}>
      */
     public static function autocapitalize(): array
     {
@@ -76,7 +76,7 @@ final class TextAreaProvider
     }
 
     /**
-     * @return array<string, array{string|Autocorrect, string}>
+     * @return array<string, array{Autocorrect|string, string}>
      */
     public static function autocorrect(): array
     {

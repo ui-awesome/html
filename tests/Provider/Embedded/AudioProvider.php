@@ -18,7 +18,7 @@ use function implode;
 final class AudioProvider
 {
     /**
-     * @return array<string, array{string|Controlslist, string}>
+     * @return array<string, array{Controlslist|string, string}>
      */
     public static function controlslist(): array
     {
@@ -51,7 +51,7 @@ final class AudioProvider
     }
 
     /**
-     * @return array<string, array{string|Crossorigin, string}>
+     * @return array<string, array{Crossorigin|string, string}>
      */
     public static function crossorigin(): array
     {
@@ -123,7 +123,7 @@ final class AudioProvider
     }
 
     /**
-     * @return array<string, array{string|Preload, string}>
+     * @return array<string, array{Preload|string, string}>
      */
     public static function preload(): array
     {

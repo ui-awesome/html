@@ -12,7 +12,7 @@ use UIAwesome\Html\Metadata\Values\ShadowRootMode;
 final class TemplateProvider
 {
     /**
-     * @return array<string, array{string|ShadowRootMode, string}>
+     * @return array<string, array{ShadowRootMode|string, string}>
      */
     public static function shadowRootMode(): array
     {

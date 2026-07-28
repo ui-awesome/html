@@ -36,7 +36,7 @@ final class IframeProvider
     }
 
     /**
-     * @return array<string, array{string|Loading, string}>
+     * @return array<string, array{Loading|string, string}>
      */
     public static function loading(): array
     {
@@ -61,7 +61,7 @@ final class IframeProvider
     }
 
     /**
-     * @return array<string, array{string|Referrerpolicy, string}>
+     * @return array<string, array{Referrerpolicy|string, string}>
      */
     public static function referrerpolicy(): array
     {

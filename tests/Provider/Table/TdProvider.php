@@ -49,6 +49,7 @@ final class TdProvider
             ],
         ];
     }
+
     /**
      * @return array<string, array{Closure(): Td, string}>
      */

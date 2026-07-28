@@ -141,7 +141,7 @@ final class ThProvider
     }
 
     /**
-     * @return array<string, array{string|Scope, string}>
+     * @return array<string, array{Scope|string, string}>
      */
     public static function scope(): array
     {

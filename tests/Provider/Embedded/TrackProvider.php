@@ -12,7 +12,7 @@ use UIAwesome\Html\Embedded\Values\Kind;
 final class TrackProvider
 {
     /**
-     * @return array<string, array{string|Kind, string}>
+     * @return array<string, array{Kind|string, string}>
      */
     public static function kind(): array
     {

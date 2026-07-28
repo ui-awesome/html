@@ -12,7 +12,7 @@ use UIAwesome\Html\Interactive\Values\Closedby;
 final class DialogProvider
 {
     /**
-     * @return array<string, array{string|Closedby, string}>
+     * @return array<string, array{Closedby|string, string}>
      */
     public static function closedby(): array
     {

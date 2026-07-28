@@ -53,7 +53,7 @@ final class ButtonProvider
     }
 
     /**
-     * @return array<string, array{string|PopoverTargetAction, string}>
+     * @return array<string, array{PopoverTargetAction|string, string}>
      */
     public static function popoverTargetAction(): array
     {
@@ -86,7 +86,7 @@ final class ButtonProvider
     }
 
     /**
-     * @return array<string, array{string|ButtonType, string}>
+     * @return array<string, array{ButtonType|string, string}>
      */
     public static function type(): array
     {

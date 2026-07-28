@@ -41,7 +41,7 @@ final class AProvider
     }
 
     /**
-     * @return array<string, array{string|Referrerpolicy, string}>
+     * @return array<string, array{Referrerpolicy|string, string}>
      */
     public static function referrerpolicy(): array
     {
@@ -114,7 +114,7 @@ final class AProvider
     }
 
     /**
-     * @return array<string, array{string|Rel, string}>
+     * @return array<string, array{Rel|string, string}>
      */
     public static function rel(): array
     {
