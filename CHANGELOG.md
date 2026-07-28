@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: add the `Html` facade with explicit static factory methods and the `el()` terminal shortcut.
 - fix: update `ui-awesome/html-interop` dependency to latest version.
 - test: restrict each element suite to its own attributes and keep the universal battery once per render path.
+- fix!: accept any supported `type()` value on `Link`, `Script`, `Style`, and `A` instead of validating the `<input>` control type list.
 
 ## 0.4.3 July 21, 2026
 

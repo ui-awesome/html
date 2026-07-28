@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Metadata;
 
+use Stringable;
 use UIAwesome\Html\Attribute\{
     HasBlocking,
     HasCrossorigin,
@@ -11,11 +12,11 @@ use UIAwesome\Html\Attribute\{
     HasIntegrity,
     HasReferrerpolicy,
     HasSrc,
-    HasType,
 };
 use UIAwesome\Html\Contracts\Attribute\SrcInterface;
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Interop\MetadataBlock;
+use UnitEnum;
 
 /**
  * Renders the HTML `<script>` element for executable code or data blocks.
@@ -39,7 +40,6 @@ final class Script extends BaseBlock implements SrcInterface
     use HasIntegrity;
     use HasReferrerpolicy;
     use HasSrc;
-    use HasType;
 
     /**
      * Sets the `async` attribute.
@@ -99,6 +99,32 @@ final class Script extends BaseBlock implements SrcInterface
     public function nomodule(bool $value): static
     {
         return $this->addAttribute('nomodule', $value);
+    }
+
+    /**
+     * Sets the `type` attribute.
+     *
+     * Accepts `module`, `importmap`, `speculationrules`, or any MIME type. Omitting it, or using a JavaScript MIME
+     * type, runs the element as a classic script; any other MIME type turns it into a data block that the browser
+     * does not execute, such as `application/ld+json`.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Metadata\Script::tag()
+     *     ->src('/assets/app.js')
+     *     ->type('module')
+     *     ->render();
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value Script token or MIME type, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `type` attribute.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type
+     */
+    public function type(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute('type', $value);
     }
 
     /**

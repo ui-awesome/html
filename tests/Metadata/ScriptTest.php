@@ -6,9 +6,10 @@ namespace UIAwesome\Html\Tests\Metadata;
 
 use Closure;
 use InvalidArgumentException;
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
-use UIAwesome\Html\Attribute\Values\{Blocking, Crossorigin, Fetchpriority, Referrerpolicy, Type};
+use UIAwesome\Html\Attribute\Values\{Blocking, Crossorigin, Fetchpriority, Referrerpolicy};
 use UIAwesome\Html\Helper\Exception\Message;
 use UIAwesome\Html\Metadata\Script;
 use UIAwesome\Html\Tests\Provider\Metadata\ScriptProvider;
@@ -170,7 +171,7 @@ final class ScriptTest extends TestCase
     }
 
     #[DataProviderExternal(ScriptProvider::class, 'type')]
-    public function testRenderWithType(string|Type $value, string $expected): void
+    public function testRenderWithType(string|BackedString $value, string $expected): void
     {
         self::assertSame(
             <<<HTML
@@ -179,6 +180,18 @@ final class ScriptTest extends TestCase
             HTML,
             Script::tag()->type($value)->render(),
             "'type' must be serialized.",
+        );
+    }
+
+    public function testRenderWithTypeNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <script>
+            </script>
+            HTML,
+            Script::tag()->type('module')->type(null)->render(),
+            '`null` must remove the attribute.',
         );
     }
 

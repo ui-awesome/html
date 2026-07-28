@@ -12,7 +12,6 @@ use UIAwesome\Html\Attribute\{
     HasReferrerpolicy,
     HasRel,
     HasTarget,
-    HasType,
 };
 use UIAwesome\Html\Attribute\Values\ElementAttribute;
 use UIAwesome\Html\Core\Element\BaseInline;
@@ -41,7 +40,6 @@ final class A extends BaseInline
     use HasReferrerpolicy;
     use HasRel;
     use HasTarget;
-    use HasType;
 
     /**
      * Sets the `href` attribute.
@@ -61,6 +59,32 @@ final class A extends BaseInline
     public function href(string|Stringable|UnitEnum|null $value): static
     {
         return $this->addAttribute(ElementAttribute::HREF, $value);
+    }
+
+    /**
+     * Sets the `type` attribute.
+     *
+     * Hints at the MIME type of the linked URL. Any MIME type is accepted; the value is purely informative and
+     * carries no built-in browser behavior.
+     *
+     * Usage example:
+     * ```php
+     * echo \UIAwesome\Html\Palpable\A::tag()
+     *     ->content('Download the report')
+     *     ->href('/report.pdf')
+     *     ->type('application/pdf')
+     *     ->render();
+     * ```
+     *
+     * @param string|Stringable|UnitEnum|null $value MIME type of the linked URL, or `null` to remove the attribute.
+     *
+     * @return static New instance with the updated `type` attribute.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a#type
+     */
+    public function type(string|Stringable|UnitEnum|null $value): static
+    {
+        return $this->addAttribute('type', $value);
     }
 
     /**
