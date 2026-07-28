@@ -110,6 +110,18 @@ final class StyleTest extends TestCase
         );
     }
 
+    public function testRenderWithTypeNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <style>
+            </style>
+            HTML,
+            Style::tag()->type('text/css')->type(null)->render(),
+            '`null` must remove the attribute.',
+        );
+    }
+
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
         $style = Style::tag();

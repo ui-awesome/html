@@ -225,6 +225,17 @@ final class LinkTest extends TestCase
         );
     }
 
+    public function testRenderWithTypeNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <link>
+            HTML,
+            Link::tag()->type('text/css')->type(null)->render(),
+            '`null` must remove the attribute.',
+        );
+    }
+
     /**
      * @phpstan-param Closure(): Link $setter
      */

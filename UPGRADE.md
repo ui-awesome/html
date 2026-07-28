@@ -5,9 +5,11 @@
 ### `type()` is an open domain on `Link`, `Script`, `Style`, and `A`
 
 These four elements validated `type` against the closed `<input>` control type list, which rejected valid MIME types
-(`application/rss+xml`, `application/ld+json`, `application/pdf`) and accepted meaningless ones (`checkbox`). They now
-accept any value and no longer throw `InvalidArgumentException`. Code that relied on the rejection must validate the
-value before calling `type()`. `Button` and the `Input*` controls keep their closed domains.
+(`application/rss+xml`, `application/ld+json`, `application/pdf`) and accepted meaningless ones (`checkbox`). Only that
+semantic validation was removed: the setters keep accepting `string`, `Stringable`, and `UnitEnum` values (or `null` to
+remove the attribute) but no longer throw `InvalidArgumentException` for values outside a closed list. Code that relied
+on the rejection must validate the value before calling `type()`. `Button` and the `Input*` controls keep their closed
+domains.
 
 ```php
 Link::tag()->type('application/rss+xml');

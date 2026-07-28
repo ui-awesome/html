@@ -180,6 +180,20 @@ final class ATest extends TestCase
         );
     }
 
+    public function testRenderWithTypeNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <a></a>
+            HTML,
+            A::tag()
+                ->type('application/pdf')
+                ->type(null)
+                ->render(),
+            '`null` must remove the attribute.',
+        );
+    }
+
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
         $a = A::tag();

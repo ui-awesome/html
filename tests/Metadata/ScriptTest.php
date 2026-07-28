@@ -183,6 +183,18 @@ final class ScriptTest extends TestCase
         );
     }
 
+    public function testRenderWithTypeNull(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <script>
+            </script>
+            HTML,
+            Script::tag()->type('module')->type(null)->render(),
+            '`null` must remove the attribute.',
+        );
+    }
+
     public function testReturnNewInstanceWhenSettingAttribute(): void
     {
         $script = Script::tag();
