@@ -48,6 +48,39 @@ final class SelectTest extends TestCase
         );
     }
 
+    public function testRenderWithBeginEnd(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select id="select" name="choice">
+            <option value="dog">Dog</option>
+            </select>
+            HTML,
+            Select::tag()
+                ->id('select')
+                ->name('choice')
+                ->begin() . '<option value="dog">Dog</option>' . Select::end(),
+            'begin/end must produce a complete element.',
+        );
+    }
+
+    public function testRenderWithBeginEndSkippingValueValidation(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <select id="select" multiple>
+            <option value="dog">Dog</option>
+            </select>
+            HTML,
+            Select::tag()
+                ->id('select')
+                ->multiple(true)
+                ->value('dog')
+                ->begin() . '<option value="dog">Dog</option>' . Select::end(),
+            'A scalar value with `multiple` must not be rejected on this path.',
+        );
+    }
+
     public function testRenderWithContent(): void
     {
         self::assertSame(

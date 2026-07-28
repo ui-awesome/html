@@ -29,6 +29,21 @@ final class PreTest extends TestCase
         );
     }
 
+    public function testRenderWithBeginEnd(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <pre>
+              first
+
+                second
+            </pre>
+            HTML,
+            Pre::tag()->begin() . "  first\n\n    second" . Pre::end(),
+            'Indentation and blank lines must survive begin/end verbatim.',
+        );
+    }
+
     public function testRenderWithContent(): void
     {
         self::assertSame(
