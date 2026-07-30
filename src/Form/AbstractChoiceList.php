@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
+use BackedEnum;
 use Override;
 use Stringable;
 use UIAwesome\Html\Attribute\HasName;
@@ -11,7 +12,7 @@ use UIAwesome\Html\Attribute\Values\{ElementAttribute, GlobalAttribute};
 use UIAwesome\Html\Contracts\Form\{CheckedStateInterface, ChoiceListInterface, FormControlInterface};
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Core\Html;
-use UIAwesome\Html\Helper\Enum;
+use UIAwesome\Html\Helper\{AttributeBag, CSSClass, Enum};
 use UIAwesome\Html\Interop\Block;
 use UnitEnum;
 
@@ -49,6 +50,18 @@ abstract class AbstractChoiceList extends BaseBlock implements
      * @var mixed[] Attributes applied to every item input.
      */
     private array $itemAttributes = [];
+    /**
+     * @var mixed[] Attributes applied to every item container.
+     */
+    private array $itemContainerAttributes = [];
+    /**
+     * Tag enclosing each item input and label, or `false` to render them without a wrapper.
+     */
+    private BackedEnum|false $itemContainerTag = false;
+    /**
+     * @var mixed[] Default attributes applied to every item label.
+     */
+    private array $itemLabelAttributes = [];
     /**
      * @var list<ChoiceItem> Items rendered by the list.
      */
@@ -165,6 +178,89 @@ abstract class AbstractChoiceList extends BaseBlock implements
     }
 
     /**
+     * Sets attributes applied to the container enclosing every item input and label.
+     *
+     * @param mixed[] $values Container attributes indexed by attribute name.
+     *
+     * @return static New instance with the updated item container attributes.
+     */
+    public function itemContainerAttributes(array $values): static
+    {
+        $new = clone $this;
+        AttributeBag::setMany($new->itemContainerAttributes, $values);
+
+        return $new;
+    }
+
+    /**
+     * Adds CSS classes to the container enclosing every item input and label.
+     *
+     * @param mixed[]|string|Stringable|UnitEnum|null $value Classes to add, or `null` to keep the current class list.
+     * @param bool $override Whether to replace the current class list instead of appending.
+     *
+     * @return static New instance with the updated item container classes.
+     */
+    public function itemContainerClass(
+        array|string|Stringable|UnitEnum|null $value,
+        bool $override = false,
+    ): static {
+        $new = clone $this;
+        CSSClass::add($new->itemContainerAttributes, $value, $override);
+
+        return $new;
+    }
+
+    /**
+     * Sets the tag enclosing every item input and label.
+     *
+     * @param BackedEnum|false $value Item container tag, or `false` to render items without wrappers.
+     *
+     * @return static New instance with the updated item container tag.
+     */
+    public function itemContainerTag(BackedEnum|false $value): static
+    {
+        $new = clone $this;
+        $new->itemContainerTag = $value;
+
+        return $new;
+    }
+
+    /**
+     * Sets default attributes applied to every item label.
+     *
+     * Attributes configured directly on a {@see ChoiceItem} take precedence, while CSS classes are appended.
+     *
+     * @param mixed[] $values Label attributes indexed by attribute name.
+     *
+     * @return static New instance with the updated item label attributes.
+     */
+    public function itemLabelAttributes(array $values): static
+    {
+        $new = clone $this;
+        AttributeBag::setMany($new->itemLabelAttributes, $values);
+
+        return $new;
+    }
+
+    /**
+     * Adds CSS classes to every item label.
+     *
+     * @param mixed[]|string|Stringable|UnitEnum|null $value Classes to add, or `null` to keep the current class list.
+     * @param bool $override Whether to replace the current class list instead of appending.
+     *
+     * @return static New instance with the updated item label classes.
+     */
+    public function itemLabelClass(
+        array|string|Stringable|UnitEnum|null $value,
+        bool $override = false,
+    ): static {
+        $new = clone $this;
+        CSSClass::add($new->itemLabelAttributes, $value, $override);
+
+        return $new;
+    }
+
+    /**
      * Replaces the items rendered by the list.
      *
      * Usage example:
@@ -253,13 +349,16 @@ abstract class AbstractChoiceList extends BaseBlock implements
         }
 
         foreach ($this->items as $index => $item) {
-            $content[] = $item->render(
-                $this->createInput(),
-                $this->itemAttributes,
-                $id === null ? null : "{$id}-{$index}",
-                $inputName,
-                $this->checked,
-                $this->enclosedByLabel,
+            $content[] = $this->renderItemContainer(
+                $item->render(
+                    $this->createInput(),
+                    $this->itemAttributes,
+                    $id === null ? null : "{$id}-{$index}",
+                    $inputName,
+                    $this->checked,
+                    $this->enclosedByLabel,
+                    $this->itemLabelAttributes,
+                ),
             );
         }
 
@@ -315,5 +414,15 @@ abstract class AbstractChoiceList extends BaseBlock implements
             $value instanceof Stringable, $value instanceof UnitEnum => Enum::normalizeStringValue($value),
             default => null,
         };
+    }
+
+    /**
+     * Renders an optional container around one item input and label.
+     */
+    private function renderItemContainer(string $content): string
+    {
+        return $this->itemContainerTag === false
+            ? $content
+            : Html::element($this->itemContainerTag, $content, $this->itemContainerAttributes);
     }
 }
