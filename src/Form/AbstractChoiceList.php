@@ -213,7 +213,7 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Sets the tag enclosing every item input and label.
      *
-     * @param Block|Inline|Lists|MetadataBlock|Root|SelectTag|Table|false $value Item container tag, or `false` to
+     * @param Block|false|Inline|Lists|MetadataBlock|Root|SelectTag|Table $value Item container tag, or `false` to
      * render items without wrappers.
      *
      * @return static New instance with the updated item container tag.
