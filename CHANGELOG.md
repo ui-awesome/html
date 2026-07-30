@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.5.0 Under development
+## 0.5.0 July 30, 2026
 
-- feat!: require `ui-awesome/html-core 0.7` and remove support for global `SimpleFactory` defaults and make `Select` and `TextArea` implement `FormControlInterface`.
+- feat!: remove support for global `SimpleFactory` defaults and make `Select` and `TextArea` implement `FormControlInterface`.
 - feat(form)!: add typed `ChoiceItem`, `CheckboxList`, and `RadioList` controls, add `Select::value()`, and make `Select::options()` take `Option`.
 - fix(form)!: match a checkbox or radio without a `value` attribute against `on`, the value browsers submit for it.
 - feat(form): make `Select` implement `MultiValueInterface`, exposing single and multiple selection through the shared contract.
@@ -19,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - refactor: extract the shared maxlength, minlength, pattern, placeholder, and size form attribute methods into reusable traits.
 - refactor: collapse the date and time input controls into a shared abstract base without changing their public API.
 - feat: add the `Html` facade with explicit static factory methods and the `el()` terminal shortcut.
-- fix: update `ui-awesome/html-interop` dependency to latest version.
 - test: restrict each element suite to its own attributes and keep the universal battery once per render path.
 - fix!: accept any supported `type()` value on `Link`, `Script`, `Style`, and `A` instead of validating the `<input>` control type list.
 - feat(form): add shared item container and label presentation APIs to checkbox and radio lists.
