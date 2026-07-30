@@ -83,10 +83,16 @@ final class InputFile extends BaseInput
     /**
      * Returns the array of HTML attributes for the element.
      *
-     * @return array Attributes array assigned to the element.
+     * Usage example:
+     * ```php
+     * $attributes = \UIAwesome\Html\Form\InputFile::tag()
+     *     ->multiple(true)
+     *     ->name('documents')
+     *     ->getAttributes();
+     * ```
      *
-     * @return mixed[] Array of attributes, with the `name` attribute modified to include '[]' if the `multiple`
-     * attribute is set, and the `value` attribute removed since it is not allowed for `<input type="file">`.
+     * @return mixed[] Attributes array using array notation for multiple files and omitting the unsupported `value`
+     * attribute.
      */
     public function getAttributes(): array
     {

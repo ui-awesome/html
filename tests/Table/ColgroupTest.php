@@ -140,7 +140,7 @@ final class ColgroupTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Colgroup $setter
+     * @param Closure(): Colgroup $setter
      */
     #[DataProviderExternal(ColgroupProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

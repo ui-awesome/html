@@ -37,9 +37,14 @@ final class InputCheckbox extends BaseInput implements CheckedStateInterface, Va
     /**
      * Returns the array of HTML attributes for the element.
      *
-     * @return array Attributes array assigned to the element.
+     * Usage example:
+     * ```php
+     * $attributes = \UIAwesome\Html\Form\InputCheckbox::tag()
+     *     ->name('terms')
+     *     ->getAttributes();
+     * ```
      *
-     * @return mixed[] Array of attributes, including global attributes and specific attributes for the checkbox input.
+     * @return mixed[] Attributes array including global and checkbox-specific attributes.
      */
     public function getAttributes(): array
     {

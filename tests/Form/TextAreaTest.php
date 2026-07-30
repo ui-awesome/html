@@ -300,7 +300,7 @@ final class TextAreaTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): TextArea $setter
+     * @param Closure(): TextArea $setter
      */
     #[DataProviderExternal(TextAreaProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

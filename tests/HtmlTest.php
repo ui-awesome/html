@@ -237,8 +237,8 @@ final class HtmlTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): object $factory
-     * @phpstan-param class-string $expected
+     * @param Closure(): object $factory
+     * @param class-string $expected
      */
     #[DataProviderExternal(HtmlProvider::class, 'factory')]
     public function testFactoryReturnsExpectedElementInstance(Closure $factory, string $expected): void

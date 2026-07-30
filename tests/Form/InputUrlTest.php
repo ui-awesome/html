@@ -269,7 +269,7 @@ final class InputUrlTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): InputUrl $setter
+     * @param Closure(): InputUrl $setter
      */
     #[DataProviderExternal(InputUrlProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

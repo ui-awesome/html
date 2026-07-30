@@ -253,7 +253,7 @@ final class AudioTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Audio $setter
+     * @param Closure(): Audio $setter
      */
     #[DataProviderExternal(AudioProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(

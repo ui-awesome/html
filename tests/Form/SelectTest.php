@@ -663,7 +663,7 @@ final class SelectTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): string $setter
+     * @param Closure(): string $setter
      */
     #[DataProviderExternal(SelectProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

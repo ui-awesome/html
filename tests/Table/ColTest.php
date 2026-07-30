@@ -70,7 +70,7 @@ final class ColTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Col $setter
+     * @param Closure(): Col $setter
      */
     #[DataProviderExternal(ColProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

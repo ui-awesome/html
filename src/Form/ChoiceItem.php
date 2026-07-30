@@ -110,6 +110,21 @@ final class ChoiceItem
     /**
      * Renders the item using an atomic HTML checkbox or radio control.
      *
+     * Usage example:
+     * ```php
+     * $html = \UIAwesome\Html\Form\ChoiceItem::tag()
+     *     ->label('Email')
+     *     ->value('email')
+     *     ->render(
+     *         \UIAwesome\Html\Form\InputCheckbox::tag(),
+     *         [],
+     *         'choice-0',
+     *         'choice[]',
+     *         ['email'],
+     *         false,
+     *     );
+     * ```
+     *
      * @param InputCheckbox|InputRadio $input Input element instance created by the list.
      * @param mixed[] $attributes Attributes applied to the item input.
      * @param string|null $id Item identifier shared by the input and its label, or `null` to omit both.

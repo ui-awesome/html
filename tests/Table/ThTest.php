@@ -172,7 +172,7 @@ final class ThTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Th $setter
+     * @param Closure(): Th $setter
      */
     #[DataProviderExternal(ThProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

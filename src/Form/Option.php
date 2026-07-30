@@ -43,6 +43,13 @@ final class Option extends BaseBlock implements ValueInterface
     /**
      * Resolves the `selected` attribute against the values selected by the parent element.
      *
+     * Usage example:
+     * ```php
+     * $option = \UIAwesome\Html\Form\Option::tag()
+     *     ->value('dog')
+     *     ->selectedValues(['dog']);
+     * ```
+     *
      * @param string[] $values Normalized selected values.
      *
      * @return static New instance with the resolved `selected` attribute.

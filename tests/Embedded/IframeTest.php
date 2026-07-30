@@ -256,7 +256,7 @@ final class IframeTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Iframe $setter
+     * @param Closure(): Iframe $setter
      */
     #[DataProviderExternal(IframeProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(

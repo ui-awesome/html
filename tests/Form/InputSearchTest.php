@@ -283,7 +283,7 @@ final class InputSearchTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): InputSearch $setter
+     * @param Closure(): InputSearch $setter
      */
     #[DataProviderExternal(InputSearchProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void
