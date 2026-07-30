@@ -348,7 +348,7 @@ final class VideoTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Video $setter
+     * @param Closure(): Video $setter
      */
     #[DataProviderExternal(VideoProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(

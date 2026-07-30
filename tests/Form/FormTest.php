@@ -228,7 +228,7 @@ final class FormTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Form $setter
+     * @param Closure(): Form $setter
      */
     #[DataProviderExternal(FormProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(

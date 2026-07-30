@@ -283,7 +283,7 @@ final class InputTextTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): InputText $setter
+     * @param Closure(): InputText $setter
      */
     #[DataProviderExternal(InputTextProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

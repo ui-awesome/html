@@ -281,7 +281,7 @@ final class InputEmailTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): InputEmail $setter
+     * @param Closure(): InputEmail $setter
      */
     #[DataProviderExternal(InputEmailProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

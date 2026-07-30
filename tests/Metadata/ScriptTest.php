@@ -252,7 +252,7 @@ final class ScriptTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Script $setter
+     * @param Closure(): Script $setter
      */
     #[DataProviderExternal(ScriptProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(

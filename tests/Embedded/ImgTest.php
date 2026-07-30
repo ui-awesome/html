@@ -315,7 +315,7 @@ final class ImgTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Img $setter
+     * @param Closure(): Img $setter
      */
     #[DataProviderExternal(ImgProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(

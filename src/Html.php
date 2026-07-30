@@ -61,6 +61,11 @@ final class Html
     /**
      * Returns a new {@see A} instance for the HTML `<a>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::a();
+     * ```
+     *
      * @return A New `<a>` element instance.
      */
     public static function a(): A
@@ -70,6 +75,11 @@ final class Html
 
     /**
      * Returns a new {@see Article} instance for the HTML `<article>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::article();
+     * ```
      *
      * @return Article New `<article>` element instance.
      */
@@ -81,6 +91,11 @@ final class Html
     /**
      * Returns a new {@see Button} instance for the HTML `<button>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::button();
+     * ```
+     *
      * @return Button New `<button>` element instance.
      */
     public static function button(): Button
@@ -90,6 +105,11 @@ final class Html
 
     /**
      * Returns a new {@see Div} instance for the HTML `<div>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::div();
+     * ```
      *
      * @return Div New `<div>` element instance.
      */
@@ -116,14 +136,12 @@ final class Html
      * ```
      *
      * @param string $tag Tag name to render.
-     * @param array $attributes Associative array of HTML attributes.
+     * @param mixed[] $attributes Associative array of HTML attributes.
      * @param string|Stringable $content Content to be rendered inside the tag. Ignored for void tags.
      *
      * @throws InvalidArgumentException If the tag name is not a known HTML tag.
      *
      * @return string Rendered HTML element string.
-     *
-     * @phpstan-param mixed[] $attributes
      */
     public static function el(string $tag, array $attributes = [], string|Stringable $content = ''): string
     {
@@ -145,6 +163,11 @@ final class Html
     /**
      * Returns a new {@see Em} instance for the HTML `<em>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::em();
+     * ```
+     *
      * @return Em New `<em>` element instance.
      */
     public static function em(): Em
@@ -154,6 +177,11 @@ final class Html
 
     /**
      * Returns a new {@see Footer} instance for the HTML `<footer>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::footer();
+     * ```
      *
      * @return Footer New `<footer>` element instance.
      */
@@ -165,6 +193,11 @@ final class Html
     /**
      * Returns a new {@see Form} instance for the HTML `<form>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::form();
+     * ```
+     *
      * @return Form New `<form>` element instance.
      */
     public static function form(): Form
@@ -174,6 +207,11 @@ final class Html
 
     /**
      * Returns a new {@see H1} instance for the HTML `<h1>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::h1();
+     * ```
      *
      * @return H1 New `<h1>` element instance.
      */
@@ -185,6 +223,11 @@ final class Html
     /**
      * Returns a new {@see H2} instance for the HTML `<h2>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::h2();
+     * ```
+     *
      * @return H2 New `<h2>` element instance.
      */
     public static function h2(): H2
@@ -194,6 +237,11 @@ final class Html
 
     /**
      * Returns a new {@see H3} instance for the HTML `<h3>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::h3();
+     * ```
      *
      * @return H3 New `<h3>` element instance.
      */
@@ -205,6 +253,11 @@ final class Html
     /**
      * Returns a new {@see H4} instance for the HTML `<h4>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::h4();
+     * ```
+     *
      * @return H4 New `<h4>` element instance.
      */
     public static function h4(): H4
@@ -214,6 +267,11 @@ final class Html
 
     /**
      * Returns a new {@see H5} instance for the HTML `<h5>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::h5();
+     * ```
      *
      * @return H5 New `<h5>` element instance.
      */
@@ -225,6 +283,11 @@ final class Html
     /**
      * Returns a new {@see H6} instance for the HTML `<h6>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::h6();
+     * ```
+     *
      * @return H6 New `<h6>` element instance.
      */
     public static function h6(): H6
@@ -234,6 +297,11 @@ final class Html
 
     /**
      * Returns a new {@see Header} instance for the HTML `<header>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::header();
+     * ```
      *
      * @return Header New `<header>` element instance.
      */
@@ -245,6 +313,11 @@ final class Html
     /**
      * Returns a new {@see Hr} instance for the HTML `<hr>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::hr();
+     * ```
+     *
      * @return Hr New `<hr>` element instance.
      */
     public static function hr(): Hr
@@ -254,6 +327,11 @@ final class Html
 
     /**
      * Returns a new {@see I} instance for the HTML `<i>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::i();
+     * ```
      *
      * @return I New `<i>` element instance.
      */
@@ -265,6 +343,11 @@ final class Html
     /**
      * Returns a new {@see Img} instance for the HTML `<img>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::img();
+     * ```
+     *
      * @return Img New `<img>` element instance.
      */
     public static function img(): Img
@@ -274,6 +357,11 @@ final class Html
 
     /**
      * Returns a new {@see Label} instance for the HTML `<label>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::label();
+     * ```
      *
      * @return Label New `<label>` element instance.
      */
@@ -285,6 +373,11 @@ final class Html
     /**
      * Returns a new {@see Li} instance for the HTML `<li>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::li();
+     * ```
+     *
      * @return Li New `<li>` element instance.
      */
     public static function li(): Li
@@ -294,6 +387,11 @@ final class Html
 
     /**
      * Returns a new {@see Main} instance for the HTML `<main>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::main();
+     * ```
      *
      * @return Main New `<main>` element instance.
      */
@@ -305,6 +403,11 @@ final class Html
     /**
      * Returns a new {@see Nav} instance for the HTML `<nav>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::nav();
+     * ```
+     *
      * @return Nav New `<nav>` element instance.
      */
     public static function nav(): Nav
@@ -314,6 +417,11 @@ final class Html
 
     /**
      * Returns a new {@see Ol} instance for the HTML `<ol>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::ol();
+     * ```
      *
      * @return Ol New `<ol>` element instance.
      */
@@ -325,6 +433,11 @@ final class Html
     /**
      * Returns a new {@see Option} instance for the HTML `<option>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::option();
+     * ```
+     *
      * @return Option New `<option>` element instance.
      */
     public static function option(): Option
@@ -334,6 +447,11 @@ final class Html
 
     /**
      * Returns a new {@see P} instance for the HTML `<p>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::p();
+     * ```
      *
      * @return P New `<p>` element instance.
      */
@@ -345,6 +463,11 @@ final class Html
     /**
      * Returns a new {@see Section} instance for the HTML `<section>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::section();
+     * ```
+     *
      * @return Section New `<section>` element instance.
      */
     public static function section(): Section
@@ -354,6 +477,11 @@ final class Html
 
     /**
      * Returns a new {@see Select} instance for the HTML `<select>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::select();
+     * ```
      *
      * @return Select New `<select>` element instance.
      */
@@ -365,6 +493,11 @@ final class Html
     /**
      * Returns a new {@see Span} instance for the HTML `<span>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::span();
+     * ```
+     *
      * @return Span New `<span>` element instance.
      */
     public static function span(): Span
@@ -374,6 +507,11 @@ final class Html
 
     /**
      * Returns a new {@see Strong} instance for the HTML `<strong>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::strong();
+     * ```
      *
      * @return Strong New `<strong>` element instance.
      */
@@ -385,6 +523,11 @@ final class Html
     /**
      * Returns a new {@see Table} instance for the HTML `<table>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::table();
+     * ```
+     *
      * @return Table New `<table>` element instance.
      */
     public static function table(): Table
@@ -394,6 +537,11 @@ final class Html
 
     /**
      * Returns a new {@see Td} instance for the HTML `<td>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::td();
+     * ```
      *
      * @return Td New `<td>` element instance.
      */
@@ -405,6 +553,11 @@ final class Html
     /**
      * Returns a new {@see TextArea} instance for the HTML `<textarea>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::textarea();
+     * ```
+     *
      * @return TextArea New `<textarea>` element instance.
      */
     public static function textarea(): TextArea
@@ -414,6 +567,11 @@ final class Html
 
     /**
      * Returns a new {@see Th} instance for the HTML `<th>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::th();
+     * ```
      *
      * @return Th New `<th>` element instance.
      */
@@ -425,6 +583,11 @@ final class Html
     /**
      * Returns a new {@see Tr} instance for the HTML `<tr>` element.
      *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::tr();
+     * ```
+     *
      * @return Tr New `<tr>` element instance.
      */
     public static function tr(): Tr
@@ -434,6 +597,11 @@ final class Html
 
     /**
      * Returns a new {@see Ul} instance for the HTML `<ul>` element.
+     *
+     * Usage example:
+     * ```php
+     * $element = \UIAwesome\Html\Html::ul();
+     * ```
      *
      * @return Ul New `<ul>` element instance.
      */
@@ -469,9 +637,7 @@ final class Html
     /**
      * Returns every tag name the library can render.
      *
-     * @return string[] Tag names collected from the supported tag enumerations.
-     *
-     * @phpstan-return list<string>
+     * @return list<string> Tag names collected from the supported tag enumerations.
      */
     private static function tagNames(): array
     {

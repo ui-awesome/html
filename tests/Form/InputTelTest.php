@@ -269,7 +269,7 @@ final class InputTelTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): InputTel $setter
+     * @param Closure(): InputTel $setter
      */
     #[DataProviderExternal(InputTelProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

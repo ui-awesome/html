@@ -33,7 +33,7 @@ final class Table extends BaseBlock
      *
      * Accepts a `Caption` instance for full control, or a string that is automatically wrapped in a `Caption` element.
      *
-     * Usage examples:
+     * Usage example:
      * ```php
      * $table = Table::tag()->caption('Monthly report');
      * $table = Table::tag()->caption(Caption::tag()->content('Monthly report'));

@@ -237,7 +237,7 @@ final class LinkTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Link $setter
+     * @param Closure(): Link $setter
      */
     #[DataProviderExternal(LinkProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(

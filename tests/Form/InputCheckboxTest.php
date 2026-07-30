@@ -62,7 +62,7 @@ final class InputCheckboxTest extends TestCase
     }
 
     /**
-     * @phpstan-param mixed[]|bool|float|int|string|Stringable|UnitEnum|null $checked
+     * @param mixed[]|bool|float|int|string|Stringable|UnitEnum|null $checked
      */
     #[DataProviderExternal(CheckedProvider::class, 'checked')]
     public function testRenderWithCheckedAndValue(

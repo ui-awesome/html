@@ -26,7 +26,7 @@ trait HasCheckedState
     /**
      * Determines the checked state of the element.
      *
-     * @phpstan-var mixed[]|bool|float|int|string|Stringable|UnitEnum|null
+     * @var mixed[]|bool|float|int|string|Stringable|UnitEnum|null
      */
     private array|bool|float|int|string|Stringable|UnitEnum|null $checked = null;
 
@@ -41,7 +41,7 @@ trait HasCheckedState
      * $element->checked('inactive')->value('active'); // unchecked
      * ```
      *
-     * @param array|bool|float|int|string|Stringable|UnitEnum|null $value Checked state.
+     * @param mixed[]|bool|float|int|string|Stringable|UnitEnum|null $value Checked state.
      *
      * - `array`: Element is checked if the value is in the array.
      * - `false`: Element is unchecked.
@@ -51,8 +51,6 @@ trait HasCheckedState
      * - `null`: Attribute is removed.
      *
      * @return static New instance with the updated `checked` attribute.
-     *
-     * @phpstan-param mixed[]|bool|float|int|string|Stringable|UnitEnum|null $value
      */
     public function checked(array|bool|float|int|string|Stringable|UnitEnum|null $value): static
     {
@@ -69,12 +67,9 @@ trait HasCheckedState
      * the configured checked options. An element without a `value` attribute is matched against `on`, the value
      * browsers submit for it, while the attribute itself stays omitted.
      *
-     * @param array $attributes Initial attributes array.
+     * @param mixed[] $attributes Initial attributes array.
      *
-     * @return array Updated attributes array with the `checked` attribute if applicable.
-     *
-     * @phpstan-param mixed[] $attributes
-     * @phpstan-return mixed[]
+     * @return mixed[] Updated attributes array with the `checked` attribute if applicable.
      */
     private function buildAttributes(array $attributes): array
     {

@@ -42,7 +42,7 @@ final class Dialog extends BaseBlock
      * Accepts a `Button` instance for full control, or text content that is automatically wrapped in a `Button`
      * element.
      *
-     * Usage examples:
+     * Usage example:
      * ```php
      * $dialog = Dialog::tag()->closeButton('Close');
      * $dialog = Dialog::tag()->closeButton(Button::tag()->content('Cancel'));

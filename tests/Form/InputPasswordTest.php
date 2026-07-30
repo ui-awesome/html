@@ -257,7 +257,7 @@ final class InputPasswordTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): InputPassword $setter
+     * @param Closure(): InputPassword $setter
      */
     #[DataProviderExternal(InputPasswordProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

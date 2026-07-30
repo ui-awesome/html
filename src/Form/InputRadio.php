@@ -37,9 +37,15 @@ final class InputRadio extends BaseInput implements CheckedStateInterface, Value
     /**
      * Returns the array of HTML attributes for the element.
      *
-     * @return array Attributes array assigned to the element.
+     * Usage example:
+     * ```php
+     * $attributes = \UIAwesome\Html\Form\InputRadio::tag()
+     *     ->name('contact')
+     *     ->value('email')
+     *     ->getAttributes();
+     * ```
      *
-     * @phpstan-return mixed[]
+     * @return mixed[] Attributes array assigned to the element.
      */
     public function getAttributes(): array
     {

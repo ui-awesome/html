@@ -198,7 +198,7 @@ final class InputColorTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): InputColor $setter
+     * @param Closure(): InputColor $setter
      */
     #[DataProviderExternal(InputColorProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

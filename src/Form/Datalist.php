@@ -26,6 +26,12 @@ final class Datalist extends BaseBlock
     /**
      * Appends an `<option>` element to the datalist.
      *
+     * Usage example:
+     * ```php
+     * $datalist = \UIAwesome\Html\Form\Datalist::tag()
+     *     ->option(\UIAwesome\Html\Form\Option::tag()->value('Chocolate'));
+     * ```
+     *
      * @param Option $option Option element instance.
      *
      * @return static New instance with the appended option.

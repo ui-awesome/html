@@ -54,7 +54,7 @@ final class Details extends BaseBlock
      * Accepts a `Summary` instance for full control, or text content that is automatically wrapped in a `Summary`
      * element.
      *
-     * Usage examples:
+     * Usage example:
      * ```php
      * $details = Details::tag()->summary('System requirements');
      * $details = Details::tag()->summary(Summary::tag()->content('System requirements'));

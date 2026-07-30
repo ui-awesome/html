@@ -293,7 +293,7 @@ final class ButtonTest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): Button $setter
+     * @param Closure(): Button $setter
      */
     #[DataProviderExternal(ButtonProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(Closure $setter, string $expected): void

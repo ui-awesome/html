@@ -241,7 +241,7 @@ final class ATest extends TestCase
     }
 
     /**
-     * @phpstan-param Closure(): A $setter
+     * @param Closure(): A $setter
      */
     #[DataProviderExternal(AProvider::class, 'invalidAttributeValues')]
     public function testThrowInvalidArgumentExceptionForInvalidAttributeValue(

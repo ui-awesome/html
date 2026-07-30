@@ -97,6 +97,11 @@ final class Optgroup extends BaseBlock
     /**
      * Sets the normalized selected values received from the parent select.
      *
+     * Usage example:
+     * ```php
+     * $optgroup = \UIAwesome\Html\Form\Optgroup::tag()->selectedValues(['scl']);
+     * ```
+     *
      * @param string[] $values Normalized selected values.
      *
      * @return static New instance with the updated selected values.

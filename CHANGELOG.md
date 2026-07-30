@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - test: restrict each element suite to its own attributes and keep the universal battery once per render path.
 - fix!: accept any supported `type()` value on `Link`, `Script`, `Style`, and `A` instead of validating the `<input>` control type list.
 - feat(form): add shared item container and label presentation APIs to checkbox and radio lists.
+- docs: normalize PHPDoc examples and type annotations.
 
 ## 0.4.3 July 21, 2026
 
