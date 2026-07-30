@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use UIAwesome\Html\Form\{CheckboxList, ChoiceItem, InputRadio};
-use UIAwesome\Html\Interop\Block;
+use UIAwesome\Html\Interop\{Block, Voids};
 
 /**
  * Unit tests for shared checkbox and radio list item presentation.
@@ -15,6 +17,11 @@ use UIAwesome\Html\Interop\Block;
 #[Group('form')]
 final class ChoiceListPresentationTest extends TestCase
 {
+    private const string ITEM_CONTAINER_TAG_TYPE_ERROR = 'UIAwesome\Html\Form\AbstractChoiceList::itemContainerTag(): '
+        . 'Argument #1 ($value) must be of type UIAwesome\Html\Interop\Block|UIAwesome\Html\Interop\Inline|'
+        . 'UIAwesome\Html\Interop\Lists|UIAwesome\Html\Interop\MetadataBlock|UIAwesome\Html\Interop\Root|'
+        . 'UIAwesome\Html\Form\Values\SelectTag|UIAwesome\Html\Interop\Table|false, ';
+
     public function testMergesDefaultAndItemLabelAttributes(): void
     {
         self::assertSame(
@@ -42,6 +49,24 @@ final class ChoiceListPresentationTest extends TestCase
                 ),
             'Item label attributes must override defaults while appending their CSS classes.',
         );
+    }
+
+    public function testRejectsNonTagItemContainerEnum(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage(self::ITEM_CONTAINER_TAG_TYPE_ERROR . BackedString::class . ' given');
+
+        /** @phpstan-ignore argument.type */
+        CheckboxList::tag()->itemContainerTag(BackedString::VALUE);
+    }
+
+    public function testRejectsVoidItemContainerTag(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage(self::ITEM_CONTAINER_TAG_TYPE_ERROR . Voids::class . ' given');
+
+        /** @phpstan-ignore argument.type */
+        CheckboxList::tag()->itemContainerTag(Voids::INPUT);
     }
 
     public function testReturnsNewInstanceForItemPresentation(): void

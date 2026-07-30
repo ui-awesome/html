@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Form;
 
-use BackedEnum;
 use Override;
 use Stringable;
 use UIAwesome\Html\Attribute\HasName;
@@ -12,8 +11,9 @@ use UIAwesome\Html\Attribute\Values\{ElementAttribute, GlobalAttribute};
 use UIAwesome\Html\Contracts\Form\{CheckedStateInterface, ChoiceListInterface, FormControlInterface};
 use UIAwesome\Html\Core\Element\BaseBlock;
 use UIAwesome\Html\Core\Html;
+use UIAwesome\Html\Form\Values\SelectTag;
 use UIAwesome\Html\Helper\{AttributeBag, CSSClass, Enum};
-use UIAwesome\Html\Interop\Block;
+use UIAwesome\Html\Interop\{Block, Inline, Lists, MetadataBlock, Root, Table};
 use UnitEnum;
 
 use function array_values;
@@ -57,7 +57,7 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Tag enclosing each item input and label, or `false` to render them without a wrapper.
      */
-    private BackedEnum|false $itemContainerTag = false;
+    private Block|Inline|Lists|MetadataBlock|Root|SelectTag|Table|false $itemContainerTag = false;
     /**
      * @var mixed[] Default attributes applied to every item label.
      */
@@ -213,11 +213,12 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Sets the tag enclosing every item input and label.
      *
-     * @param BackedEnum|false $value Item container tag, or `false` to render items without wrappers.
+     * @param Block|Inline|Lists|MetadataBlock|Root|SelectTag|Table|false $value Item container tag, or `false` to
+     * render items without wrappers.
      *
      * @return static New instance with the updated item container tag.
      */
-    public function itemContainerTag(BackedEnum|false $value): static
+    public function itemContainerTag(Block|Inline|Lists|MetadataBlock|Root|SelectTag|Table|false $value): static
     {
         $new = clone $this;
         $new->itemContainerTag = $value;
