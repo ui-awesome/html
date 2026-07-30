@@ -26,7 +26,7 @@ trait HasCheckedState
     /**
      * Determines the checked state of the element.
      *
-     * @var mixed[]|bool|float|int|string|Stringable|UnitEnum|null
+     * @var bool|float|int|mixed[]|string|Stringable|UnitEnum|null
      */
     private array|bool|float|int|string|Stringable|UnitEnum|null $checked = null;
 
@@ -41,7 +41,7 @@ trait HasCheckedState
      * $element->checked('inactive')->value('active'); // unchecked
      * ```
      *
-     * @param mixed[]|bool|float|int|string|Stringable|UnitEnum|null $value Checked state.
+     * @param bool|float|int|mixed[]|string|Stringable|UnitEnum|null $value Checked state.
      *
      * - `array`: Element is checked if the value is in the array.
      * - `false`: Element is unchecked.
