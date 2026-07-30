@@ -9,6 +9,8 @@ use UIAwesome\Html\Helper\CSSClass;
 use UIAwesome\Html\Phrasing\Label;
 use UnitEnum;
 
+use function array_key_exists;
+
 /**
  * Defines one value and label rendered by a checkbox or radio list.
  *
@@ -114,6 +116,7 @@ final class ChoiceItem
      * @param string|null $name Name applied to the item input, or `null` to omit the attribute.
      * @param array<mixed>|bool|float|int|string|Stringable|UnitEnum|null $checked Values determining the checked state.
      * @param bool $enclosedByLabel Whether the input is wrapped inside its `<label>`.
+     * @param mixed[] $labelAttributes Default attributes applied to the item label.
      *
      * @return string Rendered HTML for the item input and its label.
      *
@@ -126,6 +129,7 @@ final class ChoiceItem
         string|null $name,
         array|bool|float|int|string|Stringable|UnitEnum|null $checked,
         bool $enclosedByLabel,
+        array $labelAttributes = [],
     ): string {
         $input = $input
             ->attributes($attributes)
@@ -134,8 +138,26 @@ final class ChoiceItem
             ->name($name)
             ->value($this->value);
 
+        if (array_key_exists('class', $this->labelAttributes)) {
+            /** @var mixed[]|string|Stringable|UnitEnum|null $defaultLabelClass */
+            $defaultLabelClass = $labelAttributes['class'] ?? null;
+            /** @var mixed[]|string|Stringable|UnitEnum|null $itemLabelClass */
+            $itemLabelClass = $this->labelAttributes['class'];
+
+            unset($labelAttributes['class']);
+
+            $labelAttributes = [...$labelAttributes, ...$this->labelAttributes];
+
+            unset($labelAttributes['class']);
+
+            CSSClass::add($labelAttributes, $defaultLabelClass);
+            CSSClass::add($labelAttributes, $itemLabelClass);
+        } else {
+            $labelAttributes = [...$labelAttributes, ...$this->labelAttributes];
+        }
+
         $label = Label::tag()
-            ->attributes($this->labelAttributes)
+            ->attributes($labelAttributes)
             ->for($id);
 
         return $enclosedByLabel
