@@ -2,14 +2,55 @@
 
 ## 0.5.0
 
-### `type()` is an open domain on `Link`, `Script`, `Style`, and `A`
+### Typed form choices
 
-These four elements validated `type` against the closed `<input>` control type list, which rejected valid MIME types
-(`application/rss+xml`, `application/ld+json`, `application/pdf`) and accepted meaningless ones (`checkbox`). Only that
-semantic validation was removed: the setters keep accepting `string`, `Stringable`, and `UnitEnum` values (or `null` to
-remove the attribute) but no longer throw `InvalidArgumentException` for values outside a closed list. Code that relied
-on the rejection must validate the value before calling `type()`. `Button` and the `Input*` controls keep their closed
-domains.
+`Select::options()` now accepts `Option` instances instead of value-label arrays.
+
+Before:
+
+```php
+$select->options(
+    ['dog', 'Dog'],
+    ['cat', 'Cat'],
+);
+```
+
+After:
+
+```php
+use UIAwesome\Html\Form\Option;
+
+$select->options(
+    Option::tag()->value('dog')->content('Dog'),
+    Option::tag()->value('cat')->content('Cat'),
+);
+```
+
+Use `Select::value()` to select child options. Pass an array when `multiple()` is enabled and at most one value
+otherwise.
+
+`ChoiceItem`, `CheckboxList`, and `RadioList` provide the equivalent typed API for checkbox and radio groups.
+
+### Scoped configuration
+
+Global configuration through `SimpleFactory::$defaults`, `SimpleFactory::getDefaults()`, and
+`SimpleFactory::setDefaults()` is no longer available. Apply an application-scoped `Config` before local setters that
+must take precedence:
+
+```php
+$select = Select::tag()
+    ->config($config, new ComponentContext('field.control.select'))
+    ->id('country');
+```
+
+`Select` and `TextArea` implement `FormControlInterface`. `Select` also implements `MultiValueInterface`, and elements
+with shared `value`, `src`, checked-state, or placeholder APIs now implement their corresponding contracts.
+
+### Open `type()` values
+
+`Link`, `Script`, `Style`, and `A` no longer validate `type()` against the `<input>` type list. They accept any
+`string`, `Stringable`, or `UnitEnum` value because the attribute represents a MIME type or script token on these
+elements.
 
 ```php
 Link::tag()->type('application/rss+xml');
@@ -17,41 +58,14 @@ Script::tag()->type('application/ld+json');
 A::tag()->type('application/pdf');
 ```
 
-### Scoped configuration
-
-The package now requires `ui-awesome/html-core 0.7`. Global configuration through `SimpleFactory::$defaults`,
-`SimpleFactory::getDefaults()`, and `SimpleFactory::setDefaults()` is no longer available. Use an application-scoped
-`Config` instance and canonical recipe method names instead:
-
-```php
-$config = new Config($theme);
-
-$select = Select::tag()
-    ->config($config, new ComponentContext('field.control.select'))
-    ->id('country');
-```
-
-`Select` and `TextArea` now implement `FormControlInterface`, so factories and field wrappers can handle inputs,
-selects, and textareas through one minimal contract.
+Code that relied on `InvalidArgumentException` for unsupported values must validate them before calling `type()`.
+`Button` and the `Input*` controls keep their closed type domains.
 
 ## 0.4.0
 
-### PHP and package requirements
-
-- The minimum PHP version is now `^8.3`.
-- Runtime dependencies were updated to the current UI Awesome package line:
-  - `ui-awesome/html-attribute:^0.6`
-  - `ui-awesome/html-core:^0.6`
-  - `ui-awesome/html-helper:^0.7`
-  - `ui-awesome/html-interop:^0.4`
-  - `ui-awesome/html-mixin:^0.6`
-
 ### Removed element-owned attribute traits
 
-Element-specific attribute traits were removed from `ui-awesome/html`. Attribute methods now live directly on the
-concrete element classes that support them.
-
-Removed trait namespaces:
+Element-specific attribute traits under these namespaces were removed:
 
 - `UIAwesome\Html\Embedded\Attribute\*`
 - `UIAwesome\Html\Form\Attribute\*`
@@ -60,51 +74,13 @@ Removed trait namespaces:
 - `UIAwesome\Html\Metadata\Attribute\*`
 - `UIAwesome\Html\Table\Attribute\*`
 
-If your application imported those traits for custom elements, remove the imports and move only the required attribute
-methods into your custom class.
+Package elements expose the supported attribute methods directly. Custom elements that imported the removed traits
+must define or compose only the attribute methods they need.
 
-Before:
+### Attribute mutation
 
-```php
-use UIAwesome\Html\Form\Attribute\HasAction;
-
-final class CustomForm
-{
-    use HasAction;
-}
-```
-
-After:
-
-```php
-use Stringable;
-use UIAwesome\Html\Attribute\Values\Attribute;
-use UnitEnum;
-
-final class CustomForm
-{
-    public function action(string|Stringable|UnitEnum|null $value): static
-    {
-        return $this->addAttribute(Attribute::ACTION, $value);
-    }
-}
-```
-
-When using package elements, call the concrete element APIs directly:
-
-```php
-use UIAwesome\Html\Form\Form;
-
-$html = Form::tag()
-    ->action('/submit')
-    ->method('post')
-    ->render();
-```
-
-### Attribute mutation APIs
-
-`setAttribute()` is no longer part of the public element API inherited from `ui-awesome/html-mixin`. Use
-`addAttribute()` for single attribute updates.
+`setAttribute()` is no longer available. Use `addAttribute()` for one attribute, `attributes()` for additive bulk
+updates, or `replaceAttributes()` to replace the complete attribute bag.
 
 Before:
 
@@ -117,9 +93,3 @@ After:
 ```php
 $element = $element->addAttribute('class', 'button');
 ```
-
-Use `attributes()` for additive bulk updates and `replaceAttributes()` when the complete attribute bag must be replaced.
-
-### Documentation
-
-- `docs/development.md` was removed. Use `docs/testing.md` for local testing and quality workflow commands.
