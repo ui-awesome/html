@@ -162,6 +162,26 @@ $channels = CheckboxList::tag()
 $html = $pet->render() . PHP_EOL . $channels->render();
 ```
 
+## Enum content
+
+Pass enum cases directly to any block or inline tag's `content()` method:
+
+```php
+use UIAwesome\Html\Flow\P;
+
+enum ContentMessage: string
+{
+    case GUIDANCE = 'Capture <events> & inspect them.';
+}
+
+echo P::tag()->content(ContentMessage::GUIDANCE)->render();
+```
+
+The enum value is HTML-encoded, not inserted as raw markup. Integer-backed enums preserve zero, and pure enums
+use their name. Multiple arguments and chained calls append content in order without mutating the original tag.
+`html()` remains the explicit API for trusted raw HTML. See [UPGRADE.md](UPGRADE.md) before upgrading custom
+implementations or overrides of `content()`.
+
 ## Documentation
 
 For detailed testing and quality workflows.
