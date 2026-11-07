@@ -17,6 +17,128 @@ use UIAwesome\Html\Tests\Provider\Form\SelectableChildrenWhitespaceProvider;
 #[Group('form')]
 final class SelectableChildrenWhitespaceTest extends TestCase
 {
+    public function testGetContentWithOptgroupRemainsStableAfterCloning(): void
+    {
+        $optgroup = Optgroup::tag()
+            ->content('Å & ')
+            ->option(Option::tag()->value('one')->content('First'))
+            ->selectedValues(['one']);
+
+        $originalContent = <<<HTML
+            Å &amp; <option value="one" selected>
+            First
+            </option>
+            HTML;
+
+        self::assertSame(
+            $originalContent,
+            $optgroup->getContent(),
+            'Encoded multibyte content must not shift the first child boundary.',
+        );
+
+        $clone = clone $optgroup;
+
+        $extended = $clone
+            ->html("\n\n你好")
+            ->options(
+                Option::tag()->value('two')->content('Second'),
+                Option::tag()->value('three')->content('Third'),
+            )
+            ->content('After')
+            ->selectedValues(['two']);
+
+        $extendedContent = <<<HTML
+            Å &amp; <option value="one">
+            First
+            </option>
+
+            你好<option value="two" selected>
+            Second
+            </option>
+            <option value="three">
+            Third
+            </option>
+            After
+            HTML;
+
+        self::assertSame(
+            $extendedContent,
+            $extended->getContent(),
+            'Cloned optgroups must preserve existing boundaries and locate appended options.',
+        );
+        self::assertSame(
+            $extendedContent,
+            $extended->getContent(),
+            'Repeated rendering must preserve child boundaries and selection.',
+        );
+        self::assertSame(
+            $originalContent,
+            $optgroup->getContent(),
+            'Appending to a clone must not change the original content or selection.',
+        );
+    }
+
+    public function testGetContentWithSelectRemainsStableAfterCloning(): void
+    {
+        $select = Select::tag()
+            ->content('Å & ')
+            ->option(Option::tag()->value('one')->content('First'))
+            ->value('one');
+
+        $originalContent = <<<HTML
+            Å &amp; <option value="one" selected>
+            First
+            </option>
+            HTML;
+
+        self::assertSame(
+            $originalContent,
+            $select->getContent(),
+            'Encoded multibyte content must not shift the first child boundary.',
+        );
+
+        $clone = clone $select;
+
+        $extended = $clone
+            ->html("\n\n你好")
+            ->options(
+                Option::tag()->value('two')->content('Second'),
+                Option::tag()->value('three')->content('Third'),
+            )
+            ->content('After')
+            ->value('two');
+
+        $extendedContent = <<<HTML
+            Å &amp; <option value="one">
+            First
+            </option>
+
+            你好<option value="two" selected>
+            Second
+            </option>
+            <option value="three">
+            Third
+            </option>
+            After
+            HTML;
+
+        self::assertSame(
+            $extendedContent,
+            $extended->getContent(),
+            'Cloned selects must preserve existing boundaries and locate appended options.',
+        );
+        self::assertSame(
+            $extendedContent,
+            $extended->getContent(),
+            'Repeated rendering must preserve child boundaries and selection.',
+        );
+        self::assertSame(
+            $originalContent,
+            $select->getContent(),
+            'Appending to a clone must not change the original content or selection.',
+        );
+    }
+
     #[DataProviderExternal(SelectableChildrenWhitespaceProvider::class, 'contentAfterOption')]
     public function testRenderWithContentAfterOption(
         Optgroup|Select $element,
