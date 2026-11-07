@@ -17,6 +17,7 @@
         "^tests/runtime/",
         "^vendor/",
         "^internal/",
-        "phpstan-baseline\\.neon$"
+        "phpstan-baseline\\.neon$",
+        "^tests/Flow/PreWhitespace\\.php$"
     ]
 }
