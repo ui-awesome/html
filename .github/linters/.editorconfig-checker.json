@@ -14,10 +14,10 @@
         "^composer\\.lock$",
         "^runtime/",
         "^tests/Flow/PreTest\\.php$",
+        "^tests/Flow/PreWhitespaceTest\\.php$",
         "^tests/runtime/",
         "^vendor/",
         "^internal/",
-        "phpstan-baseline\\.neon$",
-        "^tests/Flow/PreWhitespace\\.php$"
+        "phpstan-baseline\\.neon$"
     ]
 }
