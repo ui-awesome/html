@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<section>` element for standalone document sections.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Sectioning\Section::tag()
- *     ->class('content-section')
- *     ->content('Section content here')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section
  * {@see BaseBlock} for the base implementation.
  */

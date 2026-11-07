@@ -86,9 +86,7 @@ final class TextAreaTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <textarea>
-            value
-            </textarea>
+            <textarea>value</textarea>
             HTML,
             TextArea::tag()
                 ->content('value')

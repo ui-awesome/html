@@ -17,16 +17,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<input type="image">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputImage::tag()
- *     ->alt('Login')
- *     ->height(30)
- *     ->src('/images/login.png')
- *     ->width(100)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/image
  */
 final class InputImage extends BaseInput implements SrcInterface
@@ -36,13 +26,6 @@ final class InputImage extends BaseInput implements SrcInterface
 
     /**
      * Sets the `alt` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->alt('A penguin on a beach.');
-     * $element->alt('');
-     * $element->alt(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Alternative text for the element, or `null` to remove the
      * attribute.
@@ -57,13 +40,6 @@ final class InputImage extends BaseInput implements SrcInterface
     /**
      * Sets the `formaction` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formaction('/submit')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value URL for form submission, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formaction` attribute.
@@ -75,13 +51,6 @@ final class InputImage extends BaseInput implements SrcInterface
 
     /**
      * Sets the `formenctype` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formenctype('multipart/form-data')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Encoding type for form submission, or `null` to remove the
      * attribute.
@@ -96,13 +65,6 @@ final class InputImage extends BaseInput implements SrcInterface
     /**
      * Sets the `formmethod` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formmethod('post')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value HTTP method for form submission, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formmethod` attribute.
@@ -115,13 +77,6 @@ final class InputImage extends BaseInput implements SrcInterface
     /**
      * Sets the `formnovalidate` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formnovalidate(true)
-     *     ->render();
-     * ```
-     *
      * @param bool|null $value Whether to bypass form validation, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formnovalidate` attribute.
@@ -133,13 +88,6 @@ final class InputImage extends BaseInput implements SrcInterface
 
     /**
      * Sets the `formtarget` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formtarget('_blank')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Browsing context for form submission response, or `null` to remove
      * the attribute.
@@ -154,13 +102,6 @@ final class InputImage extends BaseInput implements SrcInterface
     /**
      * Sets the `height` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->height(200);
-     * $element->height('50%');
-     * $element->height('auto');
-     * ```
-     *
      * @param int|string|Stringable|UnitEnum|null $value Height value in pixels or CSS units, or `null` to remove the
      * attribute.
      *
@@ -174,13 +115,6 @@ final class InputImage extends BaseInput implements SrcInterface
     /**
      * Sets the `src` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->src('https://example.com/image.png');
-     * $element->src('images/photo.jpg');
-     * $element->src(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Image source URL or path, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `src` attribute.
@@ -192,14 +126,6 @@ final class InputImage extends BaseInput implements SrcInterface
 
     /**
      * Sets the `width` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->width(400);
-     * $element->width('50%');
-     * $element->width('auto');
-     * $element->width(null);
-     * ```
      *
      * @param int|string|Stringable|UnitEnum|null $value Width value in pixels or CSS units, or `null` to remove the
      * attribute.

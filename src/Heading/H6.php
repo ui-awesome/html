@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<h6>` element for lowest-level section headings.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Heading\H6::tag()
- *     ->class('subsection-title')
- *     ->content('Subsection Title')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements
  * {@see BaseBlock} for the base implementation.
  */

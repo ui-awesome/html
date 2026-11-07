@@ -23,13 +23,6 @@ trait HasMaxlength
     /**
      * Sets the `maxlength` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->maxlength(50);
-     * $element->maxlength(255);
-     * $element->maxlength(null);
-     * ```
-     *
      * @param int|string|Stringable|UnitEnum|null $value Maximum length. Must be '>= 0', or `null` to remove the
      * attribute.
      *

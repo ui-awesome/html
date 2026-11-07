@@ -11,16 +11,6 @@ use UIAwesome\Html\Interop\Lists;
 /**
  * Renders the HTML `<ol>` element for ordered lists.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\List\Ol::tag()
- *     ->class('my-list')
- *     ->items('First item', 'Second item', 'Third item')
- *     ->reversed(true)
- *     ->start(5)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol
  * {@see BaseBlock} for the base implementation.
  */
@@ -28,15 +18,6 @@ final class Ol extends BaseBlock
 {
     /**
      * Appends multiple `<li>` elements to the ordered list.
-     *
-     * Usage example:
-     * ```php
-     * $list = \UIAwesome\Html\List\Ol::tag()->items(
-     *     'First step',
-     *     'Second step',
-     *     'Third step',
-     * );
-     * ```
      *
      * @param string|Stringable ...$items Items to add as `<li>` elements.
      *
@@ -56,13 +37,6 @@ final class Ol extends BaseBlock
     /**
      * Appends a `<li>` element to the ordered list.
      *
-     * Usage example:
-     * ```php
-     * $list = \UIAwesome\Html\List\Ol::tag()
-     *     ->li('Install dependencies')
-     *     ->li('Run tests', 5);
-     * ```
-     *
      * @param string|Stringable $content Content for the `<li>` element.
      * @param int|string|null $value Optional ordinal value for the list item, or `null` to omit the attribute.
      *
@@ -76,18 +50,11 @@ final class Ol extends BaseBlock
             $li = $li->value($value);
         }
 
-        return $this->html($li, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $li);
     }
 
     /**
      * Sets the `reversed` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\List\Ol::tag()
-     *     ->reversed(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether the list items are numbered in reverse order.
      *
@@ -100,16 +67,6 @@ final class Ol extends BaseBlock
 
     /**
      * Sets the `start` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\List\Ol::tag()
-     *     ->start(4)
-     *     ->render();
-     * echo \UIAwesome\Html\List\Ol::tag()
-     *     ->start(null)
-     *     ->render();
-     * ```
      *
      * @param int|null $value Ordinal start value, or `null` to remove the attribute.
      *

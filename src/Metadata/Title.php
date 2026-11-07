@@ -10,13 +10,6 @@ use UIAwesome\Html\Interop\MetadataBlock;
 /**
  * Renders the HTML `<title>` element for the document title.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Metadata\Title::tag()
- *     ->content('My page')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/title
  * {@see BaseBlock} for the base implementation.
  */

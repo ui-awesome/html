@@ -14,13 +14,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<style>` element for embedded CSS rules.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Metadata\Style::tag()
- *     ->content('body { color: red; }')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/style
  * {@see BaseBlock} for the base implementation.
  */
@@ -35,14 +28,6 @@ final class Style extends BaseBlock
      *
      * Only `text/css` is recommended; the attribute may be omitted entirely. Declaring any other value is obsolete
      * rather than invalid, and makes the browser skip the stylesheet.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Style::tag()
-     *     ->content('body { color: red; }')
-     *     ->type('text/css')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value MIME type of the embedded stylesheet, or `null` to remove the
      * attribute.

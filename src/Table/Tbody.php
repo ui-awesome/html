@@ -11,19 +11,6 @@ use UIAwesome\Html\Interop\Table;
 /**
  * Renders the HTML `<tbody>` element for table body row groups.
  *
- * Usage example:
- * ```php
- * use UIAwesome\Html\Table\{Tbody, Td, Tr};
- *
- * echo Tbody::tag()
- *     ->tr(
- *         Tr::tag()
- *             ->td(Td::tag()->content('Jane'))
- *             ->td(Td::tag()->content('Engineering'))
- *     )
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tbody
  * {@see BaseBlock} for the base implementation.
  */
@@ -31,11 +18,6 @@ final class Tbody extends BaseBlock
 {
     /**
      * Appends a `<tr>` element with `<td>` cells for each value.
-     *
-     * Usage example:
-     * ```php
-     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->row('Jane', '30', 'NYC');
-     * ```
      *
      * @param string|Stringable ...$cells Content for each `<td>` cell.
      *
@@ -48,11 +30,6 @@ final class Tbody extends BaseBlock
 
     /**
      * Appends multiple `<tr>` elements with `<td>` cells.
-     *
-     * Usage example:
-     * ```php
-     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->rows(['Jane', '30'], ['John', '25']);
-     * ```
      *
      * @param array<array-key, string|Stringable> ...$rows Arrays of cell content for each row.
      *
@@ -72,20 +49,13 @@ final class Tbody extends BaseBlock
     /**
      * Appends a `<tr>` element to the table body.
      *
-     * Usage example:
-     * ```php
-     * $tbody = \UIAwesome\Html\Table\Tbody::tag()->tr(
-     *     \UIAwesome\Html\Table\Tr::tag()->td(Td::tag()->content('Jane')),
-     * );
-     * ```
-     *
      * @param Tr $tr Table row element instance.
      *
      * @return static New instance with the appended table row.
      */
     public function tr(Tr $tr): static
     {
-        return $this->html($tr, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $tr);
     }
 
     /**

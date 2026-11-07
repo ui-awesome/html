@@ -15,14 +15,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<input type="hidden">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputHidden::tag()
- *     ->name('csrf_token')
- *     ->value('1234567890')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/hidden
  */
 final class InputHidden extends BaseInput implements ValueInterface
@@ -31,14 +23,6 @@ final class InputHidden extends BaseInput implements ValueInterface
 
     /**
      * Sets the `autocomplete` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *

@@ -24,23 +24,6 @@ use UnitEnum;
  *
  * The value must be a valid CSS `<color>` value; defaults to '#000000' if omitted or invalid.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputColor::tag()
- *     ->name('head')
- *     ->render();
- * echo InputColor::tag()
- *     ->list('colorsuggestion')
- *     ->name('head')
- *     ->value('#ff0000')
- *     ->render();
- * echo InputColor::tag()
- *     ->alpha(true)
- *     ->colorspace(\UIAwesome\Html\Form\Values\Colorspace::DISPLAY_P3)
- *     ->name('head')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/color
  */
 final class InputColor extends BaseInput implements ValueInterface
@@ -51,13 +34,6 @@ final class InputColor extends BaseInput implements ValueInterface
 
     /**
      * Sets the `alpha` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputColor::tag()
-     *     ->alpha(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether to allow the user to manipulate the color's alpha channel.
      *
@@ -71,14 +47,6 @@ final class InputColor extends BaseInput implements ValueInterface
     /**
      * Sets the `autocomplete` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `autocomplete` attribute.
@@ -90,13 +58,6 @@ final class InputColor extends BaseInput implements ValueInterface
 
     /**
      * Sets the `colorspace` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputColor::tag()
-     *     ->colorspace(\UIAwesome\Html\Form\Values\Colorspace::DISPLAY_P3)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Color space ('limited-srgb' or 'display-p3'), or `null` to remove the
      * attribute.
@@ -116,13 +77,6 @@ final class InputColor extends BaseInput implements ValueInterface
 
     /**
      * Sets the `list` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->list('suggestions');
-     * $element->list('countries-list');
-     * $element->list(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Datalist ID, or `null` to remove the attribute.
      *

@@ -13,16 +13,6 @@ use UIAwesome\Html\Interop\Table;
 /**
  * Renders the HTML `<colgroup>` element for table column groups.
  *
- * Usage example:
- * ```php
- * use UIAwesome\Html\Table\{Col, Colgroup};
- *
- * echo Colgroup::tag()
- *     ->col(Col::tag()->class('weekdays')->span(2))
- *     ->col(Col::tag()->class('weekend')->span(2))
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/colgroup
  * {@see BaseBlock} for the base implementation.
  */
@@ -31,32 +21,17 @@ final class Colgroup extends BaseBlock
     /**
      * Appends a `<col>` element to the column group.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Colgroup::tag()
-     *     ->col(\UIAwesome\Html\Table\Col::tag()->class('weekdays')->span(2))
-     *     ->render();
-     * ```
-     *
      * @param Col $col Table column element instance.
      *
      * @return static New instance with the appended table column.
      */
     public function col(Col $col): static
     {
-        return $this->html($col, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $col);
     }
 
     /**
      * Appends multiple `<col>` elements to the column group.
-     *
-     * Usage example:
-     * ```php
-     * $colgroup = \UIAwesome\Html\Table\Colgroup::tag()->cols(
-     *     \UIAwesome\Html\Table\Col::tag()->class('weekdays')->span(2),
-     *     \UIAwesome\Html\Table\Col::tag()->class('weekend')->span(2),
-     * );
-     * ```
      *
      * @param Col ...$cols Table column element instances.
      *
@@ -75,13 +50,6 @@ final class Colgroup extends BaseBlock
 
     /**
      * Sets the `span` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Col::tag()
-     *     ->span(2)
-     *     ->render();
-     * ```
      *
      * @param int|string|null $value Number of consecutive columns this `<col>` spans ('1' to '1000'), or `null`
      * to remove the attribute.

@@ -23,13 +23,6 @@ trait HasSize
     /**
      * Sets the `size` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->size(10);
-     * $element->size(50);
-     * $element->size(null);
-     * ```
-     *
      * @param int|string|Stringable|UnitEnum|null $value Size value. Must be '>= 0', or `null` to remove the attribute.
      *
      * @throws InvalidArgumentException if the value is not an integer-like value '>= 0'.

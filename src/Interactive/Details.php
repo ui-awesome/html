@@ -13,15 +13,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<details>` element for disclosure widgets.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Interactive\Details::tag()
- *     ->name('requirements')
- *     ->open(true)
- *     ->summary('System requirements')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details
  * {@see BaseBlock} for the base implementation.
  */
@@ -31,12 +22,6 @@ final class Details extends BaseBlock
 
     /**
      * Sets the `open` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->open(true);
-     * $element->open(null);
-     * ```
      *
      * @param bool|null $value Open state. Use `true` to show details, `false` to hide, or `null` to remove the
      * attribute.
@@ -54,13 +39,6 @@ final class Details extends BaseBlock
      * Accepts a `Summary` instance for full control, or text content that is automatically wrapped in a `Summary`
      * element.
      *
-     * Usage example:
-     * ```php
-     * $details = Details::tag()->summary('System requirements');
-     * $details = Details::tag()->summary(Summary::tag()->content('System requirements'));
-     * $details = Details::tag()->summary(null);
-     * ```
-     *
      * @param string|Stringable|Summary|null $summary Summary instance, content text, or `null` to skip.
      *
      * @return static New instance with the appended summary element.
@@ -75,7 +53,7 @@ final class Details extends BaseBlock
             $summary = Summary::tag()->content($summary);
         }
 
-        return $this->html($summary, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $summary);
     }
 
     /**

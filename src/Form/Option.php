@@ -22,14 +22,6 @@ use function strip_tags;
 /**
  * Renders the HTML `<option>` element for selectable options.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Option::tag()
- *     ->content('Dog')
- *     ->value('dog')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option
  * {@see BaseBlock} for the base implementation.
  */
@@ -42,13 +34,6 @@ final class Option extends BaseBlock implements ValueInterface
 
     /**
      * Resolves the `selected` attribute against the values selected by the parent element.
-     *
-     * Usage example:
-     * ```php
-     * $option = \UIAwesome\Html\Form\Option::tag()
-     *     ->value('dog')
-     *     ->selectedValues(['dog']);
-     * ```
      *
      * @param string[] $values Normalized selected values.
      *

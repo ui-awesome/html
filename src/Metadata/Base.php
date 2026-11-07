@@ -14,14 +14,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<base>` element for the document base URL and default navigation target.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Metadata\Base::tag()
- *     ->href('https://example.com/')
- *     ->target('_blank')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/base
  * {@see BaseVoid} for the base implementation.
  */
@@ -31,14 +23,6 @@ final class Base extends BaseVoid
 
     /**
      * Sets the `href` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->href('https://example.com/page');
-     * $element->href('/about');
-     * $element->href('#section');
-     * $element->href(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value URL, path, or fragment, or `null` to remove the attribute.
      *

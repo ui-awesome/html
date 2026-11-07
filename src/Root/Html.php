@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Root;
 /**
  * Renders the HTML `<html>` element as the document root.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Root\Html::tag()
- *     ->content('value')
- *     ->lang('en')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html
  * {@see BaseBlock} for the base implementation.
  */

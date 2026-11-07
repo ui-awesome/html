@@ -18,16 +18,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<input type="email">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputEmail::tag()
- *     ->maxlength(255)
- *     ->name('email')
- *     ->placeholder('hello@example.com')
- *     ->required(true)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/email
  */
 final class InputEmail extends BaseInput implements PlaceholderInterface, ValueInterface
@@ -45,14 +35,6 @@ final class InputEmail extends BaseInput implements PlaceholderInterface, ValueI
     /**
      * Sets the `autocomplete` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `autocomplete` attribute.
@@ -65,13 +47,6 @@ final class InputEmail extends BaseInput implements PlaceholderInterface, ValueI
     /**
      * Sets the `list` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->list('suggestions');
-     * $element->list('countries-list');
-     * $element->list(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Datalist ID, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `list` attribute.
@@ -83,12 +58,6 @@ final class InputEmail extends BaseInput implements PlaceholderInterface, ValueI
 
     /**
      * Sets the `multiple` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->multiple(true);
-     * $element->multiple(null);
-     * ```
      *
      * @param bool|null $value Multiple state. Use `true` to allow multiple values, `false` to disallow, or `null` to
      * remove the attribute.
@@ -103,12 +72,6 @@ final class InputEmail extends BaseInput implements PlaceholderInterface, ValueI
     /**
      * Sets the `readonly` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->readonly(true);
-     * $element->readonly(null);
-     * ```
-     *
      * @param bool|null $value Readonly state. Use `true` to make readonly, `false` to make editable, or `null` to
      * remove the attribute.
      *
@@ -121,12 +84,6 @@ final class InputEmail extends BaseInput implements PlaceholderInterface, ValueI
 
     /**
      * Sets the `required` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->required(true);
-     * $element->required(null);
-     * ```
      *
      * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
      * remove the attribute.

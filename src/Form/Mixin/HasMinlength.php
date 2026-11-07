@@ -23,13 +23,6 @@ trait HasMinlength
     /**
      * Sets the `minlength` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->minlength(3);
-     * $element->minlength(8);
-     * $element->minlength(null);
-     * ```
-     *
      * @param int|string|Stringable|UnitEnum|null $value Minimum length. Must be '>= 0', or `null` to remove the
      * attribute.
      *

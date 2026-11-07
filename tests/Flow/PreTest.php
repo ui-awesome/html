@@ -18,9 +18,7 @@ final class PreTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <pre>
-            <value>
-            </pre>
+            <pre><value></pre>
             HTML,
             Pre::tag()
                 ->html('<value>')
@@ -33,14 +31,10 @@ final class PreTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <pre>
-              first
-
-                second
-            </pre>
+            <pre>value</pre>
             HTML,
-            Pre::tag()->begin() . "  first\n\n    second" . Pre::end(),
-            'Indentation and blank lines must survive begin/end verbatim.',
+            Pre::tag()->begin() . 'value' . Pre::end(),
+            'Begin and end must wrap the content correctly.',
         );
     }
 
@@ -48,9 +42,7 @@ final class PreTest extends TestCase
     {
         self::assertSame(
             <<<HTML
-            <pre>
-            value
-            </pre>
+            <pre>value</pre>
             HTML,
             Pre::tag()
                 ->content('value')

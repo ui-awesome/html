@@ -11,14 +11,6 @@ use UIAwesome\Html\Interop\MetadataVoid;
 /**
  * Renders the HTML `<meta>` element for document metadata.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Metadata\Meta::tag()
- *     ->content('width=device-width, initial-scale=1')
- *     ->name('viewport')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta
  * {@see BaseVoid} for the base implementation.
  */

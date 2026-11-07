@@ -23,13 +23,6 @@ trait HasPlaceholder
     /**
      * Sets the `placeholder` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->placeholder('Enter your email');
-     * $element->placeholder('for example, John Doe');
-     * $element->placeholder(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Placeholder text, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `placeholder` attribute.

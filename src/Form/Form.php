@@ -18,15 +18,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<form>` element for submitting user data.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Form::tag()
- *     ->action('/submit')
- *     ->method('post')
- *     ->content('value')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form
  * {@see BaseBlock} for the base implementation.
  */
@@ -39,13 +30,6 @@ final class Form extends BaseBlock
 
     /**
      * Sets the `accept-charset` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\Form::tag()
-     *     ->acceptCharset('UTF-8')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Character encoding for form submission, or `null` to remove the
      * attribute.
@@ -60,13 +44,6 @@ final class Form extends BaseBlock
     /**
      * Sets the `action` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\Form::tag()
-     *     ->action('/submit')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value URL that processes the form submission, or `null` to remove the
      * attribute.
      *
@@ -80,14 +57,6 @@ final class Form extends BaseBlock
     /**
      * Sets the `autocomplete` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `autocomplete` attribute.
@@ -99,16 +68,6 @@ final class Form extends BaseBlock
 
     /**
      * Sets the `enctype` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\Form::tag()
-     *     ->enctype('multipart/form-data')
-     *     ->render();
-     * echo \UIAwesome\Html\Form\Form::tag()
-     *     ->enctype(\UIAwesome\Html\Form\Values\Enctype::MULTIPART_FORM_DATA)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value MIME type for form submission ('application/x-www-form-urlencoded',
      * 'multipart/form-data', or 'text/plain'), or `null` to remove the attribute.
@@ -129,16 +88,6 @@ final class Form extends BaseBlock
     /**
      * Sets the `method` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\Form::tag()
-     *     ->method('post')
-     *     ->render();
-     * echo \UIAwesome\Html\Form\Form::tag()
-     *     ->method(\UIAwesome\Html\Form\Values\Method::POST)
-     *     ->render();
-     * ```
-     *
      * @param string|UnitEnum|null $value HTTP method for form submission ('get', 'post', or 'dialog'), or `null` to
      * remove the attribute.
      *
@@ -157,13 +106,6 @@ final class Form extends BaseBlock
 
     /**
      * Sets the `novalidate` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\Form::tag()
-     *     ->novalidate(true)
-     *     ->render();
-     * ```
      *
      * @param bool|null $value Whether to bypass form validation on submission, or `null` to remove the attribute.
      *

@@ -10,13 +10,6 @@ use UIAwesome\Html\Interop\Root;
 /**
  * Renders the HTML `<head>` element for document metadata.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Root\Head::tag()
- *     ->content('value')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head
  * {@see BaseBlock} for the base implementation.
  */

@@ -88,13 +88,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Sets the values determining which items are checked.
      *
-     * Usage example:
-     * ```php
-     * $list->checked('email');
-     * $list->checked(['email', 'sms']);
-     * $list->checked(null);
-     * ```
-     *
      * @param array<mixed>|bool|float|int|string|Stringable|UnitEnum|null $value Checked values.
      *
      * - `array`: Every item whose value is in the array is checked.
@@ -116,12 +109,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Configures whether every item input and its text are enclosed by the item label.
      *
-     * Usage example:
-     * ```php
-     * $list->enclosedByLabel();
-     * $list->enclosedByLabel(false);
-     * ```
-     *
      * @param bool $value Enclosure state. Use `true` to wrap the input inside its `<label>`, `false` to render the
      * input and the label as siblings.
      *
@@ -138,13 +125,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Identifies this control as a list so field wrappers render a group label instead of a `for` label.
      *
-     * Usage example:
-     * ```php
-     * if ($list->isList()) {
-     *     // Render a group label instead of a label bound to a single control.
-     * }
-     * ```
-     *
      * @return true Always `true`.
      *
      * @codeCoverageIgnore
@@ -158,12 +138,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
      * Sets attributes applied to every item input.
      *
      * Merges with the attributes already configured, so consecutive calls accumulate.
-     *
-     * Usage example:
-     * ```php
-     * $list->itemAttributes(['class' => 'choice']);
-     * $list->itemAttributes(['data-state' => 'ready']);
-     * ```
      *
      * @param mixed[] $values Input attributes indexed by attribute name.
      *
@@ -180,12 +154,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Sets attributes applied to the container enclosing every item input and label.
      *
-     * Usage example:
-     * ```php
-     * $list->itemContainerAttributes(['class' => 'choice']);
-     * $list->itemContainerAttributes(['data-state' => 'ready']);
-     * ```
-     *
      * @param mixed[] $values Container attributes indexed by attribute name.
      *
      * @return static New instance with the updated item container attributes.
@@ -200,12 +168,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
 
     /**
      * Adds CSS classes to the container enclosing every item input and label.
-     *
-     * Usage example:
-     * ```php
-     * $list->itemContainerClass('choice');
-     * $list->itemContainerClass('replacement', true);
-     * ```
      *
      * @param mixed[]|string|Stringable|UnitEnum|null $value Classes to add, or `null` to keep the current class list.
      * @param bool $override Whether to replace the current class list instead of appending.
@@ -225,12 +187,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Sets the tag enclosing every item input and label.
      *
-     * Usage example:
-     * ```php
-     * $list->itemContainerTag(\UIAwesome\Html\Interop\Block::DIV);
-     * $list->itemContainerTag(false);
-     * ```
-     *
      * @param Block|false|Inline|Lists|MetadataBlock|Root|SelectTag|Table $value Item container tag, or `false` to
      * render items without wrappers.
      *
@@ -249,12 +205,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
      *
      * Attributes configured directly on a {@see ChoiceItem} take precedence, while CSS classes are appended.
      *
-     * Usage example:
-     * ```php
-     * $list->itemLabelAttributes(['class' => 'choice-label']);
-     * $list->itemLabelAttributes(['data-state' => 'ready']);
-     * ```
-     *
      * @param mixed[] $values Label attributes indexed by attribute name.
      *
      * @return static New instance with the updated item label attributes.
@@ -269,12 +219,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
 
     /**
      * Adds CSS classes to every item label.
-     *
-     * Usage example:
-     * ```php
-     * $list->itemLabelClass('choice-label');
-     * $list->itemLabelClass('replacement', true);
-     * ```
      *
      * @param mixed[]|string|Stringable|UnitEnum|null $value Classes to add, or `null` to keep the current class list.
      * @param bool $override Whether to replace the current class list instead of appending.
@@ -294,14 +238,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
     /**
      * Replaces the items rendered by the list.
      *
-     * Usage example:
-     * ```php
-     * $list->items(
-     *     \UIAwesome\Html\Form\ChoiceItem::tag()->value('email')->label('Email'),
-     *     \UIAwesome\Html\Form\ChoiceItem::tag()->value('sms')->label('SMS'),
-     * );
-     * ```
-     *
      * @param ChoiceItem ...$items Item instances rendered in order.
      *
      * @return static New instance with the replacement items.
@@ -318,12 +254,6 @@ abstract class AbstractChoiceList extends BaseBlock implements
      * Sets the value submitted when no list item is selected.
      *
      * Renders a hidden input carrying the list name before the items, and is skipped when the list has no name.
-     *
-     * Usage example:
-     * ```php
-     * $list->uncheckedValue('0');
-     * $list->uncheckedValue(null);
-     * ```
      *
      * The hidden input always carries the plain list name, never the `name[]` form used by {@see CheckboxList} items,
      * so that a checked item overwrites the fallback under PHP's query-string parsing: `name=0&name[]=1` yields

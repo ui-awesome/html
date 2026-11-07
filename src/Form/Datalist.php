@@ -10,14 +10,6 @@ use UIAwesome\Html\Form\Values\SelectTag;
 /**
  * Renders the HTML `<datalist>` element for predefined input suggestions.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Datalist::tag()
- *     ->id('ice-cream-flavors')
- *     ->option(\UIAwesome\Html\Form\Option::tag()->value('Chocolate'))
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/datalist
  * {@see BaseBlock} for the base implementation.
  */
@@ -26,19 +18,13 @@ final class Datalist extends BaseBlock
     /**
      * Appends an `<option>` element to the datalist.
      *
-     * Usage example:
-     * ```php
-     * $datalist = \UIAwesome\Html\Form\Datalist::tag()
-     *     ->option(\UIAwesome\Html\Form\Option::tag()->value('Chocolate'));
-     * ```
-     *
      * @param Option $option Option element instance.
      *
      * @return static New instance with the appended option.
      */
     public function option(Option $option): static
     {
-        return $this->html($option, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $option);
     }
 
     /**

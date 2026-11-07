@@ -9,6 +9,8 @@ use UIAwesome\Html\Mixin\HasContent;
 
 use function count;
 use function sprintf;
+use function str_contains;
+use function str_ends_with;
 use function strtr;
 
 /**
@@ -43,7 +45,8 @@ trait HasSelectableChildren
         $new = clone $this;
 
         foreach ($children as $child) {
-            $new->content .= $new->childToken(count($new->children)) . "\n";
+            $new->content .= $new->childToken(count($new->children));
+
             $new->children[] = $child;
         }
 
@@ -75,9 +78,15 @@ trait HasSelectableChildren
         $replacements = [];
 
         foreach ($this->children as $index => $child) {
-            $replacements[$this->childToken($index)] = $selectedValues === null
+            $token = $this->childToken($index);
+            $rendered = $selectedValues === null
                 ? $child->render()
                 : $child->selectedValues($selectedValues)->render();
+            $separator = str_ends_with($this->content, $token) || str_contains($this->content, $token . "\n")
+                ? ''
+                : "\n";
+
+            $replacements[$token] = $rendered . $separator;
         }
 
         return strtr($this->content, $replacements);

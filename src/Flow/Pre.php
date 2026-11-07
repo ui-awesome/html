@@ -11,14 +11,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<pre>` element for preformatted text.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Flow\Pre::tag()
- *     ->class('listing')
- *     ->content('var_dump($value);')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre
  * {@see BaseBlock} for the base implementation.
  */

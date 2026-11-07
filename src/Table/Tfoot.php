@@ -11,16 +11,6 @@ use UIAwesome\Html\Interop\Table;
 /**
  * Renders the HTML `<tfoot>` element for table footer row groups.
  *
- * Usage example:
- * ```php
- * use UIAwesome\Html\Table\{Td, Tfoot, Tr};
- *
- * echo Tfoot::tag()
- *     ->tr(Tr::tag()->td(Td::tag()->content('Totals')))
- *     ->tr(Tr::tag()->td(Td::tag()->content('100')))
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tfoot
  * {@see BaseBlock} for the base implementation.
  */
@@ -28,11 +18,6 @@ final class Tfoot extends BaseBlock
 {
     /**
      * Appends a `<tr>` element with `<td>` cells for each value.
-     *
-     * Usage example:
-     * ```php
-     * $tfoot = \UIAwesome\Html\Table\Tfoot::tag()->row('Totals', '100');
-     * ```
      *
      * @param string|Stringable ...$cells Content for each `<td>` cell.
      *
@@ -45,11 +30,6 @@ final class Tfoot extends BaseBlock
 
     /**
      * Appends multiple `<tr>` elements with `<td>` cells.
-     *
-     * Usage example:
-     * ```php
-     * $tfoot = \UIAwesome\Html\Table\Tfoot::tag()->rows(['Subtotal', '80'], ['Total', '100']);
-     * ```
      *
      * @param array<array-key, string|Stringable> ...$rows Arrays of cell content for each row.
      *
@@ -69,20 +49,13 @@ final class Tfoot extends BaseBlock
     /**
      * Appends a `<tr>` element to the table footer.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Tfoot::tag()
-     *     ->tr(Tr::tag()->td(Td::tag()->content('Totals')))
-     *     ->render();
-     * ```
-     *
      * @param Tr $tr Table row element instance.
      *
      * @return static New instance with the appended table row.
      */
     public function tr(Tr $tr): static
     {
-        return $this->html($tr, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $tr);
     }
 
     /**

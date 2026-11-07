@@ -10,16 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<hgroup>` element for grouped heading content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Heading\HGroup::tag()
- *     ->content(
- *         \UIAwesome\Html\Heading\H1::tag()->content('Main Title'),
- *         \UIAwesome\Html\Flow\P::tag()->content('Subtitle or tagline')
- *     )
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup
  * {@see BaseBlock} for the base implementation.
  */

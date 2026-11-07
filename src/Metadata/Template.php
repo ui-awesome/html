@@ -17,13 +17,6 @@ use UnitEnum;
  *
  * Supports experimental declarative shadow DOM attributes. Availability and behavior may vary across browsers.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Metadata\Template::tag()
- *     ->html('<tr><td></td></tr>')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template
  * {@see BaseBlock} for the base implementation.
  */
@@ -31,13 +24,6 @@ final class Template extends BaseBlock
 {
     /**
      * Sets the `shadowrootclonable` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Template::tag()
-     *     ->shadowRootClonable(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether to allow cloning the generated shadow root.
      *
@@ -51,13 +37,6 @@ final class Template extends BaseBlock
     /**
      * Sets the `shadowrootdelegatesfocus` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Template::tag()
-     *     ->shadowRootDelegatesFocus(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether to delegate focus into the generated shadow root.
      *
      * @return static New instance with the updated `shadowrootdelegatesfocus` attribute.
@@ -69,13 +48,6 @@ final class Template extends BaseBlock
 
     /**
      * Sets the `shadowrootmode` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Template::tag()
-     *     ->shadowRootMode(\UIAwesome\Html\Metadata\Values\ShadowRootMode::OPEN)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Shadow root mode ('open' or 'closed'), or `null` to remove the attribute.
      *
@@ -95,13 +67,6 @@ final class Template extends BaseBlock
     /**
      * Sets the `shadowrootreferencetarget` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Template::tag()
-     *     ->shadowRootReferenceTarget('dialog-title')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Reference target ID, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `shadowrootreferencetarget` attribute.
@@ -113,13 +78,6 @@ final class Template extends BaseBlock
 
     /**
      * Sets the `shadowrootserializable` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Template::tag()
-     *     ->shadowRootSerializable(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether to allow serializing the generated shadow root.
      *

@@ -90,6 +90,25 @@ final class DetailsTest extends TestCase
         );
     }
 
+    public function testRenderWithSummaryPreservesSurroundingContent(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <details>
+
+
+            <summary>
+            A &amp; B
+            </summary>
+
+
+            </details>
+            HTML,
+            Details::tag()->html("\n")->summary('A & B')->html("\n\n")->render(),
+            'Summary composition must not trim surrounding user whitespace.',
+        );
+    }
+
     public function testRenderWithSummaryUsingElement(): void
     {
         self::assertSame(

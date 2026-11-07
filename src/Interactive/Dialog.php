@@ -20,17 +20,6 @@ use UnitEnum;
  *
  * Supports the experimental `closedby` attribute. Availability and behavior may vary across browsers.
  *
- * Usage example:
- * ```php
- * use UIAwesome\Html\Interactive\Dialog;
- * use UIAwesome\Html\Interactive\Values\Closedby;
- *
- * echo Dialog::tag()
- *     ->closedby(Closedby::CLOSEREQUEST)
- *     ->open(true)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog
  * {@see BaseBlock} for the base implementation.
  */
@@ -41,13 +30,6 @@ final class Dialog extends BaseBlock
      *
      * Accepts a `Button` instance for full control, or text content that is automatically wrapped in a `Button`
      * element.
-     *
-     * Usage example:
-     * ```php
-     * $dialog = Dialog::tag()->closeButton('Close');
-     * $dialog = Dialog::tag()->closeButton(Button::tag()->content('Cancel'));
-     * $dialog = Dialog::tag()->closeButton(null);
-     * ```
      *
      * @param Button|string|Stringable|null $button Button instance, button label text, or `null` to skip.
      *
@@ -88,16 +70,6 @@ final class Dialog extends BaseBlock
     /**
      * Sets the `closedby` attribute.
      *
-     * Usage example:
-     * ```php
-     * use UIAwesome\Html\Interactive\Dialog;
-     * use UIAwesome\Html\Interactive\Values\Closedby;
-     *
-     * echo Dialog::tag()
-     *     ->closedby(Closedby::CLOSEREQUEST)
-     *     ->render();
-     * ```
-     *
      * @param string|UnitEnum|null $value Dialog close policy ('any', 'closerequest', 'none'), or `null` to remove the
      * attribute.
      *
@@ -116,12 +88,6 @@ final class Dialog extends BaseBlock
 
     /**
      * Sets the `open` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->open(true);
-     * $element->open(null);
-     * ```
      *
      * @param bool|null $value Open state. Use `true` to show details, `false` to hide, or `null` to remove the
      * attribute.

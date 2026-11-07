@@ -21,14 +21,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<script>` element for executable code or data blocks.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Metadata\Script::tag()
- *     ->async(true)
- *     ->src('https://example.com/app.js')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script
  * {@see BaseBlock} for the base implementation.
  */
@@ -44,14 +36,6 @@ final class Script extends BaseBlock implements SrcInterface
     /**
      * Sets the `async` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Script::tag()
-     *     ->src('/assets/app.js')
-     *     ->async(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether to execute the script asynchronously.
      *
      * @return static New instance with the updated `async` attribute.
@@ -64,14 +48,6 @@ final class Script extends BaseBlock implements SrcInterface
     /**
      * Sets the `defer` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Script::tag()
-     *     ->src('/assets/app.js')
-     *     ->defer(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether to defer script execution.
      *
      * @return static New instance with the updated `defer` attribute.
@@ -83,14 +59,6 @@ final class Script extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `nomodule` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Script::tag()
-     *     ->src('/assets/legacy.js')
-     *     ->nomodule(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether to prevent execution in browsers that support modules.
      *
@@ -107,14 +75,6 @@ final class Script extends BaseBlock implements SrcInterface
      * Accepts `module`, `importmap`, `speculationrules`, or any MIME type. Omitting it, or using a JavaScript MIME
      * type, runs the element as a classic script; any other MIME type turns it into a data block that the browser
      * does not execute, such as `application/ld+json`.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Script::tag()
-     *     ->src('/assets/app.js')
-     *     ->type('module')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Script token or MIME type, or `null` to remove the attribute.
      *

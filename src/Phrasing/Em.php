@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Inline;
 /**
  * Renders the HTML `<em>` element for stress emphasis.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Phrasing\Em::tag()
- *     ->class('emphasis')
- *     ->content('really')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em
  * {@see BaseInline} for the base implementation.
  */

@@ -15,15 +15,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<progress>` element as a progress indicator.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Progress::tag()
- *     ->content('70%')
- *     ->max(100)
- *     ->value(70)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/progress
  * {@see BaseInline} for the base implementation.
  */
@@ -33,14 +24,6 @@ final class Progress extends BaseInline implements ValueInterface
 
     /**
      * Sets the `max` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->max(100);
-     * $element->max('2024-12-31');
-     * $element->max('23:59');
-     * $element->max(null);
-     * ```
      *
      * @param float|int|string|Stringable|UnitEnum|null $value Maximum value, or `null` to remove the attribute.
      *

@@ -20,17 +20,6 @@ use UnitEnum;
  *
  * The value uses the `tel` format (for example, '123-456-7890').
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputTel::tag()
- *     ->name('phone')
- *     ->pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')
- *     ->placeholder('123-456-7890')
- *     ->required(true)
- *     ->size(20)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/tel
  */
 final class InputTel extends BaseInput implements PlaceholderInterface, ValueInterface
@@ -48,14 +37,6 @@ final class InputTel extends BaseInput implements PlaceholderInterface, ValueInt
     /**
      * Sets the `autocomplete` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `autocomplete` attribute.
@@ -67,13 +48,6 @@ final class InputTel extends BaseInput implements PlaceholderInterface, ValueInt
 
     /**
      * Sets the `list` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->list('suggestions');
-     * $element->list('countries-list');
-     * $element->list(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Datalist ID, or `null` to remove the attribute.
      *
@@ -87,12 +61,6 @@ final class InputTel extends BaseInput implements PlaceholderInterface, ValueInt
     /**
      * Sets the `readonly` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->readonly(true);
-     * $element->readonly(null);
-     * ```
-     *
      * @param bool|null $value Readonly state. Use `true` to make readonly, `false` to make editable, or `null` to
      * remove the attribute.
      *
@@ -105,12 +73,6 @@ final class InputTel extends BaseInput implements PlaceholderInterface, ValueInt
 
     /**
      * Sets the `required` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->required(true);
-     * $element->required(null);
-     * ```
      *
      * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
      * remove the attribute.

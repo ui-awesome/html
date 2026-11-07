@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<header>` element for section or page header content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Root\Header::tag()
- *     ->class('page-header')
- *     ->content('Welcome to the Site')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header
  * {@see BaseBlock} for the base implementation.
  */

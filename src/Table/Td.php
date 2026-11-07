@@ -14,14 +14,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<td>` element for table data cells.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Table\Td::tag()
- *     ->colspan(2)
- *     ->content('Total')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td
  * {@see BaseBlock} for the base implementation.
  */
@@ -29,13 +21,6 @@ final class Td extends BaseBlock
 {
     /**
      * Sets the `colspan` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Td::tag()
-     *     ->colspan(2)
-     *     ->render();
-     * ```
      *
      * @param int|string|null $value Number of columns a cell spans ('1' to '1000'), or `null` to remove the
      * attribute.
@@ -62,13 +47,6 @@ final class Td extends BaseBlock
     /**
      * Sets the `headers` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Td::tag()
-     *     ->headers('name age')
-     *     ->render();
-     * ```
-     *
      * @param string|UnitEnum|null $value Space-separated list of header cell IDs, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `headers` attribute.
@@ -80,13 +58,6 @@ final class Td extends BaseBlock
 
     /**
      * Sets the `rowspan` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Td::tag()
-     *     ->rowspan(2)
-     *     ->render();
-     * ```
      *
      * @param int|string|null $value Number of rows a cell spans ('0' to '65534'), or `null` to remove the attribute.
      *

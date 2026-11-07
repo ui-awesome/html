@@ -16,22 +16,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<input type="range">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputRange::tag()
- *     ->max(11)
- *     ->min(0)
- *     ->name('volume')
- *     ->render();
- * echo InputRange::tag()
- *     ->max(100)
- *     ->min(0)
- *     ->name('cowbell')
- *     ->step(10)
- *     ->value(90)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range
  */
 final class InputRange extends BaseInput implements ValueInterface
@@ -42,14 +26,6 @@ final class InputRange extends BaseInput implements ValueInterface
 
     /**
      * Sets the `autocomplete` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *
@@ -63,13 +39,6 @@ final class InputRange extends BaseInput implements ValueInterface
     /**
      * Sets the `list` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->list('suggestions');
-     * $element->list('countries-list');
-     * $element->list(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Datalist ID, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `list` attribute.
@@ -81,14 +50,6 @@ final class InputRange extends BaseInput implements ValueInterface
 
     /**
      * Sets the `max` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->max(100);
-     * $element->max('2024-12-31');
-     * $element->max('23:59');
-     * $element->max(null);
-     * ```
      *
      * @param float|int|string|Stringable|UnitEnum|null $value Maximum value, or `null` to remove the attribute.
      *
@@ -102,14 +63,6 @@ final class InputRange extends BaseInput implements ValueInterface
     /**
      * Sets the `min` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->min(0);
-     * $element->min('2024-01-01');
-     * $element->min('08:00');
-     * $element->min(null);
-     * ```
-     *
      * @param float|int|string|Stringable|UnitEnum|null $value Minimum value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `min` attribute.
@@ -121,14 +74,6 @@ final class InputRange extends BaseInput implements ValueInterface
 
     /**
      * Sets the `step` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->step(1);
-     * $element->step(0.5);
-     * $element->step('any');
-     * $element->step(null);
-     * ```
      *
      * @param float|int|string|Stringable|UnitEnum|null $value Step value. Use `'any' for no stepping restriction, or
      * `null` to remove the attribute.

@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Inline;
 /**
  * Renders the HTML `<code>` element for inline code fragments.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Phrasing\Code::tag()
- *     ->class('inline-code')
- *     ->content('echo $value;')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code
  * {@see BaseInline} for the base implementation.
  */

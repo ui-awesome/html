@@ -15,22 +15,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<input type="file">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputFile::tag()
- *     ->accept('image/png, image/jpeg')
- *     ->name('avatar')
- *     ->render();
- * echo \UIAwesome\Html\Form\InputFile::tag()
- *     ->multiple(true)
- *     ->name('photos')
- *     ->render();
- * echo \UIAwesome\Html\Form\InputFile::tag()
- *     ->capture(\UIAwesome\Html\Form\Values\Capture::USER)
- *     ->name('video')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file
  */
 final class InputFile extends BaseInput
@@ -40,14 +24,6 @@ final class InputFile extends BaseInput
 
     /**
      * Sets the `accept` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->accept('image/*');
-     * $element->accept('.jpg,.png,.pdf');
-     * $element->accept('image/jpeg,application/pdf');
-     * $element->accept(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Accept value, or `null` to remove the attribute.
      *
@@ -61,16 +37,6 @@ final class InputFile extends BaseInput
     /**
      * Sets the `capture` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputFile::tag()
-     *     ->capture('user')
-     *     ->render();
-     * echo \UIAwesome\Html\Form\InputFile::tag()
-     *     ->capture('environment')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Capture value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `capture` attribute.
@@ -82,14 +48,6 @@ final class InputFile extends BaseInput
 
     /**
      * Returns the array of HTML attributes for the element.
-     *
-     * Usage example:
-     * ```php
-     * $attributes = \UIAwesome\Html\Form\InputFile::tag()
-     *     ->multiple(true)
-     *     ->name('documents')
-     *     ->getAttributes();
-     * ```
      *
      * @return mixed[] Attributes array using array notation for multiple files and omitting the unsupported `value`
      * attribute.
@@ -109,12 +67,6 @@ final class InputFile extends BaseInput
     /**
      * Sets the `multiple` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->multiple(true);
-     * $element->multiple(null);
-     * ```
-     *
      * @param bool|null $value Multiple state. Use `true` to allow multiple values, `false` to disallow, or `null` to
      * remove the attribute.
      *
@@ -127,12 +79,6 @@ final class InputFile extends BaseInput
 
     /**
      * Sets the `required` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->required(true);
-     * $element->required(null);
-     * ```
      *
      * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
      * remove the attribute.

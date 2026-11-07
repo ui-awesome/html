@@ -10,13 +10,6 @@ use UIAwesome\Html\Interop\Voids;
 /**
  * Renders the HTML `<hr>` element for thematic breaks.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Flow\Hr::tag()
- *     ->class('divider')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hr
  * {@see BaseVoid} for the base implementation.
  */

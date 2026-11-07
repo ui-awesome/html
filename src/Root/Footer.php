@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<footer>` element for section or page footer content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Root\Footer::tag()
- *     ->class('page-footer')
- *     ->content('© 2026 Company Name')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer
  * {@see BaseBlock} for the base implementation.
  */

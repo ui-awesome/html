@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<h2>` element for second-level section headings.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Heading\H2::tag()
- *     ->class('section-title')
- *     ->content('Section Title')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements
  * {@see BaseBlock} for the base implementation.
  */

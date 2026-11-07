@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Inline;
 /**
  * Renders the HTML `<small>` element for side comments and small print.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Phrasing\Small::tag()
- *     ->class('fine-print')
- *     ->content('Terms apply')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/small
  * {@see BaseInline} for the base implementation.
  */
