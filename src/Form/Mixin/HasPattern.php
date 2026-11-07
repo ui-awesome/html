@@ -20,13 +20,6 @@ trait HasPattern
     /**
      * Sets the `pattern` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->pattern('[0-9]{3}-[0-9]{2}-[0-9]{4}');
-     * $element->pattern('[a-z]+');
-     * $element->pattern(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Pattern value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `pattern` attribute.

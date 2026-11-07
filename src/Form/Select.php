@@ -25,15 +25,6 @@ use function is_array;
 /**
  * Renders the HTML `<select>` element for choosing one or more options.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Select::tag()
- *     ->name('pets')
- *     ->option(\UIAwesome\Html\Form\Option::tag()->value('dog')->content('Dog'))
- *     ->required(true)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select
  * {@see BaseBlock} for the base implementation.
  */
@@ -58,14 +49,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
     /**
      * Sets the `autocomplete` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `autocomplete` attribute.
@@ -77,13 +60,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
 
     /**
      * Sets the `form` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->form('myForm');
-     * $element->form($formId);
-     * $element->form(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Form ID, or `null` to remove the attribute.
      *
@@ -100,13 +76,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
      * Children are rendered on access, so the value configured through {@see value()} is applied to the current
      * option instances.
      *
-     * Usage example:
-     * ```php
-     * $html = \UIAwesome\Html\Form\Select::tag()
-     *     ->option(\UIAwesome\Html\Form\Option::tag()->value('dog')->content('Dog'))
-     *     ->getContent();
-     * ```
-     *
      * @return string Content with the appended children rendered in place.
      */
     #[Override]
@@ -117,12 +86,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
 
     /**
      * Sets the `multiple` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->multiple(true);
-     * $element->multiple(null);
-     * ```
      *
      * @param bool|null $value Multiple state. Use `true` to allow multiple values, `false` to disallow, or `null` to
      * remove the attribute.
@@ -137,16 +100,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
     /**
      * Appends an `<optgroup>` element to the select.
      *
-     * Usage example:
-     * ```php
-     * $select = \UIAwesome\Html\Form\Select::tag()
-     *     ->optgroup(
-     *         \UIAwesome\Html\Form\Optgroup::tag()
-     *             ->label('Pets')
-     *             ->option(\UIAwesome\Html\Form\Option::tag()->value('dog')->content('Dog')),
-     *     );
-     * ```
-     *
      * @param Optgroup $optgroup Optgroup element instance.
      *
      * @return static New instance with the appended optgroup.
@@ -158,12 +111,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
 
     /**
      * Appends an `<option>` element to the select.
-     *
-     * Usage example:
-     * ```php
-     * $select = \UIAwesome\Html\Form\Select::tag()
-     *     ->option(\UIAwesome\Html\Form\Option::tag()->value('dog')->content('Dog'));
-     * ```
      *
      * @param Option $option Option element instance.
      *
@@ -177,15 +124,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
     /**
      * Appends multiple `<option>` elements to the select.
      *
-     * Usage example:
-     * ```php
-     * $select = \UIAwesome\Html\Form\Select::tag()->options(
-     *     \UIAwesome\Html\Form\Option::tag()->value('dog')->content('Dog'),
-     *     \UIAwesome\Html\Form\Option::tag()->value('cat')->content('Cat'),
-     *     \UIAwesome\Html\Form\Option::tag()->value('hamster')->content('Hamster'),
-     * );
-     * ```
-     *
      * @param Option ...$options Option element instances.
      *
      * @return static New instance with the appended options.
@@ -197,12 +135,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
 
     /**
      * Sets the `required` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->required(true);
-     * $element->required(null);
-     * ```
      *
      * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
      * remove the attribute.
@@ -218,16 +150,6 @@ final class Select extends BaseBlock implements FormControlInterface, MultiValue
      * Sets the value or values used to select child options.
      *
      * The selected value is rendering state and is never serialized as a `value` attribute on the `<select>`.
-     *
-     * Usage example:
-     * ```php
-     * $select = \UIAwesome\Html\Form\Select::tag()
-     *     ->value('cat')
-     *     ->options(
-     *         \UIAwesome\Html\Form\Option::tag()->value('dog')->content('Dog'),
-     *         \UIAwesome\Html\Form\Option::tag()->value('cat')->content('Cat'),
-     *     );
-     * ```
      *
      * @param array<mixed>|bool|float|int|string|Stringable|UnitEnum|null $value Selected value or values. Must be an
      * `array` or `null` when `multiple` is `true`, and must not hold more than one value otherwise; the constraint is

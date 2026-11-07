@@ -14,16 +14,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<output>` element for calculation and action results.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Output::tag()
- *     ->content('0')
- *     ->for('price quantity')
- *     ->form('order-form')
- *     ->name('total')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/output
  * {@see BaseInline} for the base implementation.
  */
@@ -34,13 +24,6 @@ final class Output extends BaseInline
 
     /**
      * Sets the `form` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->form('myForm');
-     * $element->form($formId);
-     * $element->form(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Form ID, or `null` to remove the attribute.
      *

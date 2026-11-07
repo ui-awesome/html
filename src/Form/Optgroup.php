@@ -13,14 +13,6 @@ use UIAwesome\Html\Form\Values\SelectTag;
 /**
  * Renders the HTML `<optgroup>` element for grouping options.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Optgroup::tag()
- *     ->content(\UIAwesome\Html\Form\Option::tag()->value('scl')->content('Santiago'))
- *     ->label('Cities')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/optgroup
  * {@see BaseBlock} for the base implementation.
  */
@@ -41,13 +33,6 @@ final class Optgroup extends BaseBlock
      * Options are rendered on access, so the selection received from the parent select is applied to the current option
      * instances.
      *
-     * Usage example:
-     * ```php
-     * $html = \UIAwesome\Html\Form\Optgroup::tag()
-     *     ->option(\UIAwesome\Html\Form\Option::tag()->value('scl')->content('Santiago'))
-     *     ->getContent();
-     * ```
-     *
      * @return string Content with the appended options rendered in place.
      */
     #[Override]
@@ -58,12 +43,6 @@ final class Optgroup extends BaseBlock
 
     /**
      * Appends an `<option>` element to the option group.
-     *
-     * Usage example:
-     * ```php
-     * $optgroup = \UIAwesome\Html\Form\Optgroup::tag()
-     *     ->option(\UIAwesome\Html\Form\Option::tag()->value('scl')->content('Santiago'));
-     * ```
      *
      * @param Option $option Option element instance.
      *
@@ -77,14 +56,6 @@ final class Optgroup extends BaseBlock
     /**
      * Appends multiple `<option>` elements to the option group.
      *
-     * Usage example:
-     * ```php
-     * $optgroup = \UIAwesome\Html\Form\Optgroup::tag()->options(
-     *     \UIAwesome\Html\Form\Option::tag()->value('scl')->content('Santiago'),
-     *     \UIAwesome\Html\Form\Option::tag()->value('ccp')->content('Concepcion'),
-     * );
-     * ```
-     *
      * @param Option ...$options Option element instances.
      *
      * @return static New instance with the appended options.
@@ -96,11 +67,6 @@ final class Optgroup extends BaseBlock
 
     /**
      * Sets the normalized selected values received from the parent select.
-     *
-     * Usage example:
-     * ```php
-     * $optgroup = \UIAwesome\Html\Form\Optgroup::tag()->selectedValues(['scl']);
-     * ```
      *
      * @param string[] $values Normalized selected values.
      *

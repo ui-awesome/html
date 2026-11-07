@@ -16,14 +16,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<input type="submit">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputSubmit::tag()
- *     ->class('btn btn-primary')
- *     ->value('Save')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/submit
  */
 final class InputSubmit extends BaseInput implements ValueInterface
@@ -34,13 +26,6 @@ final class InputSubmit extends BaseInput implements ValueInterface
 
     /**
      * Sets the `formaction` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formaction('/submit')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value URL for form submission, or `null` to remove the attribute.
      *
@@ -53,13 +38,6 @@ final class InputSubmit extends BaseInput implements ValueInterface
 
     /**
      * Sets the `formenctype` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formenctype('multipart/form-data')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Encoding type for form submission, or `null` to remove the
      * attribute.
@@ -74,13 +52,6 @@ final class InputSubmit extends BaseInput implements ValueInterface
     /**
      * Sets the `formmethod` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formmethod('post')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value HTTP method for form submission, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formmethod` attribute.
@@ -93,13 +64,6 @@ final class InputSubmit extends BaseInput implements ValueInterface
     /**
      * Sets the `formnovalidate` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formnovalidate(true)
-     *     ->render();
-     * ```
-     *
      * @param bool|null $value Whether to bypass form validation, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formnovalidate` attribute.
@@ -111,13 +75,6 @@ final class InputSubmit extends BaseInput implements ValueInterface
 
     /**
      * Sets the `formtarget` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formtarget('_blank')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Browsing context for form submission response, or `null` to remove
      * the attribute.

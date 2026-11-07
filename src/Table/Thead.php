@@ -11,15 +11,6 @@ use UIAwesome\Html\Interop\Table;
 /**
  * Renders the HTML `<thead>` element for table header row groups.
  *
- * Usage example:
- * ```php
- * use UIAwesome\Html\Table\{Th, Thead, Tr};
- *
- * echo Thead::tag()
- *     ->tr(Tr::tag()->th(Th::tag()->content('Name')))
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/thead
  * {@see BaseBlock} for the base implementation.
  */
@@ -27,11 +18,6 @@ final class Thead extends BaseBlock
 {
     /**
      * Appends a `<tr>` element with `<th>` cells for each value.
-     *
-     * Usage example:
-     * ```php
-     * $thead = \UIAwesome\Html\Table\Thead::tag()->row('Name', 'Age', 'City');
-     * ```
      *
      * @param string|Stringable ...$cells Content for each `<th>` cell.
      *
@@ -44,11 +30,6 @@ final class Thead extends BaseBlock
 
     /**
      * Appends multiple `<tr>` elements with `<th>` cells.
-     *
-     * Usage example:
-     * ```php
-     * $thead = \UIAwesome\Html\Table\Thead::tag()->rows(['Name', 'Age'], ['ID', 'Email']);
-     * ```
      *
      * @param array<array-key, string|Stringable> ...$rows Arrays of cell content for each row.
      *
@@ -68,19 +49,13 @@ final class Thead extends BaseBlock
     /**
      * Appends a `<tr>` element to the table header.
      *
-     * Usage example:
-     * ```php
-     * $tr = \UIAwesome\Html\Table\Tr::tag()->th(Th::tag()->content('Name'));
-     * $thead = \UIAwesome\Html\Table\Thead::tag()->tr($tr);
-     * ```
-     *
      * @param Tr $tr Table row element instance.
      *
      * @return static New instance with the appended table row.
      */
     public function tr(Tr $tr): static
     {
-        return $this->html($tr, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $tr);
     }
 
     /**

@@ -15,14 +15,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<th>` element for table header cells.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Table\Th::tag()
- *     ->content('Name')
- *     ->scope(\UIAwesome\Html\Table\Values\Scope::COL)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/th
  * {@see BaseBlock} for the base implementation.
  */
@@ -30,14 +22,6 @@ final class Th extends BaseBlock
 {
     /**
      * Sets the `abbr` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Th::tag()
-     *     ->abbr('International Business Machines')
-     *     ->content('IBM')
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Abbreviated header description, or `null` to remove the attribute.
      *
@@ -50,13 +34,6 @@ final class Th extends BaseBlock
 
     /**
      * Sets the `colspan` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Td::tag()
-     *     ->colspan(2)
-     *     ->render();
-     * ```
      *
      * @param int|string|null $value Number of columns a cell spans ('1' to '1000'), or `null` to remove the
      * attribute.
@@ -83,13 +60,6 @@ final class Th extends BaseBlock
     /**
      * Sets the `headers` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Td::tag()
-     *     ->headers('name age')
-     *     ->render();
-     * ```
-     *
      * @param string|UnitEnum|null $value Space-separated list of header cell IDs, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `headers` attribute.
@@ -101,13 +71,6 @@ final class Th extends BaseBlock
 
     /**
      * Sets the `rowspan` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Td::tag()
-     *     ->rowspan(2)
-     *     ->render();
-     * ```
      *
      * @param int|string|null $value Number of rows a cell spans ('0' to '65534'), or `null` to remove the attribute.
      *
@@ -132,14 +95,6 @@ final class Th extends BaseBlock
 
     /**
      * Sets the `scope` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Th::tag()
-     *     ->content('Total')
-     *     ->scope(\UIAwesome\Html\Table\Values\Scope::ROW)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Scope of related cells ('row', 'col', 'rowgroup', 'colgroup'), or `null` to
      * remove the attribute.

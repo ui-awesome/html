@@ -21,15 +21,6 @@ use UnitEnum;
  *
  * Supports the experimental `command` and `commandfor` attributes. Availability and behavior may vary across browsers.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Button::tag()
- *     ->class('btn btn-primary')
- *     ->content('Submit')
- *     ->type(\UIAwesome\Html\Form\Values\ButtonType::SUBMIT)
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button
  * {@see BaseInline} for the base implementation.
  */
@@ -43,16 +34,6 @@ final class Button extends BaseInline implements ValueInterface
 
     /**
      * Sets the `command` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\Button::tag()
-     *     ->command('show-modal')
-     *     ->render();
-     * echo \UIAwesome\Html\Form\Button::tag()
-     *     ->command(\UIAwesome\Html\Form\Values\ButtonCommand::SHOW_MODAL)
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Command value, or `null` to remove the attribute. Accepts
      * predefined values ('show-modal', 'close', 'request-close', 'show-popover', 'hide-popover', 'toggle-popover') or
@@ -70,13 +51,6 @@ final class Button extends BaseInline implements ValueInterface
     /**
      * Sets the `commandfor` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\Button::tag()
-     *     ->commandfor('my-dialog')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value ID of the element to control, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `commandfor` attribute.
@@ -88,13 +62,6 @@ final class Button extends BaseInline implements ValueInterface
 
     /**
      * Sets the `form` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->form('myForm');
-     * $element->form($formId);
-     * $element->form(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Form ID, or `null` to remove the attribute.
      *
@@ -108,13 +75,6 @@ final class Button extends BaseInline implements ValueInterface
     /**
      * Sets the `formaction` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formaction('/submit')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value URL for form submission, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formaction` attribute.
@@ -126,13 +86,6 @@ final class Button extends BaseInline implements ValueInterface
 
     /**
      * Sets the `formenctype` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formenctype('multipart/form-data')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Encoding type for form submission, or `null` to remove the
      * attribute.
@@ -147,13 +100,6 @@ final class Button extends BaseInline implements ValueInterface
     /**
      * Sets the `formmethod` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formmethod('post')
-     *     ->render();
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value HTTP method for form submission, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formmethod` attribute.
@@ -166,13 +112,6 @@ final class Button extends BaseInline implements ValueInterface
     /**
      * Sets the `formnovalidate` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formnovalidate(true)
-     *     ->render();
-     * ```
-     *
      * @param bool|null $value Whether to bypass form validation, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `formnovalidate` attribute.
@@ -184,13 +123,6 @@ final class Button extends BaseInline implements ValueInterface
 
     /**
      * Sets the `formtarget` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\InputSubmit::tag()
-     *     ->formtarget('_blank')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Browsing context for form submission response, or `null` to remove
      * the attribute.
@@ -205,13 +137,6 @@ final class Button extends BaseInline implements ValueInterface
     /**
      * Sets the `popovertarget` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->popoverTarget('popover-id');
-     * $element->popoverTarget($targetId);
-     * $element->popoverTarget(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Popover target ID, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `popovertarget` attribute.
@@ -223,13 +148,6 @@ final class Button extends BaseInline implements ValueInterface
 
     /**
      * Sets the `popovertargetaction` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->popoverTargetAction('toggle');
-     * $element->popoverTargetAction($action);
-     * $element->popoverTargetAction(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Popover target action ('hide', 'show', 'toggle'), or `null` to
      * remove the attribute.
@@ -247,16 +165,6 @@ final class Button extends BaseInline implements ValueInterface
 
     /**
      * Sets the `type` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\Button::tag()
-     *     ->type('submit')
-     *     ->render();
-     * echo \UIAwesome\Html\Form\Button::tag()
-     *     ->type(\UIAwesome\Html\Form\Values\ButtonType::SUBMIT)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Button type ('button', 'reset', 'submit'), or `null` to remove the attribute.
      *

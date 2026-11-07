@@ -16,15 +16,6 @@ use UIAwesome\Html\Interop\Voids;
 /**
  * Represents the HTML `<input type="radio">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputRadio::tag()
- *     ->checked(true)
- *     ->name('gender')
- *     ->value('female')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
  */
 final class InputRadio extends BaseInput implements CheckedStateInterface, ValueInterface
@@ -37,14 +28,6 @@ final class InputRadio extends BaseInput implements CheckedStateInterface, Value
     /**
      * Returns the array of HTML attributes for the element.
      *
-     * Usage example:
-     * ```php
-     * $attributes = \UIAwesome\Html\Form\InputRadio::tag()
-     *     ->name('contact')
-     *     ->value('email')
-     *     ->getAttributes();
-     * ```
-     *
      * @return mixed[] Attributes array assigned to the element.
      */
     public function getAttributes(): array
@@ -54,12 +37,6 @@ final class InputRadio extends BaseInput implements CheckedStateInterface, Value
 
     /**
      * Sets the `required` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->required(true);
-     * $element->required(null);
-     * ```
      *
      * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
      * remove the attribute.

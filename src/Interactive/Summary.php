@@ -10,13 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<summary>` element for disclosure summaries.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Interactive\Summary::tag()
- *     ->content('Overview')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/summary
  * {@see BaseBlock} for the base implementation.
  */

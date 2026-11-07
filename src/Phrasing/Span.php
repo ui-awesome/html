@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Inline;
 /**
  * Renders the HTML `<span>` element for generic inline content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Phrasing\Span::tag()
- *     ->class('highlight')
- *     ->content('Highlighted text')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span
  * {@see BaseInline} for the base implementation.
  */

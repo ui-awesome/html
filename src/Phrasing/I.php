@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Inline;
 /**
  * Renders the HTML `<i>` element for alternate voice or idiomatic text.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Phrasing\I::tag()
- *     ->class('technical-term')
- *     ->content('Veni, vidi, vici')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i
  * {@see BaseInline} for the base implementation.
  */

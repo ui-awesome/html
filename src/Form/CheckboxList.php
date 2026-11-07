@@ -9,19 +9,6 @@ namespace UIAwesome\Html\Form;
  *
  * Every item input is named `name[]` so the browser submits the checked values as an array.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\CheckboxList::tag()
- *     ->checked(['email'])
- *     ->id('channels')
- *     ->items(
- *         \UIAwesome\Html\Form\ChoiceItem::tag()->value('email')->label('Email'),
- *         \UIAwesome\Html\Form\ChoiceItem::tag()->value('sms')->label('SMS'),
- *     )
- *     ->name('channels')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox
  * {@see AbstractChoiceList} for the base implementation.
  */

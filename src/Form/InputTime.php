@@ -11,24 +11,6 @@ use UIAwesome\Html\Attribute\Values\Type;
  *
  * The value uses the 'hh:mm' format (for example, '14:30').
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputTime::tag()
- *     ->name('meeting-time')
- *     ->render();
- * echo InputTime::tag()
- *     ->max('18:00')
- *     ->min('09:00')
- *     ->name('alarm')
- *     ->required(true)
- *     ->render();
- * echo InputTime::tag()
- *     ->name('appointment')
- *     ->readonly(true)
- *     ->value('14:30')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/time
  * {@see AbstractInputDateTime} for the base implementation.
  */

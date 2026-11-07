@@ -12,14 +12,6 @@ use UIAwesome\Html\Interop\Lists;
 /**
  * Renders the HTML `<li>` element for list items.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\List\Li::tag()
- *     ->value(3)
- *     ->content('Third item')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li
  * {@see BaseBlock} for the base implementation.
  */

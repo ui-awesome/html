@@ -9,6 +9,7 @@ use UIAwesome\Html\Mixin\HasContent;
 
 use function count;
 use function sprintf;
+use function strlen;
 use function strtr;
 
 /**
@@ -27,7 +28,11 @@ trait HasSelectableChildren
      */
     private const string CHILD_TOKEN = "\x1Aui-awesome-child-%d\x1A";
     /**
-     * @var list<Optgroup|Option> Children appended to the element.
+     * Appended children and the byte offsets immediately after their tokens.
+     *
+     * Content setters only append, so existing offsets remain valid across clones.
+     *
+     * @var list<array{element: Optgroup|Option, endOffset: non-negative-int}>
      */
     private array $children = [];
 
@@ -43,8 +48,12 @@ trait HasSelectableChildren
         $new = clone $this;
 
         foreach ($children as $child) {
-            $new->content .= $new->childToken(count($new->children)) . "\n";
-            $new->children[] = $child;
+            $new->content .= $new->childToken(count($new->children));
+
+            $new->children[] = [
+                'element' => $child,
+                'endOffset' => strlen($new->content),
+            ];
         }
 
         return $new;
@@ -75,9 +84,17 @@ trait HasSelectableChildren
         $replacements = [];
 
         foreach ($this->children as $index => $child) {
-            $replacements[$this->childToken($index)] = $selectedValues === null
-                ? $child->render()
-                : $child->selectedValues($selectedValues)->render();
+            $token = $this->childToken($index);
+
+            $element = $child['element'];
+
+            $rendered = $selectedValues === null
+                ? $element->render()
+                : $element->selectedValues($selectedValues)->render();
+
+            $nextCharacter = $this->content[$child['endOffset']] ?? '';
+            $separator = $nextCharacter === '' || $nextCharacter === "\n" ? '' : "\n";
+            $replacements[$token] = $rendered . $separator;
         }
 
         return strtr($this->content, $replacements);

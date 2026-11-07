@@ -18,19 +18,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<input type="search">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputSearch::tag()
- *     ->name('q')
- *     ->placeholder('Search...')
- *     ->render();
- * echo InputSearch::tag()
- *     ->name('search')
- *     ->required(true)
- *     ->value('PHP')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/search
  */
 final class InputSearch extends BaseInput implements PlaceholderInterface, ValueInterface
@@ -48,14 +35,6 @@ final class InputSearch extends BaseInput implements PlaceholderInterface, Value
     /**
      * Sets the `autocomplete` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `autocomplete` attribute.
@@ -67,13 +46,6 @@ final class InputSearch extends BaseInput implements PlaceholderInterface, Value
 
     /**
      * Sets the `dirname` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->dirname('comment-dir');
-     * $element->dirname('text-direction');
-     * $element->dirname(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Dirname value, or `null` to remove the attribute.
      *
@@ -87,13 +59,6 @@ final class InputSearch extends BaseInput implements PlaceholderInterface, Value
     /**
      * Sets the `list` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->list('suggestions');
-     * $element->list('countries-list');
-     * $element->list(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Datalist ID, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `list` attribute.
@@ -105,12 +70,6 @@ final class InputSearch extends BaseInput implements PlaceholderInterface, Value
 
     /**
      * Sets the `readonly` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->readonly(true);
-     * $element->readonly(null);
-     * ```
      *
      * @param bool|null $value Readonly state. Use `true` to make readonly, `false` to make editable, or `null` to
      * remove the attribute.
@@ -124,12 +83,6 @@ final class InputSearch extends BaseInput implements PlaceholderInterface, Value
 
     /**
      * Sets the `required` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->required(true);
-     * $element->required(null);
-     * ```
      *
      * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
      * remove the attribute.

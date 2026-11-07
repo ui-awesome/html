@@ -6,6 +6,7 @@ namespace UIAwesome\Html\Tests\Table;
 
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use UIAwesome\Html\Flow\Pre;
 use UIAwesome\Html\Table\{Caption, Col, Colgroup, Table, Tbody, Td, Tfoot, Th, Thead, Tr};
 
 /**
@@ -227,6 +228,37 @@ final class TableTest extends TestCase
                 ->tfoot(Tfoot::tag()->row('Total', '1'))
                 ->render(),
             'Convenience methods must compose a complete table.',
+        );
+    }
+
+    public function testRenderWithNestedPrePreservesWhitespace(): void
+    {
+        $row = Tr::tag()
+            ->td(Td::tag()->html(Pre::tag()->content("\nfirst\n\nsecond\n")))
+            ->td(Td::tag()->content('next'));
+
+        self::assertSame(
+            <<<HTML
+            <table>
+            <tbody>
+            <tr>
+            <td>
+            <pre>
+
+            first
+
+            second
+            </pre>
+            </td>
+            <td>
+            next
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            HTML,
+            Table::tag()->tbody(Tbody::tag()->tr($row))->render(),
+            'Table composition must preserve preformatted content without redundant separators.',
         );
     }
 

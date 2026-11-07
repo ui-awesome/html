@@ -33,14 +33,6 @@ trait HasCheckedState
     /**
      * Sets the `checked` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->checked(true);
-     * $element->checked(false);
-     * $element->checked('active')->value('active'); // checked
-     * $element->checked('inactive')->value('active'); // unchecked
-     * ```
-     *
      * @param bool|float|int|mixed[]|string|Stringable|UnitEnum|null $value Checked state.
      *
      * - `array`: Element is checked if the value is in the array.

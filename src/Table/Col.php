@@ -13,14 +13,6 @@ use UIAwesome\Html\Interop\Voids;
 /**
  * Renders the HTML `<col>` element for table column definitions.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Table\Col::tag()
- *     ->span(2)
- *     ->class('weekdays')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/col
  * {@see BaseVoid} for the base implementation.
  */
@@ -28,13 +20,6 @@ final class Col extends BaseVoid
 {
     /**
      * Sets the `span` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Table\Col::tag()
-     *     ->span(2)
-     *     ->render();
-     * ```
      *
      * @param int|string|null $value Number of consecutive columns this `<col>` spans ('1' to '1000'), or `null`
      * to remove the attribute.

@@ -10,13 +10,6 @@ use UIAwesome\Html\Interop\Table;
 /**
  * Renders the HTML `<caption>` element for table captions.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Table\Caption::tag()
- *     ->content('Monthly sales report')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/caption
  * {@see BaseBlock} for the base implementation.
  */

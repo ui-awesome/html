@@ -14,13 +14,6 @@ use UIAwesome\Html\Interop\Voids;
 /**
  * Renders the HTML `<input type="reset">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputReset::tag()
- *     ->value('Reset')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/reset
  */
 final class InputReset extends BaseInput implements ValueInterface

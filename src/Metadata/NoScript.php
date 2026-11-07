@@ -10,13 +10,6 @@ use UIAwesome\Html\Interop\MetadataBlock;
 /**
  * Renders the HTML `<noscript>` element for fallback content when scripting is unavailable.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Metadata\NoScript::tag()
- *     ->content('Please enable JavaScript to use this application.')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/noscript
  * {@see BaseBlock} for the base implementation.
  */

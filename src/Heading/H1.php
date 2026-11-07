@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<h1>` element for top-level section headings.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Heading\H1::tag()
- *     ->class('main-title')
- *     ->content('Main Title')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements
  * {@see BaseBlock} for the base implementation.
  */

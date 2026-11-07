@@ -11,16 +11,6 @@ use UIAwesome\Html\Interop\Table;
 /**
  * Renders the HTML `<tr>` element for table rows.
  *
- * Usage example:
- * ```php
- * use UIAwesome\Html\Table\{Td, Th, Tr};
- *
- * echo Tr::tag()
- *     ->th(Th::tag()->content('Name'))
- *     ->td(Td::tag()->content('Jane'))
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tr
  * {@see BaseBlock} for the base implementation.
  */
@@ -28,11 +18,6 @@ final class Tr extends BaseBlock
 {
     /**
      * Appends `<td>` elements for each value.
-     *
-     * Usage example:
-     * ```php
-     * $tr = \UIAwesome\Html\Table\Tr::tag()->cells('Jane', '30', 'NYC');
-     * ```
      *
      * @param string|Stringable ...$values Content for each `<td>` cell.
      *
@@ -52,11 +37,6 @@ final class Tr extends BaseBlock
     /**
      * Appends `<th>` elements for each value.
      *
-     * Usage example:
-     * ```php
-     * $tr = \UIAwesome\Html\Table\Tr::tag()->headerCells('Name', 'Age', 'City');
-     * ```
-     *
      * @param string|Stringable ...$values Content for each `<th>` cell.
      *
      * @return static New instance with the appended header cells.
@@ -75,27 +55,17 @@ final class Tr extends BaseBlock
     /**
      * Appends a `<td>` element to the row.
      *
-     * Usage example:
-     * ```php
-     * $tr = \UIAwesome\Html\Table\Tr::tag()->td(Td::tag()->content('Jane'));
-     * ```
-     *
      * @param Td $td Table data cell element instance.
      *
      * @return static New instance with the appended table data cell.
      */
     public function td(Td $td): static
     {
-        return $this->html($td, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $td);
     }
 
     /**
      * Appends a `<th>` element to the row.
-     *
-     * Usage example:
-     * ```php
-     * $tr = \UIAwesome\Html\Table\Tr::tag()->th(Th::tag()->content('Name'));
-     * ```
      *
      * @param Th $th Table header cell element instance.
      *
@@ -103,7 +73,7 @@ final class Tr extends BaseBlock
      */
     public function th(Th $th): static
     {
-        return $this->html($th, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $th);
     }
 
     /**

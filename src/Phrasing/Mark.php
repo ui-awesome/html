@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Inline;
 /**
  * Renders the HTML `<mark>` element for highlighted reference text.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Phrasing\Mark::tag()
- *     ->class('match')
- *     ->content('search term')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark
  * {@see BaseInline} for the base implementation.
  */

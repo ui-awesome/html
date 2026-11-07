@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<main>` element for dominant document content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Flow\Main::tag()
- *     ->class('content')
- *     ->content('value')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/main
  * {@see BaseBlock} for the base implementation.
  */

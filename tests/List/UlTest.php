@@ -58,6 +58,27 @@ final class UlTest extends TestCase
         );
     }
 
+    public function testRenderWithItemsPreservesWhitespace(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <ul>
+            <li>
+            first
+
+            line
+
+            </li>
+            <li>
+            A &amp; B
+            </li>
+            </ul>
+            HTML,
+            Ul::tag()->items("first\n\nline\n", 'A & B')->render(),
+            'Item separators must not collapse or append to item content.',
+        );
+    }
+
     public function testRenderWithLi(): void
     {
         self::assertSame(

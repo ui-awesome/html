@@ -17,14 +17,6 @@ use function array_key_exists;
  * The item carries no name, id, or checked state: {@see AbstractChoiceList} derives them from the list and passes them
  * in on render.
  *
- * Usage example:
- * ```php
- * $item = \UIAwesome\Html\Form\ChoiceItem::tag()
- *     ->label('Email')
- *     ->labelClass('choice-label')
- *     ->value('email');
- * ```
- *
  * {@see CheckboxList} and {@see RadioList} for the lists rendering the items.
  */
 final class ChoiceItem
@@ -45,11 +37,6 @@ final class ChoiceItem
     /**
      * Sets the item label.
      *
-     * Usage example:
-     * ```php
-     * $item->label('Email');
-     * ```
-     *
      * @param string|Stringable $value Label text, encoded on render.
      *
      * @return self New instance with the updated label.
@@ -67,12 +54,6 @@ final class ChoiceItem
      *
      * Merges with the attributes already configured, so consecutive calls accumulate.
      *
-     * Usage example:
-     * ```php
-     * $item->labelAttributes(['class' => 'choice-label']);
-     * $item->labelAttributes(['data-item' => 'email']);
-     * ```
-     *
      * @param mixed[] $values Label attributes indexed by attribute name.
      *
      * @return self New instance with the updated label attributes.
@@ -87,12 +68,6 @@ final class ChoiceItem
 
     /**
      * Adds a CSS class to the item label.
-     *
-     * Usage example:
-     * ```php
-     * $item->labelClass('choice-label');
-     * $item->labelClass('replacement', true);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Class name, or `null` to remove the attribute.
      * @param bool $override Whether to replace the existing classes instead of merging them.
@@ -109,21 +84,6 @@ final class ChoiceItem
 
     /**
      * Renders the item using an atomic HTML checkbox or radio control.
-     *
-     * Usage example:
-     * ```php
-     * $html = \UIAwesome\Html\Form\ChoiceItem::tag()
-     *     ->label('Email')
-     *     ->value('email')
-     *     ->render(
-     *         \UIAwesome\Html\Form\InputCheckbox::tag(),
-     *         [],
-     *         'choice-0',
-     *         'choice[]',
-     *         ['email'],
-     *         false,
-     *     );
-     * ```
      *
      * @param InputCheckbox|InputRadio $input Input element instance created by the list.
      * @param mixed[] $attributes Attributes applied to the item input.
@@ -183,11 +143,6 @@ final class ChoiceItem
     /**
      * Creates a choice item.
      *
-     * Usage example:
-     * ```php
-     * $item = \UIAwesome\Html\Form\ChoiceItem::tag();
-     * ```
-     *
      * @return self New item instance.
      */
     public static function tag(): self
@@ -197,12 +152,6 @@ final class ChoiceItem
 
     /**
      * Sets the submitted item value.
-     *
-     * Usage example:
-     * ```php
-     * $item->value('email');
-     * $item->value(null);
-     * ```
      *
      * @param bool|float|int|string|Stringable|UnitEnum|null $value Submitted value, or `null` to remove the attribute.
      *

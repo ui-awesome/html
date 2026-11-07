@@ -9,19 +9,6 @@ namespace UIAwesome\Html\Form;
  *
  * Every item input keeps the plain list name so the browser submits a single value.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\RadioList::tag()
- *     ->checked('yes')
- *     ->id('answer')
- *     ->items(
- *         \UIAwesome\Html\Form\ChoiceItem::tag()->value('yes')->label('Yes'),
- *         \UIAwesome\Html\Form\ChoiceItem::tag()->value('no')->label('No'),
- *     )
- *     ->name('answer')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/radio
  * {@see AbstractChoiceList} for the base implementation.
  */

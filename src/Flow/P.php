@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<p>` element for paragraphs.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Flow\P::tag()
- *     ->class('lead')
- *     ->content('Hello')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p
  * {@see BaseBlock} for the base implementation.
  */

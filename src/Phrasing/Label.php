@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Inline;
 /**
  * Renders the HTML `<label>` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Phrasing\Label::tag()
- *     ->content('Email Address')
- *     ->for('email')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label
  * {@see BaseInline} for the base implementation.
  */
@@ -25,11 +17,6 @@ final class Label extends BaseInline
 {
     /**
      * Sets the `for` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $label = Label::tag()->for('username');
-     * ```
      *
      * @param string|null $value ID of a labelable form-related element in the same document as the label element, or
      * `null` to remove the attribute.

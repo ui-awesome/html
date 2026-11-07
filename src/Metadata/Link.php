@@ -28,14 +28,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<link>` element for relationships to external resources.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Metadata\Link::tag()
- *     ->href('/css/site.css')
- *     ->rel('stylesheet')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link
  * {@see BaseVoid} for the base implementation.
  */
@@ -58,14 +50,6 @@ final class Link extends BaseVoid
     /**
      * Sets the `href` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->href('https://example.com/page');
-     * $element->href('/about');
-     * $element->href('#section');
-     * $element->href(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value URL, path, or fragment, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `href` attribute.
@@ -80,15 +64,6 @@ final class Link extends BaseVoid
      *
      * Hints at the MIME type of the linked resource. Any MIME type is accepted; browsers treat the value as an
      * advisory hint and fetch the resource regardless.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Metadata\Link::tag()
-     *     ->href('/feed.xml')
-     *     ->rel('alternate')
-     *     ->type('application/rss+xml')
-     *     ->render();
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value MIME type of the linked resource, or `null` to remove the
      * attribute.

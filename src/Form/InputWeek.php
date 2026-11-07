@@ -11,24 +11,6 @@ use UIAwesome\Html\Attribute\Values\Type;
  *
  * The value uses the 'yyyy-Www' format (for example, '2017-W01').
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputWeek::tag()
- *     ->name('vacation-week')
- *     ->render();
- * echo InputWeek::tag()
- *     ->max('2018-W26')
- *     ->min('2018-W18')
- *     ->name('camp-week')
- *     ->required(true)
- *     ->render();
- * echo InputWeek::tag()
- *     ->name('report-week')
- *     ->readonly(true)
- *     ->value('2024-W15')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/week
  * {@see AbstractInputDateTime} for the base implementation.
  */

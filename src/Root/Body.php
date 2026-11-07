@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Root;
 /**
  * Renders the HTML `<body>` element for document content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Root\Body::tag()
- *     ->class('app')
- *     ->content('value')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body
  * {@see BaseBlock} for the base implementation.
  */

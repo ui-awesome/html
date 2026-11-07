@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Inline;
 /**
  * Renders the HTML `<strong>` element for text of strong importance.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Phrasing\Strong::tag()
- *     ->class('important')
- *     ->content('Warning')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
  * {@see BaseInline} for the base implementation.
  */

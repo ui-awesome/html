@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<div>` element for grouping flow content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Flow\Div::tag()
- *     ->class('container')
- *     ->content('value')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
  * {@see BaseBlock} for the base implementation.
  */

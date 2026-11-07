@@ -16,15 +16,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<iframe>` element for embedding a nested browsing context.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Embedded\Iframe::tag()
- *     ->src('https://example.com')
- *     ->loading('lazy')
- *     ->title('Example')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe
  * {@see BaseBlock} for the base implementation.
  */
@@ -32,12 +23,6 @@ final class Iframe extends BaseBlock implements SrcInterface
 {
     /**
      * Sets the `allow` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->allow('fullscreen; geolocation');
-     * $element->allow(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Permissions Policy applied to the embedded content, or `null` to
      * remove the attribute.
@@ -52,13 +37,6 @@ final class Iframe extends BaseBlock implements SrcInterface
     /**
      * Sets the `allowfullscreen` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Iframe::tag()
-     *     ->allowfullscreen(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether the embedded content can activate fullscreen mode.
      *
      * @return static New instance with the updated `allowfullscreen` attribute.
@@ -70,13 +48,6 @@ final class Iframe extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `height` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->height(150);
-     * $element->height('100%');
-     * $element->height(null);
-     * ```
      *
      * @param int|string|Stringable|UnitEnum|null $value Height value in pixels or CSS units, or `null` to remove the
      * attribute.
@@ -90,13 +61,6 @@ final class Iframe extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `loading` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->loading('lazy');
-     * $element->loading(Loading::LAZY);
-     * $element->loading(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Loading strategy ('eager' or 'lazy'), or `null` to remove the
      * attribute.
@@ -117,12 +81,6 @@ final class Iframe extends BaseBlock implements SrcInterface
     /**
      * Sets the `name` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->name('preview');
-     * $element->name(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Targetable name for the embedded browsing context, or `null` to
      * remove the attribute.
      *
@@ -135,13 +93,6 @@ final class Iframe extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `referrerpolicy` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->referrerpolicy('origin');
-     * $element->referrerpolicy(Referrerpolicy::NO_REFERRER);
-     * $element->referrerpolicy(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Referrer policy token, or `null` to remove the attribute.
      *
@@ -161,13 +112,6 @@ final class Iframe extends BaseBlock implements SrcInterface
     /**
      * Sets the `sandbox` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->sandbox('allow-scripts allow-same-origin');
-     * $element->sandbox('');
-     * $element->sandbox(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Space-separated restriction tokens, an empty string to apply all
      * restrictions, or `null` to remove the attribute.
      *
@@ -181,13 +125,6 @@ final class Iframe extends BaseBlock implements SrcInterface
     /**
      * Sets the `src` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->src('https://example.com');
-     * $element->src('/embed/widget');
-     * $element->src(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value URL of the page to embed, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `src` attribute.
@@ -199,12 +136,6 @@ final class Iframe extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `srcdoc` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->srcdoc('<p>Inline content</p>');
-     * $element->srcdoc(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Inline HTML to embed in place of the `src` attribute, or `null` to
      * remove the attribute.
@@ -218,13 +149,6 @@ final class Iframe extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `width` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->width(300);
-     * $element->width('100%');
-     * $element->width(null);
-     * ```
      *
      * @param int|string|Stringable|UnitEnum|null $value Width value in pixels or CSS units, or `null` to remove the
      * attribute.

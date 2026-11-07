@@ -11,14 +11,6 @@ use UIAwesome\Html\Interop\Lists;
 /**
  * Renders the HTML `<ul>` element for unordered lists.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\List\Ul::tag()
- *     ->class('my-list')
- *     ->items('First item', 'Second item', 'Third item')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
  * {@see BaseBlock} for the base implementation.
  */
@@ -26,15 +18,6 @@ final class Ul extends BaseBlock
 {
     /**
      * Appends multiple `<li>` elements to the unordered list.
-     *
-     * Usage example:
-     * ```php
-     * $list = \UIAwesome\Html\List\Ul::tag()->items(
-     *     'Apple',
-     *     'Banana',
-     *     'Cherry',
-     * );
-     * ```
      *
      * @param string|Stringable ...$items Items to add as `<li>` elements.
      *
@@ -54,13 +37,6 @@ final class Ul extends BaseBlock
     /**
      * Appends a `<li>` element to the unordered list.
      *
-     * Usage example:
-     * ```php
-     * $list = \UIAwesome\Html\List\Ul::tag()
-     *     ->li('First item')
-     *     ->li('Second item');
-     * ```
-     *
      * @param string|Stringable $content Content for the `<li>` element.
      * @param int|string|null $value Optional `value` attribute for the list item, or `null` to omit the attribute.
      *
@@ -74,7 +50,7 @@ final class Ul extends BaseBlock
             $li = $li->value($value);
         }
 
-        return $this->html($li, "\n");
+        return $this->html($this->getContent() === '' ? '' : "\n", $li);
     }
 
     /**

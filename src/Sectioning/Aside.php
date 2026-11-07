@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<aside>` element for tangentially related content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Sectioning\Aside::tag()
- *     ->class('sidebar')
- *     ->content('Sidebar content here')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside
  * {@see BaseBlock} for the base implementation.
  */

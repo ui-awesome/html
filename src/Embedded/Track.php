@@ -18,17 +18,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<track>` element for timed text tracks in media.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Embedded\Track::tag()
- *     ->default(true)
- *     ->kind('captions')
- *     ->label('English')
- *     ->src('/media/captions-en.vtt')
- *     ->srclang('en')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track
  * {@see BaseVoid} for the base implementation.
  */
@@ -38,13 +27,6 @@ final class Track extends BaseVoid implements SrcInterface
 
     /**
      * Sets the `default` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Track::tag()
-     *     ->default(true)
-     *     ->render();
-     * ```
      *
      * @param bool|null $value Default state. Use `true` to enable, `false` to disable, or `null` to remove the
      * attribute.
@@ -58,13 +40,6 @@ final class Track extends BaseVoid implements SrcInterface
 
     /**
      * Sets the `kind` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Track::tag()
-     *     ->kind(Kind::SUBTITLES)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Track kind ('subtitles', 'captions', 'descriptions', 'chapters', or
      * 'metadata'), or `null` to remove the attribute.
@@ -85,13 +60,6 @@ final class Track extends BaseVoid implements SrcInterface
     /**
      * Sets the `src` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->src('https://example.com/image.png');
-     * $element->src('images/photo.jpg');
-     * $element->src(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Image source URL or path, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `src` attribute.
@@ -103,13 +71,6 @@ final class Track extends BaseVoid implements SrcInterface
 
     /**
      * Sets the `srclang` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Track::tag()
-     *     ->srclang('en')
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value BCP 47 language tag, or `null` to remove the attribute.
      *

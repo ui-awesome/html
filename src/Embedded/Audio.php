@@ -25,14 +25,6 @@ use function strpbrk;
  *
  * Supports the experimental `disableremoteplayback` attribute. Availability and behavior may vary across browsers.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Embedded\Audio::tag()
- *     ->controls(true)
- *     ->src('/media/podcast.mp3')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/audio
  * {@see BaseBlock} for the base implementation.
  */
@@ -42,13 +34,6 @@ final class Audio extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `autoplay` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->autoplay(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether media should automatically begin playback when it can.
      *
@@ -62,13 +47,6 @@ final class Audio extends BaseBlock implements SrcInterface
     /**
      * Sets the `controls` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->controls(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether browser playback controls should be displayed.
      *
      * @return static New instance with the updated `controls` attribute.
@@ -80,13 +58,6 @@ final class Audio extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `controlslist` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->controlslist(Controlslist::NODOWNLOAD)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Controls list token(s), or `null` to remove the attribute.
      *
@@ -120,13 +91,6 @@ final class Audio extends BaseBlock implements SrcInterface
     /**
      * Sets the `disableremoteplayback` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->disableremoteplayback(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether remote playback should be disabled.
      *
      * @return static New instance with the updated `disableremoteplayback` attribute.
@@ -138,13 +102,6 @@ final class Audio extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `loop` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->loop(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether media should restart automatically when playback reaches the end.
      *
@@ -158,13 +115,6 @@ final class Audio extends BaseBlock implements SrcInterface
     /**
      * Sets the `muted` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->muted(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether media output should be initially muted.
      *
      * @return static New instance with the updated `muted` attribute.
@@ -176,13 +126,6 @@ final class Audio extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `preload` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Audio::tag()
-     *     ->preload(Preload::AUTO)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Preload hint ('none', 'metadata', or 'auto'), or `null` to remove the
      * attribute.
@@ -202,13 +145,6 @@ final class Audio extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `src` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->src('https://example.com/image.png');
-     * $element->src('images/photo.jpg');
-     * $element->src(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Image source URL or path, or `null` to remove the attribute.
      *

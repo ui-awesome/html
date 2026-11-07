@@ -16,15 +16,6 @@ use UIAwesome\Html\Interop\Voids;
 /**
  * Represents the HTML `<input type="checkbox">` element.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\InputCheckbox::tag()
- *     ->checked(true)
- *     ->name('terms')
- *     ->value('accepted')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
  */
 final class InputCheckbox extends BaseInput implements CheckedStateInterface, ValueInterface
@@ -37,13 +28,6 @@ final class InputCheckbox extends BaseInput implements CheckedStateInterface, Va
     /**
      * Returns the array of HTML attributes for the element.
      *
-     * Usage example:
-     * ```php
-     * $attributes = \UIAwesome\Html\Form\InputCheckbox::tag()
-     *     ->name('terms')
-     *     ->getAttributes();
-     * ```
-     *
      * @return mixed[] Attributes array including global and checkbox-specific attributes.
      */
     public function getAttributes(): array
@@ -53,12 +37,6 @@ final class InputCheckbox extends BaseInput implements CheckedStateInterface, Va
 
     /**
      * Sets the `required` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->required(true);
-     * $element->required(null);
-     * ```
      *
      * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
      * remove the attribute.

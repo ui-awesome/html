@@ -26,14 +26,6 @@ use function strpbrk;
  * Supports the experimental `disablepictureinpicture` and `disableremoteplayback` attributes. Availability and
  * behavior may vary across browsers.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Embedded\Video::tag()
- *     ->controls(true)
- *     ->src('/media/intro.mp4')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video
  * {@see BaseBlock} for the base implementation.
  */
@@ -43,13 +35,6 @@ final class Video extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `autoplay` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->autoplay(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether media should automatically begin playback when it can.
      *
@@ -63,13 +48,6 @@ final class Video extends BaseBlock implements SrcInterface
     /**
      * Sets the `controls` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->controls(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether browser playback controls should be displayed.
      *
      * @return static New instance with the updated `controls` attribute.
@@ -81,13 +59,6 @@ final class Video extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `controlslist` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->controlslist(Controlslist::NODOWNLOAD)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Controls list token(s), or `null` to remove the attribute.
      *
@@ -121,13 +92,6 @@ final class Video extends BaseBlock implements SrcInterface
     /**
      * Sets the `disablepictureinpicture` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->disablepictureinpicture(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether Picture-in-Picture controls and suggestions should be disabled.
      *
      * @return static New instance with the updated `disablepictureinpicture` attribute.
@@ -140,13 +104,6 @@ final class Video extends BaseBlock implements SrcInterface
     /**
      * Sets the `disableremoteplayback` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->disableremoteplayback(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether remote playback should be disabled.
      *
      * @return static New instance with the updated `disableremoteplayback` attribute.
@@ -158,13 +115,6 @@ final class Video extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `height` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->height(200);
-     * $element->height('50%');
-     * $element->height('auto');
-     * ```
      *
      * @param int|string|Stringable|UnitEnum|null $value Height value in pixels or CSS units, or `null` to remove the
      * attribute.
@@ -179,13 +129,6 @@ final class Video extends BaseBlock implements SrcInterface
     /**
      * Sets the `loop` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->loop(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether media should restart automatically when playback reaches the end.
      *
      * @return static New instance with the updated `loop` attribute.
@@ -197,13 +140,6 @@ final class Video extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `muted` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->muted(true)
-     *     ->render();
-     * ```
      *
      * @param bool $value Whether media output should be initially muted.
      *
@@ -217,13 +153,6 @@ final class Video extends BaseBlock implements SrcInterface
     /**
      * Sets the `playsinline` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->playsinline(true)
-     *     ->render();
-     * ```
-     *
      * @param bool $value Whether video playback should stay inline instead of entering fullscreen.
      *
      * @return static New instance with the updated `playsinline` attribute.
@@ -236,13 +165,6 @@ final class Video extends BaseBlock implements SrcInterface
     /**
      * Sets the `poster` attribute.
      *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->poster('/images/cover.jpg')
-     *     ->render();
-     * ```
-     *
      * @param string|UnitEnum|null $value Poster image URL, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `poster` attribute.
@@ -254,13 +176,6 @@ final class Video extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `preload` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Embedded\Video::tag()
-     *     ->preload(Preload::AUTO)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Preload hint ('none', 'metadata', or 'auto'), or `null` to remove the
      * attribute.
@@ -281,13 +196,6 @@ final class Video extends BaseBlock implements SrcInterface
     /**
      * Sets the `src` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->src('https://example.com/image.png');
-     * $element->src('images/photo.jpg');
-     * $element->src(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Image source URL or path, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `src` attribute.
@@ -299,14 +207,6 @@ final class Video extends BaseBlock implements SrcInterface
 
     /**
      * Sets the `width` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->width(400);
-     * $element->width('50%');
-     * $element->width('auto');
-     * $element->width(null);
-     * ```
      *
      * @param int|string|Stringable|UnitEnum|null $value Width value in pixels or CSS units, or `null` to remove the
      * attribute.

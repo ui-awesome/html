@@ -10,14 +10,6 @@ use UIAwesome\Html\Interop\Block;
 /**
  * Renders the HTML `<article>` element for self-contained content.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Sectioning\Article::tag()
- *     ->class('blog-post')
- *     ->content('Article content here')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article
  * {@see BaseBlock} for the base implementation.
  */

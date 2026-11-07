@@ -14,15 +14,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<fieldset>` element for grouping related form controls.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\Fieldset::tag()
- *     ->disabled(true)
- *     ->form('profile-form')
- *     ->name('contact')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fieldset
  * {@see BaseBlock} for the base implementation.
  */
@@ -33,13 +24,6 @@ final class Fieldset extends BaseBlock
 
     /**
      * Sets the `form` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->form('myForm');
-     * $element->form($formId);
-     * $element->form(null);
-     * ```
      *
      * @param string|Stringable|UnitEnum|null $value Form ID, or `null` to remove the attribute.
      *

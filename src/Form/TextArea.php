@@ -20,16 +20,6 @@ use UnitEnum;
 /**
  * Renders the HTML `<textarea>` element for multiline plain-text input.
  *
- * Usage example:
- * ```php
- * echo \UIAwesome\Html\Form\TextArea::tag()
- *     ->name('comment')
- *     ->rows(5)
- *     ->cols(33)
- *     ->placeholder('Enter your comment here')
- *     ->render();
- * ```
- *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea
  * {@see BaseBlock} for the base implementation.
  */
@@ -46,14 +36,6 @@ final class TextArea extends BaseBlock implements FormControlInterface, Placehol
     /**
      * Sets the `autocomplete` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->autocomplete('on');
-     * $element->autocomplete('email');
-     * $element->autocomplete('new-password');
-     * $element->autocomplete(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Autocomplete value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `autocomplete` attribute.
@@ -65,13 +47,6 @@ final class TextArea extends BaseBlock implements FormControlInterface, Placehol
 
     /**
      * Sets the `cols` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\TextArea::tag()
-     *     ->cols(20)
-     *     ->render();
-     * ```
      *
      * @param int|string|null $value Visible width in average character widths (positive integer), or `null` to remove
      * the attribute.
@@ -91,13 +66,6 @@ final class TextArea extends BaseBlock implements FormControlInterface, Placehol
     /**
      * Sets the `dirname` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->dirname('comment-dir');
-     * $element->dirname('text-direction');
-     * $element->dirname(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Dirname value, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `dirname` attribute.
@@ -110,13 +78,6 @@ final class TextArea extends BaseBlock implements FormControlInterface, Placehol
     /**
      * Sets the `form` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->form('myForm');
-     * $element->form($formId);
-     * $element->form(null);
-     * ```
-     *
      * @param string|Stringable|UnitEnum|null $value Form ID, or `null` to remove the attribute.
      *
      * @return static New instance with the updated `form` attribute.
@@ -128,12 +89,6 @@ final class TextArea extends BaseBlock implements FormControlInterface, Placehol
 
     /**
      * Sets the `readonly` attribute.
-     *
-     * Usage example:
-     * ```php
-     * $element->readonly(true);
-     * $element->readonly(null);
-     * ```
      *
      * @param bool|null $value Readonly state. Use `true` to make readonly, `false` to make editable, or `null` to
      * remove the attribute.
@@ -148,12 +103,6 @@ final class TextArea extends BaseBlock implements FormControlInterface, Placehol
     /**
      * Sets the `required` attribute.
      *
-     * Usage example:
-     * ```php
-     * $element->required(true);
-     * $element->required(null);
-     * ```
-     *
      * @param bool|null $value Required state. Use `true` to require a value, `false` to make it optional, or `null` to
      * remove the attribute.
      *
@@ -166,13 +115,6 @@ final class TextArea extends BaseBlock implements FormControlInterface, Placehol
 
     /**
      * Sets the `rows` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\TextArea::tag()
-     *     ->rows(5)
-     *     ->render();
-     * ```
      *
      * @param int|string|null $value Number of visible text lines (positive integer), or `null` to remove the
      * attribute.
@@ -191,16 +133,6 @@ final class TextArea extends BaseBlock implements FormControlInterface, Placehol
 
     /**
      * Sets the `wrap` attribute.
-     *
-     * Usage example:
-     * ```php
-     * echo \UIAwesome\Html\Form\TextArea::tag()
-     *     ->wrap('hard')
-     *     ->render();
-     * echo \UIAwesome\Html\Form\TextArea::tag()
-     *     ->wrap(\UIAwesome\Html\Form\Values\Wrap::SOFT)
-     *     ->render();
-     * ```
      *
      * @param string|UnitEnum|null $value Line-wrapping behavior ('hard', 'soft', or 'off'), or `null` to remove the
      * attribute.
