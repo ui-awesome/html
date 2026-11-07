@@ -27,6 +27,14 @@ final class TextAreaWhitespaceProvider
                 "\nvalue",
                 "<textarea>\n\nvalue</textarea>",
             ],
+            'leading CR' => [
+                "\rvalue",
+                "<textarea>\n\rvalue</textarea>",
+            ],
+            'leading CRLF' => [
+                "\r\nvalue",
+                "<textarea>\n\r\nvalue</textarea>",
+            ],
             'multibyte text' => [
                 "Å\n\n你好\n",
                 "<textarea>Å\n\n你好\n</textarea>",
