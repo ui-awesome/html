@@ -19,6 +19,8 @@ final class PreWhitespaceProvider
             'encoded text' => ['A & <b> &amp;', '<pre>A &amp; &lt;b&gt; &amp;amp;</pre>'],
             'indentation and trailing spaces' => ["\tfirst  \n  second ", "<pre>\tfirst  \n  second </pre>"],
             'leading LF' => ["\nvalue", "<pre>\n\nvalue</pre>"],
+            'leading CR' => ["\rvalue", "<pre>\n\rvalue</pre>"],
+            'leading CRLF' => ["\r\nvalue", "<pre>\n\r\nvalue</pre>"],
             'multibyte text' => ["Å\n\n你好\n", "<pre>Å\n\n你好\n</pre>"],
             'only LF' => ["\n", "<pre>\n\n</pre>"],
             'plain' => ['value', '<pre>value</pre>'],
