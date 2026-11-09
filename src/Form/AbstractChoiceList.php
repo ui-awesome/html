@@ -37,7 +37,7 @@ abstract class AbstractChoiceList extends BaseBlock implements
     use HasName;
 
     /**
-     * Values determining which items are checked.
+     * Values determining which items are checked, or `null` to preserve input defaults when unconfigured.
      *
      * @var array<mixed>|bool|float|int|string|Stringable|UnitEnum|null
      */
@@ -101,7 +101,7 @@ abstract class AbstractChoiceList extends BaseBlock implements
     public function checked(array|bool|float|int|string|Stringable|UnitEnum|null $value): static
     {
         $new = clone $this;
-        $new->checked = $value;
+        $new->checked = $value ?? false;
 
         return $new;
     }
