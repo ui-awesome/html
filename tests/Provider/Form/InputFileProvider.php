@@ -28,8 +28,8 @@ final class InputFileProvider
             'null name with multiple' => [
                 null,
                 true,
-                '[]',
-                "<input name='[]' type=\"file\" multiple>",
+                '',
+                '<input type="file" multiple>',
             ],
             'empty name' => [
                 '',
@@ -40,8 +40,20 @@ final class InputFileProvider
             'empty name with multiple' => [
                 '',
                 true,
-                '[]',
-                "<input name='[]' type=\"file\" multiple>",
+                '',
+                '<input type="file" multiple>',
+            ],
+            'zero name' => [
+                '0',
+                false,
+                '0',
+                '<input name="0" type="file">',
+            ],
+            'zero name with multiple' => [
+                '0',
+                true,
+                '0[]',
+                '<input name="0[]" type="file" multiple>',
             ],
             'string name' => [
                 'uploads',
@@ -113,6 +125,28 @@ final class InputFileProvider
                 false,
                 'uploads',
                 '<input name="uploads" type="file">',
+            ],
+            'empty stringable name' => [
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return '';
+                    }
+                },
+                false,
+                '',
+                '<input type="file">',
+            ],
+            'empty stringable name with multiple' => [
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return '';
+                    }
+                },
+                true,
+                '',
+                '<input type="file" multiple>',
             ],
             'stringable name with multiple' => [
                 new class implements Stringable {

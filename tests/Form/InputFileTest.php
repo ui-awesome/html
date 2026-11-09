@@ -182,6 +182,38 @@ final class InputFileTest extends TestCase
         );
     }
 
+    public function testRenderWithName(): void
+    {
+        $input = InputFile::tag()->name('uploads');
+
+        self::assertSame(
+            'uploads',
+            $input->getAttributes()['name'] ?? null,
+            'A configured name must not become arrayable unless multiple selection is enabled.',
+        );
+        self::assertSame(
+            '<input name="uploads" type="file">',
+            $input->render(),
+            'File inputs must use single-file naming by default.',
+        );
+    }
+
+    public function testRenderWithoutNameWithMultiple(): void
+    {
+        $input = InputFile::tag()->multiple(true);
+
+        self::assertSame(
+            '',
+            $input->getAttributes()['name'] ?? null,
+            'Multiple selection must not create a name when none is configured.',
+        );
+        self::assertSame(
+            '<input type="file" multiple>',
+            $input->render(),
+            'A nameless multiple-file input must omit the name attribute.',
+        );
+    }
+
     public function testRenderWithRequired(): void
     {
         self::assertSame(

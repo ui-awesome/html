@@ -49,8 +49,8 @@ final class InputFile extends BaseInput
     /**
      * Returns the array of HTML attributes for the element.
      *
-     * @return mixed[] Attributes array using array notation for multiple files and omitting the unsupported `value`
-     * attribute.
+     * @return mixed[] Attributes array using array notation for named multiple-file inputs and omitting the unsupported
+     * `value` attribute.
      */
     public function getAttributes(): array
     {
@@ -66,6 +66,8 @@ final class InputFile extends BaseInput
 
     /**
      * Sets the `multiple` attribute.
+     *
+     * An absent or empty name remains omitted from rendered markup.
      *
      * @param bool|null $value Multiple state. Use `true` to allow multiple values, `false` to disallow, or `null` to
      * remove the attribute.
@@ -122,7 +124,7 @@ final class InputFile extends BaseInput
     }
 
     /**
-     * Generates the name of the input element, adding '[]' if the `multiple` attribute is set.
+     * Generates the input name, appending `[]` only for non-empty multiple-file names.
      *
      * @return string Generated name.
      */
@@ -132,7 +134,7 @@ final class InputFile extends BaseInput
 
         $isMultiple = $this->getAttribute('multiple', false);
 
-        if ($isMultiple === false) {
+        if ($isMultiple === false || $name === '') {
             return $name;
         }
 
