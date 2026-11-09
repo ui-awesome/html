@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\{Group, TestWith};
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group, TestWith};
 use PHPUnit\Framework\TestCase;
+use Stringable;
 use UIAwesome\Html\Attribute\Values\{GlobalAttribute, Type};
 use UIAwesome\Html\Form\InputFile;
 use UIAwesome\Html\Form\Values\Capture;
+use UIAwesome\Html\Tests\Provider\Form\InputFileProvider;
+use UnitEnum;
 
 /**
  * Unit tests for {@see InputFile} rendering and file selection attribute behavior.
@@ -27,6 +30,55 @@ final class InputFileTest extends TestCase
             InputFile::tag()
                 ->getAttribute('class', 'value'),
             'Default fallback must be returned.',
+        );
+    }
+
+    #[DataProviderExternal(InputFileProvider::class, 'names')]
+    public function testGetAttributesAndRenderWithName(
+        string|Stringable|UnitEnum|null $name,
+        bool $multiple,
+        string $expectedName,
+        string $expectedHtml,
+    ): void {
+        $input = InputFile::tag()
+            ->name('original')
+            ->addAttribute('value', 'not-allowed');
+
+        $named = $input
+            ->name($name)
+            ->multiple($multiple);
+
+        $attributes = $named->getAttributes();
+
+        self::assertSame(
+            $expectedName,
+            $attributes['name'] ?? null,
+            'File names must be normalized for the selected mode.',
+        );
+        self::assertSame(
+            $multiple,
+            $attributes['multiple'] ?? null,
+            'The multiple attribute must be preserved.',
+        );
+        self::assertArrayNotHasKey(
+            'value',
+            $attributes,
+            'File inputs must omit the value attribute.',
+        );
+        self::assertSame(
+            $expectedHtml,
+            $named->render(),
+            'The normalized name must render in the selected mode.',
+        );
+        self::assertSame(
+            'original',
+            $input->getAttribute('name'),
+            'Naming a clone must preserve the original name.',
+        );
+        self::assertSame(
+            $name,
+            $named->getAttribute('name'),
+            'Normalization must not change the stored name.',
         );
     }
 

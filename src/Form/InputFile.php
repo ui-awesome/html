@@ -8,7 +8,7 @@ use Stringable;
 use UIAwesome\Html\Attribute\Global\{CanBeAutofocus, HasTabindex};
 use UIAwesome\Html\Attribute\Values\{Attribute, Type};
 use UIAwesome\Html\Core\Element\BaseInput;
-use UIAwesome\Html\Helper\Naming;
+use UIAwesome\Html\Helper\{Enum, Naming};
 use UIAwesome\Html\Interop\Voids;
 use UnitEnum;
 
@@ -128,8 +128,8 @@ final class InputFile extends BaseInput
      */
     private function generateNameWithMultiple(): string
     {
-        /** @var string $name */
-        $name = $this->getAttribute('name', '');
+        $name = Enum::normalizeStringValue($this->getAttribute('name', ''));
+
         $isMultiple = $this->getAttribute('multiple', false);
 
         if ($isMultiple === false) {

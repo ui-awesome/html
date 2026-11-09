@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - chore: remove obsolete scaffold tooling and align package maintenance checks with PHP Forge conventions.
 - fix: adapt child separators to html-core and verify `textarea` and `pre` whitespace preservation.
 - fix: verify pre and textarea newline boundaries with compatible development dependencies.
+- fix: normalize typed checkbox/radio values for checked matching and file input names for multiple uploads.
 
 ## 0.6.0 July 31, 2026
 

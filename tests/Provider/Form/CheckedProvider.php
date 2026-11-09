@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Provider\Form;
 
-use PHPForge\Support\Stub\{BackedString, Unit};
+use PHPForge\Support\Stub\{BackedInteger, BackedString, Unit};
 use Stringable;
 use UnitEnum;
 
@@ -26,6 +26,141 @@ final class CheckedProvider
     public static function checked(): array
     {
         return [
+            'string-backed value matches scalar' => [
+                'value',
+                BackedString::VALUE,
+                '<input id="inputcheckbox" type="checkbox" value="value" checked>',
+            ],
+            'string-backed value does not match empty scalar' => [
+                '',
+                BackedString::VALUE,
+                '<input id="inputcheckbox" type="checkbox" value="value">',
+            ],
+            'string-backed value matches array' => [
+                ['other', 'value'],
+                BackedString::VALUE,
+                '<input id="inputcheckbox" type="checkbox" value="value" checked>',
+            ],
+            'string-backed value does not match array' => [
+                ['other', ''],
+                BackedString::VALUE,
+                '<input id="inputcheckbox" type="checkbox" value="value">',
+            ],
+            'integer-backed value matches scalar' => [
+                '1',
+                BackedInteger::VALUE,
+                '<input id="inputcheckbox" type="checkbox" value="1" checked>',
+            ],
+            'integer-backed value does not match empty scalar' => [
+                '',
+                BackedInteger::VALUE,
+                '<input id="inputcheckbox" type="checkbox" value="1">',
+            ],
+            'integer-backed value matches array' => [
+                [0, 1],
+                BackedInteger::VALUE,
+                '<input id="inputcheckbox" type="checkbox" value="1" checked>',
+            ],
+            'integer-backed value does not match array' => [
+                [0, ''],
+                BackedInteger::VALUE,
+                '<input id="inputcheckbox" type="checkbox" value="1">',
+            ],
+            'unit enum value matches scalar' => [
+                'value',
+                Unit::value,
+                '<input id="inputcheckbox" type="checkbox" value="value" checked>',
+            ],
+            'unit enum value does not match empty scalar' => [
+                '',
+                Unit::value,
+                '<input id="inputcheckbox" type="checkbox" value="value">',
+            ],
+            'unit enum value matches array' => [
+                ['other', 'value'],
+                Unit::value,
+                '<input id="inputcheckbox" type="checkbox" value="value" checked>',
+            ],
+            'unit enum value does not match array' => [
+                ['other', ''],
+                Unit::value,
+                '<input id="inputcheckbox" type="checkbox" value="value">',
+            ],
+            'stringable value matches scalar' => [
+                'active',
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return 'active';
+                    }
+                },
+                '<input id="inputcheckbox" type="checkbox" value="active" checked>',
+            ],
+            'stringable value does not match empty scalar' => [
+                '',
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return 'active';
+                    }
+                },
+                '<input id="inputcheckbox" type="checkbox" value="active">',
+            ],
+            'stringable value matches array' => [
+                ['other', 'active'],
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return 'active';
+                    }
+                },
+                '<input id="inputcheckbox" type="checkbox" value="active" checked>',
+            ],
+            'stringable value does not match array' => [
+                ['other', ''],
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return 'active';
+                    }
+                },
+                '<input id="inputcheckbox" type="checkbox" value="active">',
+            ],
+            'stringable zero matches scalar' => [
+                0,
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return '0';
+                    }
+                },
+                '<input id="inputcheckbox" type="checkbox" value="0" checked>',
+            ],
+            'stringable zero matches array' => [
+                [0],
+                new class implements Stringable {
+                    public function __toString(): string
+                    {
+                        return '0';
+                    }
+                },
+                '<input id="inputcheckbox" type="checkbox" value="0" checked>',
+            ],
+            'false value matches scalar zero' => [
+                0,
+                false,
+                '<input id="inputcheckbox" type="checkbox" value="0" checked>',
+            ],
+            'false value matches array zero' => [
+                [0],
+                false,
+                '<input id="inputcheckbox" type="checkbox" value="0" checked>',
+            ],
+            'true value matches array one' => [
+                [1],
+                true,
+                '<input id="inputcheckbox" type="checkbox" value="1" checked>',
+            ],
             // array (checked)
             'checked: [1, 2], value: 1' => [
                 [1, 2],
