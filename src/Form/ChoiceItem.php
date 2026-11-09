@@ -89,7 +89,8 @@ final class ChoiceItem
      * @param mixed[] $attributes Attributes applied to the item input.
      * @param string|null $id Item identifier shared by the input and its label, or `null` to omit both.
      * @param string|null $name Name applied to the item input, or `null` to omit the attribute.
-     * @param array<mixed>|bool|float|int|string|Stringable|UnitEnum|null $checked Values determining the checked state.
+     * @param array<mixed>|bool|float|int|string|Stringable|UnitEnum|null $checked Values determining the checked state,
+     * or `null` to preserve input defaults when the list has no configured selection.
      * @param bool $enclosedByLabel Whether the input is wrapped inside its `<label>`.
      * @param mixed[] $labelAttributes Default attributes applied to the item label.
      *
@@ -108,10 +109,13 @@ final class ChoiceItem
     ): string {
         $input = $input
             ->attributes($attributes)
-            ->checked($checked)
             ->id($id)
             ->name($name)
             ->value($this->value);
+
+        if ($checked !== null) {
+            $input = $input->checked($checked);
+        }
 
         if (array_key_exists('class', $this->labelAttributes)) {
             /** @var mixed[]|string|Stringable|UnitEnum|null $defaultLabelClass */

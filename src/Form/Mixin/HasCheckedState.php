@@ -29,6 +29,10 @@ trait HasCheckedState
      * @var bool|float|int|mixed[]|string|Stringable|UnitEnum|null
      */
     private array|bool|float|int|string|Stringable|UnitEnum|null $checked = null;
+    /**
+     * Whether a selection was explicitly configured instead of using raw checked attributes.
+     */
+    private bool $checkedConfigured = false;
 
     /**
      * Sets the `checked` attribute.
@@ -48,6 +52,7 @@ trait HasCheckedState
     {
         $new = clone $this;
         $new->checked = $value;
+        $new->checkedConfigured = true;
 
         return $new;
     }
@@ -68,6 +73,12 @@ trait HasCheckedState
         if (isset($attributes['value']) && is_bool($attributes['value'])) {
             $attributes['value'] = $attributes['value'] ? 1 : 0;
         }
+
+        if ($this->checkedConfigured === false) {
+            return $attributes;
+        }
+
+        unset($attributes['checked']);
 
         $checked = $this->checked;
 

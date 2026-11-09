@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Form;
 
 use PHPForge\Support\Stub\BackedString;
-use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use Stringable;
 use UIAwesome\Html\Attribute\Values\{
@@ -20,6 +20,7 @@ use UIAwesome\Html\Attribute\Values\{
     Translate,
 };
 use UIAwesome\Html\Form\{CheckboxList, ChoiceItem};
+use UIAwesome\Html\Tests\Provider\Form\CheckedDefaultsProvider;
 
 /**
  * Unit tests for {@see CheckboxList} rendering and choice list behavior.
@@ -27,6 +28,54 @@ use UIAwesome\Html\Form\{CheckboxList, ChoiceItem};
 #[Group('form')]
 final class CheckboxListTest extends TestCase
 {
+    /**
+     * @param array<int>|bool|int|null $checked
+     */
+    #[DataProviderExternal(CheckedDefaultsProvider::class, 'lists')]
+    public function testCheckedOverridesItemDefaults(array|bool|int|null $checked, string $expected): void
+    {
+        $original = CheckboxList::tag()
+            ->itemAttributes(['checked' => true])
+            ->items(
+                ChoiceItem::tag()
+                    ->label('One')
+                    ->value(1),
+                ChoiceItem::tag()
+                    ->label('Two')
+                    ->value(2),
+            );
+
+        $updated = $original->checked($checked);
+
+        self::assertNotSame(
+            $original,
+            $updated,
+            'Setting checked must return a new list.',
+        );
+        self::assertSame(
+            $expected,
+            $updated->render(),
+            'Explicit selection must override every item default.',
+        );
+        self::assertSame(
+            $expected,
+            $updated->render(),
+            'Repeated rendering must preserve selection.',
+        );
+        self::assertSame(
+            <<<HTML
+            <div>
+            <input type="checkbox" value="1" checked>
+            <label>One</label>
+            <input type="checkbox" value="2" checked>
+            <label>Two</label>
+            </div>
+            HTML,
+            $original->render(),
+            'An unconfigured list must preserve both item defaults.',
+        );
+    }
+
     public function testItemsReplaceExistingItems(): void
     {
         self::assertSame(
@@ -1127,6 +1176,62 @@ final class CheckboxListTest extends TestCase
                 ->uncheckedValue('0')
                 ->render(),
             'Fallback must keep the plain name so a checked item overwrites it.',
+        );
+    }
+
+    public function testRepeatedCheckedSettersPreserveItemDefaultsOnOriginal(): void
+    {
+        $original = CheckboxList::tag()
+            ->itemAttributes(['checked' => true])
+            ->items(
+                ChoiceItem::tag()
+                    ->label('One')
+                    ->value(1),
+                ChoiceItem::tag()
+                    ->label('Two')
+                    ->value(2),
+            );
+
+        $selected = $original->checked(2);
+        $cleared = $selected
+            ->checked(null)
+            ->checked(null);
+
+        self::assertSame(
+            <<<HTML
+            <div>
+            <input type="checkbox" value="1">
+            <label>One</label>
+            <input type="checkbox" value="2">
+            <label>Two</label>
+            </div>
+            HTML,
+            $cleared->render(),
+            'Repeated explicit null must clear both item defaults.',
+        );
+        self::assertSame(
+            <<<HTML
+            <div>
+            <input type="checkbox" value="1">
+            <label>One</label>
+            <input type="checkbox" value="2" checked>
+            <label>Two</label>
+            </div>
+            HTML,
+            $selected->render(),
+            'Clearing a clone must not change the selected list.',
+        );
+        self::assertSame(
+            <<<HTML
+            <div>
+            <input type="checkbox" value="1" checked>
+            <label>One</label>
+            <input type="checkbox" value="2" checked>
+            <label>Two</label>
+            </div>
+            HTML,
+            $original->render(),
+            'Selection changes must not change the unconfigured list.',
         );
     }
 

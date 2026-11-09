@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Stringable;
 use UIAwesome\Html\Attribute\Values\{GlobalAttribute, Type};
 use UIAwesome\Html\Form\InputRadio;
-use UIAwesome\Html\Tests\Provider\Form\CheckedProvider;
+use UIAwesome\Html\Tests\Provider\Form\{CheckedDefaultsProvider, CheckedProvider};
 use UnitEnum;
 
 use function str_replace;
@@ -22,6 +22,104 @@ use function str_replace;
 #[Group('form')]
 final class InputRadioTest extends TestCase
 {
+    public function testCheckedNullRemovesDefaultAttribute(): void
+    {
+        $input = InputRadio::tag()
+            ->attributes(['checked' => true])
+            ->checked(null);
+
+        self::assertArrayNotHasKey(
+            'checked',
+            $input->getAttributes(),
+            'Explicit null must remove the checked attribute.',
+        );
+        self::assertSame(
+            '<input type="radio">',
+            $input->render(),
+            'Explicit null must render unchecked.',
+        );
+    }
+
+    /**
+     * @param array<string>|bool|string|null $checked
+     */
+    #[DataProviderExternal(CheckedDefaultsProvider::class, 'inputs')]
+    public function testCheckedOverridesAttributeDefaults(
+        array|bool|string|null $checked,
+        bool $expectedChecked,
+        string $expected,
+    ): void {
+        $expected = str_replace('type="checkbox"', 'type="radio"', $expected);
+
+        $original = InputRadio::tag()
+            ->attributes(['checked' => true])
+            ->value('active');
+
+        $updated = $original->checked($checked);
+
+        self::assertNotSame(
+            $original,
+            $updated,
+            'Setting checked must return a new instance.',
+        );
+        self::assertSame(
+            $expectedChecked,
+            $updated->getAttributes()['checked'] ?? false,
+            'Selection must override the preset.',
+        );
+        self::assertSame(
+            $expected,
+            $updated->render(),
+            'Explicit selection must override checked attributes.',
+        );
+        self::assertSame(
+            $expected,
+            $updated->render(),
+            'Repeated rendering must preserve selection.',
+        );
+        self::assertTrue(
+            $original->getAttributes()['checked'] ?? null,
+            'The original preset must remain checked.',
+        );
+        self::assertSame(
+            '<input type="radio" value="active" checked>',
+            $original->render(),
+            'The unconfigured original must retain its checked attribute.',
+        );
+    }
+
+    /**
+     * @param array<string>|bool|string|null $checked
+     */
+    #[DataProviderExternal(CheckedDefaultsProvider::class, 'inputs')]
+    public function testCheckedOverridesFactoryDefaults(
+        array|bool|string|null $checked,
+        bool $expectedChecked,
+        string $expected,
+    ): void {
+        $expected = str_replace('type="checkbox"', 'type="radio"', $expected);
+
+        $original = InputRadio::tag(['attributes' => [['checked' => true]], 'value' => ['active']]);
+
+        $updated = $original->checked($checked);
+
+        self::assertSame(
+            $expectedChecked,
+            $updated->getAttributes()['checked'] ?? false,
+            'Selection must override factory defaults.',
+        );
+        self::assertSame(
+            $expected,
+            $updated->render(),
+            'Explicit selection must override factory defaults.',
+        );
+        self::assertSame(
+            '<input type="radio" value="active" checked>',
+            $original->render(),
+            'Unconfigured factory defaults must remain checked.',
+        );
+    }
+
     public function testCheckedValueDoesNotChangeOriginal(): void
     {
         $input = InputRadio::tag()->value(BackedString::VALUE);
@@ -196,6 +294,32 @@ final class InputRadioTest extends TestCase
                 ->render(),
             "'value' must be serialized.",
         );
+    }
+
+    public function testRepeatedCheckedSettersPreserveIndependentClones(): void
+    {
+        $original = InputRadio::tag()->attributes(['checked' => true])->value('active');
+        $cleared = $original->checked(null);
+        $selected = $cleared->checked('active');
+
+        self::assertSame(
+            '<input type="radio" value="active">',
+            $selected->checked([])->checked([])->render(),
+            'Repeated setters must clear a matching selection.',
+        );
+        self::assertSame(
+            '<input type="radio" value="active">',
+            $cleared->attributes(['checked' => true])->render(),
+            'An explicit cleared selection must take precedence over raw attributes.',
+        );
+        self::assertSame(
+            '<input type="radio" value="other">',
+            $selected->value('other')->render(),
+            'Changing the value must recompute matching without changing the selected clone.',
+        );
+        self::assertSame('<input type="radio" value="active" checked>', $selected->render(), 'The matching clone must stay checked.');
+        self::assertSame('<input type="radio" value="active">', $cleared->render(), 'The cleared clone must stay unchecked.');
+        self::assertSame('<input type="radio" value="active" checked>', $original->render(), 'The original default must stay checked.');
     }
 
     public function testReturnNewInstanceWhenSettingAttribute(): void
