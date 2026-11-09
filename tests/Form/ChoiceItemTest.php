@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UIAwesome\Html\Tests\Form;
 
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use UIAwesome\Html\Form\{ChoiceItem, InputCheckbox, InputRadio};
@@ -26,6 +27,21 @@ final class ChoiceItemTest extends TestCase
                 ->value(1)
                 ->render(InputCheckbox::tag(), [], 'choice', 'choices[]', [1], true),
             'Enclosed label must contain the input and encoded label text.',
+        );
+    }
+
+    public function testRenderWithMatchingTypedValue(): void
+    {
+        self::assertSame(
+            <<<HTML
+            <input id="choice" name="choice" type="radio" value="value" checked>
+            <label for="choice">Value</label>
+            HTML,
+            ChoiceItem::tag()
+                ->label('Value')
+                ->value(BackedString::VALUE)
+                ->render(InputRadio::tag(), [], 'choice', 'choice', ['value'], false),
+            'A typed choice value must match the checked selection.',
         );
     }
 

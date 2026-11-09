@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UIAwesome\Html\Tests\Form;
 
 use InvalidArgumentException;
+use PHPForge\Support\Stub\BackedString;
 use PHPUnit\Framework\Attributes\{DataProviderExternal, Group};
 use PHPUnit\Framework\TestCase;
 use Stringable;
@@ -19,6 +20,34 @@ use UnitEnum;
 #[Group('form')]
 final class InputCheckboxTest extends TestCase
 {
+    public function testCheckedValueDoesNotChangeOriginal(): void
+    {
+        $input = InputCheckbox::tag()->value(BackedString::VALUE);
+
+        $checked = $input->checked('value');
+
+        self::assertNotSame(
+            $input,
+            $checked,
+            'Setting checked must return a new instance.',
+        );
+        self::assertSame(
+            '<input type="checkbox" value="value">',
+            $input->render(),
+            'The original typed value must remain unchecked.',
+        );
+        self::assertSame(
+            '<input type="checkbox" value="value" checked>',
+            $checked->render(),
+            'The cloned control must match the typed value.',
+        );
+        self::assertSame(
+            BackedString::VALUE,
+            $input->getAttribute('value'),
+            'The stored value must remain typed.',
+        );
+    }
+
     public function testGetAttributesReturnsAssignedAttributes(): void
     {
         self::assertSame(

@@ -79,7 +79,7 @@ trait HasCheckedState
             return $attributes;
         }
 
-        $value = $attributes['value'] ?? self::DEFAULT_SUBMITTED_VALUE;
+        $value = Enum::normalizeValue($attributes['value'] ?? self::DEFAULT_SUBMITTED_VALUE);
 
         if ($normalizedChecked === true) {
             $attributes['checked'] = true;
