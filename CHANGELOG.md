@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: verify pre and textarea newline boundaries with compatible development dependencies.
 - fix: normalize typed checkbox/radio values for checked matching and file input names for multiple uploads.
 - fix: let explicit checkbox/radio selections override checked defaults while preserving unconfigured input and list defaults.
+- chore: update package requirements for ui-awesome dependencies to latest versions.
 
 ## 0.6.0 July 31, 2026
 
