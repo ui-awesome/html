@@ -5,16 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.6.1 Under development
+## 0.7.0 Under development
 
 - refactor: remove prettier and stylelint templates now provided by `php-forge/baseline`.
 - chore: remove obsolete scaffold tooling and align package maintenance checks with PHP Forge conventions.
 - fix: adapt child separators to html-core and verify `textarea` and `pre` whitespace preservation.
 - fix: verify pre and textarea newline boundaries with compatible development dependencies.
 - fix: normalize typed checkbox/radio values for checked matching and file input names for multiple uploads.
-- fix: let explicit checkbox/radio selections override checked defaults while preserving unconfigured input and list defaults.
-- chore: update package requirements for ui-awesome dependencies to latest versions.
+- fix!: let explicit checkbox/radio selections override checked defaults while preserving unconfigured input and list defaults.
+- chore!: update HTML dependencies with stricter tag configuration and expanded content method signatures.
 - docs: add package skill and AI guidance, align `README.md` badges with Security and Built with AI sections.
+- docs: add `0.7.0` migration guidance for configuration, content signatures, and checked state.
 
 ## 0.6.0 July 31, 2026
 
