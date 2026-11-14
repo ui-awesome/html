@@ -10,14 +10,14 @@
     <a href="https://github.com/ui-awesome/html/actions/workflows/build.yml" target="_blank">
         <img src="https://img.shields.io/github/actions/workflow/status/ui-awesome/html/build.yml?style=for-the-badge&label=PHPUnit&logo=github" alt="PHPUnit">
     </a>
+    <a href="https://codecov.io/github/ui-awesome/html" target="_blank">
+        <img src="https://img.shields.io/codecov/c/github/ui-awesome/html.svg?style=for-the-badge&logo=codecov&logoColor=white&label=Coverage" alt="Coverage">
+    </a>
     <a href="https://dashboard.stryker-mutator.io/reports/github.com/ui-awesome/html/main" target="_blank">
         <img src="https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fui-awesome%2Fhtml%2Fmain" alt="Mutation Testing">
     </a>
     <a href="https://github.com/ui-awesome/html/actions/workflows/static.yml" target="_blank">
         <img src="https://img.shields.io/github/actions/workflow/status/ui-awesome/html/static.yml?style=for-the-badge&label=PHPStan&logo=github" alt="PHPStan">
-    </a>
-    <a href="https://github.com/ui-awesome/html/actions/workflows/security.yml" target="_blank">
-        <img src="https://img.shields.io/github/actions/workflow/status/ui-awesome/html/security.yml?style=for-the-badge&label=Security&logo=github" alt="Security">
     </a>
 </p>
 
@@ -29,8 +29,8 @@
 ## Features
 
 <picture>
-    <source media="(max-width: 767px)" srcset="./docs/svgs/features-mobile.svg">
-    <img src="./docs/svgs/features.svg" alt="Feature Overview" style="width: 100%;">
+    <source media="(max-width: 767px)" srcset="https://raw.githubusercontent.com/ui-awesome/html/main/docs/svgs/features-mobile.svg">
+    <img src="https://raw.githubusercontent.com/ui-awesome/html/main/docs/svgs/features.svg" alt="Feature Overview" style="width: 100%;">
 </picture>
 
 ### Installation
@@ -85,7 +85,9 @@ echo Html::tag()
 use UIAwesome\Html\Flow\Div;
 
 echo Div::tag()->content('<strong>encoded</strong>')->render();
-// <div>&lt;strong&gt;encoded&lt;/strong&gt;</div>
+// <div>
+// &lt;strong&gt;encoded&lt;/strong&gt;
+// </div>
 
 echo Div::tag()->html('<strong>raw</strong>')->render();
 // <div>
@@ -186,7 +188,20 @@ implementations or overrides of `content()`.
 
 For detailed testing and quality workflows.
 
-- [Testing Guide](docs/testing.md)
+- [Testing Guide](https://github.com/ui-awesome/html/blob/main/docs/testing.md)
+
+## AI assistance
+
+AI agents: read the [documentation index](https://yii2-framework.github.io/docs/llms.txt) and fetch the Markdown version
+of a page by appending `index.md` to its URL. The
+[AI agents guide](https://github.com/yii2-framework/docs/blob/main/src/content/docs/project/ai-agents.md) covers skill
+installation, client setup and verification.
+
+- 🤖 [`ui-awesome-html` skill](https://github.com/ui-awesome/html/blob/main/docs/agents.md): typed element
+  composition, content encoding versus trusted raw HTML, immutable setters and form-control rendering contracts.
+
+See the [repository guides](#documentation), the [skill source](skills/ui-awesome-html/SKILL.md), the source PHPDoc and
+the [changelog](CHANGELOG.md).
 
 ## Package information
 
@@ -196,14 +211,25 @@ For detailed testing and quality workflows.
 
 ## Project status
 
-[![Codecov](https://img.shields.io/codecov/c/github/ui-awesome/html.svg?style=for-the-badge&logo=codecov&logoColor=white&label=Coverage)](https://codecov.io/github/ui-awesome/html)
 [![PHPStan Level Max](https://img.shields.io/badge/PHPStan-Level%20Max-4F5D95.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ui-awesome/html/actions/workflows/static.yml)
 [![Quality](https://img.shields.io/github/actions/workflow/status/ui-awesome/html/quality.yml?style=for-the-badge&label=Quality&logo=github)](https://github.com/ui-awesome/html/actions/workflows/quality.yml)
-[![StyleCI](https://img.shields.io/badge/StyleCI-Passed-44CC11.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.styleci.io/repos/776094320?branch=main)
+[![StyleCI](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fgithub.styleci.io%2Frepos%2F776094320%2Fshield%3Fbranch%3Dmain&query=%2F%2F*%5Blocal-name%28%29%3D%27text%27%5D%5B2%5D&label=StyleCI&style=for-the-badge&logo=github&logoColor=white&color=4F5D95)](https://github.styleci.io/repos/776094320?branch=main)
+
+## Security
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ui-awesome/html/badge?style=for-the-badge)](https://scorecard.dev/viewer/?uri=github.com/ui-awesome/html)
+[![Zizmor](https://img.shields.io/github/actions/workflow/status/ui-awesome/html/security.yml?style=for-the-badge&label=Zizmor&logo=github)](https://github.com/ui-awesome/html/actions/workflows/security.yml)
+
+## Built with AI
+
+[![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-D97757.svg?style=for-the-badge&logo=claude&logoColor=white)](https://claude.com/claude-code)
+[![Built with Codex](https://img.shields.io/badge/Built%20with-Codex-10A37F.svg?style=for-the-badge&logo=openaigym&logoColor=white)](https://openai.com/codex)
+[![Reviewed by CodeRabbit](https://img.shields.io/badge/Reviewed%20by-CodeRabbit-FF570A.svg?style=for-the-badge&logo=coderabbit&logoColor=white)](https://www.coderabbit.ai)
 
 ## Our social networks
 
 [![Follow on X](https://img.shields.io/badge/-Follow%20on%20X-1DA1F2.svg?style=for-the-badge&logo=x&logoColor=white&labelColor=000000)](https://x.com/Terabytesoftw)
+[![Follow on Facebook](https://img.shields.io/badge/-Follow%20on%20Facebook-1877F2.svg?style=for-the-badge&logo=facebook&logoColor=white&labelColor=000000)](https://www.facebook.com/wilmer.arambula.9)
 
 ## License
 
