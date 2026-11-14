@@ -31,9 +31,10 @@ These outputs are intended; assert against them instead of "fixing" the markup.
 
 - Every setter returns a new instance. A base element reused after `content()` or `checked()` still renders its
   original state.
-- Block elements render their content on its own lines: `Div::tag()->render()` is `"<div>\n</div>"`. `Pre` skips that
-  wrapping and line-break normalization, so its whitespace is emitted exactly. `TextArea` adds one newline after the
-  opening tag, which keeps a leading newline in the value through HTML parsing.
+- Block elements render their content on its own lines: `Div::tag()->render()` is `"<div>\n</div>"`. `Pre` and
+  `TextArea` render content inline instead, adding one newline after the opening tag only when the content is empty or
+  starts with `\n` or `\r`, so a leading newline survives HTML parsing: `content('value')` renders `<pre>value</pre>`
+  and `content("\nX")` renders `"<pre>\n\nX</pre>"`. `Pre` also skips line-break normalization.
 - `Html::el()` encodes its content and throws `InvalidArgumentException` for a tag name outside the known tag enums.
 - Checkbox and radio inputs without `value` are matched against `on`, the value browsers submit; the `value`
   attribute stays omitted. A boolean `value` renders as `1` or `0`.

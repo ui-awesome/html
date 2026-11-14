@@ -5,7 +5,8 @@ The canonical package skill is [ui-awesome-html](../skills/ui-awesome-html/SKILL
 
 ## Install in an application
 
-Use the [one-time Composer setup](https://yii2-framework.github.io/docs/project/ai-agents/#composer-installation)
+Require a `ui-awesome/html` release that contains this skill, then use the
+[one-time Composer setup](https://yii2-framework.github.io/docs/project/ai-agents/#composer-installation)
 for `llm/skills`, explicitly trust `ui-awesome/html`, and configure auto-sync before expecting dependency updates to
 synchronize skills. Composer metadata alone does not install a synchronizer or activate a skill. Inspect the installed
 plugin version, permitted donor and synchronization result.
