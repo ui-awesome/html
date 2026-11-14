@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Awesome HTML"
+  short_description: "Compose typed, immutable HTML elements in PHP"
+  default_prompt: "Use $ui-awesome-html to compose typed HTML elements and form controls with encoded content."
